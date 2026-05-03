@@ -9,6 +9,7 @@
 fp-info-cache
 ~*.lck
 _autosave-*
+.history/         # KiCad 10 local history snapshots (own internal git)
 
 # OS / editor
 .DS_Store
