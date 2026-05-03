@@ -9880,7 +9880,7 @@
 				)
 			)
 		)
-		(property "Footprint" "C0603"
+		(property "Footprint" "kart-medulla:C0603"
 			(at 481.33 64.77 270)
 			(hide yes)
 			(show_name no)
@@ -9963,7 +9963,7 @@
 				)
 			)
 		)
-		(property "Footprint" "CONN-TH_3P-P2.50-S5.00_1990012"
+		(property "Footprint" "kart-medulla:CONN-TH_3P-P2.50-S5.00_1990012"
 			(at 83.82 66.04 0)
 			(hide yes)
 			(show_name no)
@@ -10211,7 +10211,7 @@
 				)
 			)
 		)
-		(property "Footprint" "SOP65P400X130-8N"
+		(property "Footprint" "kart-medulla:SOP65P400X130-8N"
 			(at 107.95 303.53 0)
 			(hide yes)
 			(show_name no)
@@ -10392,7 +10392,7 @@
 				)
 			)
 		)
-		(property "Footprint" "R0603"
+		(property "Footprint" "kart-medulla:R0603"
 			(at 242.57 222.25 270)
 			(hide yes)
 			(show_name no)
@@ -10556,7 +10556,7 @@
 				)
 			)
 		)
-		(property "Footprint" "CONN-TH_3P-P2.50-S5.00_1990012"
+		(property "Footprint" "kart-medulla:CONN-TH_3P-P2.50-S5.00_1990012"
 			(at 83.82 49.53 0)
 			(hide yes)
 			(show_name no)
@@ -10642,7 +10642,7 @@
 				)
 			)
 		)
-		(property "Footprint" "TO-220-3_L10.0-W4.5-P2.54-T"
+		(property "Footprint" "kart-medulla:TO-220-3_L10.0-W4.5-P2.54-T"
 			(at 95.25 360.68 0)
 			(hide yes)
 			(show_name no)
@@ -10727,7 +10727,7 @@
 				)
 			)
 		)
-		(property "Footprint" "R0603"
+		(property "Footprint" "kart-medulla:R0603"
 			(at 113.03 220.98 270)
 			(hide yes)
 			(show_name no)
@@ -10809,7 +10809,7 @@
 				)
 			)
 		)
-		(property "Footprint" "R0603"
+		(property "Footprint" "kart-medulla:R0603"
 			(at 83.82 209.55 90)
 			(hide yes)
 			(show_name no)
@@ -10891,7 +10891,7 @@
 				)
 			)
 		)
-		(property "Footprint" "R0603"
+		(property "Footprint" "kart-medulla:R0603"
 			(at 194.31 359.41 0)
 			(hide yes)
 			(show_name no)
@@ -11540,7 +11540,7 @@
 				)
 			)
 		)
-		(property "Footprint" "CONN-TH_3P-P2.50-S5.00_1990012"
+		(property "Footprint" "kart-medulla:CONN-TH_3P-P2.50-S5.00_1990012"
 			(at 208.28 81.28 0)
 			(hide yes)
 			(show_name no)
@@ -11707,7 +11707,7 @@
 				)
 			)
 		)
-		(property "Footprint" "CONN-TH_3P-P2.50-S5.00_1990012"
+		(property "Footprint" "kart-medulla:CONN-TH_3P-P2.50-S5.00_1990012"
 			(at 83.82 82.55 0)
 			(hide yes)
 			(show_name no)
@@ -11875,7 +11875,7 @@
 				(justify left bottom)
 			)
 		)
-		(property "Footprint" "R0603"
+		(property "Footprint" "kart-medulla:R0603"
 			(at 80.01 303.53 0)
 			(hide yes)
 			(show_name no)
@@ -12038,7 +12038,7 @@
 				)
 			)
 		)
-		(property "Footprint" "R0603"
+		(property "Footprint" "kart-medulla:R0603"
 			(at 516.89 213.36 0)
 			(hide yes)
 			(show_name no)
@@ -12121,7 +12121,7 @@
 				)
 			)
 		)
-		(property "Footprint" "UMAX-8_L3.0-W3.0-P0.65-LS4.9-BL-EP"
+		(property "Footprint" "kart-medulla:UMAX-8_L3.0-W3.0-P0.65-LS4.9-BL-EP"
 			(at 393.7 218.44 0)
 			(hide yes)
 			(show_name no)
@@ -12224,7 +12224,7 @@
 				)
 			)
 		)
-		(property "Footprint" "R0603"
+		(property "Footprint" "kart-medulla:R0603"
 			(at 83.82 220.98 270)
 			(hide yes)
 			(show_name no)
@@ -12307,7 +12307,7 @@
 				)
 			)
 		)
-		(property "Footprint" "SOIC-16_L10.3-W7.5-P1.27-LS10.3-BL"
+		(property "Footprint" "kart-medulla:SOIC-16_L10.3-W7.5-P1.27-LS10.3-BL"
 			(at 486.41 217.17 0)
 			(hide yes)
 			(show_name no)
@@ -12431,7 +12431,7 @@
 				)
 			)
 		)
-		(property "Footprint" "R0603"
+		(property "Footprint" "kart-medulla:R0603"
 			(at 113.03 236.22 270)
 			(hide yes)
 			(show_name no)
@@ -12513,7 +12513,7 @@
 				)
 			)
 		)
-		(property "Footprint" "C0603"
+		(property "Footprint" "kart-medulla:C0603"
 			(at 529.59 67.31 270)
 			(hide yes)
 			(show_name no)
@@ -12676,7 +12676,7 @@
 				)
 			)
 		)
-		(property "Footprint" "R0603"
+		(property "Footprint" "kart-medulla:R0603"
 			(at 177.8 208.28 90)
 			(hide yes)
 			(show_name no)
@@ -12759,7 +12759,7 @@
 				)
 			)
 		)
-		(property "Footprint" "TO-252-2_L6.6-W6.1-P4.57-LS9.9-BR-CW"
+		(property "Footprint" "kart-medulla:TO-252-2_L6.6-W6.1-P4.57-LS9.9-BR-CW"
 			(at 501.65 62.23 0)
 			(hide yes)
 			(show_name no)
@@ -12845,7 +12845,7 @@
 				)
 			)
 		)
-		(property "Footprint" "HDR-TH_ESQ-122-59-G-D"
+		(property "Footprint" "kart-medulla:HDR-TH_ESQ-122-59-G-D"
 			(at 363.22 73.66 0)
 			(hide yes)
 			(show_name no)
@@ -13618,7 +13618,7 @@
 				)
 			)
 		)
-		(property "Footprint" "R0603"
+		(property "Footprint" "kart-medulla:R0603"
 			(at 113.03 209.55 90)
 			(hide yes)
 			(show_name no)
@@ -13700,7 +13700,7 @@
 				)
 			)
 		)
-		(property "Footprint" "R0603"
+		(property "Footprint" "kart-medulla:R0603"
 			(at 410.21 224.79 270)
 			(hide yes)
 			(show_name no)
@@ -13783,7 +13783,7 @@
 				)
 			)
 		)
-		(property "Footprint" "CONN-TH_3P-P2.50-S5.00_1990012"
+		(property "Footprint" "kart-medulla:CONN-TH_3P-P2.50-S5.00_1990012"
 			(at 142.24 49.53 0)
 			(hide yes)
 			(show_name no)
@@ -13868,7 +13868,7 @@
 				)
 			)
 		)
-		(property "Footprint" "C0603"
+		(property "Footprint" "kart-medulla:C0603"
 			(at 375.92 227.33 270)
 			(hide yes)
 			(show_name no)
@@ -13950,7 +13950,7 @@
 				)
 			)
 		)
-		(property "Footprint" "R0603"
+		(property "Footprint" "kart-medulla:R0603"
 			(at 209.55 222.25 270)
 			(hide yes)
 			(show_name no)
@@ -14113,7 +14113,7 @@
 				)
 			)
 		)
-		(property "Footprint" "R0603"
+		(property "Footprint" "kart-medulla:R0603"
 			(at 54.61 220.98 270)
 			(hide yes)
 			(show_name no)
@@ -14195,7 +14195,7 @@
 				)
 			)
 		)
-		(property "Footprint" "R0603"
+		(property "Footprint" "kart-medulla:R0603"
 			(at 54.61 236.22 270)
 			(hide yes)
 			(show_name no)
@@ -14358,7 +14358,7 @@
 				)
 			)
 		)
-		(property "Footprint" "R0603"
+		(property "Footprint" "kart-medulla:R0603"
 			(at 151.13 208.28 90)
 			(hide yes)
 			(show_name no)
@@ -14440,7 +14440,7 @@
 				)
 			)
 		)
-		(property "Footprint" "C0603"
+		(property "Footprint" "kart-medulla:C0603"
 			(at 515.62 67.31 270)
 			(hide yes)
 			(show_name no)
@@ -14523,7 +14523,7 @@
 				)
 			)
 		)
-		(property "Footprint" "CONN-TH_3P-P2.50-S5.00_1990012"
+		(property "Footprint" "kart-medulla:CONN-TH_3P-P2.50-S5.00_1990012"
 			(at 205.74 48.26 0)
 			(hide yes)
 			(show_name no)
@@ -14689,7 +14689,7 @@
 				)
 			)
 		)
-		(property "Footprint" "C0603"
+		(property "Footprint" "kart-medulla:C0603"
 			(at 509.27 205.74 0)
 			(hide yes)
 			(show_name no)
@@ -14739,6 +14739,87 @@
 		)
 	)
 	(symbol
+		(lib_id "power:GND")
+		(at 218.44 45.72 270)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "a72b006c-00e9-437d-b608-6f1a374e60a5")
+		(property "Reference" "#PWR36"
+			(at 218.44 48.26 270)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 218.44 49.53 270)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 359.41 292.1 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 359.41 292.1 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 359.41 292.1 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "3ac4b003-37db-4dd8-be98-31aace88a397")
+		)
+		(instances
+			(project "kart-medulla"
+				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
+					(reference "#PWR36")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "gen:100nF")
 		(at 171.45 303.53 270)
 		(unit 1)
@@ -14771,7 +14852,7 @@
 				)
 			)
 		)
-		(property "Footprint" "C0603"
+		(property "Footprint" "kart-medulla:C0603"
 			(at 171.45 303.53 270)
 			(hide yes)
 			(show_name no)
@@ -14854,7 +14935,7 @@
 				)
 			)
 		)
-		(property "Footprint" "CONN-TH_3P-P2.50-S5.00_1990012"
+		(property "Footprint" "kart-medulla:CONN-TH_3P-P2.50-S5.00_1990012"
 			(at 260.35 48.26 0)
 			(hide yes)
 			(show_name no)
@@ -15020,7 +15101,7 @@
 				)
 			)
 		)
-		(property "Footprint" "R0603"
+		(property "Footprint" "kart-medulla:R0603"
 			(at 81.28 360.68 180)
 			(hide yes)
 			(show_name no)
@@ -15102,7 +15183,7 @@
 				)
 			)
 		)
-		(property "Footprint" "R0603"
+		(property "Footprint" "kart-medulla:R0603"
 			(at 177.8 220.98 270)
 			(hide yes)
 			(show_name no)
@@ -15267,7 +15348,7 @@
 				(justify left bottom)
 			)
 		)
-		(property "Footprint" "R0603"
+		(property "Footprint" "kart-medulla:R0603"
 			(at 81.28 298.45 0)
 			(hide yes)
 			(show_name no)
@@ -15349,7 +15430,7 @@
 				)
 			)
 		)
-		(property "Footprint" "R0603"
+		(property "Footprint" "kart-medulla:R0603"
 			(at 383.54 292.1 180)
 			(hide yes)
 			(show_name no)
@@ -15593,7 +15674,7 @@
 				)
 			)
 		)
-		(property "Footprint" "R0603"
+		(property "Footprint" "kart-medulla:R0603"
 			(at 516.89 210.82 0)
 			(hide yes)
 			(show_name no)
@@ -15675,7 +15756,7 @@
 				)
 			)
 		)
-		(property "Footprint" "R0603"
+		(property "Footprint" "kart-medulla:R0603"
 			(at 83.82 236.22 270)
 			(hide yes)
 			(show_name no)
@@ -15758,7 +15839,7 @@
 				)
 			)
 		)
-		(property "Footprint" "CONN-TH_3P-P2.50-S5.00_1990012"
+		(property "Footprint" "kart-medulla:CONN-TH_3P-P2.50-S5.00_1990012"
 			(at 142.24 81.28 0)
 			(hide yes)
 			(show_name no)
@@ -15844,7 +15925,7 @@
 				)
 			)
 		)
-		(property "Footprint" "SOT-23_L2.9-W1.3-P1.90-LS2.4-BR"
+		(property "Footprint" "kart-medulla:SOT-23_L2.9-W1.3-P1.90-LS2.4-BR"
 			(at 224.79 361.95 0)
 			(hide yes)
 			(show_name no)
@@ -16012,7 +16093,7 @@
 				(justify left bottom)
 			)
 		)
-		(property "Footprint" "R0603"
+		(property "Footprint" "kart-medulla:R0603"
 			(at 80.01 308.61 0)
 			(hide yes)
 			(show_name no)
@@ -16095,7 +16176,7 @@
 				)
 			)
 		)
-		(property "Footprint" "SOIC-8_L5.0-W4.0-P1.27-LS6.0-BL"
+		(property "Footprint" "kart-medulla:SOIC-8_L5.0-W4.0-P1.27-LS6.0-BL"
 			(at 384.81 306.07 0)
 			(hide yes)
 			(show_name no)
@@ -16196,7 +16277,7 @@
 				)
 			)
 		)
-		(property "Footprint" "SOIC-14_L8.7-W3.9-P1.27-LS6.0-BL"
+		(property "Footprint" "kart-medulla:SOIC-14_L8.7-W3.9-P1.27-LS6.0-BL"
 			(at 267.97 299.72 0)
 			(hide yes)
 			(show_name no)
@@ -16314,7 +16395,7 @@
 				)
 			)
 		)
-		(property "Footprint" "R0603"
+		(property "Footprint" "kart-medulla:R0603"
 			(at 365.76 292.1 0)
 			(hide yes)
 			(show_name no)
@@ -16396,7 +16477,7 @@
 				)
 			)
 		)
-		(property "Footprint" "HDR-TH_ESQ-122-23-G-S"
+		(property "Footprint" "kart-medulla:HDR-TH_ESQ-122-23-G-S"
 			(at 384.81 72.39 180)
 			(hide yes)
 			(show_name no)
@@ -16538,7 +16619,7 @@
 				)
 			)
 		)
-		(property "Footprint" "R0603"
+		(property "Footprint" "kart-medulla:R0603"
 			(at 209.55 209.55 90)
 			(hide yes)
 			(show_name no)
@@ -16701,7 +16782,7 @@
 				)
 			)
 		)
-		(property "Footprint" "R0603"
+		(property "Footprint" "kart-medulla:R0603"
 			(at 92.71 369.57 180)
 			(hide yes)
 			(show_name no)
@@ -16784,7 +16865,7 @@
 				)
 			)
 		)
-		(property "Footprint" "CONN-TH_3P-P2.50-S5.00_1990012"
+		(property "Footprint" "kart-medulla:CONN-TH_3P-P2.50-S5.00_1990012"
 			(at 142.24 64.77 0)
 			(hide yes)
 			(show_name no)
@@ -16869,7 +16950,7 @@
 				)
 			)
 		)
-		(property "Footprint" "R0603"
+		(property "Footprint" "kart-medulla:R0603"
 			(at 151.13 220.98 270)
 			(hide yes)
 			(show_name no)
@@ -16952,7 +17033,7 @@
 				)
 			)
 		)
-		(property "Footprint" "CONN-TH_3P-P2.50-S5.00_1990012"
+		(property "Footprint" "kart-medulla:CONN-TH_3P-P2.50-S5.00_1990012"
 			(at 207.01 64.77 0)
 			(hide yes)
 			(show_name no)
@@ -17118,7 +17199,7 @@
 				)
 			)
 		)
-		(property "Footprint" "R0603"
+		(property "Footprint" "kart-medulla:R0603"
 			(at 242.57 209.55 90)
 			(hide yes)
 			(show_name no)
@@ -17281,7 +17362,7 @@
 				)
 			)
 		)
-		(property "Footprint" "R0603"
+		(property "Footprint" "kart-medulla:R0603"
 			(at 54.61 209.55 90)
 			(hide yes)
 			(show_name no)
@@ -17444,7 +17525,7 @@
 				)
 			)
 		)
-		(property "Footprint" "R0603"
+		(property "Footprint" "kart-medulla:R0603"
 			(at 212.09 369.57 270)
 			(hide yes)
 			(show_name no)
@@ -17488,88 +17569,6 @@
 			(project "kart-medulla"
 				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
 					(reference "R31")
-					(unit 1)
-				)
-			)
-		)
-	)
-
-	(symbol
-		(lib_id "power:GND")
-		(at 218.44 45.72 270)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom no)
-		(on_board no)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "a72b006c-00e9-437d-b608-6f1a374e60a5")
-		(property "Reference" "#PWR36"
-			(at 218.44 48.26 270)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Value" "GND"
-			(at 218.44 49.53 270)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 359.41 292.1 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 359.41 292.1 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 359.41 292.1 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "3ac4b003-37db-4dd8-be98-31aace88a397")
-		)
-		(instances
-			(project "kart-medulla"
-				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
-					(reference "#PWR36")
 					(unit 1)
 				)
 			)

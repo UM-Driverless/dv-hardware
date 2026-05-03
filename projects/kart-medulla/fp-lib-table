@@ -1,0 +1,4 @@
+(fp_lib_table
+	(version 7)
+	(lib (name "kart-medulla") (type "KiCad") (uri "${KIPRJMOD}/kart-medulla.pretty") (options "") (descr "Project-local footprints from EasyEDA import"))
+)
