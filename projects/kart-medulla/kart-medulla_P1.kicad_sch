@@ -17381,7 +17381,7 @@
 		(uuid "862ecb7a-cd2f-4f22-940d-2d9c0bea3f56")
 	)
 
-	(label "EXP_P0_TODO"
+	(label "EXP_P1_TODO"
 		(at 452.12000000000006 218.44 0)
 		(effects
 			(font
@@ -17392,7 +17392,7 @@
 		)
 		(uuid "4575f061-d4e5-430f-8a41-31f31ede9e7a")
 	)
-	(label "EXP_INT_TODO"
+	(label "EXP_P7_TODO"
 		(at 520.7 218.44 0)
 		(effects
 			(font
@@ -17402,5 +17402,111 @@
 			(justify left bottom)
 		)
 		(uuid "af931bc6-4873-4b80-a864-8155539b9cdf")
+	)
+
+	(wire
+		(pts
+			(xy 473.71 220.98) (xy 452.12 220.98)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "300cb7b1-21f0-4b1d-aa1a-fb796f61a1dc")
+	)
+	(label "EXP_P2_TODO"
+		(at 452.12 220.98 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.1524)
+			)
+			(justify left bottom)
+		)
+		(uuid "6e6755e5-b31b-4fe9-a091-197e57fe0db3")
+	)
+	(wire
+		(pts
+			(xy 473.71 223.52) (xy 452.12 223.52)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "83b27292-7ad0-46f5-a380-aefc65d56691")
+	)
+	(label "EXP_P3_TODO"
+		(at 452.12 223.52 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.1524)
+			)
+			(justify left bottom)
+		)
+		(uuid "d56b25f0-327f-418d-b067-6051d573ae9f")
+	)
+	(wire
+		(pts
+			(xy 499.11 226.06) (xy 520.7 226.06)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f2ebf896-0fef-405a-9c14-85b0f8fca424")
+	)
+	(label "EXP_P4_TODO"
+		(at 520.7 226.06 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.1524)
+			)
+			(justify left bottom)
+		)
+		(uuid "6cdc8163-6589-41b1-8a15-7056954323ed")
+	)
+	(wire
+		(pts
+			(xy 499.11 223.52) (xy 520.7 223.52)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f19c9456-cc26-4f62-acdc-56874849a0aa")
+	)
+	(label "EXP_P5_TODO"
+		(at 520.7 223.52 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.1524)
+			)
+			(justify left bottom)
+		)
+		(uuid "23175065-76a9-4161-b10e-46c46299b58f")
+	)
+	(wire
+		(pts
+			(xy 499.11 220.98) (xy 520.7 220.98)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "41f038b9-89c9-4325-956f-7b1f63b7e243")
+	)
+	(label "EXP_P6_TODO"
+		(at 520.7 220.98 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.1524)
+			)
+			(justify left bottom)
+		)
+		(uuid "6c6d9067-d021-47ee-a1c1-6d802b0eef90")
 	)
 )
