@@ -4,12 +4,29 @@ KiCad hardware projects for the U-Motorsport Driverless section (URJC Formula St
 
 ## Layout
 ```
-lib/                 shared symbols, footprints, 3D models (referenced by every project)
-projects/<board>/    one folder per board (KiCad project + EasyEDA source archive)
-fab/<board>/<rev>/   released Gerbers, BOM, pick-and-place, JLC zip
-docs/                cross-board notes
-.agents/             agent-readable knowledge base
+lib/                            shared symbols, footprints, 3D models (used by every project)
+projects/<board>/               one folder per board
+  ├── <board>.kicad_*           KiCad project files
+  ├── <board>.pretty/           project-local footprint library
+  ├── easyeda-source/           original .epro exports (audit trail, never edit)
+  ├── datasheets/               PDFs for chips on this board (subset of vault catalog)
+  └── docs/                     board-specific notes (pinout, mechanical, app notes)
+fab/<board>/<rev>/              released Gerbers, BOM, pick-and-place, JLC zip
+docs/                           cross-board notes (fab process, KiCad setup, library standards)
+.agents/                        agent-readable knowledge base
 ```
+
+## Where things live (the splits that matter)
+
+**Datasheets**
+- Vault `~/dv/datasheets/` = master catalog of every chip the team has ever touched. Stays as-is.
+- `projects/<board>/datasheets/` = subset actually placed on this board. Copy in when a part is designed onto the PCB. Small duplication is fine; lookup pain isn't. Self-contained `git clone` is the goal.
+- Don't symlink `~/dv/datasheets` → repo as a team policy (works on macOS+Drive only, breaks on Linux dev boxes). Personal symlinks are fine, gitignored.
+
+**Docs**
+- `dv-hardware/docs/` (shared) = applies to every board: fab vendor process (JLCPCB checklist), naming conventions, KiCad setup/onboarding, library standards.
+- `projects/<board>/docs/` (per-board) = pinout, mechanical drawings, design-decision notes, board-revision changelog, app notes specific to this design's use of a part.
+- Rule of thumb: *would another board's designer read this?* → shared. *Only meaningful for this PCB?* → project folder.
 
 ## Conventions
 - Naming: kebab-case for repos, folders, and project files (`kart-medulla`, not `kart_medulla` or `KartMedulla`). Matches verbal team usage (`kart-brain`, `kart-medulla`).
