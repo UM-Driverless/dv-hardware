@@ -1,0 +1,22 @@
+# KiCad
+*-backups/
+*.bak
+*.kicad_prl
+*.kicad_pcb-bak
+*-cache.lib
+*.000
+*.tmp
+fp-info-cache
+~*.lck
+_autosave-*
+
+# OS / editor
+.DS_Store
+*.swp
+.vscode/
+.idea/
+
+# Build / fab outputs (generated, regenerate with kicad-cli)
+# Uncomment if you decide not to track generated Gerbers:
+# fab/**/gerbers/
+# fab/**/*.zip
