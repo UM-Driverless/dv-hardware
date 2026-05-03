@@ -1,0 +1,60 @@
+(kicad_sch
+	(version 20250114)
+	(generator "easyeda_pro_to_kicad")
+	(generator_version "9.0")
+	(uuid "07374be3-c612-51bb-acb6-18bf22cc68ea")
+	(paper "A3")
+	(title_block
+		(title "Schematic1")
+	)
+	(lib_symbols)
+	(sheet
+		(at 80 70)
+		(size 42.037 14.859)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "ca70726b-7894-594f-a6f9-dfff97cbc924")
+		(property "Sheetname" "P1"
+			(at 80 69.2888 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "kart-medulla_P1.kicad_sch"
+			(at 80 85.5702 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "kart-medulla"
+				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea"
+					(page "1")
+				)
+			)
+		)
+	)
+	(sheet_instances
+		(path "/"
+			(page "1")
+		)
+	)
+)
