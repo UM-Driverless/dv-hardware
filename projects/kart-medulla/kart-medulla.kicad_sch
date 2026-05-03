@@ -1,7 +1,7 @@
 (kicad_sch
-	(version 20250114)
-	(generator "easyeda_pro_to_kicad")
-	(generator_version "9.0")
+	(version 20260306)
+	(generator "eeschema")
+	(generator_version "10.0")
 	(uuid "07374be3-c612-51bb-acb6-18bf22cc68ea")
 	(paper "A2")
 	(title_block
@@ -21,11 +21,13 @@
 			(type solid)
 		)
 		(fill
-			(color 0 0 0 0.0000)
+			(color 0 0 0 0)
 		)
 		(uuid "ca70726b-7894-594f-a6f9-dfff97cbc924")
 		(property "Sheetname" "P1"
 			(at 80 69.2888 0)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -36,6 +38,8 @@
 		)
 		(property "Sheetfile" "kart-medulla_P1.kicad_sch"
 			(at 80 85.5702 0)
+			(show_name no)
+			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -57,4 +61,5 @@
 			(page "1")
 		)
 	)
+	(embedded_fonts no)
 )
