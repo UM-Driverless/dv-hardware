@@ -17380,24 +17380,27 @@
 		)
 		(uuid "862ecb7a-cd2f-4f22-940d-2d9c0bea3f56")
 	)
-	(wire
-		(pts
-			(xy 473.71 215.9) (xy 452.12 215.9)
+
+	(label "EXP_P0_TODO"
+		(at 452.12000000000006 218.44 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.1524)
+			)
+			(justify left bottom)
 		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "21a04fde-3097-46c6-b20b-7cbf2c2d1044")
+		(uuid "4575f061-d4e5-430f-8a41-31f31ede9e7a")
 	)
-	(wire
-		(pts
-			(xy 499.11 215.9) (xy 520.7 215.9)
+	(label "EXP_INT_TODO"
+		(at 520.7 218.44 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.1524)
+			)
+			(justify left bottom)
 		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d77902ac-de71-4073-b68f-66763a821777")
+		(uuid "af931bc6-4873-4b80-a864-8155539b9cdf")
 	)
 )
