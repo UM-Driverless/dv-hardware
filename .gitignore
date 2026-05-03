@@ -9,7 +9,11 @@
 fp-info-cache
 ~*.lck
 _autosave-*
-.history/         # KiCad 10 local history snapshots (own internal git)
+# KiCad 10's local history feature creates .history/ with its own
+# internal .git/ — once seen, git treats it as a submodule pointer
+# and this rule alone won't unstage it (use git rm --cached too).
+.history/
+**/.history/
 
 # EasyEDA source dir is a read-only archive — block any KiCad
 # project files that get accidentally created there when KiCad
