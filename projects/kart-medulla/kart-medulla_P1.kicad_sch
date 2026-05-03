@@ -3,7 +3,7 @@
 	(generator "easyeda_pro_to_kicad")
 	(generator_version "9.0")
 	(uuid "ca70726b-7894-594f-a6f9-dfff97cbc924")
-	(paper "A3")
+	(paper "A2")
 	(title_block
 		(title "P1")
 	)
