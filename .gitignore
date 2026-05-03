@@ -11,6 +11,11 @@ fp-info-cache
 _autosave-*
 .history/         # KiCad 10 local history snapshots (own internal git)
 
+# EasyEDA source dir is a read-only archive — block any KiCad
+# project files that get accidentally created there when KiCad
+# opens an .epro and tries to make sibling .kicad_pro stubs.
+projects/*/easyeda-source/*.kicad_*
+
 # OS / editor
 .DS_Store
 *.swp
