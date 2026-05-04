@@ -5959,19 +5959,7 @@
 		)
 		(uuid "37b92222-c5ab-493d-95dd-38b6aec59a8e")
 	)
-	(text "MISO"
-		(exclude_from_sim no)
-		(at 313.69 91.44 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
-			)
-			(justify left bottom)
-		)
-		(uuid "475b9805-a9b8-49e4-93f6-f8734afdbcd9")
-	)
-	(text "SPARE - Octal-PSRAM pin on N8R8"
+		(text "SPARE - Octal-PSRAM pin on N8R8"
 		(exclude_from_sim no)
 		(at 391.16 73.66 0)
 		(effects
@@ -5995,19 +5983,7 @@
 		)
 		(uuid "5091d209-dd63-4511-8689-32d3e408075d")
 	)
-	(text "RX1"
-		(exclude_from_sim no)
-		(at 313.69 71.12 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
-			)
-			(justify left bottom)
-		)
-		(uuid "68845e16-b865-4c7f-af3b-8f31da308637")
-	)
-	(text "Amplify brake 0-5V to 0-10V"
+		(text "Amplify brake 0-5V to 0-10V"
 		(exclude_from_sim no)
 		(at 336.55 281.94 0)
 		(effects
@@ -6043,19 +6019,7 @@
 		)
 		(uuid "82111458-ffbd-46f5-83fb-f89ca49663a0")
 	)
-	(text "GND"
-		(exclude_from_sim no)
-		(at 313.69 99.06 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
-			)
-			(justify left bottom)
-		)
-		(uuid "83137d77-493e-4114-a4c1-71bdd6136a10")
-	)
-	(text "STRAP PIN (flash/boot risk)"
+		(text "STRAP PIN (flash/boot risk)"
 		(exclude_from_sim no)
 		(at 313.69 78.74 0)
 		(effects
@@ -6067,19 +6031,7 @@
 		)
 		(uuid "870dad2f-f8c0-4838-9b2d-87e9ef077d37")
 	)
-	(text "TX1"
-		(exclude_from_sim no)
-		(at 313.69 68.58 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
-			)
-			(justify left bottom)
-		)
-		(uuid "8b43e4d9-bbd4-4b85-92da-ee06eab55311")
-	)
-	(text "MAIN CONNECTOR (green push-in)"
+		(text "MAIN CONNECTOR (green push-in)"
 		(exclude_from_sim no)
 		(at 57.15 39.37 0)
 		(effects
@@ -6115,19 +6067,7 @@
 		)
 		(uuid "b1d64549-1270-4262-bcba-2d0e777ceb20")
 	)
-	(text "RESET"
-		(exclude_from_sim no)
-		(at 313.69 50.8 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
-			)
-			(justify left bottom)
-		)
-		(uuid "c6eaf49f-5621-4df3-af9c-110438518932")
-	)
-		(text "Throttle mux\nSend to motor value from sensor by default,\nor esp32 when autonomous"
+			(text "Throttle mux\nSend to motor value from sensor by default,\nor esp32 when autonomous"
 		(exclude_from_sim no)
 		(at 359.41 190.5 0)
 		(effects
@@ -8724,7 +8664,8 @@
 		)
 		(uuid "17893f19-f04d-4a38-95c9-db457ae59431")
 	)
-	(label "GND"
+	(global_label "GND"
+		(shape input)
 		(at 128.27 78.74 0)
 		(effects
 			(font
@@ -17700,7 +17641,7 @@
 		)
 		(uuid "8b5fe8d9-e682-48c9-9048-35a001d62942")
 	)
-	(global_label "SDC_NOT_EMERGENCY__3V3"
+	(global_label "SDC_ENABLE"
 		(shape input)
 		(at 427.99 66.04 180)
 		(effects
@@ -17743,5 +17684,60 @@
 			(justify right)
 		)
 		(uuid "ecf79ac6-fda4-46b1-a4e7-717db306f0b7")
+	)
+	(global_label "RESET"
+		(shape input)
+		(at 313.69 50.8 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "d164c88d-16ba-4cb4-97a5-1add7c490a8d")
+	)
+	(global_label "TX1"
+		(shape input)
+		(at 313.69 68.58 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "2878673f-a049-43ef-bb10-7d260862f36f")
+	)
+	(global_label "RX1"
+		(shape input)
+		(at 313.69 71.12 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "621a94e4-4da7-4e9a-8a5a-d4131855dee9")
+	)
+	(global_label "MISO"
+		(shape input)
+		(at 313.69 91.44 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "78b81373-2351-483d-be81-a10105115899")
+	)
+	(global_label "GND"
+		(shape input)
+		(at 313.69 99.06 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "2cf6ddc4-a938-4b90-b943-a758bc9a8665")
 	)
 )
