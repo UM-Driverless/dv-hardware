@@ -9589,7 +9589,7 @@
 			)
 		)
 	)
-	(hierarchical_label "MOSI"
+	(global_label "MOSI"
 		(shape input)
 		(at 254 285.75 180)
 		(effects
@@ -9601,7 +9601,7 @@
 		)
 		(uuid "0c7a20d2-c652-44ec-8a0f-1d49b6ce4117")
 	)
-	(hierarchical_label "CMD_DAC_CS"
+	(global_label "CMD_DAC_CS"
 		(shape output)
 		(at 313.69 93.98 0)
 		(effects
@@ -9613,7 +9613,7 @@
 		)
 		(uuid "2efb9a1a-df13-4018-8669-d507329395f4")
 	)
-	(hierarchical_label "CMD_DAC_CS"
+	(global_label "CMD_DAC_CS"
 		(shape input)
 		(at 254 290.83 180)
 		(effects
@@ -9625,7 +9625,7 @@
 		)
 		(uuid "48992d7a-eea8-4f10-866f-562a38d54026")
 	)
-	(hierarchical_label "BUZZER"
+	(global_label "BUZZER"
 		(shape output)
 		(at 313.69 76.2 180)
 		(effects
@@ -9637,7 +9637,7 @@
 		)
 		(uuid "884cc676-9b8f-45e7-baa5-9f880119cef8")
 	)
-	(hierarchical_label "CLK"
+	(global_label "CLK"
 		(shape input)
 		(at 254 293.37 180)
 		(effects
@@ -9649,7 +9649,7 @@
 		)
 		(uuid "9cd65693-151c-4506-9afa-cd37ba12c08c")
 	)
-	(hierarchical_label "CLK"
+	(global_label "CLK"
 		(shape output)
 		(at 313.69 88.9 0)
 		(effects
@@ -9661,7 +9661,7 @@
 		)
 		(uuid "ab05703d-6aba-48a6-9827-f286eb19cfcc")
 	)
-	(hierarchical_label "CMD_REVERSE"
+	(global_label "CMD_REVERSE"
 		(shape output)
 		(at 473.71 215.9 180)
 		(effects
@@ -9673,7 +9673,7 @@
 		)
 		(uuid "afdfcc7c-0c1b-4105-91b6-b4f0e9cb580d")
 	)
-	(hierarchical_label "MOSI"
+	(global_label "MOSI"
 		(shape output)
 		(at 313.69 86.36 0)
 		(effects
