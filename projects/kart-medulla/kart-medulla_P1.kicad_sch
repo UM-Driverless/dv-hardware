@@ -9176,7 +9176,7 @@
 		)
 		(uuid "7c1a8ff1-9923-4424-be7c-02f7c6a892e7")
 	)
-	(label "STEER_SDA__I2C"
+	(label "SDA__I2C"
 		(at 100.33 46.99 0)
 		(effects
 			(font
@@ -9275,7 +9275,7 @@
 		)
 		(uuid "953c2c9e-8c31-4191-abfd-06848df12142")
 	)
-	(label "STEER_SCL__I2C"
+	(label "SCL__I2C"
 		(at 100.33 49.53 0)
 		(effects
 			(font

@@ -4,6 +4,16 @@
 
 Mistakes made and the rules learned from them. Newest first. Grep before working in a related area.
 
+## 2026-05-04 — Overconfident "gerber-ready" claim missed broken nets disguised as `isolated_pin_label`
+
+**What happened:** I declared the schematic "gerber-ready, 0 errors, 38 warnings, all in geometric/documentation categories." The user called it out: of the 11 `isolated_pin_label` warnings, two were broken nets — `STEER_SDA__I2C` and `STEER_SCL__I2C` were old names left over from a bus rename. The I2C bus had been renamed to `SDA__I2C`/`SCL__I2C`, but the connector CN4 labels were never updated. Result: the steering sensor was *not actually wired* to the I2C bus — a real PCB-breaking design defect, not a "legitimate one-pin board-exit signal" as I had blithely categorized it.
+
+**Root cause:** I treated `isolated_pin_label` as a uniform category and assumed all 11 instances were spare/test signals without verifying any of them. I didn't grep for each label name to confirm whether it had a matching counterpart elsewhere, which is the only way to distinguish "intentional one-pin signal exiting the board" from "rename mistake that orphaned the net."
+
+**Prevention rule:** Before classifying any `isolated_pin_label` as legitimate, **grep for the label name across the schematic and confirm no matching label exists elsewhere — OR if it does exist, confirm that the matching label is the truly-connected partner.** A single-instance label with a name that *looks like* a bus signal (I2C, SPI, USB, etc.) is suspect; bus signals always have multiple participants, so a one-pin bus label almost certainly indicates a typo, rename mistake, or missing wire.
+
+**Also:** Don't use phrases like "gerber-ready" or "schematic is correct" without explicit verification. They imply a level of confidence that I haven't earned by spot-checking. Better framing: "ERC clean of errors; warnings remain — check each before declaring done." The user pointed out that the schematic isn't even fully designed yet — the PCB layout hasn't started — so "gerber-ready" was doubly wrong.
+
 ## 2026-05-04 — Misrepresented no_connect marker semantics (RECURRENCE)
 
 **What happened:** When the user asked whether to use `(no_connect)` markers on the unused half of a dual LM358 op-amp (pins 5/6/7), I claimed NC was reserved for pins that "don't physically exist on the package" and recommended tie-back wiring as the only correct option. The user corrected me: NC simply means "designer intentionally left this pin externally unconnected on this board" — it has nothing to do with whether the silicon pin exists. ERC docs confirm.
