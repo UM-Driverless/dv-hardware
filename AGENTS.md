@@ -42,6 +42,7 @@ docs/                           cross-board notes (fab process, KiCad setup, lib
 5. Tag fab releases: `<board>-v<rev>` here, `<board>-v<rev>-fw` on the firmware repo, link both READMEs.
 
 ## Knowledge files
+- `.agents/tasks.md` — shared kanban (TODO / In Progress / Done). Read before starting work.
 - `.agents/history.md` — append-only log: what was tried, what worked, what didn't, gotchas, references. Grep — don't read in full.
 - `.agents/error-log.md` — mistakes made + prevention rules. Grep before working in a related area, especially after a correction.
 
