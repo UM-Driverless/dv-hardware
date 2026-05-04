@@ -9763,7 +9763,7 @@
 			)
 		)
 	)
-	(label "CMD_ACC__0_5V"
+	(label "CMD_ACC_ESP32__0_5V"
 		(at 281.94 285.75 0)
 		(effects
 			(font
