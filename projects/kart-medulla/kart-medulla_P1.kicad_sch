@@ -5776,7 +5776,7 @@
 					)
 				)
 			)
-			(symbol "12V_0_1"
+			(symbol "+12V_0_1"
 				(polyline
 					(pts
 						(xy -0.762 1.27) (xy 0 2.54)
@@ -5814,7 +5814,7 @@
 					)
 				)
 			)
-			(symbol "12V_1_1"
+			(symbol "+12V_1_1"
 				(pin power_in line
 					(at 0 0 90)
 					(length 0)
@@ -5908,7 +5908,7 @@
 					)
 				)
 			)
-			(symbol "3V3_0_1"
+			(symbol "+3V3_0_1"
 				(polyline
 					(pts
 						(xy -0.762 1.27) (xy 0 2.54)
@@ -5946,7 +5946,7 @@
 					)
 				)
 			)
-			(symbol "3V3_1_1"
+			(symbol "+3V3_1_1"
 				(pin power_in line
 					(at 0 0 90)
 					(length 0)
