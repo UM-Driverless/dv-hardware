@@ -47,3 +47,7 @@ docs/                           cross-board notes (fab process, KiCad setup, lib
 
 ## Pairing with firmware
 Match-tagged. Hardware rev `medulla-v1.2` here pairs with firmware tag `medulla-v1.2-fw` in `kart_medulla`. Cross-link in both READMEs at release time.
+
+## Sister repos — consult before asking the user about kart facts
+- `~/repos/kart-docs` — single source of truth for kart-level documentation: sensor part numbers, wiring conventions, voltage rails, mechanical dimensions, vendor links, datasheet pointers. **Look here first** for any "what part is X / what voltage does Y use / how is Z mounted" question instead of asking the user.
+- `~/repos/kart_medulla` — firmware paired with this hardware. Pin assignments, I2C addresses, firmware logic.
