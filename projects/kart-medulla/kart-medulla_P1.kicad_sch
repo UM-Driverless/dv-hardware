@@ -6220,6 +6220,17 @@
 		)
 		(uuid "b1d64549-1270-4262-bcba-2d0e777ceb20")
 	)
+	(text "STRAP PIN (flash/boot risk)"
+		(exclude_from_sim no)
+		(at 393.7 81.28 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "c111468b-08ba-47b0-a249-a62a3ec2a832")
+	)
 	(text "Throttle mux\nSend to motor value from sensor by default,\nor esp32 when autonomous"
 		(exclude_from_sim no)
 		(at 359.41 190.5 0)
@@ -6321,12 +6332,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "4ff684c1-d572-48cb-bfd8-68b99dbdfc22")
-	)
-	(junction
-		(at 355.6 78.74)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "51bc7e59-bbe5-49f7-9fff-3b623818cfa1")
 	)
 	(junction
 		(at 355.6 83.82)
@@ -6573,12 +6578,24 @@
 		(uuid "9b396ff2-6529-4bc1-9831-6f9d84cf9ed5")
 	)
 	(no_connect
+		(at 389.89 81.28)
+		(uuid "a29aabdd-bed4-4ddc-898e-f0fc5673ea9a")
+	)
+	(no_connect
 		(at 389.89 73.66)
 		(uuid "b1a1697a-c269-46e5-9cdd-046d6c1b76f1")
 	)
 	(no_connect
 		(at 281.94 306.07)
 		(uuid "c58b6c99-85dd-4a0b-a798-1e70089b9665")
+	)
+	(no_connect
+		(at 355.6 78.74)
+		(uuid "e46d899c-80c9-4f3b-bd6c-4ede6853f13c")
+	)
+	(no_connect
+		(at 370.84 78.74)
+		(uuid "e9e3fbae-2b3c-4081-82f5-f8241a5b25be")
 	)
 	(no_connect
 		(at 281.94 308.61)
@@ -6603,16 +6620,6 @@
 			(type default)
 		)
 		(uuid "015e4421-9560-4e52-b3ff-ef16cbd3db91")
-	)
-	(wire
-		(pts
-			(xy 313.69 78.74) (xy 355.6 78.74)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "01d9e326-43af-4dd7-9721-a0de64f3531b")
 	)
 	(wire
 		(pts
@@ -7136,6 +7143,16 @@
 	)
 	(wire
 		(pts
+			(xy 105.41 52.07) (xy 137.16 52.07)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4a0c5b8c-635a-40fa-b786-8b1822d738b6")
+	)
+	(wire
+		(pts
 			(xy 427.99 86.36) (xy 389.89 86.36)
 		)
 		(stroke
@@ -7236,16 +7253,6 @@
 	)
 	(wire
 		(pts
-			(xy 427.99 81.28) (xy 389.89 81.28)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "571fc7d7-6896-4444-964d-6fdc19c8f25b")
-	)
-	(wire
-		(pts
 			(xy 242.57 196.85) (xy 242.57 204.47)
 		)
 		(stroke
@@ -7313,16 +7320,6 @@
 			(type default)
 		)
 		(uuid "5e36bf45-d380-47ab-8540-1fdc7febd8c6")
-	)
-	(wire
-		(pts
-			(xy 100.33 52.07) (xy 137.16 52.07)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "5eb028fa-e35f-48ad-8286-2c7fe4a5e704")
 	)
 	(wire
 		(pts
@@ -8814,6 +8811,17 @@
 		)
 		(uuid "1831e74b-ea10-40f3-ab16-10e0cd6c2d77")
 	)
+	(label "CMD_REVERSE"
+		(at 168.91 359.41 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.1524)
+			)
+			(justify left bottom)
+		)
+		(uuid "18cd92b8-3a3e-4840-8239-840db057cb1b")
+	)
 	(label "REVERSE_WIRE"
 		(at 163.83 62.23 0)
 		(effects
@@ -8935,6 +8943,17 @@
 		)
 		(uuid "3207d320-c1eb-4482-89e1-d8bd230782be")
 	)
+	(label "CMD_ACC__0_5V"
+		(at 361.95 214.63 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.1524)
+			)
+			(justify left bottom)
+		)
+		(uuid "328b3889-6b5d-4c6d-9142-26fe9ff96479")
+	)
 	(label "PEDAL_ACC__0_5V"
 		(at 100.33 62.23 0)
 		(effects
@@ -9023,70 +9042,6 @@
 		)
 		(uuid "491adcdb-481d-4235-98e5-3a3fb06a7306")
 	)
-	(symbol
-		(lib_id "kart-medulla:+3V3")
-		(at 100.33 52.07 270)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom no)
-		(on_board no)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "01c284aa-f25d-48b9-a141-1b8c03afd642")
-		(property "Reference" "#PWR"
-			(at 100.33 48.26 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Value" "+3V3"
-			(at 100.33 55.626 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 100.33 52.07 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(hide yes)
-		)
-		(property "Datasheet" ""
-			(at 100.33 52.07 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(hide yes)
-		)
-		(property "Description" ""
-			(at 100.33 52.07 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(hide yes)
-		)
-		(pin "1"
-			(uuid "8298dd8f-f852-44d4-a274-7004b0d67b59")
-		)
-		(instances
-			(project "kart-medulla"
-				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
-					(reference "#PWR")
-					(unit 1)
-				)
-			)
-		)
-	)
 	(label "HYDRAULIC_1__0_5V"
 		(at 49.53 46.99 0)
 		(effects
@@ -9119,6 +9074,17 @@
 			(justify left bottom)
 		)
 		(uuid "5d2a7dce-48f8-4f89-8efd-449a894f16b8")
+	)
+	(label "CMD_ACC_ESP32__0_5V"
+		(at 281.94 285.75 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.1524)
+			)
+			(justify left)
+		)
+		(uuid "5fa479a0-6594-4916-a440-ca00ed16e93d")
 	)
 	(label "HYDRAULIC_1__0_3V3"
 		(at 313.69 83.82 0)
@@ -9384,6 +9350,17 @@
 		)
 		(uuid "af931bc6-4873-4b80-a864-8155539b9cdf")
 	)
+	(label "CMD_REVERSE"
+		(at 473.71 215.9 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.1524)
+			)
+			(justify right)
+		)
+		(uuid "afdfcc7c-0c1b-4105-91b6-b4f0e9cb580d")
+	)
 	(label "SELECT_THROTTLE"
 		(at 410.21 219.71 0)
 		(effects
@@ -9460,6 +9437,17 @@
 			(justify left bottom)
 		)
 		(uuid "c29fd14f-6cf7-4a47-8246-d087bc98eee2")
+	)
+	(label "CMD_ACC__0_5V"
+		(at 163.83 50.8 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.1524)
+			)
+			(justify left bottom)
+		)
+		(uuid "c35119ca-9503-4911-9248-35a15ffac61d")
 	)
 	(label "PRESSURE_2__0_3V3"
 		(at 313.69 60.96 0)
@@ -9671,17 +9659,6 @@
 			)
 		)
 	)
-	(label "CMD_REVERSE"
-		(at 168.91 359.41 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
-			)
-			(justify left bottom)
-		)
-		(uuid "18cd92b8-3a3e-4840-8239-840db057cb1b")
-	)
 	(global_label "TX1"
 		(shape input)
 		(at 313.69 68.58 180)
@@ -9749,17 +9726,6 @@
 			)
 		)
 	)
-	(label "CMD_ACC__0_5V"
-		(at 361.95 214.63 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
-			)
-			(justify left bottom)
-		)
-		(uuid "328b3889-6b5d-4c6d-9142-26fe9ff96479")
-	)
 	(global_label "CMD_DAC_CS"
 		(shape input)
 		(at 254 290.83 180)
@@ -9805,17 +9771,6 @@
 				)
 			)
 		)
-	)
-	(label "CMD_ACC_ESP32__0_5V"
-		(at 281.94 285.75 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
-			)
-			(justify left)
-		)
-		(uuid "5fa479a0-6594-4916-a440-ca00ed16e93d")
 	)
 	(global_label "RX1"
 		(shape input)
@@ -10063,17 +10018,6 @@
 			)
 		)
 	)
-	(label "CMD_REVERSE"
-		(at 473.71 215.9 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
-			)
-			(justify right)
-		)
-		(uuid "afdfcc7c-0c1b-4105-91b6-b4f0e9cb580d")
-	)
 	(global_label "LED"
 		(shape input)
 		(at 427.99 83.82 180)
@@ -10095,17 +10039,6 @@
 				)
 			)
 		)
-	)
-	(label "CMD_ACC__0_5V"
-		(at 163.83 50.8 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
-			)
-			(justify left bottom)
-		)
-		(uuid "c35119ca-9503-4911-9248-35a15ffac61d")
 	)
 	(global_label "RESET"
 		(shape input)
@@ -10192,6 +10125,85 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "kart-medulla:+3V3")
+		(at 105.41 52.07 270)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "01c284aa-f25d-48b9-a141-1b8c03afd642")
+		(property "Reference" "#PWR?"
+			(at 105.41 48.26 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Value" "+3V3"
+			(at 101.6 52.324 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 105.41 52.07 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 105.41 52.07 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 105.41 52.07 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "8298dd8f-f852-44d4-a274-7004b0d67b59")
+		)
+		(instances
+			(project "kart-medulla"
+				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
+					(reference "#PWR?")
+					(unit 1)
 				)
 			)
 		)
@@ -17766,28 +17778,28 @@
 			)
 		)
 		(pin "1"
-			(uuid "b5f485f2-a539-4b47-b204-74c57d6b80cf")
+			(uuid "b5f485f2-a539-4b47-b204-74c57d6b80d0")
 		)
 		(pin "4"
-			(uuid "d876c55b-6629-4f0b-af73-7837c8282161")
+			(uuid "d876c55b-6629-4f0b-af73-7837c8282162")
 		)
 		(pin "8"
-			(uuid "59647cc5-c4a3-44c3-9cb5-38aed0186fe3")
+			(uuid "59647cc5-c4a3-44c3-9cb5-38aed0186fe4")
 		)
 		(pin "5"
-			(uuid "75cb3f7a-5eda-44d4-9807-9d7b71f8578b")
+			(uuid "75cb3f7a-5eda-44d4-9807-9d7b71f8578c")
 		)
 		(pin "6"
-			(uuid "bc3ca103-135f-497a-9272-7a9995013d2f")
+			(uuid "bc3ca103-135f-497a-9272-7a9995013d30")
 		)
 		(pin "7"
-			(uuid "9acd25c7-75ed-4553-b627-481cc2a4ee09")
+			(uuid "9acd25c7-75ed-4553-b627-481cc2a4ee0a")
 		)
 		(pin "2"
-			(uuid "b6f6e526-0ecc-4b7f-9a2b-a53a8e663598")
+			(uuid "b6f6e526-0ecc-4b7f-9a2b-a53a8e663599")
 		)
 		(pin "3"
-			(uuid "afe9fe86-8739-432f-a076-daa4c45c1b60")
+			(uuid "afe9fe86-8739-432f-a076-daa4c45c1b61")
 		)
 		(instances
 			(project "kart-medulla"
@@ -18615,28 +18627,5 @@
 				)
 			)
 		)
-	)
-	(no_connect
-		(at 389.89 81.28)
-		(uuid "a29aabdd-bed4-4ddc-898e-f0fc5673ea9a")
-	)
-	(text "STRAP PIN (flash/boot risk)"
-		(exclude_from_sim no)
-		(at 393.7 81.28 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "c111468b-08ba-47b0-a249-a62a3ec2a832")
-	)
-	(no_connect
-		(at 355.6 78.74)
-		(uuid "e46d899c-80c9-4f3b-bd6c-4ede6853f13c")
-	)
-	(no_connect
-		(at 370.84 78.74)
-		(uuid "e9e3fbae-2b3c-4081-82f5-f8241a5b25be")
 	)
 )
