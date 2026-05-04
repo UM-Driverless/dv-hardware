@@ -43,6 +43,7 @@ docs/                           cross-board notes (fab process, KiCad setup, lib
 
 ## Knowledge files
 - `.agents/history.md` — append-only log: what was tried, what worked, what didn't, gotchas, references. Grep — don't read in full.
+- `.agents/error-log.md` — mistakes made + prevention rules. Grep before working in a related area, especially after a correction.
 
 ## Pairing with firmware
 Match-tagged. Hardware rev `medulla-v1.2` here pairs with firmware tag `medulla-v1.2-fw` in `kart_medulla`. Cross-link in both READMEs at release time.
