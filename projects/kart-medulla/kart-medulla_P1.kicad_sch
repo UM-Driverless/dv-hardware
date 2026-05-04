@@ -7076,16 +7076,6 @@
 	)
 	(wire
 		(pts
-			(xy 355.6 78.74) (xy 370.84 78.74)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "43794da3-5221-4153-b156-0570e332f00c")
-	)
-	(wire
-		(pts
 			(xy 378.46 292.1) (xy 374.65 292.1)
 		)
 		(stroke
@@ -9033,16 +9023,69 @@
 		)
 		(uuid "491adcdb-481d-4235-98e5-3a3fb06a7306")
 	)
-	(label "SPARE__3V3"
-		(at 100.33 52.07 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
+	(symbol
+		(lib_id "kart-medulla:+3V3")
+		(at 100.33 52.07 270)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "01c284aa-f25d-48b9-a141-1b8c03afd642")
+		(property "Reference" "#PWR"
+			(at 100.33 48.26 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
 			)
-			(justify left bottom)
 		)
-		(uuid "4ba98e4e-ba72-4bda-bd92-61c2a7199613")
+		(property "Value" "+3V3"
+			(at 100.33 55.626 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 100.33 52.07 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+		)
+		(property "Datasheet" ""
+			(at 100.33 52.07 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+		)
+		(property "Description" ""
+			(at 100.33 52.07 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+		)
+		(pin "1"
+			(uuid "8298dd8f-f852-44d4-a274-7004b0d67b59")
+		)
+		(instances
+			(project "kart-medulla"
+				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
+					(reference "#PWR")
+					(unit 1)
+				)
+			)
+		)
 	)
 	(label "HYDRAULIC_1__0_5V"
 		(at 49.53 46.99 0)
@@ -9897,28 +9940,6 @@
 		(uuid "884cc676-9b8f-45e7-baa5-9f880119cef8")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 313.69 76.2 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "STRAP_PIN_8"
-		(shape input)
-		(at 427.99 81.28 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "8b5fe8d9-e682-48c9-9048-35a001d62942")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 427.99 81.28 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18594,5 +18615,28 @@
 				)
 			)
 		)
+	)
+	(no_connect
+		(at 389.89 81.28)
+		(uuid "a29aabdd-bed4-4ddc-898e-f0fc5673ea9a")
+	)
+	(text "STRAP PIN (flash/boot risk)"
+		(exclude_from_sim no)
+		(at 393.7 81.28 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "c111468b-08ba-47b0-a249-a62a3ec2a832")
+	)
+	(no_connect
+		(at 355.6 78.74)
+		(uuid "e46d899c-80c9-4f3b-bd6c-4ede6853f13c")
+	)
+	(no_connect
+		(at 370.84 78.74)
+		(uuid "e9e3fbae-2b3c-4081-82f5-f8241a5b25be")
 	)
 )
