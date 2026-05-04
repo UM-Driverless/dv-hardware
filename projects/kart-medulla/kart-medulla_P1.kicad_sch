@@ -5704,7 +5704,7 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "power:12V"
+		(symbol "power:+12V"
 			(power global)
 			(pin_numbers
 				(hide yes)
@@ -5730,7 +5730,7 @@
 					)
 				)
 			)
-			(property "Value" "12V"
+			(property "Value" "+12V"
 				(at 0 3.556 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -5836,7 +5836,7 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "power:3V3"
+		(symbol "power:+3V3"
 			(power global)
 			(pin_numbers
 				(hide yes)
@@ -5862,7 +5862,7 @@
 					)
 				)
 			)
-			(property "Value" "3V3"
+			(property "Value" "+3V3"
 				(at 0 3.556 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -9686,7 +9686,7 @@
 		(uuid "d767c710-c3e3-47c6-a086-c6255bd81e7b")
 	)
 	(symbol
-		(lib_id "power:3V3")
+		(lib_id "power:+3V3")
 		(at 501.65 205.74 0)
 		(unit 1)
 		(body_style 1)
@@ -9709,7 +9709,7 @@
 				)
 			)
 		)
-		(property "Value" "3V3"
+		(property "Value" "+3V3"
 			(at 501.65 201.93 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9767,7 +9767,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:3V3")
+		(lib_id "power:+3V3")
 		(at 311.15 45.72 270)
 		(unit 1)
 		(body_style 1)
@@ -9790,7 +9790,7 @@
 				)
 			)
 		)
-		(property "Value" "3V3"
+		(property "Value" "+3V3"
 			(at 311.15 41.91 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10442,7 +10442,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:12V")
+		(lib_id "power:+12V")
 		(at 481.33 59.69 0)
 		(unit 1)
 		(body_style 1)
@@ -10465,7 +10465,7 @@
 				)
 			)
 		)
-		(property "Value" "12V"
+		(property "Value" "+12V"
 			(at 481.33 55.88 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -11022,7 +11022,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:3V3")
+		(lib_id "power:+3V3")
 		(at 525.78 212.09 90)
 		(unit 1)
 		(body_style 1)
@@ -11045,7 +11045,7 @@
 				)
 			)
 		)
-		(property "Value" "3V3"
+		(property "Value" "+3V3"
 			(at 525.78 208.28 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -11427,7 +11427,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:12V")
+		(lib_id "power:+12V")
 		(at 106.68 81.28 270)
 		(unit 1)
 		(body_style 1)
@@ -11449,7 +11449,7 @@
 				)
 			)
 		)
-		(property "Value" "12V"
+		(property "Value" "+12V"
 			(at 102.362 80.01 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -11760,7 +11760,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:3V3")
+		(lib_id "power:+3V3")
 		(at 125.73 295.91 90)
 		(unit 1)
 		(body_style 1)
@@ -11783,7 +11783,7 @@
 				)
 			)
 		)
-		(property "Value" "3V3"
+		(property "Value" "+3V3"
 			(at 125.73 292.1 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13182,7 +13182,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:3V3")
+		(lib_id "power:+3V3")
 		(at 313.69 48.26 270)
 		(unit 1)
 		(body_style 1)
@@ -13205,7 +13205,7 @@
 				)
 			)
 		)
-		(property "Value" "3V3"
+		(property "Value" "+3V3"
 			(at 313.69 44.45 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13425,7 +13425,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:3V3")
+		(lib_id "power:+3V3")
 		(at 53.34 49.53 270)
 		(unit 1)
 		(body_style 1)
@@ -13447,7 +13447,7 @@
 				)
 			)
 		)
-		(property "Value" "3V3"
+		(property "Value" "+3V3"
 			(at 50.546 49.276 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -16669,7 +16669,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:12V")
+		(lib_id "power:+12V")
 		(at 384.81 300.99 0)
 		(unit 1)
 		(body_style 1)
@@ -16692,7 +16692,7 @@
 				)
 			)
 		)
-		(property "Value" "12V"
+		(property "Value" "+12V"
 			(at 384.81 297.18 0)
 			(show_name no)
 			(do_not_autoplace no)
