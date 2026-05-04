@@ -8,6 +8,270 @@
 		(title "P1")
 	)
 	(lib_symbols
+		(symbol "kart-medulla:+5V_REG"
+			(power global)
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom no)
+			(on_board no)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "#PWR"
+				(at 0 -3.81 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+						(thickness 0.1524)
+					)
+				)
+			)
+			(property "Value" "+5V_REG"
+				(at 0 3.556 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+						(thickness 0.1524)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+						(thickness 0.1524)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+						(thickness 0.1524)
+					)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "+5V_REG_0_1"
+				(polyline
+					(pts
+						(xy -0.762 1.27) (xy 0 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 2.54) (xy 0.762 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 0) (xy 0 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "+5V_REG_1_1"
+				(pin power_in line
+					(at 0 0 90)
+					(length 0)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "kart-medulla:+5V_USB"
+			(power global)
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom no)
+			(on_board no)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "#PWR"
+				(at 0 -3.81 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+						(thickness 0.1524)
+					)
+				)
+			)
+			(property "Value" "+5V_USB"
+				(at 0 3.556 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+						(thickness 0.1524)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+						(thickness 0.1524)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+						(thickness 0.1524)
+					)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "+5V_USB_0_1"
+				(polyline
+					(pts
+						(xy -0.762 1.27) (xy 0 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 2.54) (xy 0.762 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 0) (xy 0 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "+5V_USB_1_1"
+				(pin power_in line
+					(at 0 0 90)
+					(length 0)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "kart-medulla:100nF"
 			(pin_numbers
 				(hide yes)
@@ -216,6 +480,138 @@
 						)
 					)
 					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "kart-medulla:12V"
+			(power global)
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom no)
+			(on_board no)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "#PWR"
+				(at 0 -3.81 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+						(thickness 0.1524)
+					)
+				)
+			)
+			(property "Value" "12V"
+				(at 0 3.556 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+						(thickness 0.1524)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+						(thickness 0.1524)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+						(thickness 0.1524)
+					)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "12V_0_1"
+				(polyline
+					(pts
+						(xy -0.762 1.27) (xy 0 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 2.54) (xy 0.762 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 0) (xy 0 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "12V_1_1"
+				(pin power_in line
+					(at 0 0 90)
+					(length 0)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -662,6 +1058,138 @@
 						)
 					)
 					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "kart-medulla:3V3"
+			(power global)
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom no)
+			(on_board no)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "#PWR"
+				(at 0 -3.81 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+						(thickness 0.1524)
+					)
+				)
+			)
+			(property "Value" "3V3"
+				(at 0 3.556 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+						(thickness 0.1524)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+						(thickness 0.1524)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+						(thickness 0.1524)
+					)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "3V3_0_1"
+				(polyline
+					(pts
+						(xy -0.762 1.27) (xy 0 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 2.54) (xy 0.762 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 0) (xy 0 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "3V3_1_1"
+				(pin power_in line
+					(at 0 0 90)
+					(length 0)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1289,7 +1817,7 @@
 			(in_pos_files yes)
 			(duplicate_pin_numbers_are_jumpers no)
 			(property "Reference" "#PWR"
-				(at -2 2 0)
+				(at 0 -3.81 0)
 				(show_name no)
 				(do_not_autoplace no)
 				(hide yes)
@@ -1301,7 +1829,7 @@
 				)
 			)
 			(property "Value" "GND"
-				(at -2 -2 0)
+				(at 0 3.556 0)
 				(show_name no)
 				(do_not_autoplace no)
 				(effects
@@ -1346,129 +1874,23 @@
 					)
 				)
 			)
-			(property "head_symbolType" "18"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-						(thickness 0.1524)
+			(symbol "GND_0_1"
+				(polyline
+					(pts
+						(xy 0 0) (xy 0 -1.27) (xy 1.27 -1.27) (xy 0 -2.54) (xy -1.27 -1.27) (xy 0 -1.27)
 					)
-				)
-			)
-			(property "head_version" "0.13.0"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-						(thickness 0.1524)
+					(stroke
+						(width 0)
+						(type default)
 					)
-				)
-			)
-			(property "Global Net Name" "GND"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-						(thickness 0.1524)
-					)
-				)
-			)
-			(property "Symbol" "GND"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-						(thickness 0.1524)
-					)
-				)
-			)
-			(property "part_bbox" "-9.5,-16.5,9.5,0.5"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-						(thickness 0.1524)
+					(fill
+						(type none)
 					)
 				)
 			)
 			(symbol "GND_1_1"
-				(polyline
-					(pts
-						(xy -2.286 -2.54) (xy 2.286 -2.54)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -1.524 -3.048) (xy 1.524 -3.048)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -0.762 -3.556) (xy 0.762 -3.556)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -0.254 -4.064) (xy 0.254 -4.064)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 -2.54) (xy 0 0)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
 				(pin power_in line
-					(at 0 0 0)
+					(at 0 0 270)
 					(length 0)
 					(name ""
 						(effects
@@ -5440,642 +5862,6 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "kart-medulla:+5V_REG"
-			(power global)
-			(pin_numbers
-				(hide yes)
-			)
-			(pin_names
-				(offset 0)
-				(hide yes)
-			)
-			(exclude_from_sim no)
-			(in_bom no)
-			(on_board no)
-			(in_pos_files yes)
-			(duplicate_pin_numbers_are_jumpers no)
-			(property "Reference" "#PWR"
-				(at 0 -3.81 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-						(thickness 0.1524)
-					)
-				)
-			)
-			(property "Value" "+5V_REG"
-				(at 0 3.556 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-						(thickness 0.1524)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-						(thickness 0.1524)
-					)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-						(thickness 0.1524)
-					)
-				)
-			)
-			(property "Description" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(symbol "+5V_REG_0_1"
-				(polyline
-					(pts
-						(xy -0.762 1.27) (xy 0 2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 2.54) (xy 0.762 1.27)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 0) (xy 0 2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "+5V_REG_1_1"
-				(pin power_in line
-					(at 0 0 90)
-					(length 0)
-					(name ""
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
-		(symbol "kart-medulla:+5V_USB"
-			(power global)
-			(pin_numbers
-				(hide yes)
-			)
-			(pin_names
-				(offset 0)
-				(hide yes)
-			)
-			(exclude_from_sim no)
-			(in_bom no)
-			(on_board no)
-			(in_pos_files yes)
-			(duplicate_pin_numbers_are_jumpers no)
-			(property "Reference" "#PWR"
-				(at 0 -3.81 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-						(thickness 0.1524)
-					)
-				)
-			)
-			(property "Value" "+5V_USB"
-				(at 0 3.556 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-						(thickness 0.1524)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-						(thickness 0.1524)
-					)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-						(thickness 0.1524)
-					)
-				)
-			)
-			(property "Description" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(symbol "+5V_USB_0_1"
-				(polyline
-					(pts
-						(xy -0.762 1.27) (xy 0 2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 2.54) (xy 0.762 1.27)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 0) (xy 0 2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "+5V_USB_1_1"
-				(pin power_in line
-					(at 0 0 90)
-					(length 0)
-					(name ""
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
-		(symbol "kart-medulla:12V"
-			(power global)
-			(pin_numbers
-				(hide yes)
-			)
-			(pin_names
-				(offset 0)
-				(hide yes)
-			)
-			(exclude_from_sim no)
-			(in_bom no)
-			(on_board no)
-			(in_pos_files yes)
-			(duplicate_pin_numbers_are_jumpers no)
-			(property "Reference" "#PWR"
-				(at 0 -3.81 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-						(thickness 0.1524)
-					)
-				)
-			)
-			(property "Value" "12V"
-				(at 0 3.556 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-						(thickness 0.1524)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-						(thickness 0.1524)
-					)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-						(thickness 0.1524)
-					)
-				)
-			)
-			(property "Description" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(symbol "12V_0_1"
-				(polyline
-					(pts
-						(xy -0.762 1.27) (xy 0 2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 2.54) (xy 0.762 1.27)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 0) (xy 0 2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "12V_1_1"
-				(pin power_in line
-					(at 0 0 90)
-					(length 0)
-					(name ""
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
-		(symbol "kart-medulla:3V3"
-			(power global)
-			(pin_numbers
-				(hide yes)
-			)
-			(pin_names
-				(offset 0)
-				(hide yes)
-			)
-			(exclude_from_sim no)
-			(in_bom no)
-			(on_board no)
-			(in_pos_files yes)
-			(duplicate_pin_numbers_are_jumpers no)
-			(property "Reference" "#PWR"
-				(at 0 -3.81 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-						(thickness 0.1524)
-					)
-				)
-			)
-			(property "Value" "3V3"
-				(at 0 3.556 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-						(thickness 0.1524)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-						(thickness 0.1524)
-					)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-						(thickness 0.1524)
-					)
-				)
-			)
-			(property "Description" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(symbol "3V3_0_1"
-				(polyline
-					(pts
-						(xy -0.762 1.27) (xy 0 2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 2.54) (xy 0.762 1.27)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 0) (xy 0 2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "3V3_1_1"
-				(pin power_in line
-					(at 0 0 90)
-					(length 0)
-					(name ""
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
-		(symbol "kart-medulla:GND"
-			(power global)
-			(pin_numbers
-				(hide yes)
-			)
-			(pin_names
-				(offset 0)
-				(hide yes)
-			)
-			(exclude_from_sim no)
-			(in_bom no)
-			(on_board no)
-			(in_pos_files yes)
-			(duplicate_pin_numbers_are_jumpers no)
-			(property "Reference" "#PWR"
-				(at 0 -3.81 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-						(thickness 0.1524)
-					)
-				)
-			)
-			(property "Value" "GND"
-				(at 0 3.556 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-						(thickness 0.1524)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-						(thickness 0.1524)
-					)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-						(thickness 0.1524)
-					)
-				)
-			)
-			(property "Description" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(symbol "GND_0_1"
-				(polyline
-					(pts
-						(xy 0 0) (xy 0 -1.27) (xy 1.27 -1.27) (xy 0 -2.54) (xy -1.27 -1.27) (xy 0 -1.27)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "GND_1_1"
-				(pin power_in line
-					(at 0 0 270)
-					(length 0)
-					(name ""
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
 	)
 	(text "Pullups just in case - DNP"
 		(exclude_from_sim no)
@@ -6492,6 +6278,138 @@
 		(uuid "076e4723-f47a-428e-974d-c6cb3e233089")
 	)
 	(junction
+		(at 355.6 45.72)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "60cb421f-30d0-4f8b-9628-43c0f0824a91")
+	)
+	(junction
+		(at 355.6 50.8)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "f629f7bc-7e31-448a-9e87-7a56157cbc2b")
+	)
+	(junction
+		(at 355.6 53.34)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "c0a52d67-974f-45eb-a5e4-1b19d51fb7a8")
+	)
+	(junction
+		(at 355.6 55.88)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "b0470b31-6c24-4284-8a1e-2250b729e7be")
+	)
+	(junction
+		(at 355.6 58.42)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "6beccc12-2065-45c9-a478-d6117b63852e")
+	)
+	(junction
+		(at 355.6 60.96)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "2b5bda9f-a137-43e9-8a85-17cfb7b174dd")
+	)
+	(junction
+		(at 355.6 63.5)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "168553d1-98ca-4653-9656-db583ae62d30")
+	)
+	(junction
+		(at 355.6 66.04)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "7f4df44f-50cb-470c-914a-9cab6a07f8e4")
+	)
+	(junction
+		(at 355.6 68.58)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "58a3b8c4-cd81-471d-b2f6-831df68e7bec")
+	)
+	(junction
+		(at 355.6 71.12)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "3b494896-2c34-4112-b40e-0ac9b9fb0ecb")
+	)
+	(junction
+		(at 355.6 73.66)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "38f25645-b425-42d4-ae8f-0c999a500c08")
+	)
+	(junction
+		(at 355.6 76.2)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "316a8f06-7828-4e8f-af68-8e196c9c098c")
+	)
+	(junction
+		(at 355.6 78.74)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "51bc7e59-bbe5-49f7-9fff-3b623818cfa1")
+	)
+	(junction
+		(at 355.6 81.28)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "f69f259a-b742-48a8-bf19-219bfdccde66")
+	)
+	(junction
+		(at 355.6 83.82)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "51d03be5-9353-41ea-a8d7-db53f6a79315")
+	)
+	(junction
+		(at 355.6 86.36)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "bf438e16-3850-44dd-b39c-be4b7e694865")
+	)
+	(junction
+		(at 355.6 88.9)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "e5f30b21-72b9-49b8-b7c9-c38c0f4938ed")
+	)
+	(junction
+		(at 355.6 91.44)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "4ff684c1-d572-48cb-bfd8-68b99dbdfc22")
+	)
+	(junction
+		(at 355.6 93.98)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "9c241c7f-fe41-431a-8c20-3a2b4b68a581")
+	)
+	(junction
+		(at 355.6 96.52)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "d63027f5-a6db-421b-8b39-bf281d71b82f")
+	)
+	(junction
+		(at 355.6 99.06)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "be35c1d2-f2e8-43a0-b1d1-a94c58572a79")
+	)
+	(junction
+		(at 370.84 45.72)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "10b92c0e-5278-4c54-a36d-ba2c59e1e160")
+	)
+	(junction
 		(at 97.79 369.57)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -6522,6 +6440,12 @@
 		(uuid "34749cb8-999c-4e5d-b031-29293e7e5ed0")
 	)
 	(junction
+		(at 355.6 50.8)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "3d682ae0-c25b-4077-802e-54acd2e045f9")
+	)
+	(junction
 		(at 410.21 219.71)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -6532,6 +6456,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "58e55764-96ae-4025-b3eb-6129352c125a")
+	)
+	(junction
+		(at 355.6 53.34)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "5bb3edf4-bd11-40d1-b334-7b9f806e4417")
 	)
 	(junction
 		(at 125.73 306.07)
@@ -6582,10 +6512,22 @@
 		(uuid "8bdbf58e-69d4-4446-82cc-fcb60831e942")
 	)
 	(junction
+		(at 355.6 55.88)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "966ffc48-7d77-4aad-9aad-079780af3d6a")
+	)
+	(junction
 		(at 177.8 214.63)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "99e3ee73-571b-4ea6-99a9-5e773087fcb5")
+	)
+	(junction
+		(at 355.6 58.42)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "aa3181c6-799b-407d-a976-4e2ce0cbee35")
 	)
 	(junction
 		(at 54.61 228.6)
@@ -6630,6 +6572,12 @@
 		(uuid "d8acd060-20a2-407d-9b25-00148557d341")
 	)
 	(junction
+		(at 370.84 45.72)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "df077331-bea6-4e11-bc42-f422c2acd21e")
+	)
+	(junction
 		(at 212.09 359.41)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -6646,6 +6594,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "e9daf4ab-287d-4642-a591-2952abff799f")
+	)
+	(junction
+		(at 355.6 45.72)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "f79e9511-7193-49a0-b983-84c494a94381")
 	)
 	(no_connect
 		(at 281.94 303.53)
@@ -6869,6 +6823,16 @@
 	)
 	(wire
 		(pts
+			(xy 355.6 45.72) (xy 370.84 45.72)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "16afae3a-a10f-4a1a-a708-397f3fb579f9")
+	)
+	(wire
+		(pts
 			(xy 424.18 306.07) (xy 393.7 306.07)
 		)
 		(stroke
@@ -6946,6 +6910,16 @@
 			(type default)
 		)
 		(uuid "1b99a5ea-658b-4f34-a4fb-fa0a00e9b8ac")
+	)
+	(wire
+		(pts
+			(xy 355.6 96.52) (xy 370.84 96.52)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1c028188-7f2c-4e82-9e87-2d26edce2494")
 	)
 	(wire
 		(pts
@@ -7036,6 +7010,16 @@
 			(type default)
 		)
 		(uuid "2552e7d0-4448-40d6-9288-943829ed09ed")
+	)
+	(wire
+		(pts
+			(xy 355.6 71.12) (xy 370.84 71.12)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2d2348c6-2063-4142-954a-081d5481699d")
 	)
 	(wire
 		(pts
@@ -7149,6 +7133,26 @@
 	)
 	(wire
 		(pts
+			(xy 355.6 53.34) (xy 370.84 53.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "427e2c35-403d-4de4-acc8-c42bdfbfabb7")
+	)
+	(wire
+		(pts
+			(xy 355.6 78.74) (xy 370.84 78.74)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "43794da3-5221-4153-b156-0570e332f00c")
+	)
+	(wire
+		(pts
 			(xy 378.46 292.1) (xy 374.65 292.1)
 		)
 		(stroke
@@ -7179,6 +7183,16 @@
 	)
 	(wire
 		(pts
+			(xy 355.6 45.72) (xy 355.6 48.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "46904710-182b-4407-a425-f435bbc84f72")
+	)
+	(wire
+		(pts
 			(xy 54.61 214.63) (xy 54.61 215.9)
 		)
 		(stroke
@@ -7186,6 +7200,16 @@
 			(type default)
 		)
 		(uuid "47635dc3-271e-4ff1-9c9c-938a54073399")
+	)
+	(wire
+		(pts
+			(xy 355.6 58.42) (xy 370.84 58.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "48bf21dc-9abb-4f9e-a4c5-573444081ea9")
 	)
 	(wire
 		(pts
@@ -7276,6 +7300,16 @@
 			(type default)
 		)
 		(uuid "538f0fd5-0e72-5157-a5fd-e7ae7ba7e5ca")
+	)
+	(wire
+		(pts
+			(xy 355.6 63.5) (xy 370.84 63.5)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "556fc625-c537-40e0-bba7-be4c1b4b3896")
 	)
 	(wire
 		(pts
@@ -7409,6 +7443,26 @@
 	)
 	(wire
 		(pts
+			(xy 355.6 55.88) (xy 370.84 55.88)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6417bc5e-801f-4d17-8557-6b0ec6d067bb")
+	)
+	(wire
+		(pts
+			(xy 355.6 86.36) (xy 370.84 86.36)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "64f9e311-15ee-4ec1-babf-91264cb4658f")
+	)
+	(wire
+		(pts
 			(xy 90.17 306.07) (xy 90.17 308.61)
 		)
 		(stroke
@@ -7486,16 +7540,6 @@
 			(type default)
 		)
 		(uuid "757d9378-9f9c-5530-8471-2cfbebda8fc0")
-	)
-	(wire
-		(pts
-			(xy 313.69 48.26) (xy 355.6 48.26)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "7786a9e4-aae5-42be-9bc6-8124ce8ebde5")
 	)
 	(wire
 		(pts
@@ -7749,6 +7793,16 @@
 	)
 	(wire
 		(pts
+			(xy 355.6 68.58) (xy 370.84 68.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "955c7310-5bf6-4771-903b-0870d6601ab4")
+	)
+	(wire
+		(pts
 			(xy 78.74 228.6) (xy 54.61 228.6)
 		)
 		(stroke
@@ -7776,6 +7830,16 @@
 			(type default)
 		)
 		(uuid "989bc611-c80e-4d73-a2ac-887515d59966")
+	)
+	(wire
+		(pts
+			(xy 355.6 76.2) (xy 370.84 76.2)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "99454451-e753-41b4-adec-a48d9da53b1d")
 	)
 	(wire
 		(pts
@@ -7839,6 +7903,16 @@
 	)
 	(wire
 		(pts
+			(xy 370.84 45.72) (xy 370.84 48.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a62cbb94-a73d-4b32-bcf8-954ff65a0070")
+	)
+	(wire
+		(pts
 			(xy 313.69 91.44) (xy 355.6 91.44)
 		)
 		(stroke
@@ -7896,6 +7970,26 @@
 			(type default)
 		)
 		(uuid "aa5b37e6-66e1-5cbf-aea9-1c2e0da85180")
+	)
+	(wire
+		(pts
+			(xy 355.6 50.8) (xy 370.84 50.8)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "aaef9361-cd5a-41f4-a5b8-7ac1747d432f")
+	)
+	(wire
+		(pts
+			(xy 355.6 83.82) (xy 370.84 83.82)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ab89bf09-58de-4a09-ad15-89792b11e664")
 	)
 	(wire
 		(pts
@@ -7966,6 +8060,16 @@
 			(type default)
 		)
 		(uuid "b0fd09ba-5455-4554-a65c-b9a362dacec8")
+	)
+	(wire
+		(pts
+			(xy 355.6 81.28) (xy 370.84 81.28)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b2bfa1a1-9b0a-4407-9fa4-97fb573a126a")
 	)
 	(wire
 		(pts
@@ -8059,6 +8163,16 @@
 	)
 	(wire
 		(pts
+			(xy 355.6 91.44) (xy 370.84 91.44)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b8b9667e-fbfe-4d9a-a16d-7eb1955dbeb5")
+	)
+	(wire
+		(pts
 			(xy 529.59 72.39) (xy 515.62 72.39)
 		)
 		(stroke
@@ -8086,6 +8200,16 @@
 			(type default)
 		)
 		(uuid "ba7d8282-66af-48d8-8ec4-99344f0bf801")
+	)
+	(wire
+		(pts
+			(xy 355.6 99.06) (xy 370.84 99.06)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bad4d539-387f-4836-9e83-1c7024d32181")
 	)
 	(wire
 		(pts
@@ -8259,13 +8383,23 @@
 	)
 	(wire
 		(pts
-			(xy 311.15 45.72) (xy 355.6 45.72)
+			(xy 318.77 45.72) (xy 355.6 45.72)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "dbddd1cb-2299-4172-ab78-7ab835b7f1d3")
+	)
+	(wire
+		(pts
+			(xy 355.6 66.04) (xy 370.84 66.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "dc38aeca-1f3f-4419-ba89-54496a4cd38a")
 	)
 	(wire
 		(pts
@@ -8349,6 +8483,16 @@
 	)
 	(wire
 		(pts
+			(xy 355.6 93.98) (xy 370.84 93.98)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e69d1206-878e-4a0f-b1e5-ee372e5b9d6d")
+	)
+	(wire
+		(pts
 			(xy 473.71 210.82) (xy 467.36 210.82)
 		)
 		(stroke
@@ -8429,6 +8573,16 @@
 	)
 	(wire
 		(pts
+			(xy 355.6 88.9) (xy 370.84 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ee5840bd-c7b5-48da-82c3-752aeaedd44c")
+	)
+	(wire
+		(pts
 			(xy 393.7 292.1) (xy 388.62 292.1)
 		)
 		(stroke
@@ -8486,6 +8640,26 @@
 			(type default)
 		)
 		(uuid "f2ebf896-0fef-405a-9c14-85b0f8fca424")
+	)
+	(wire
+		(pts
+			(xy 355.6 73.66) (xy 370.84 73.66)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f331f054-22cd-4cc8-ac12-f1e442ca90af")
+	)
+	(wire
+		(pts
+			(xy 355.6 60.96) (xy 370.84 60.96)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f3ffdbeb-e1f0-483e-837d-2cfc086540e5")
 	)
 	(wire
 		(pts
@@ -8728,18 +8902,6 @@
 		)
 		(uuid "1831e74b-ea10-40f3-ab16-10e0cd6c2d77")
 	)
-	(global_label "CMD_REVERSE"
-		(shape passive)
-		(at 168.91 359.41 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
-			)
-			(justify left bottom)
-		)
-		(uuid "18cd92b8-3a3e-4840-8239-840db057cb1b")
-	)
 	(label "REVERSE_WIRE"
 		(at 166.37 62.23 0)
 		(effects
@@ -8860,18 +9022,6 @@
 			(justify left bottom)
 		)
 		(uuid "3207d320-c1eb-4482-89e1-d8bd230782be")
-	)
-	(global_label "CMD_ACC__0_5V"
-		(shape passive)
-		(at 361.95 214.63 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
-			)
-			(justify left bottom)
-		)
-		(uuid "328b3889-6b5d-4c6d-9142-26fe9ff96479")
 	)
 	(label "PEDAL_ACC__0_5V"
 		(at 101.6 62.23 0)
@@ -9346,18 +9496,6 @@
 		)
 		(uuid "c29fd14f-6cf7-4a47-8246-d087bc98eee2")
 	)
-	(global_label "CMD_ACC__0_5V"
-		(shape passive)
-		(at 165.1 50.8 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
-			)
-			(justify left bottom)
-		)
-		(uuid "c35119ca-9503-4911-9248-35a15ffac61d")
-	)
 	(label "PRESSURE_2__0_3V3"
 		(at 313.69 60.96 0)
 		(effects
@@ -9523,6 +9661,121 @@
 		)
 		(uuid "fce55aca-c41a-4395-a921-3f509c716d3c")
 	)
+	(global_label "MOSI"
+		(shape input)
+		(at 254 285.75 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.1524)
+			)
+			(justify right)
+		)
+		(uuid "0c7a20d2-c652-44ec-8a0f-1d49b6ce4117")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 254 285.75 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "CMD_REVERSE"
+		(shape passive)
+		(at 168.91 359.41 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.1524)
+			)
+			(justify left bottom)
+		)
+		(uuid "18cd92b8-3a3e-4840-8239-840db057cb1b")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 168.91 359.41 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "CMD_DAC_CS"
+		(shape output)
+		(at 313.69 93.98 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.1524)
+			)
+			(justify left)
+		)
+		(uuid "2efb9a1a-df13-4018-8669-d507329395f4")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 313.69 93.98 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "CMD_ACC__0_5V"
+		(shape passive)
+		(at 361.95 214.63 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.1524)
+			)
+			(justify left bottom)
+		)
+		(uuid "328b3889-6b5d-4c6d-9142-26fe9ff96479")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 361.95 214.63 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "CMD_DAC_CS"
+		(shape input)
+		(at 254 290.83 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.1524)
+			)
+			(justify right)
+		)
+		(uuid "48992d7a-eea8-4f10-866f-562a38d54026")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 254 290.83 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
 	(global_label "CMD_BRAKE__0_5V"
 		(shape input)
 		(at 375.92 308.61 180)
@@ -9569,6 +9822,29 @@
 			)
 		)
 	)
+	(global_label "BUZZER"
+		(shape output)
+		(at 313.69 76.2 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.1524)
+			)
+			(justify right)
+		)
+		(uuid "884cc676-9b8f-45e7-baa5-9f880119cef8")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 313.69 76.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
 	(global_label "CMD_BRAKE__0_5V"
 		(shape output)
 		(at 281.94 288.29 0)
@@ -9592,54 +9868,6 @@
 			)
 		)
 	)
-	(global_label "MOSI"
-		(shape input)
-		(at 254 285.75 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
-			)
-			(justify right)
-		)
-		(uuid "0c7a20d2-c652-44ec-8a0f-1d49b6ce4117")
-	)
-	(global_label "CMD_DAC_CS"
-		(shape output)
-		(at 313.69 93.98 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
-			)
-			(justify left)
-		)
-		(uuid "2efb9a1a-df13-4018-8669-d507329395f4")
-	)
-	(global_label "CMD_DAC_CS"
-		(shape input)
-		(at 254 290.83 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
-			)
-			(justify right)
-		)
-		(uuid "48992d7a-eea8-4f10-866f-562a38d54026")
-	)
-	(global_label "BUZZER"
-		(shape output)
-		(at 313.69 76.2 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
-			)
-			(justify right)
-		)
-		(uuid "884cc676-9b8f-45e7-baa5-9f880119cef8")
-	)
 	(global_label "CLK"
 		(shape input)
 		(at 254 293.37 180)
@@ -9651,6 +9879,17 @@
 			(justify right)
 		)
 		(uuid "9cd65693-151c-4506-9afa-cd37ba12c08c")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 254 293.37 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 	)
 	(global_label "CLK"
 		(shape output)
@@ -9663,6 +9902,17 @@
 			(justify left)
 		)
 		(uuid "ab05703d-6aba-48a6-9827-f286eb19cfcc")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 313.69 88.9 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 	)
 	(global_label "CMD_REVERSE"
 		(shape output)
@@ -9675,6 +9925,40 @@
 			(justify right)
 		)
 		(uuid "afdfcc7c-0c1b-4105-91b6-b4f0e9cb580d")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 473.71 215.9 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+	)
+	(global_label "CMD_ACC__0_5V"
+		(shape passive)
+		(at 165.1 50.8 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.1524)
+			)
+			(justify left bottom)
+		)
+		(uuid "c35119ca-9503-4911-9248-35a15ffac61d")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 165.1 50.8 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 	)
 	(global_label "MOSI"
 		(shape output)
@@ -9687,6 +9971,17 @@
 			(justify left)
 		)
 		(uuid "d767c710-c3e3-47c6-a086-c6255bd81e7b")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 313.69 86.36 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 	)
 	(symbol
 		(lib_id "kart-medulla:3V3")
@@ -9771,7 +10066,7 @@
 	)
 	(symbol
 		(lib_id "kart-medulla:3V3")
-		(at 311.15 45.72 270)
+		(at 318.77 45.72 270)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -9779,10 +10074,9 @@
 		(on_board no)
 		(in_pos_files yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "06813f5f-78a4-45ea-931d-f4ddf6146fb9")
 		(property "Reference" "#PWR33"
-			(at 311.15 48.26 90)
+			(at 318.77 48.26 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9793,8 +10087,8 @@
 				)
 			)
 		)
-		(property "Value" "3V3"
-			(at 311.15 41.91 90)
+		(property "Value" "+3V3"
+			(at 316.23 44.704 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -9805,7 +10099,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 311.15 45.72 90)
+			(at 318.77 45.72 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9817,7 +10111,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 311.15 45.72 90)
+			(at 318.77 45.72 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9829,7 +10123,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 311.15 45.72 0)
+			(at 318.77 45.72 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -13179,87 +13473,6 @@
 			(project "kart-medulla"
 				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
 					(reference "U")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "kart-medulla:3V3")
-		(at 313.69 48.26 270)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom no)
-		(on_board no)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "79650c8e-046b-4e12-8e42-386f6efb0b77")
-		(property "Reference" "#PWR34"
-			(at 313.69 50.8 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Value" "3V3"
-			(at 313.69 44.45 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 313.69 48.26 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 313.69 48.26 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 313.69 48.26 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "c9ec2ce6-e681-5bb4-9497-9c8931e99f53")
-		)
-		(instances
-			(project "kart-medulla"
-				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
-					(reference "#PWR34")
 					(unit 1)
 				)
 			)
