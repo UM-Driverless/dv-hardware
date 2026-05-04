@@ -490,7 +490,7 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "kart-medulla:12V"
+		(symbol "kart-medulla:+12V"
 			(power global)
 			(pin_numbers
 				(hide yes)
@@ -516,7 +516,7 @@
 					)
 				)
 			)
-			(property "Value" "12V"
+			(property "Value" "+12V"
 				(at 0 3.556 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -562,7 +562,7 @@
 					)
 				)
 			)
-			(symbol "12V_0_1"
+			(symbol "+12V_0_1"
 				(polyline
 					(pts
 						(xy -0.762 1.27) (xy 0 2.54)
@@ -600,7 +600,7 @@
 					)
 				)
 			)
-			(symbol "12V_1_1"
+			(symbol "+12V_1_1"
 				(pin power_in line
 					(at 0 0 90)
 					(length 0)
@@ -1068,7 +1068,7 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "kart-medulla:3V3"
+		(symbol "kart-medulla:+3V3"
 			(power global)
 			(pin_numbers
 				(hide yes)
@@ -1094,7 +1094,7 @@
 					)
 				)
 			)
-			(property "Value" "3V3"
+			(property "Value" "+3V3"
 				(at 0 3.556 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -1140,7 +1140,7 @@
 					)
 				)
 			)
-			(symbol "3V3_0_1"
+			(symbol "+3V3_0_1"
 				(polyline
 					(pts
 						(xy -0.762 1.27) (xy 0 2.54)
@@ -1178,7 +1178,7 @@
 					)
 				)
 			)
-			(symbol "3V3_1_1"
+			(symbol "+3V3_1_1"
 				(pin power_in line
 					(at 0 0 90)
 					(length 0)
@@ -5875,19 +5875,7 @@
 		)
 		(uuid "09828bc4-83dc-4f0b-a8d3-b99a75d41de0")
 	)
-	(text "RX0"
-		(exclude_from_sim no)
-		(at 424.18 50.8 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
-			)
-			(justify left bottom)
-		)
-		(uuid "0a1252a1-b30c-4563-8a74-92b55d7a6970")
-	)
-	(text "GPIO Expander"
+		(text "GPIO Expander"
 		(exclude_from_sim no)
 		(at 473.71 198.12 0)
 		(effects
@@ -5923,19 +5911,7 @@
 		)
 		(uuid "1609f165-8cf5-4204-9ed9-e8e895aec5a1")
 	)
-	(text "LED"
-		(exclude_from_sim no)
-		(at 422.91 83.82 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
-			)
-			(justify left bottom)
-		)
-		(uuid "199706ac-615b-4713-bc04-d85ccbf2fb5f")
-	)
-	(text "optional bulk tantalum cap"
+		(text "optional bulk tantalum cap"
 		(exclude_from_sim no)
 		(at 530.86 63.5 0)
 		(effects
@@ -5947,19 +5923,7 @@
 		)
 		(uuid "1cf479f4-f04e-4017-a59e-8ecb66f00cfd")
 	)
-	(text "GND"
-		(exclude_from_sim no)
-		(at 421.64 99.06 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
-			)
-			(justify left bottom)
-		)
-		(uuid "1cf5119e-6e1d-4ee6-8b1e-f0df94e63f9d")
-	)
-	(text "ESP32-S3-DevKitC-1"
+		(text "ESP32-S3-DevKitC-1"
 		(exclude_from_sim no)
 		(at 350.52 35.56 0)
 		(effects
@@ -5971,19 +5935,7 @@
 		)
 		(uuid "21c30e19-e422-43a2-8387-94a20c1b5992")
 	)
-	(text "STRAP PIN (flash/boot risk)"
-		(exclude_from_sim no)
-		(at 393.7 81.28 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
-			)
-			(justify left bottom)
-		)
-		(uuid "22ab5ef9-0a6c-4642-b8fb-ae1ae711b886")
-	)
-	(text "SPARE"
+		(text "SPARE"
 		(exclude_from_sim no)
 		(at 394.97 59.69 0)
 		(effects
@@ -5995,19 +5947,7 @@
 		)
 		(uuid "2867ee34-6103-4e0d-9c39-e7df9a8b4cbb")
 	)
-	(text "GND"
-		(exclude_from_sim no)
-		(at 422.91 45.72 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
-			)
-			(justify left bottom)
-		)
-		(uuid "291ba1a8-0bb6-4567-abf9-22b58c1aea8d")
-	)
-	(text "Shutdown conmutation with N-channel mosfet\n(low side, coil to gnd)"
+		(text "Shutdown conmutation with N-channel mosfet\n(low side, coil to gnd)"
 		(exclude_from_sim no)
 		(at 36.83 340.36 0)
 		(effects
@@ -6043,19 +5983,7 @@
 		)
 		(uuid "49dd1daf-2843-45e4-9132-ebf0c434a9b9")
 	)
-	(text "USB_D-"
-		(exclude_from_sim no)
-		(at 419.1 93.98 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
-			)
-			(justify left bottom)
-		)
-		(uuid "4a057da2-cd5a-4014-876a-316241091bca")
-	)
-	(text "DAC, generate analog for brake and throttle"
+		(text "DAC, generate analog for brake and throttle"
 		(exclude_from_sim no)
 		(at 223.52 275.59 0)
 		(effects
@@ -6091,19 +6019,7 @@
 		)
 		(uuid "68ec1f90-00e1-4e2e-a721-46d8f7920a16")
 	)
-	(text "USB_D+"
-		(exclude_from_sim no)
-		(at 419.1 91.44 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
-			)
-			(justify left bottom)
-		)
-		(uuid "702a22bc-f572-4e85-bb3b-4b58dc8708ac")
-	)
-	(text "SPARE - Octal-PSRAM pin on N8R8"
+		(text "SPARE - Octal-PSRAM pin on N8R8"
 		(exclude_from_sim no)
 		(at 391.16 76.2 0)
 		(effects
@@ -6175,19 +6091,7 @@
 		)
 		(uuid "8e399554-9fae-48e9-ad38-5ed8aebb0d71")
 	)
-	(text "TX0"
-		(exclude_from_sim no)
-		(at 424.18 48.26 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
-			)
-			(justify left bottom)
-		)
-		(uuid "aea45f92-6b67-4d10-a44e-d1f2bdb0c80b")
-	)
-	(text "SPARE - Octal-PSRAM pin on N8R8"
+		(text "SPARE - Octal-PSRAM pin on N8R8"
 		(exclude_from_sim no)
 		(at 391.16 71.12 0)
 		(effects
@@ -6223,19 +6127,7 @@
 		)
 		(uuid "c6eaf49f-5621-4df3-af9c-110438518932")
 	)
-	(text "GND"
-		(exclude_from_sim no)
-		(at 421.64 96.52 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
-			)
-			(justify left bottom)
-		)
-		(uuid "d1024df7-fb1a-47c9-8dfb-37e36c6540b2")
-	)
-	(text "Throttle mux\nSend to motor value from sensor by default,\nor esp32 when autonomous"
+		(text "Throttle mux\nSend to motor value from sensor by default,\nor esp32 when autonomous"
 		(exclude_from_sim no)
 		(at 359.41 190.5 0)
 		(effects
@@ -6247,19 +6139,7 @@
 		)
 		(uuid "df8f0af2-adb6-42d7-bda1-ab837a24e089")
 	)
-	(text "SDC_ENABLE"
-		(exclude_from_sim no)
-		(at 412.75 66.04 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
-			)
-			(justify left bottom)
-		)
-		(uuid "e7fe5bf0-9e20-40c0-9afb-a241510571b4")
-	)
-	(text "5V Linear Regulator\n(Stable 5V, not from USB)"
+		(text "5V Linear Regulator\n(Stable 5V, not from USB)"
 		(exclude_from_sim no)
 		(at 477.52 44.45 0)
 		(effects
@@ -6278,130 +6158,10 @@
 		(uuid "076e4723-f47a-428e-974d-c6cb3e233089")
 	)
 	(junction
-		(at 355.6 45.72)
+		(at 97.79 369.57)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "60cb421f-30d0-4f8b-9628-43c0f0824a91")
-	)
-	(junction
-		(at 355.6 50.8)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "f629f7bc-7e31-448a-9e87-7a56157cbc2b")
-	)
-	(junction
-		(at 355.6 53.34)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "c0a52d67-974f-45eb-a5e4-1b19d51fb7a8")
-	)
-	(junction
-		(at 355.6 55.88)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "b0470b31-6c24-4284-8a1e-2250b729e7be")
-	)
-	(junction
-		(at 355.6 58.42)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "6beccc12-2065-45c9-a478-d6117b63852e")
-	)
-	(junction
-		(at 355.6 60.96)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "2b5bda9f-a137-43e9-8a85-17cfb7b174dd")
-	)
-	(junction
-		(at 355.6 63.5)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "168553d1-98ca-4653-9656-db583ae62d30")
-	)
-	(junction
-		(at 355.6 66.04)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "7f4df44f-50cb-470c-914a-9cab6a07f8e4")
-	)
-	(junction
-		(at 355.6 68.58)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "58a3b8c4-cd81-471d-b2f6-831df68e7bec")
-	)
-	(junction
-		(at 355.6 71.12)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "3b494896-2c34-4112-b40e-0ac9b9fb0ecb")
-	)
-	(junction
-		(at 355.6 73.66)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "38f25645-b425-42d4-ae8f-0c999a500c08")
-	)
-	(junction
-		(at 355.6 76.2)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "316a8f06-7828-4e8f-af68-8e196c9c098c")
-	)
-	(junction
-		(at 355.6 78.74)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "51bc7e59-bbe5-49f7-9fff-3b623818cfa1")
-	)
-	(junction
-		(at 355.6 81.28)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "f69f259a-b742-48a8-bf19-219bfdccde66")
-	)
-	(junction
-		(at 355.6 83.82)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "51d03be5-9353-41ea-a8d7-db53f6a79315")
-	)
-	(junction
-		(at 355.6 86.36)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "bf438e16-3850-44dd-b39c-be4b7e694865")
-	)
-	(junction
-		(at 355.6 88.9)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "e5f30b21-72b9-49b8-b7c9-c38c0f4938ed")
-	)
-	(junction
-		(at 355.6 91.44)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "4ff684c1-d572-48cb-bfd8-68b99dbdfc22")
-	)
-	(junction
-		(at 355.6 93.98)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "9c241c7f-fe41-431a-8c20-3a2b4b68a581")
-	)
-	(junction
-		(at 355.6 96.52)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "d63027f5-a6db-421b-8b39-bf281d71b82f")
-	)
-	(junction
-		(at 355.6 99.06)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "be35c1d2-f2e8-43a0-b1d1-a94c58572a79")
+		(uuid "078ede37-184b-42cd-acb0-c5aecc0e4f9b")
 	)
 	(junction
 		(at 370.84 45.72)
@@ -6410,22 +6170,34 @@
 		(uuid "10b92c0e-5278-4c54-a36d-ba2c59e1e160")
 	)
 	(junction
-		(at 97.79 369.57)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "078ede37-184b-42cd-acb0-c5aecc0e4f9b")
-	)
-	(junction
 		(at 83.82 228.6)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "160141b2-8313-4d79-89ff-d0f6cb794fcc")
 	)
 	(junction
+		(at 355.6 63.5)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "168553d1-98ca-4653-9656-db583ae62d30")
+	)
+	(junction
 		(at 125.73 295.91)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "290f9ddb-3309-4ebd-a7fd-b19b4ee681f3")
+	)
+	(junction
+		(at 355.6 60.96)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "2b5bda9f-a137-43e9-8a85-17cfb7b174dd")
+	)
+	(junction
+		(at 355.6 76.2)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "316a8f06-7828-4e8f-af68-8e196c9c098c")
 	)
 	(junction
 		(at 209.55 215.9)
@@ -6440,10 +6212,34 @@
 		(uuid "34749cb8-999c-4e5d-b031-29293e7e5ed0")
 	)
 	(junction
-		(at 355.6 50.8)
+		(at 355.6 73.66)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "3d682ae0-c25b-4077-802e-54acd2e045f9")
+		(uuid "38f25645-b425-42d4-ae8f-0c999a500c08")
+	)
+	(junction
+		(at 355.6 71.12)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "3b494896-2c34-4112-b40e-0ac9b9fb0ecb")
+	)
+	(junction
+		(at 355.6 91.44)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "4ff684c1-d572-48cb-bfd8-68b99dbdfc22")
+	)
+	(junction
+		(at 355.6 78.74)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "51bc7e59-bbe5-49f7-9fff-3b623818cfa1")
+	)
+	(junction
+		(at 355.6 83.82)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "51d03be5-9353-41ea-a8d7-db53f6a79315")
 	)
 	(junction
 		(at 410.21 219.71)
@@ -6452,16 +6248,16 @@
 		(uuid "580f2e33-bcba-41c3-a17f-2ff3724ce026")
 	)
 	(junction
+		(at 355.6 68.58)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "58a3b8c4-cd81-471d-b2f6-831df68e7bec")
+	)
+	(junction
 		(at 375.92 222.25)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "58e55764-96ae-4025-b3eb-6129352c125a")
-	)
-	(junction
-		(at 355.6 53.34)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "5bb3edf4-bd11-40d1-b334-7b9f806e4417")
 	)
 	(junction
 		(at 125.73 306.07)
@@ -6482,10 +6278,22 @@
 		(uuid "662ec02b-9b74-417f-a874-2812467ed6a0")
 	)
 	(junction
+		(at 355.6 58.42)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "6beccc12-2065-45c9-a478-d6117b63852e")
+	)
+	(junction
 		(at 242.57 215.9)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "74c1fffa-27dd-4b05-8ccc-a5fd298bc6ea")
+	)
+	(junction
+		(at 355.6 66.04)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "7f4df44f-50cb-470c-914a-9cab6a07f8e4")
 	)
 	(junction
 		(at 254 308.61)
@@ -6512,28 +6320,46 @@
 		(uuid "8bdbf58e-69d4-4446-82cc-fcb60831e942")
 	)
 	(junction
-		(at 355.6 55.88)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "966ffc48-7d77-4aad-9aad-079780af3d6a")
-	)
-	(junction
 		(at 177.8 214.63)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "99e3ee73-571b-4ea6-99a9-5e773087fcb5")
 	)
 	(junction
-		(at 355.6 58.42)
+		(at 355.6 93.98)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "aa3181c6-799b-407d-a976-4e2ce0cbee35")
+		(uuid "9c241c7f-fe41-431a-8c20-3a2b4b68a581")
+	)
+	(junction
+		(at 355.6 55.88)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "b0470b31-6c24-4284-8a1e-2250b729e7be")
 	)
 	(junction
 		(at 54.61 228.6)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "ba95d356-e1c3-4bd4-a19f-710cd5963aa1")
+	)
+	(junction
+		(at 355.6 99.06)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "be35c1d2-f2e8-43a0-b1d1-a94c58572a79")
+	)
+	(junction
+		(at 355.6 86.36)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "bf438e16-3850-44dd-b39c-be4b7e694865")
+	)
+	(junction
+		(at 355.6 53.34)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "c0a52d67-974f-45eb-a5e4-1b19d51fb7a8")
 	)
 	(junction
 		(at 481.33 69.85)
@@ -6560,6 +6386,12 @@
 		(uuid "d104e543-92be-4b40-9c77-440e9ee4e88d")
 	)
 	(junction
+		(at 355.6 96.52)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "d63027f5-a6db-421b-8b39-bf281d71b82f")
+	)
+	(junction
 		(at 87.63 360.68)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -6572,10 +6404,10 @@
 		(uuid "d8acd060-20a2-407d-9b25-00148557d341")
 	)
 	(junction
-		(at 370.84 45.72)
+		(at 355.6 88.9)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "df077331-bea6-4e11-bc42-f422c2acd21e")
+		(uuid "e5f30b21-72b9-49b8-b7c9-c38c0f4938ed")
 	)
 	(junction
 		(at 212.09 359.41)
@@ -6594,6 +6426,18 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "e9daf4ab-287d-4642-a591-2952abff799f")
+	)
+	(junction
+		(at 355.6 50.8)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "f629f7bc-7e31-448a-9e87-7a56157cbc2b")
+	)
+	(junction
+		(at 355.6 81.28)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "f69f259a-b742-48a8-bf19-219bfdccde66")
 	)
 	(junction
 		(at 355.6 45.72)
@@ -7903,6 +7747,16 @@
 	)
 	(wire
 		(pts
+			(xy 389.89 99.06) (xy 427.99 99.06)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a5c3e14c-7f3c-4f23-842f-82b9f81849ca")
+	)
+	(wire
+		(pts
 			(xy 370.84 45.72) (xy 370.84 48.26)
 		)
 		(stroke
@@ -8730,16 +8584,6 @@
 			(type default)
 		)
 		(uuid "f9bbaee7-3132-4f45-850c-db5bdc9a8d49")
-	)
-	(wire
-		(pts
-			(xy 427.99 99.06) (xy 389.89 99.06)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "f9cdd9a0-f187-4d98-9376-e48b5e0beb2d")
 	)
 	(wire
 		(pts
@@ -9984,7 +9828,7 @@
 		)
 	)
 	(symbol
-		(lib_id "kart-medulla:3V3")
+		(lib_id "kart-medulla:+3V3")
 		(at 501.65 205.74 0)
 		(unit 1)
 		(body_style 1)
@@ -10007,7 +9851,7 @@
 				)
 			)
 		)
-		(property "Value" "3V3"
+		(property "Value" "+3V3"
 			(at 501.65 201.93 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10065,7 +9909,7 @@
 		)
 	)
 	(symbol
-		(lib_id "kart-medulla:3V3")
+		(lib_id "kart-medulla:+3V3")
 		(at 318.77 45.72 270)
 		(unit 1)
 		(body_style 1)
@@ -10739,7 +10583,7 @@
 		)
 	)
 	(symbol
-		(lib_id "kart-medulla:12V")
+		(lib_id "kart-medulla:+12V")
 		(at 481.33 59.69 0)
 		(unit 1)
 		(body_style 1)
@@ -10762,7 +10606,7 @@
 				)
 			)
 		)
-		(property "Value" "12V"
+		(property "Value" "+12V"
 			(at 481.33 55.88 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -11319,7 +11163,7 @@
 		)
 	)
 	(symbol
-		(lib_id "kart-medulla:3V3")
+		(lib_id "kart-medulla:+3V3")
 		(at 525.78 212.09 90)
 		(unit 1)
 		(body_style 1)
@@ -11342,7 +11186,7 @@
 				)
 			)
 		)
-		(property "Value" "3V3"
+		(property "Value" "+3V3"
 			(at 525.78 208.28 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -11724,7 +11568,7 @@
 		)
 	)
 	(symbol
-		(lib_id "kart-medulla:12V")
+		(lib_id "kart-medulla:+12V")
 		(at 106.68 81.28 270)
 		(unit 1)
 		(body_style 1)
@@ -11746,7 +11590,7 @@
 				)
 			)
 		)
-		(property "Value" "12V"
+		(property "Value" "+12V"
 			(at 102.362 80.01 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12057,7 +11901,7 @@
 		)
 	)
 	(symbol
-		(lib_id "kart-medulla:3V3")
+		(lib_id "kart-medulla:+3V3")
 		(at 125.73 295.91 90)
 		(unit 1)
 		(body_style 1)
@@ -12080,7 +11924,7 @@
 				)
 			)
 		)
-		(property "Value" "3V3"
+		(property "Value" "+3V3"
 			(at 125.73 292.1 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13641,7 +13485,7 @@
 		)
 	)
 	(symbol
-		(lib_id "kart-medulla:3V3")
+		(lib_id "kart-medulla:+3V3")
 		(at 53.34 49.53 270)
 		(unit 1)
 		(body_style 1)
@@ -13663,7 +13507,7 @@
 				)
 			)
 		)
-		(property "Value" "3V3"
+		(property "Value" "+3V3"
 			(at 50.546 49.276 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -16885,7 +16729,7 @@
 		)
 	)
 	(symbol
-		(lib_id "kart-medulla:12V")
+		(lib_id "kart-medulla:+12V")
 		(at 384.81 300.99 0)
 		(unit 1)
 		(body_style 1)
@@ -16908,7 +16752,7 @@
 				)
 			)
 		)
-		(property "Value" "12V"
+		(property "Value" "+12V"
 			(at 384.81 297.18 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17789,5 +17633,115 @@
 				)
 			)
 		)
+	)
+	(global_label "GND"
+		(shape input)
+		(at 427.99 99.06 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "d3893436-03a7-4e71-bfad-99e472194720")
+	)
+	(global_label "GND"
+		(shape input)
+		(at 427.99 96.52 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "73567259-0df2-44c4-bd84-900abf484368")
+	)
+	(global_label "USB_D-"
+		(shape input)
+		(at 427.99 93.98 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "14f7fd13-d465-4a6a-92c0-d1b4cda4c3ea")
+	)
+	(global_label "USB_D+"
+		(shape input)
+		(at 427.99 91.44 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "a04b2664-e6ad-4a24-bb1a-03387f2d5298")
+	)
+	(global_label "LED"
+		(shape input)
+		(at 427.99 83.82 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "b697920f-9776-41c6-957d-c2611d258916")
+	)
+	(global_label "STRAP_PIN_8"
+		(shape input)
+		(at 427.99 81.28 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "8b5fe8d9-e682-48c9-9048-35a001d62942")
+	)
+	(global_label "SDC_NOT_EMERGENCY__3V3"
+		(shape input)
+		(at 427.99 66.04 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "a2a4c25c-0f0a-4dad-9ade-365940eb0115")
+	)
+	(global_label "RX0"
+		(shape input)
+		(at 427.99 50.8 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "8189b06e-9d2f-4c89-a730-0cb847729e31")
+	)
+	(global_label "TX0"
+		(shape input)
+		(at 427.99 48.26 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "638e59e4-e7de-4aa1-899a-6eabb8b78371")
+	)
+	(global_label "GND"
+		(shape input)
+		(at 427.99 45.72 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "ecf79ac6-fda4-46b1-a4e7-717db306f0b7")
 	)
 )

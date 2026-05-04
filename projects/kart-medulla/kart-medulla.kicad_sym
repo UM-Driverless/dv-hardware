@@ -5698,7 +5698,7 @@
 		)
 		(embedded_fonts no)
 	)
-	(symbol "12V"
+	(symbol "+12V"
 		(power global)
 		(pin_numbers
 			(hide yes)
@@ -5724,7 +5724,7 @@
 				)
 			)
 		)
-		(property "Value" "12V"
+		(property "Value" "+12V"
 			(at 0 3.556 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5770,7 +5770,7 @@
 				)
 			)
 		)
-		(symbol "12V_0_1"
+		(symbol "+12V_0_1"
 			(polyline
 				(pts
 					(xy -0.762 1.27) (xy 0 2.54)
@@ -5808,7 +5808,7 @@
 				)
 			)
 		)
-		(symbol "12V_1_1"
+		(symbol "+12V_1_1"
 			(pin power_in line
 				(at 0 0 90)
 				(length 0)
@@ -5830,7 +5830,7 @@
 		)
 		(embedded_fonts no)
 	)
-	(symbol "3V3"
+	(symbol "+3V3"
 		(power global)
 		(pin_numbers
 			(hide yes)
@@ -5856,7 +5856,7 @@
 				)
 			)
 		)
-		(property "Value" "3V3"
+		(property "Value" "+3V3"
 			(at 0 3.556 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5902,7 +5902,7 @@
 				)
 			)
 		)
-		(symbol "3V3_0_1"
+		(symbol "+3V3_0_1"
 			(polyline
 				(pts
 					(xy -0.762 1.27) (xy 0 2.54)
@@ -5940,7 +5940,7 @@
 				)
 			)
 		)
-		(symbol "3V3_1_1"
+		(symbol "+3V3_1_1"
 			(pin power_in line
 				(at 0 0 90)
 				(length 0)
