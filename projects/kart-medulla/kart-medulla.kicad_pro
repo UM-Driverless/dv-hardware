@@ -645,7 +645,7 @@
         "uuid": "07374be3-c612-51bb-acb6-18bf22cc68ea"
       }
     ],
-    "used_designators": "CN9-10",
+    "used_designators": "#PWR34,#FLG_+5V_USB1,#FLG_+12V1,#FLG_GND1,U1-2,U6,CN9-10",
     "variants": []
   },
   "sheets": [
