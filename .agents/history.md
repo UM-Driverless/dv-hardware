@@ -4,6 +4,22 @@
 
 Append-only log. Newest first.
 
+## 2026-05-04 — KiCad no_connect marker semantics (corrected)
+
+The `(no_connect)` flag (the small "X" placed on a pin in the schematic editor) means **"the designer intentionally chose not to wire this pin to anything external on this board"**. It silences ERC's `pin_not_connected` warning by declaring the omission deliberate.
+
+It does **not** mean:
+- The pin doesn't physically exist on the package
+- The pin is internally disconnected on the silicon
+- The pin is a manufacturer-designated NC pad
+
+Source: KiCad eeschema docs (master) — "No-connection flags are used to indicate that a pin is intentionally unconnected. These flags prevent 'unconnected pin' ERC warnings for pins that are intentionally unconnected." (https://docs.kicad.org/master/en/eeschema/eeschema.html)
+
+Practical implication: any unused pin can carry a `no_connect` marker, including real-but-unused pins like the second op-amp on a dual op-amp (LM358 pins 5/6/7 when only op-amp A is used). For digital chips, NC markers are fine. For op-amps specifically, tie-back wiring (unity-gain follower with input held at a fixed voltage) is the better engineering practice — prevents the floating amplifier from oscillating or coupling noise — but NC markers are valid and ERC-clean.
+
+Don't conflate the schematic-level `(no_connect)` marker (board-specific intent, common) with a symbol pin's `no_connect` electrical type (part-designer's intent that the pin should never be wired, used in symbol definitions for reserved/NC pads). Both silence ERC; the schematic marker is the more frequent tool.
+
+
 ## 2026-05-03 — Scripted schematic edits on kart-medulla (text-level, no KiCad GUI)
 
 **What worked: pattern replication via direct s-expression edits.**
