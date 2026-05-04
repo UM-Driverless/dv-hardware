@@ -2962,7 +2962,7 @@
 						)
 					)
 				)
-				(pin passive line
+				(pin no_connect line
 					(at -8.89 1.27 0)
 					(length 2.54)
 					(name "NC"
@@ -6577,18 +6577,6 @@
 	(no_connect
 		(at 281.94 308.61)
 		(uuid "ef017f93-b294-44c6-b7ee-4d4f9247f377")
-	)
-	(no_connect
-		(at 378.46 334.01000000000005)
-		(uuid "48fdb18a-dcbf-439f-b114-65c5e512ba52")
-	)
-	(no_connect
-		(at 378.46 328.93)
-		(uuid "4f77740d-990c-4fa0-b5d6-f0af4c5af877")
-	)
-	(no_connect
-		(at 393.7 331.47)
-		(uuid "d1f44714-8885-4f97-b821-6b7d1d062404")
 	)
 	(wire
 		(pts
@@ -11038,7 +11026,6 @@
 		(on_board no)
 		(in_pos_files yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "29a6e9c7-cda4-4242-8dc2-5154761cbc36")
 		(property "Reference" "#PWR20"
 			(at 481.33 62.23 0)
@@ -11053,7 +11040,7 @@
 			)
 		)
 		(property "Value" "+12V"
-			(at 481.33 55.88 0)
+			(at 484.124 56.642 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -12602,7 +12589,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "5e52dfc0-309d-457f-8cb6-2b3ae1a7d02a")
-		(property "Reference" "#FLG_+5V_USB"
+		(property "Reference" "#FLG"
 			(at 318.69 94.52 0)
 			(hide yes)
 			(show_name no)
@@ -12663,7 +12650,7 @@
 		(instances
 			(project "kart-medulla"
 				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
-					(reference "#FLG_+5V_USB")
+					(reference "#FLG")
 					(unit 1)
 				)
 			)
@@ -12866,7 +12853,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "63902169-8e9b-4d9a-ac20-389d82f4050b")
-		(property "Reference" "#FLG_+3V3"
+		(property "Reference" "#FLG"
 			(at 58.34 47.53 0)
 			(hide yes)
 			(show_name no)
@@ -12927,7 +12914,7 @@
 		(instances
 			(project "kart-medulla"
 				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
-					(reference "#FLG_+3V3")
+					(reference "#FLG")
 					(unit 1)
 				)
 			)
@@ -14834,7 +14821,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "905aa632-eb42-4828-9020-d8a7461f40a5")
-		(property "Reference" "#FLG_+12V"
+		(property "Reference" "#FLG"
 			(at 486.33 57.69 0)
 			(hide yes)
 			(show_name no)
@@ -14895,7 +14882,7 @@
 		(instances
 			(project "kart-medulla"
 				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
-					(reference "#FLG_+12V")
+					(reference "#FLG")
 					(unit 1)
 				)
 			)
@@ -18546,7 +18533,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "fb9a03c8-3813-4402-8625-8427f502f945")
-		(property "Reference" "#FLG_GND"
+		(property "Reference" "#FLG"
 			(at 364.41 290.1 0)
 			(hide yes)
 			(show_name no)
@@ -18607,7 +18594,7 @@
 		(instances
 			(project "kart-medulla"
 				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
-					(reference "#FLG_GND")
+					(reference "#FLG")
 					(unit 1)
 				)
 			)
