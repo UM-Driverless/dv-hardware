@@ -1,0 +1,4 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "kart-medulla") (type "KiCad") (uri "${KIPRJMOD}/kart-medulla.kicad_sym") (options "") (descr "Project-local symbols extracted from EasyEDA import"))
+)

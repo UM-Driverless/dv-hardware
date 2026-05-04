@@ -8,7 +8,7 @@
 		(title "P1")
 	)
 	(lib_symbols
-		(symbol "gen:100nF"
+		(symbol "kart-medulla:100nF"
 			(pin_numbers
 				(hide yes)
 			)
@@ -226,7 +226,7 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "gen:1990012"
+		(symbol "kart-medulla:1990012"
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -418,7 +418,7 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "gen:1k"
+		(symbol "kart-medulla:1k"
 			(pin_numbers
 				(hide yes)
 			)
@@ -672,7 +672,7 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "gen:BSS123_C5184436"
+		(symbol "kart-medulla:BSS123_C5184436"
 			(pin_numbers
 				(hide yes)
 			)
@@ -1056,7 +1056,7 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "gen:CAP"
+		(symbol "kart-medulla:CAP"
 			(pin_numbers
 				(hide yes)
 			)
@@ -1274,7 +1274,7 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "gen:GND"
+		(symbol "kart-medulla:GND"
 			(power global)
 			(pin_numbers
 				(hide yes)
@@ -1488,7 +1488,7 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "gen:IRLZ44NPBF"
+		(symbol "kart-medulla:IRLZ44NPBF"
 			(pin_numbers
 				(hide yes)
 			)
@@ -1810,7 +1810,7 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "gen:L7805CDT_C20611927"
+		(symbol "kart-medulla:L7805CDT_C20611927"
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -2002,7 +2002,7 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "gen:LM358DR"
+		(symbol "kart-medulla:LM358DR"
 			(pin_names
 				(offset 0)
 				(hide yes)
@@ -2349,7 +2349,7 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "gen:MAX4660EUA_T"
+		(symbol "kart-medulla:MAX4660EUA_T"
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -2649,7 +2649,7 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "gen:MCP4922-E_SL"
+		(symbol "kart-medulla:MCP4922-E_SL"
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -3099,7 +3099,7 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "gen:PCF8574T_3_518"
+		(symbol "kart-medulla:PCF8574T_3_518"
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -3525,7 +3525,7 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "gen:Res"
+		(symbol "kart-medulla:Res"
 			(pin_numbers
 				(hide yes)
 			)
@@ -3694,7 +3694,7 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "gen:SN74LVC3G17DCTR"
+		(symbol "kart-medulla:SN74LVC3G17DCTR"
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -3976,7 +3976,7 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "gen:SSW-122-01-T-D"
+		(symbol "kart-medulla:SSW-122-01-T-D"
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -4906,7 +4906,7 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "gen:SSW-122-01-T-S"
+		(symbol "kart-medulla:SSW-122-01-T-S"
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -5440,7 +5440,7 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "power:+5V_REG"
+		(symbol "kart-medulla:+5V_REG"
 			(power global)
 			(pin_numbers
 				(hide yes)
@@ -5572,7 +5572,7 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "power:+5V_USB"
+		(symbol "kart-medulla:+5V_USB"
 			(power global)
 			(pin_numbers
 				(hide yes)
@@ -5704,7 +5704,7 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "power:+12V"
+		(symbol "kart-medulla:12V"
 			(power global)
 			(pin_numbers
 				(hide yes)
@@ -5730,7 +5730,7 @@
 					)
 				)
 			)
-			(property "Value" "+12V"
+			(property "Value" "12V"
 				(at 0 3.556 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -5776,7 +5776,7 @@
 					)
 				)
 			)
-			(symbol "+12V_0_1"
+			(symbol "12V_0_1"
 				(polyline
 					(pts
 						(xy -0.762 1.27) (xy 0 2.54)
@@ -5814,7 +5814,7 @@
 					)
 				)
 			)
-			(symbol "+12V_1_1"
+			(symbol "12V_1_1"
 				(pin power_in line
 					(at 0 0 90)
 					(length 0)
@@ -5836,7 +5836,7 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "power:+3V3"
+		(symbol "kart-medulla:3V3"
 			(power global)
 			(pin_numbers
 				(hide yes)
@@ -5862,7 +5862,7 @@
 					)
 				)
 			)
-			(property "Value" "+3V3"
+			(property "Value" "3V3"
 				(at 0 3.556 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -5908,7 +5908,7 @@
 					)
 				)
 			)
-			(symbol "+3V3_0_1"
+			(symbol "3V3_0_1"
 				(polyline
 					(pts
 						(xy -0.762 1.27) (xy 0 2.54)
@@ -5946,7 +5946,7 @@
 					)
 				)
 			)
-			(symbol "+3V3_1_1"
+			(symbol "3V3_1_1"
 				(pin power_in line
 					(at 0 0 90)
 					(length 0)
@@ -5968,7 +5968,7 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "power:GND"
+		(symbol "kart-medulla:GND"
 			(power global)
 			(pin_numbers
 				(hide yes)
@@ -9686,7 +9686,7 @@
 		(uuid "d767c710-c3e3-47c6-a086-c6255bd81e7b")
 	)
 	(symbol
-		(lib_id "power:+3V3")
+		(lib_id "kart-medulla:3V3")
 		(at 501.65 205.74 0)
 		(unit 1)
 		(body_style 1)
@@ -9709,7 +9709,7 @@
 				)
 			)
 		)
-		(property "Value" "+3V3"
+		(property "Value" "3V3"
 			(at 501.65 201.93 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9767,7 +9767,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:+3V3")
+		(lib_id "kart-medulla:3V3")
 		(at 311.15 45.72 270)
 		(unit 1)
 		(body_style 1)
@@ -9790,7 +9790,7 @@
 				)
 			)
 		)
-		(property "Value" "+3V3"
+		(property "Value" "3V3"
 			(at 311.15 41.91 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9848,7 +9848,7 @@
 		)
 	)
 	(symbol
-		(lib_id "gen:CAP")
+		(lib_id "kart-medulla:CAP")
 		(at 481.33 64.77 270)
 		(unit 1)
 		(body_style 1)
@@ -9930,7 +9930,7 @@
 		)
 	)
 	(symbol
-		(lib_id "gen:1990012")
+		(lib_id "kart-medulla:1990012")
 		(at 83.82 66.04 0)
 		(unit 1)
 		(body_style 1)
@@ -10016,7 +10016,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "kart-medulla:GND")
 		(at 359.41 292.1 90)
 		(unit 1)
 		(body_style 1)
@@ -10097,7 +10097,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "kart-medulla:GND")
 		(at 471.17 227.33 0)
 		(unit 1)
 		(body_style 1)
@@ -10178,7 +10178,7 @@
 		)
 	)
 	(symbol
-		(lib_id "gen:SN74LVC3G17DCTR")
+		(lib_id "kart-medulla:SN74LVC3G17DCTR")
 		(at 107.95 303.53 0)
 		(unit 1)
 		(body_style 1)
@@ -10279,7 +10279,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "kart-medulla:GND")
 		(at 463.55 210.82 90)
 		(unit 1)
 		(body_style 1)
@@ -10360,7 +10360,7 @@
 		)
 	)
 	(symbol
-		(lib_id "gen:Res")
+		(lib_id "kart-medulla:Res")
 		(at 242.57 222.25 270)
 		(unit 1)
 		(body_style 1)
@@ -10442,7 +10442,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:+12V")
+		(lib_id "kart-medulla:12V")
 		(at 481.33 59.69 0)
 		(unit 1)
 		(body_style 1)
@@ -10465,7 +10465,7 @@
 				)
 			)
 		)
-		(property "Value" "+12V"
+		(property "Value" "12V"
 			(at 481.33 55.88 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10523,7 +10523,7 @@
 		)
 	)
 	(symbol
-		(lib_id "gen:1990012")
+		(lib_id "kart-medulla:1990012")
 		(at 83.82 49.53 0)
 		(unit 1)
 		(body_style 1)
@@ -10609,7 +10609,7 @@
 		)
 	)
 	(symbol
-		(lib_id "gen:IRLZ44NPBF")
+		(lib_id "kart-medulla:IRLZ44NPBF")
 		(at 95.25 360.68 0)
 		(unit 1)
 		(body_style 1)
@@ -10695,7 +10695,7 @@
 		)
 	)
 	(symbol
-		(lib_id "gen:Res")
+		(lib_id "kart-medulla:Res")
 		(at 113.03 220.98 270)
 		(unit 1)
 		(body_style 1)
@@ -10777,7 +10777,7 @@
 		)
 	)
 	(symbol
-		(lib_id "gen:Res")
+		(lib_id "kart-medulla:Res")
 		(at 83.82 209.55 90)
 		(unit 1)
 		(body_style 1)
@@ -10859,7 +10859,7 @@
 		)
 	)
 	(symbol
-		(lib_id "gen:Res")
+		(lib_id "kart-medulla:Res")
 		(at 194.31 359.41 0)
 		(unit 1)
 		(body_style 1)
@@ -10941,7 +10941,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "kart-medulla:GND")
 		(at 375.92 232.41 0)
 		(unit 1)
 		(body_style 1)
@@ -11022,7 +11022,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:+3V3")
+		(lib_id "kart-medulla:3V3")
 		(at 525.78 212.09 90)
 		(unit 1)
 		(body_style 1)
@@ -11045,7 +11045,7 @@
 				)
 			)
 		)
-		(property "Value" "+3V3"
+		(property "Value" "3V3"
 			(at 525.78 208.28 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -11103,7 +11103,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:+5V_REG")
+		(lib_id "kart-medulla:+5V_REG")
 		(at 515.62 59.69 0)
 		(unit 1)
 		(body_style 1)
@@ -11184,7 +11184,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "kart-medulla:GND")
 		(at 209.55 227.33 0)
 		(unit 1)
 		(body_style 1)
@@ -11265,7 +11265,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "kart-medulla:GND")
 		(at 384.81 219.71 90)
 		(unit 1)
 		(body_style 1)
@@ -11346,7 +11346,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "kart-medulla:GND")
 		(at 97.79 374.65 0)
 		(unit 1)
 		(body_style 1)
@@ -11427,7 +11427,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:+12V")
+		(lib_id "kart-medulla:12V")
 		(at 106.68 81.28 270)
 		(unit 1)
 		(body_style 1)
@@ -11449,7 +11449,7 @@
 				)
 			)
 		)
-		(property "Value" "+12V"
+		(property "Value" "12V"
 			(at 102.362 80.01 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -11507,7 +11507,7 @@
 		)
 	)
 	(symbol
-		(lib_id "gen:1990012")
+		(lib_id "kart-medulla:1990012")
 		(at 205.74 81.28 0)
 		(unit 1)
 		(body_style 1)
@@ -11593,7 +11593,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "kart-medulla:GND")
 		(at 227.33 369.57 0)
 		(unit 1)
 		(body_style 1)
@@ -11674,7 +11674,7 @@
 		)
 	)
 	(symbol
-		(lib_id "gen:1990012")
+		(lib_id "kart-medulla:1990012")
 		(at 83.82 82.55 0)
 		(unit 1)
 		(body_style 1)
@@ -11760,7 +11760,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:+3V3")
+		(lib_id "kart-medulla:3V3")
 		(at 125.73 295.91 90)
 		(unit 1)
 		(body_style 1)
@@ -11783,7 +11783,7 @@
 				)
 			)
 		)
-		(property "Value" "+3V3"
+		(property "Value" "3V3"
 			(at 125.73 292.1 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -11841,7 +11841,7 @@
 		)
 	)
 	(symbol
-		(lib_id "gen:1k")
+		(lib_id "kart-medulla:1k")
 		(at 80.01 303.53 0)
 		(unit 1)
 		(body_style 1)
@@ -11925,7 +11925,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "kart-medulla:GND")
 		(at 254 298.45 270)
 		(unit 1)
 		(body_style 1)
@@ -12006,7 +12006,7 @@
 		)
 	)
 	(symbol
-		(lib_id "gen:Res")
+		(lib_id "kart-medulla:Res")
 		(at 516.89 213.36 0)
 		(unit 1)
 		(body_style 1)
@@ -12088,7 +12088,7 @@
 		)
 	)
 	(symbol
-		(lib_id "gen:MAX4660EUA_T")
+		(lib_id "kart-medulla:MAX4660EUA_T")
 		(at 393.7 218.44 0)
 		(unit 1)
 		(body_style 1)
@@ -12192,7 +12192,7 @@
 		)
 	)
 	(symbol
-		(lib_id "gen:Res")
+		(lib_id "kart-medulla:Res")
 		(at 83.82 220.98 270)
 		(unit 1)
 		(body_style 1)
@@ -12274,7 +12274,7 @@
 		)
 	)
 	(symbol
-		(lib_id "gen:PCF8574T_3_518")
+		(lib_id "kart-medulla:PCF8574T_3_518")
 		(at 486.41 217.17 0)
 		(unit 1)
 		(body_style 1)
@@ -12399,7 +12399,7 @@
 		)
 	)
 	(symbol
-		(lib_id "gen:Res")
+		(lib_id "kart-medulla:Res")
 		(at 113.03 236.22 270)
 		(unit 1)
 		(body_style 1)
@@ -12481,7 +12481,7 @@
 		)
 	)
 	(symbol
-		(lib_id "gen:CAP")
+		(lib_id "kart-medulla:CAP")
 		(at 529.59 67.31 270)
 		(unit 1)
 		(body_style 1)
@@ -12563,7 +12563,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "kart-medulla:GND")
 		(at 394.97 209.55 180)
 		(unit 1)
 		(body_style 1)
@@ -12644,7 +12644,7 @@
 		)
 	)
 	(symbol
-		(lib_id "gen:Res")
+		(lib_id "kart-medulla:Res")
 		(at 177.8 208.28 90)
 		(unit 1)
 		(body_style 1)
@@ -12726,7 +12726,7 @@
 		)
 	)
 	(symbol
-		(lib_id "gen:L7805CDT_C20611927")
+		(lib_id "kart-medulla:L7805CDT_C20611927")
 		(at 501.65 62.23 0)
 		(unit 1)
 		(body_style 1)
@@ -12812,7 +12812,7 @@
 		)
 	)
 	(symbol
-		(lib_id "gen:SSW-122-01-T-D")
+		(lib_id "kart-medulla:SSW-122-01-T-D")
 		(at 363.22 73.66 0)
 		(unit 1)
 		(body_style 1)
@@ -13021,7 +13021,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "kart-medulla:GND")
 		(at 54.61 243.84 0)
 		(unit 1)
 		(body_style 1)
@@ -13102,7 +13102,7 @@
 		)
 	)
 	(symbol
-		(lib_id "gen:GND")
+		(lib_id "kart-medulla:GND")
 		(at 125.73 311.15 270)
 		(unit 1)
 		(body_style 1)
@@ -13182,7 +13182,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:+3V3")
+		(lib_id "kart-medulla:3V3")
 		(at 313.69 48.26 270)
 		(unit 1)
 		(body_style 1)
@@ -13205,7 +13205,7 @@
 				)
 			)
 		)
-		(property "Value" "+3V3"
+		(property "Value" "3V3"
 			(at 313.69 44.45 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13263,7 +13263,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "kart-medulla:GND")
 		(at 83.82 243.84 0)
 		(unit 1)
 		(body_style 1)
@@ -13344,7 +13344,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "kart-medulla:GND")
 		(at 151.13 226.06 0)
 		(unit 1)
 		(body_style 1)
@@ -13425,7 +13425,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:+3V3")
+		(lib_id "kart-medulla:3V3")
 		(at 53.34 49.53 270)
 		(unit 1)
 		(body_style 1)
@@ -13447,7 +13447,7 @@
 				)
 			)
 		)
-		(property "Value" "+3V3"
+		(property "Value" "3V3"
 			(at 50.546 49.276 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13505,7 +13505,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "kart-medulla:GND")
 		(at 242.57 227.33 0)
 		(unit 1)
 		(body_style 1)
@@ -13586,7 +13586,7 @@
 		)
 	)
 	(symbol
-		(lib_id "gen:Res")
+		(lib_id "kart-medulla:Res")
 		(at 113.03 209.55 90)
 		(unit 1)
 		(body_style 1)
@@ -13668,7 +13668,7 @@
 		)
 	)
 	(symbol
-		(lib_id "gen:Res")
+		(lib_id "kart-medulla:Res")
 		(at 410.21 224.79 270)
 		(unit 1)
 		(body_style 1)
@@ -13750,7 +13750,7 @@
 		)
 	)
 	(symbol
-		(lib_id "gen:1990012")
+		(lib_id "kart-medulla:1990012")
 		(at 142.24 49.53 0)
 		(unit 1)
 		(body_style 1)
@@ -13836,7 +13836,7 @@
 		)
 	)
 	(symbol
-		(lib_id "gen:CAP")
+		(lib_id "kart-medulla:CAP")
 		(at 375.92 227.33 270)
 		(unit 1)
 		(body_style 1)
@@ -13918,7 +13918,7 @@
 		)
 	)
 	(symbol
-		(lib_id "gen:Res")
+		(lib_id "kart-medulla:Res")
 		(at 209.55 222.25 270)
 		(unit 1)
 		(body_style 1)
@@ -14000,7 +14000,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "kart-medulla:GND")
 		(at 514.35 205.74 270)
 		(unit 1)
 		(body_style 1)
@@ -14081,7 +14081,7 @@
 		)
 	)
 	(symbol
-		(lib_id "gen:Res")
+		(lib_id "kart-medulla:Res")
 		(at 54.61 220.98 270)
 		(unit 1)
 		(body_style 1)
@@ -14163,7 +14163,7 @@
 		)
 	)
 	(symbol
-		(lib_id "gen:Res")
+		(lib_id "kart-medulla:Res")
 		(at 54.61 236.22 270)
 		(unit 1)
 		(body_style 1)
@@ -14245,7 +14245,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "kart-medulla:GND")
 		(at 384.81 311.15 0)
 		(unit 1)
 		(body_style 1)
@@ -14326,7 +14326,7 @@
 		)
 	)
 	(symbol
-		(lib_id "gen:Res")
+		(lib_id "kart-medulla:Res")
 		(at 151.13 208.28 90)
 		(unit 1)
 		(body_style 1)
@@ -14408,7 +14408,7 @@
 		)
 	)
 	(symbol
-		(lib_id "gen:CAP")
+		(lib_id "kart-medulla:CAP")
 		(at 515.62 67.31 270)
 		(unit 1)
 		(body_style 1)
@@ -14490,7 +14490,7 @@
 		)
 	)
 	(symbol
-		(lib_id "gen:1990012")
+		(lib_id "kart-medulla:1990012")
 		(at 205.74 48.26 0)
 		(unit 1)
 		(body_style 1)
@@ -14576,7 +14576,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "kart-medulla:GND")
 		(at 113.03 243.84 0)
 		(unit 1)
 		(body_style 1)
@@ -14657,7 +14657,7 @@
 		)
 	)
 	(symbol
-		(lib_id "gen:CAP")
+		(lib_id "kart-medulla:CAP")
 		(at 509.27 205.74 0)
 		(unit 1)
 		(body_style 1)
@@ -14739,7 +14739,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "kart-medulla:GND")
 		(at 218.44 45.72 270)
 		(unit 1)
 		(body_style 1)
@@ -14820,7 +14820,7 @@
 		)
 	)
 	(symbol
-		(lib_id "gen:100nF")
+		(lib_id "kart-medulla:100nF")
 		(at 171.45 303.53 270)
 		(unit 1)
 		(body_style 1)
@@ -14902,7 +14902,7 @@
 		)
 	)
 	(symbol
-		(lib_id "gen:1990012")
+		(lib_id "kart-medulla:1990012")
 		(at 260.35 48.26 0)
 		(unit 1)
 		(body_style 1)
@@ -14988,7 +14988,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:+5V_USB")
+		(lib_id "kart-medulla:+5V_USB")
 		(at 313.69 96.52 270)
 		(unit 1)
 		(body_style 1)
@@ -15069,7 +15069,7 @@
 		)
 	)
 	(symbol
-		(lib_id "gen:Res")
+		(lib_id "kart-medulla:Res")
 		(at 81.28 360.68 180)
 		(unit 1)
 		(body_style 1)
@@ -15151,7 +15151,7 @@
 		)
 	)
 	(symbol
-		(lib_id "gen:Res")
+		(lib_id "kart-medulla:Res")
 		(at 177.8 220.98 270)
 		(unit 1)
 		(body_style 1)
@@ -15233,7 +15233,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "kart-medulla:GND")
 		(at 481.33 72.39 0)
 		(unit 1)
 		(body_style 1)
@@ -15314,7 +15314,7 @@
 		)
 	)
 	(symbol
-		(lib_id "gen:1k")
+		(lib_id "kart-medulla:1k")
 		(at 81.28 298.45 0)
 		(unit 1)
 		(body_style 1)
@@ -15398,7 +15398,7 @@
 		)
 	)
 	(symbol
-		(lib_id "gen:Res")
+		(lib_id "kart-medulla:Res")
 		(at 383.54 292.1 180)
 		(unit 1)
 		(body_style 1)
@@ -15480,7 +15480,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "kart-medulla:GND")
 		(at 410.21 229.87 0)
 		(unit 1)
 		(body_style 1)
@@ -15561,7 +15561,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "kart-medulla:GND")
 		(at 515.62 72.39 0)
 		(unit 1)
 		(body_style 1)
@@ -15642,7 +15642,7 @@
 		)
 	)
 	(symbol
-		(lib_id "gen:Res")
+		(lib_id "kart-medulla:Res")
 		(at 516.89 210.82 0)
 		(unit 1)
 		(body_style 1)
@@ -15724,7 +15724,7 @@
 		)
 	)
 	(symbol
-		(lib_id "gen:Res")
+		(lib_id "kart-medulla:Res")
 		(at 83.82 236.22 270)
 		(unit 1)
 		(body_style 1)
@@ -15806,7 +15806,7 @@
 		)
 	)
 	(symbol
-		(lib_id "gen:1990012")
+		(lib_id "kart-medulla:1990012")
 		(at 142.24 81.28 0)
 		(unit 1)
 		(body_style 1)
@@ -15892,7 +15892,7 @@
 		)
 	)
 	(symbol
-		(lib_id "gen:BSS123_C5184436")
+		(lib_id "kart-medulla:BSS123_C5184436")
 		(at 224.79 361.95 0)
 		(unit 1)
 		(body_style 1)
@@ -15978,7 +15978,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "kart-medulla:GND")
 		(at 212.09 382.27 0)
 		(unit 1)
 		(body_style 1)
@@ -16059,7 +16059,7 @@
 		)
 	)
 	(symbol
-		(lib_id "gen:1k")
+		(lib_id "kart-medulla:1k")
 		(at 80.01 308.61 0)
 		(unit 1)
 		(body_style 1)
@@ -16143,7 +16143,7 @@
 		)
 	)
 	(symbol
-		(lib_id "gen:LM358DR")
+		(lib_id "kart-medulla:LM358DR")
 		(at 384.81 306.07 0)
 		(unit 1)
 		(body_style 1)
@@ -16244,7 +16244,7 @@
 		)
 	)
 	(symbol
-		(lib_id "gen:MCP4922-E_SL")
+		(lib_id "kart-medulla:MCP4922-E_SL")
 		(at 267.97 299.72 0)
 		(unit 1)
 		(body_style 1)
@@ -16363,7 +16363,7 @@
 		)
 	)
 	(symbol
-		(lib_id "gen:Res")
+		(lib_id "kart-medulla:Res")
 		(at 365.76 292.1 0)
 		(unit 1)
 		(body_style 1)
@@ -16445,7 +16445,7 @@
 		)
 	)
 	(symbol
-		(lib_id "gen:SSW-122-01-T-S")
+		(lib_id "kart-medulla:SSW-122-01-T-S")
 		(at 384.81 72.39 180)
 		(unit 1)
 		(body_style 1)
@@ -16587,7 +16587,7 @@
 		)
 	)
 	(symbol
-		(lib_id "gen:Res")
+		(lib_id "kart-medulla:Res")
 		(at 209.55 209.55 90)
 		(unit 1)
 		(body_style 1)
@@ -16669,7 +16669,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:+12V")
+		(lib_id "kart-medulla:12V")
 		(at 384.81 300.99 0)
 		(unit 1)
 		(body_style 1)
@@ -16692,7 +16692,7 @@
 				)
 			)
 		)
-		(property "Value" "+12V"
+		(property "Value" "12V"
 			(at 384.81 297.18 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -16750,7 +16750,7 @@
 		)
 	)
 	(symbol
-		(lib_id "gen:Res")
+		(lib_id "kart-medulla:Res")
 		(at 92.71 369.57 180)
 		(unit 1)
 		(body_style 1)
@@ -16832,7 +16832,7 @@
 		)
 	)
 	(symbol
-		(lib_id "gen:1990012")
+		(lib_id "kart-medulla:1990012")
 		(at 142.24 64.77 0)
 		(unit 1)
 		(body_style 1)
@@ -16918,7 +16918,7 @@
 		)
 	)
 	(symbol
-		(lib_id "gen:Res")
+		(lib_id "kart-medulla:Res")
 		(at 151.13 220.98 270)
 		(unit 1)
 		(body_style 1)
@@ -17000,7 +17000,7 @@
 		)
 	)
 	(symbol
-		(lib_id "gen:1990012")
+		(lib_id "kart-medulla:1990012")
 		(at 205.74 64.77 0)
 		(unit 1)
 		(body_style 1)
@@ -17086,7 +17086,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "kart-medulla:GND")
 		(at 405.13 217.17 270)
 		(unit 1)
 		(body_style 1)
@@ -17167,7 +17167,7 @@
 		)
 	)
 	(symbol
-		(lib_id "gen:Res")
+		(lib_id "kart-medulla:Res")
 		(at 242.57 209.55 90)
 		(unit 1)
 		(body_style 1)
@@ -17249,7 +17249,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "kart-medulla:GND")
 		(at 292.1 313.69 90)
 		(unit 1)
 		(body_style 1)
@@ -17330,7 +17330,7 @@
 		)
 	)
 	(symbol
-		(lib_id "gen:Res")
+		(lib_id "kart-medulla:Res")
 		(at 54.61 209.55 90)
 		(unit 1)
 		(body_style 1)
@@ -17412,7 +17412,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
+		(lib_id "kart-medulla:GND")
 		(at 177.8 226.06 0)
 		(unit 1)
 		(body_style 1)
@@ -17493,7 +17493,7 @@
 		)
 	)
 	(symbol
-		(lib_id "gen:Res")
+		(lib_id "kart-medulla:Res")
 		(at 212.09 369.57 270)
 		(unit 1)
 		(body_style 1)
