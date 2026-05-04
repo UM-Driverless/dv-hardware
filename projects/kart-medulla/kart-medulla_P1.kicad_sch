@@ -187,7 +187,7 @@
 						(type none)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at -5.08 0 0)
 					(length 2.54)
 					(name "1"
@@ -205,7 +205,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at 5.08 0 180)
 					(length 2.54)
 					(name "2"
@@ -361,7 +361,7 @@
 						(type none)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at -5.08 2.54 0)
 					(length 2.54)
 					(name "1"
@@ -379,7 +379,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at -5.08 0 0)
 					(length 2.54)
 					(name "2"
@@ -397,7 +397,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at -5.08 -2.54 0)
 					(length 2.54)
 					(name "3"
@@ -633,7 +633,7 @@
 						(type none)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at -5.08 0 0)
 					(length 1.27)
 					(name "1"
@@ -651,7 +651,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at 5.08 0 180)
 					(length 1.27)
 					(name "2"
@@ -999,7 +999,7 @@
 						(type none)
 					)
 				)
-				(pin unspecified line
+				(pin input line
 					(at -7.62 2.54 0)
 					(length 2.032)
 					(name "G"
@@ -1017,7 +1017,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at 2.54 -5.08 90)
 					(length 2.54)
 					(name "S"
@@ -1035,7 +1035,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at 2.54 7.62 270)
 					(length 2.54)
 					(name "D"
@@ -1235,7 +1235,7 @@
 						(type none)
 					)
 				)
-				(pin input line
+				(pin passive line
 					(at 5.08 0 180)
 					(length 2.54)
 					(name "1"
@@ -1253,7 +1253,7 @@
 						)
 					)
 				)
-				(pin input line
+				(pin passive line
 					(at -5.08 0 0)
 					(length 2.54)
 					(name "2"
@@ -1753,7 +1753,7 @@
 						(type none)
 					)
 				)
-				(pin unspecified line
+				(pin input line
 					(at -5.08 0 0)
 					(length 2.54)
 					(name "G"
@@ -1771,7 +1771,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at 2.54 5.08 270)
 					(length 2.54)
 					(name "D"
@@ -1789,7 +1789,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at 2.54 -5.08 90)
 					(length 2.54)
 					(name "S"
@@ -1945,7 +1945,7 @@
 						(type none)
 					)
 				)
-				(pin unspecified line
+				(pin power_in line
 					(at -7.62 0 0)
 					(length 2.54)
 					(name "IN"
@@ -1963,7 +1963,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin power_in line
 					(at -7.62 -2.54 0)
 					(length 2.54)
 					(name "GND"
@@ -1981,7 +1981,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin power_out line
 					(at 10.16 0 180)
 					(length 2.54)
 					(name "OUT"
@@ -2484,7 +2484,7 @@
 						(type none)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at -8.89 3.81 0)
 					(length 2.54)
 					(name "COM"
@@ -2502,7 +2502,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin no_connect line
 					(at -8.89 1.27 0)
 					(length 2.54)
 					(name "NC"
@@ -2520,7 +2520,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin power_in line
 					(at -8.89 -1.27 0)
 					(length 2.54)
 					(name "GND"
@@ -2538,7 +2538,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin power_in line
 					(at -8.89 -3.81 0)
 					(length 2.54)
 					(name "V+"
@@ -2556,7 +2556,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin no_connect line
 					(at 11.43 -3.81 180)
 					(length 2.54)
 					(name "NC"
@@ -2574,7 +2574,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin input line
 					(at 11.43 -1.27 180)
 					(length 2.54)
 					(name "IN"
@@ -2592,7 +2592,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin power_in line
 					(at 11.43 1.27 180)
 					(length 2.54)
 					(name "V-"
@@ -2610,7 +2610,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at 11.43 3.81 180)
 					(length 2.54)
 					(name "NO"
@@ -2628,7 +2628,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at 1.27 8.89 270)
 					(length 2.54)
 					(name "EP"
@@ -2844,7 +2844,7 @@
 						(type none)
 					)
 				)
-				(pin input line
+				(pin power_in line
 					(at -13.97 -13.97 0)
 					(length 5.08)
 					(name "VDD"
@@ -2862,7 +2862,7 @@
 						)
 					)
 				)
-				(pin input line
+				(pin no_connect line
 					(at 13.97 -3.81 180)
 					(length 5.08)
 					(name "NC"
@@ -2934,7 +2934,7 @@
 						)
 					)
 				)
-				(pin input line
+				(pin no_connect line
 					(at 13.97 -6.35 180)
 					(length 5.08)
 					(name "NC"
@@ -2952,7 +2952,7 @@
 						)
 					)
 				)
-				(pin input line
+				(pin no_connect line
 					(at 13.97 -8.89 180)
 					(length 5.08)
 					(name "NC"
@@ -3042,7 +3042,7 @@
 						)
 					)
 				)
-				(pin input line
+				(pin power_in line
 					(at 13.97 -13.97 180)
 					(length 5.08)
 					(name "VSS"
@@ -3234,7 +3234,7 @@
 						(type none)
 					)
 				)
-				(pin unspecified line
+				(pin input line
 					(at -12.7 8.89 0)
 					(length 5.08)
 					(name "A0"
@@ -3252,7 +3252,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin input line
 					(at -12.7 6.35 0)
 					(length 5.08)
 					(name "A1"
@@ -3270,7 +3270,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin input line
 					(at -12.7 3.81 0)
 					(length 5.08)
 					(name "A2"
@@ -3288,7 +3288,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin bidirectional line
 					(at -12.7 1.27 0)
 					(length 5.08)
 					(name "P0"
@@ -3306,7 +3306,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin bidirectional line
 					(at -12.7 -1.27 0)
 					(length 5.08)
 					(name "P1"
@@ -3324,7 +3324,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin bidirectional line
 					(at -12.7 -3.81 0)
 					(length 5.08)
 					(name "P2"
@@ -3342,7 +3342,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin bidirectional line
 					(at -12.7 -6.35 0)
 					(length 5.08)
 					(name "P3"
@@ -3360,7 +3360,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin power_in line
 					(at -12.7 -8.89 0)
 					(length 5.08)
 					(name "VSS"
@@ -3378,7 +3378,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin bidirectional line
 					(at 12.7 -8.89 180)
 					(length 5.08)
 					(name "P4"
@@ -3396,7 +3396,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin bidirectional line
 					(at 12.7 -6.35 180)
 					(length 5.08)
 					(name "P5"
@@ -3414,7 +3414,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin bidirectional line
 					(at 12.7 -3.81 180)
 					(length 5.08)
 					(name "P6"
@@ -3432,7 +3432,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin bidirectional line
 					(at 12.7 -1.27 180)
 					(length 5.08)
 					(name "P7"
@@ -3450,7 +3450,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin open_collector line
 					(at 12.7 1.27 180)
 					(length 5.08)
 					(name "INT#"
@@ -3468,7 +3468,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin input line
 					(at 12.7 3.81 180)
 					(length 5.08)
 					(name "SCL"
@@ -3486,7 +3486,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin bidirectional line
 					(at 12.7 6.35 180)
 					(length 5.08)
 					(name "SDA"
@@ -3504,7 +3504,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin power_in line
 					(at 12.7 8.89 180)
 					(length 5.08)
 					(name "VDD"
@@ -3655,7 +3655,7 @@
 						(type none)
 					)
 				)
-				(pin input line
+				(pin passive line
 					(at -5.08 0 0)
 					(length 2.54)
 					(name "1"
@@ -3673,7 +3673,7 @@
 						)
 					)
 				)
-				(pin input line
+				(pin passive line
 					(at 5.08 0 180)
 					(length 2.54)
 					(name "2"
@@ -4111,7 +4111,7 @@
 						(type none)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at -7.62 27.94 0)
 					(length 2.54)
 					(name "1"
@@ -4129,7 +4129,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at 7.62 27.94 180)
 					(length 2.54)
 					(name "2"
@@ -4147,7 +4147,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at -7.62 25.4 0)
 					(length 2.54)
 					(name "3"
@@ -4165,7 +4165,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at 7.62 25.4 180)
 					(length 2.54)
 					(name "4"
@@ -4183,7 +4183,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at -7.62 22.86 0)
 					(length 2.54)
 					(name "5"
@@ -4201,7 +4201,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at 7.62 22.86 180)
 					(length 2.54)
 					(name "6"
@@ -4219,7 +4219,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at -7.62 20.32 0)
 					(length 2.54)
 					(name "7"
@@ -4237,7 +4237,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at 7.62 20.32 180)
 					(length 2.54)
 					(name "8"
@@ -4255,7 +4255,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at -7.62 17.78 0)
 					(length 2.54)
 					(name "9"
@@ -4273,7 +4273,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at 7.62 17.78 180)
 					(length 2.54)
 					(name "10"
@@ -4291,7 +4291,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at -7.62 15.24 0)
 					(length 2.54)
 					(name "11"
@@ -4309,7 +4309,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at 7.62 15.24 180)
 					(length 2.54)
 					(name "12"
@@ -4327,7 +4327,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at -7.62 12.7 0)
 					(length 2.54)
 					(name "13"
@@ -4345,7 +4345,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at 7.62 12.7 180)
 					(length 2.54)
 					(name "14"
@@ -4363,7 +4363,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at -7.62 10.16 0)
 					(length 2.54)
 					(name "15"
@@ -4381,7 +4381,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at 7.62 10.16 180)
 					(length 2.54)
 					(name "16"
@@ -4399,7 +4399,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at -7.62 7.62 0)
 					(length 2.54)
 					(name "17"
@@ -4417,7 +4417,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at 7.62 7.62 180)
 					(length 2.54)
 					(name "18"
@@ -4435,7 +4435,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at -7.62 5.08 0)
 					(length 2.54)
 					(name "19"
@@ -4453,7 +4453,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at 7.62 5.08 180)
 					(length 2.54)
 					(name "20"
@@ -4471,7 +4471,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at -7.62 2.54 0)
 					(length 2.54)
 					(name "21"
@@ -4489,7 +4489,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at 7.62 2.54 180)
 					(length 2.54)
 					(name "22"
@@ -4507,7 +4507,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at -7.62 0 0)
 					(length 2.54)
 					(name "23"
@@ -4525,7 +4525,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at 7.62 0 180)
 					(length 2.54)
 					(name "24"
@@ -4543,7 +4543,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at -7.62 -2.54 0)
 					(length 2.54)
 					(name "25"
@@ -4561,7 +4561,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at 7.62 -2.54 180)
 					(length 2.54)
 					(name "26"
@@ -4579,7 +4579,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at -7.62 -5.08 0)
 					(length 2.54)
 					(name "27"
@@ -4597,7 +4597,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at 7.62 -5.08 180)
 					(length 2.54)
 					(name "28"
@@ -4615,7 +4615,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at -7.62 -7.62 0)
 					(length 2.54)
 					(name "29"
@@ -4633,7 +4633,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at 7.62 -7.62 180)
 					(length 2.54)
 					(name "30"
@@ -4651,7 +4651,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at -7.62 -10.16 0)
 					(length 2.54)
 					(name "31"
@@ -4669,7 +4669,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at 7.62 -10.16 180)
 					(length 2.54)
 					(name "32"
@@ -4687,7 +4687,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at -7.62 -12.7 0)
 					(length 2.54)
 					(name "33"
@@ -4705,7 +4705,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at 7.62 -12.7 180)
 					(length 2.54)
 					(name "34"
@@ -4723,7 +4723,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at -7.62 -15.24 0)
 					(length 2.54)
 					(name "35"
@@ -4741,7 +4741,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at 7.62 -15.24 180)
 					(length 2.54)
 					(name "36"
@@ -4759,7 +4759,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at -7.62 -17.78 0)
 					(length 2.54)
 					(name "37"
@@ -4777,7 +4777,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at 7.62 -17.78 180)
 					(length 2.54)
 					(name "38"
@@ -4795,7 +4795,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at -7.62 -20.32 0)
 					(length 2.54)
 					(name "39"
@@ -4813,7 +4813,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at 7.62 -20.32 180)
 					(length 2.54)
 					(name "40"
@@ -4831,7 +4831,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at -7.62 -22.86 0)
 					(length 2.54)
 					(name "41"
@@ -4849,7 +4849,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at 7.62 -22.86 180)
 					(length 2.54)
 					(name "42"
@@ -4867,7 +4867,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at -7.62 -25.4 0)
 					(length 2.54)
 					(name "43"
@@ -4885,7 +4885,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at 7.62 -25.4 180)
 					(length 2.54)
 					(name "44"
@@ -5041,7 +5041,7 @@
 						(type none)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at -5.08 26.67 0)
 					(length 2.54)
 					(name "1"
@@ -5059,7 +5059,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at -5.08 24.13 0)
 					(length 2.54)
 					(name "2"
@@ -5077,7 +5077,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at -5.08 21.59 0)
 					(length 2.54)
 					(name "3"
@@ -5095,7 +5095,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at -5.08 19.05 0)
 					(length 2.54)
 					(name "4"
@@ -5113,7 +5113,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at -5.08 16.51 0)
 					(length 2.54)
 					(name "5"
@@ -5131,7 +5131,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at -5.08 13.97 0)
 					(length 2.54)
 					(name "6"
@@ -5149,7 +5149,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at -5.08 11.43 0)
 					(length 2.54)
 					(name "7"
@@ -5167,7 +5167,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at -5.08 8.89 0)
 					(length 2.54)
 					(name "8"
@@ -5185,7 +5185,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at -5.08 6.35 0)
 					(length 2.54)
 					(name "9"
@@ -5203,7 +5203,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at -5.08 3.81 0)
 					(length 2.54)
 					(name "10"
@@ -5221,7 +5221,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at -5.08 1.27 0)
 					(length 2.54)
 					(name "11"
@@ -5239,7 +5239,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at -5.08 -1.27 0)
 					(length 2.54)
 					(name "12"
@@ -5257,7 +5257,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at -5.08 -3.81 0)
 					(length 2.54)
 					(name "13"
@@ -5275,7 +5275,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at -5.08 -6.35 0)
 					(length 2.54)
 					(name "14"
@@ -5293,7 +5293,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at -5.08 -8.89 0)
 					(length 2.54)
 					(name "15"
@@ -5311,7 +5311,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at -5.08 -11.43 0)
 					(length 2.54)
 					(name "16"
@@ -5329,7 +5329,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at -5.08 -13.97 0)
 					(length 2.54)
 					(name "17"
@@ -5347,7 +5347,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at -5.08 -16.51 0)
 					(length 2.54)
 					(name "18"
@@ -5365,7 +5365,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at -5.08 -19.05 0)
 					(length 2.54)
 					(name "19"
@@ -5383,7 +5383,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at -5.08 -21.59 0)
 					(length 2.54)
 					(name "20"
@@ -5401,7 +5401,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at -5.08 -24.13 0)
 					(length 2.54)
 					(name "21"
@@ -5419,7 +5419,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at -5.08 -26.67 0)
 					(length 2.54)
 					(name "22"
