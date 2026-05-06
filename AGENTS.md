@@ -1,6 +1,6 @@
 # dv-hardware
 
-KiCad hardware projects for the U-Motorsport Driverless section (URJC Formula Student). Pairs with [kart_medulla](https://github.com/UM-Driverless/kart_medulla) firmware.
+KiCad hardware projects for the U-Motorsport Driverless section (URJC Formula Student). Pairs with [kart-medulla](https://github.com/UM-Driverless/kart-medulla) firmware.
 
 ## Layout
 ```
@@ -29,7 +29,7 @@ docs/                           cross-board notes (fab process, KiCad setup, lib
 - Rule of thumb: *would another board's designer read this?* → shared. *Only meaningful for this PCB?* → project folder.
 
 ## Conventions
-- Naming: kebab-case for repos, folders, and project files (`kart-medulla`, not `kart_medulla` or `KartMedulla`). Matches verbal team usage (`kart-brain`, `kart-medulla`).
+- Naming: kebab-case for repos, folders, and project files (`kart-medulla`, not `kart-medulla` or `KartMedulla`). Matches verbal team usage (`kart-brain`, `kart-medulla`).
 - One project folder per board under `projects/`. Board name = folder name = `.kicad_pro` basename.
 - EasyEDA source exports archived under `projects/<board>/easyeda-source/` for diff history. Never edit those — they're an audit trail.
 - One person per board at a time. Coordinate in chat. KiCad files are text but not line-mergeable — concurrent edits to the same `.kicad_pcb` produce silently broken board files.
@@ -47,8 +47,8 @@ docs/                           cross-board notes (fab process, KiCad setup, lib
 - `.agents/error-log.md` — mistakes made + prevention rules. Grep before working in a related area, especially after a correction.
 
 ## Pairing with firmware
-Match-tagged. Hardware rev `medulla-v1.2` here pairs with firmware tag `medulla-v1.2-fw` in `kart_medulla`. Cross-link in both READMEs at release time.
+Match-tagged. Hardware rev `medulla-v1.2` here pairs with firmware tag `medulla-v1.2-fw` in `kart-medulla`. Cross-link in both READMEs at release time.
 
 ## Sister repos — consult before asking the user about kart facts
 - `~/repos/kart-docs` — single source of truth for kart-level documentation: sensor part numbers, wiring conventions, voltage rails, mechanical dimensions, vendor links, datasheet pointers. **Look here first** for any "what part is X / what voltage does Y use / how is Z mounted" question instead of asking the user.
-- `~/repos/kart_medulla` — firmware paired with this hardware. Pin assignments, I2C addresses, firmware logic.
+- `~/repos/kart-medulla` — firmware paired with this hardware. Pin assignments, I2C addresses, firmware logic.

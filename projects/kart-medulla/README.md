@@ -1,6 +1,6 @@
 # kart-medulla
 
-PCB pairs with the firmware in [UM-Driverless/kart_medulla](https://github.com/UM-Driverless/kart_medulla).
+PCB pairs with the firmware in [UM-Driverless/kart-medulla](https://github.com/UM-Driverless/kart-medulla).
 
 Originally called "ESP32 Expander" in EasyEDA (Jan 2026), renamed to "Kart Medulla (expander for ESP 32)" in May 2026. Both EasyEDA exports kept under `easyeda-source/` for diff history.
 

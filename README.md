@@ -2,7 +2,7 @@
 
 Hardware (KiCad) projects for the Driverless section of U-Motorsport (URJC Formula Student).
 
-Firmware lives in [UM-Driverless/kart_medulla](https://github.com/UM-Driverless/kart_medulla). Pair board revisions with firmware releases via matching git tags (e.g. `medulla-v1.2` here, `medulla-v1.2-fw` there).
+Firmware lives in [UM-Driverless/kart-medulla](https://github.com/UM-Driverless/kart-medulla). Pair board revisions with firmware releases via matching git tags (e.g. `medulla-v1.2` here, `medulla-v1.2-fw` there).
 
 ## Layout
 ```

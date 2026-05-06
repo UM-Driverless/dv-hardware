@@ -4,6 +4,12 @@
 
 Append-only log. Newest first.
 
+## 2026-05-04 — `unconnected_wire_endpoint` requires terminating the wire's geometric endpoint, not just the net
+
+A label sitting *mid-wire* still connects the label's net to the wire (KiCad uses the label's `(at)` point, not the wire's ends, for net assignment). But the wire's geometric endpoints are a separate ERC concern: if a wire endpoint sits in empty space — not on a pin, not at a label's `(at)` point, not at another wire/junction — ERC fires `unconnected_wire_endpoint` even though the net is logically named. Place labels at the wire endpoint (or shorten the wire to end at the label) so the geometry and the electrical termination coincide.
+
+Mental model: ERC checks two things separately. (1) Does the *net* have at least the right kind of pins on it? (2) Does each *wire* have its endpoints terminated by something that "anchors" it (pin, label, junction, other wire)? Mid-wire labels satisfy (1) but not (2).
+
 ## 2026-05-04 — KiCad no_connect marker semantics (corrected)
 
 The `(no_connect)` flag (the small "X" placed on a pin in the schematic editor) means **"the designer intentionally chose not to wire this pin to anything external on this board"**. It silences ERC's `pin_not_connected` warning by declaring the omission deliberate.
@@ -87,7 +93,7 @@ Items 2 and 3 must match. KiCad uses the instance-path reference (item 3) for di
 - For single-sheet projects, `INSTANCE/` is empty — instances are inline in the `.esch`/`.epcb`.
 
 **Naming + repo decisions:**
-- Project folder named `kart-medulla` (matches `kart_medulla` firmware repo modulo case, and team verbal usage — `kart-brain` / `kart-medulla`).
+- Project folder named `kart-medulla` (matches `kart-medulla` firmware repo modulo case, and team verbal usage — `kart-brain` / `kart-medulla`).
 - Single monorepo (`dv-hardware`) for all KiCad projects rather than per-project repos. Reasons: shared `lib/`, single onboarding clone, atomic cross-board changes, repo size is small (KiCad files are KB/MB).
 - Visibility: **public** (matches existing UM-Driverless `kart_*` and `driverless` repos).
 - Naming case: **kebab-case** chosen as team standard. Searched org for documented snake_case rule — none exists (the `kart_*` snake_case is just de facto from older repos).
