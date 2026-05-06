@@ -30,6 +30,6 @@ I treated (1) as if it implied (2), which led me to advise the user that NC was 
 - When asked about `no_connect` / NC markers in any KiCad context, the default answer is: **"It declares the designer intentionally left this pin externally unconnected on this board, and silences ERC's pin_not_connected warning. That's it."**
 - Do not introduce silicon-level claims unless the user explicitly asks about manufacturer NC pads.
 - For unused op-amp halves specifically: NC markers are valid AND tie-back wiring is the better analog practice. Present both, don't dismiss NC as "wrong."
-- Cross-reference: `.agents/history.md` 2026-05-04 entry has the docs quote and the correction.
+- Cross-reference: `history.md` 2026-05-04 entry has the docs quote and the correction.
 
 **Verification:** KiCad master docs, eeschema chapter — "No-connection flags are used to indicate that a pin is intentionally unconnected. These flags prevent 'unconnected pin' ERC warnings for pins that are intentionally unconnected." (https://docs.kicad.org/master/en/eeschema/eeschema.html)
