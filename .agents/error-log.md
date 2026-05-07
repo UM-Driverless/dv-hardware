@@ -4,6 +4,16 @@
 
 Mistakes made and the rules learned from them. Newest first. Grep before working in a related area.
 
+## 2026-05-07 — Edited KiCad files while KiCad had them open; auto-save reverted my changes
+
+**What happened:** Edited `kart-medulla_P1.kicad_sch` to fix the U14 cached symbol pin 2 type, footprint property, datasheet URL, and a wire endpoint. Committed and pushed (ded1933). Later in the session, the user installed the KiCad MCP server and asked me to verify the symbol via MCP. When I queried via MCP, U14 showed the OLD footprint (`UMAX-8_…`) — not my fix. Investigation showed all four edits were silently reverted in the working tree: KiCad must have been open with a stale in-memory copy of the schematic; some action (MCP attach, file-watch, autosave) caused KiCad to flush its in-memory state to disk, overwriting the committed-correct file. Discovered only because the MCP showed the old footprint string. The library file (`kart-medulla.kicad_sym`) was not affected because KiCad didn't have it open in the symbol editor.
+
+**Recovery:** `git checkout HEAD -- projects/kart-medulla/kart-medulla_P1.kicad_sch` restored the committed-correct version. ERC clean, no re-edit needed.
+
+**Prevention rule:** **Before editing any `.kicad_sch`, `.kicad_pcb`, or `.kicad_sym` file from outside KiCad, confirm KiCad is closed.** If a session has been long, the user may have opened KiCad without saying so. Ask, or check via `pgrep -i kicad` / `osascript -e 'tell app "KiCad" to running'`. After committing KiCad-file changes, also re-verify the on-disk content matches the commit before claiming the work is done — KiCad-stale-save can revert silently between commit and the next interaction.
+
+**Also:** When verifying via a separate tool (MCP, kicad-cli, manual grep) shows different content than expected after a "successful" edit+commit, **the file may have been clobbered post-commit** — check `git diff HEAD` before assuming the verification tool is wrong.
+
 ## 2026-05-07 — Built a "scary catastrophe" finding from an unverified WebSearch snippet
 
 **What happened:** When evaluating the MAX4660 (U14) symbol, I asked WebSearch for the datasheet pinout. The result included a fragment "`IN N.C. V+ 1 2 8 7 NO V- NC GND COM TOP VIEW 3 4 6 5`" — a position-list snippet from the datasheet caption — which the search model interpreted as `1=IN 2=N.C. 3=GND 4=COM 5=NC 6=V- 7=NO 8=V+`. I took that as verified ground truth and produced a detailed "everything is wired wrong, this would damage the chip" table comparing it to the project's symbol. When the user later downloaded the SnapEDA-verified symbol, its pin numbers matched the project's original (`1=COM 2=NC 3=GND 4=V+ 5=NC 6=IN 7=V- 8=NO`) — meaning my "verified pinout" was a misdecoded snippet and the alarm was false.
