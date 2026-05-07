@@ -1,0 +1,345 @@
+# ESP32-S3 (WROOM-1-N8R2) — current PCB
+
+Status legend:
+  RESERVED      — do not use, hard-reserved (flash/SDIO/strap/protocol)
+  SPARE         — routed to a header but unassigned; usable as last resort
+  SPARE/<sig>   — assigned to a non-critical signal but the pin is still considered
+                  SPARE for cross-module-variant compatibility: on N8R2 (current
+                  module) the signal is wired and active; on N8R8 the GPIO is
+                  internally reserved by octal PSRAM, so the assigned function
+                  must be sacrificed if/when migrating to N8R8. The SPARE prefix
+                  is a reminder that this signal is droppable.
+  NC            — pin physically not connected to anything on the PCB
+  (others)      — assigned signal, critical (cannot be dropped)
+
+Each row's Notes column gives a brief reason for SPARE / RESERVED / SPARE/<sig>.
+
+Column meanings:
+  Pin        — physical-position index for the module, treated like an IC:
+               bottom-right pin is **1**, count counter-clockwise around the
+               ESP32-S3 dev board (component side, USB-C at the top).
+                 Pins 1–22  = right edge, bottom (Pin 1) to top (Pin 22).
+                 Pins 23–44 = left edge, top (Pin 23) to bottom (Pin 44).
+               This is the canonical way to refer to a contact in
+               conversation, on a multimeter probe, or in assembly notes.
+               **Always use Pin (1–44).** Never use the schematic-symbol pin
+               numbers from EasyEDA's connector parts — those are different
+               (see "Schematic-symbol pin mapping" below for translation).
+  Silkscreen — what's printed on the dev board next to that pin. Espressif
+               labels GPIOs by their bare GPIO number (e.g. `4`, `15`, `46`)
+               and adds short labels for special pins (`GND`, `3V3`, `5V`,
+               `EN`, `TX`, `RX`). Useful when probing or hand-soldering.
+  GPIO       — Espressif GPIO number (the one you use in firmware). Some
+               pins are pure power/reset and have no GPIO.
+  Signal     — net name on the schematic (see "Net Name Nomenclature" in README.md).
+  Type       — peripheral / electrical role (ADC1_CHx, SPI, UART, Power, etc.).
+
+Three references for the same physical contact:
+  - "Where is it on the dev board physically?" → Pin
+  - "What's printed on the board next to it?"  → Silkscreen
+  - "What do I write in code?"                 → GPIO
+
+## Schematic-symbol pin mapping
+
+The medulla schematic uses two connector symbols:
+
+- **RIGHT_HEADER** (on the right of the schematic, single row, 22 pins):
+  the symbol's pin numbers map 1:1 to our Pin numbering. Symbol pin N = Pin N
+  (for N = 1..22).
+- **LEFT_HEADER** (on the left of the schematic, dual-row stacked, 44 contact
+  pads but only 22 unique nets — each row is shorted between its two physical
+  pads for daughterboard pass-through): symbol pins (1, 2) carry one signal,
+  (3, 4) the next, etc. Each row maps to one Pin: row k → Pin (22 + k).
+  - Symbol pin 1 (and 2) → Pin 23
+  - Symbol pin 3 (and 4) → Pin 24
+  - …
+  - Symbol pin 43 (and 44) → Pin 44
+
+(The PCB-header numbering H1.x / H2.x existed in earlier revisions of this
+doc but was removed on 2026-05-02 — see `history.md`.)
+
+Note on octal PSRAM pins (GPIO 33-37): the N8R2 module uses quad PSRAM so
+these pins are available externally. The N8R8 module uses octal PSRAM and
+GPIO 33-37 are internally reserved. The board is laid out so it accepts
+either module — GPIO 35-37 are kept as SPARE on the headers, no signal is
+routed to them. See history.md (2026-04-29) for rationale.
+
+## Dev-board compatibility checklist (when buying a non-Espressif S3 board)
+
+The pinout above targets the bare ESP32-S3-WROOM-1 module. Generic dev
+boards (AliExpress clones, etc.) usually carry the same module on a
+breakout PCB, but a few details vary between vendors and must be checked
+before assuming this pinout works:
+
+1. **Module variant.** Confirm whether the board carries an N8R2 (quad
+   PSRAM, GPIO 33-37 free) or an N*R8 like N8R8 / N16R8 (octal PSRAM, GPIO
+   33-37 reserved internally). The pinout is laid out to be safe with
+   either — GPIO 35-37 are SPARE, GPIO 33-34 are unused, and signals that
+   used to live on octal-PSRAM pins were moved (BUZZER 36→3, MOTOR_HALL_1
+   37→16, CMD_STEER_DIR 35→0). So **either variant works**, but if you
+   end up with an octal-PSRAM module **do not assign anything to GPIO
+   33-37 in firmware**, ever.
+
+2. **Native USB-OTG routing.** The pinout uses GPIO 19/20 as USB D-/D+ to
+   the Orin. On the official Espressif DevKitC-1, two USB-C ports are
+   provided: one wired to GPIO 19/20 (native USB), one to a UART bridge
+   on GPIO 43/44. Generic clones vary — some wire their single USB-C only
+   to a UART bridge (no native USB at all), some wire it to GPIO 19/20
+   directly, some have both ports like the official board. **Verify with
+   a multimeter on arrival**: continuity from the dev-board USB-C D+ pad
+   to GPIO 20 and D- pad to GPIO 19. If GPIO 19/20 are not reachable
+   through the on-board USB connector, the board still works for the
+   medulla *only* if those GPIOs are exposed on the pin headers (so the
+   medulla PCB can route them to its own USB-C connector toward the
+   Orin). If 19/20 aren't broken out at all, the board is unsuitable.
+
+3. **Physical footprint.** The medulla PCB headers (H1.1-22, H2.1-22)
+   assume the Espressif **ESP32-S3-DevKitC-1** outline:
+   - Board outline:           **25.40 mm × ~62.7 mm** (1000 mil × 2470 mil)
+   - Pin pitch within a row:  **2.54 mm** (0.1 ″ / 100 mil)
+   - Pins per row:            **22** (44 total)
+   - Row-to-row centerline:   **22.86 mm** (0.9 ″ / 900 mil) —
+                              pin holes sit **1.27 mm inside each PCB edge**,
+                              so centerline spacing = PCB width − 2 × 1.27.
+                              This is the standard Espressif DevKitC
+                              footprint, kept consistent between the classic
+                              ESP32-DevKitC and the S3-DevKitC-1.
+   - USB-C connectors protrude ~8.00 mm past the bottom edge.
+
+   **Confirmed by physical measurement on a teammate's official Espressif
+   ESP32-S3-DevKitC-1 (2026-05-02):** caliper-imprecise centerline-to-
+   centerline ≈ 24 mm, and the photo clearly shows pin centerlines inset
+   from the PCB outline. 22.86 mm matches; 25.40 mm does not.
+
+   Source documents (mirrored locally in `resources/esp32-s3-devkitc-1/`):
+   - Espressif official mechanical drawing
+     (`DXF_ESP32-S3-DevKitC-1_V1.1_20220429.pdf`) — board outline 25.40 mm
+     and pin pitch 2.54 mm. The two `1.27 mm` callouts at the top of the
+     drawing are most likely the edge-to-pin-row-centerline offsets,
+     giving the 22.86 mm row spacing. The drawing is ambiguous enough
+     that this was misread twice in 2026-05-01 → see `history.md` for
+     the incident; trust the physical measurement and the 0.9 ″ DevKitC
+     convention over any single PDF callout.
+   - Espressif official schematic
+     (`SCH_ESP32-S3-DevKitC-1_V1.1_20221130.pdf`) — for USB / RGB / button
+     wiring; not for mechanical dimensions.
+
+   ⚠ **Do NOT trust the UIOPAL clone vendor drawing in `resources/`** for
+   this measurement. It shows `1000 mil` and `1100 mil` callouts that
+   were misinterpreted as PCB-vs-outer-envelope on 2026-05-01. The
+   physical measurement on the official board contradicts that reading.
+   The clone may have a different layout, or the labels were misread.
+
+   Clones (AliExpress, etc.) mostly match the official 22.86 mm footprint
+   but not always — row count, board length, and row spacing have all
+   been seen to differ on no-name boards. Before committing to
+   manufacturing the medulla PCB, place the actual dev board on a printed
+   1:1 paper copy of the footprint and confirm every pin lands on its
+   pad. Photos in listings are not reliable for this.
+
+
+
+| Pin | Silkscreen | GPIO | Signal | Type | Notes |
+|---|---|---|---|---|---|
+| 1 | GND | - | GND | Power | Ground (bottom of right edge / RIGHT_HEADER pin 1) |
+| 2 | GND | - | GND | Power | Ground |
+| 3 | 19 | 19 | USB_D- | USB | Native USB-OTG to Orin (D-) |
+| 4 | 20 | 20 | USB_D+ | USB | Native USB-OTG to Orin (D+) |
+| 5 | 21 | 21 | MOTOR_HALL_3 | Digital In | Motor hall sensor 3 |
+| 6 | 47 | 47 | MOTOR_HALL_2 | Digital In | Motor hall sensor 2 |
+| 7 | 48 | 48 | LED | PWM | RGB LED for status visualization |
+| 8 | 45 | 45 | RESERVED | - | STRAP pin (flash/boot risk) |
+| 9 | 0 | 0 | CMD_STEER_DIR | Digital Out | Steering motor direction (Cytron H-bridge) — strap pin (BOOT mode), pulled high externally; SDC keeps drive disabled at boot so brief glitch is harmless. Moved from GPIO 35 for N8R8 compatibility |
+| 10 | 35 | 35 | SPARE | - | Octal PSRAM pin on N8R8 — leave free for module compatibility |
+| 11 | 36 | 36 | SPARE | - | Octal PSRAM pin on N8R8 — leave free for module compatibility. (Was briefly assigned to CMD_REVERSE on 2026-05-02; reassigned to PCF8574 P0 on 2026-05-03 to keep the design fully N8R8-compatible.) |
+| 12 | 37 | 37 | SPARE | - | Octal PSRAM pin on N8R8 — leave free for module compatibility |
+| 13 | 38 | 38 | SDC_NOT_EMERGENCY__3V3 | Digital In | Shutdown circuit status readback. HIGH = no emergency (drive permitted), LOW = emergency state (was `SDC_STAT` in earlier doc revisions). |
+| 14 | 39 | 39 | SDC_ENABLE | Digital Out | Shutdown circuit relay drive (active to enable drive) |
+| 15 | 40 | 40 | CMD_STEER_PWM | LEDC PWM | Steering motor PWM (Cytron H-bridge) |
+| 16 | 41 | 41 | SPARE | - | (was reserved for CAN_RX; CAN moved to Orin carrier board on 2026-05-02 — no transceiver on the medulla) |
+| 17 | 42 | 42 | SPARE | - | (was reserved for CAN_TX; same as above) |
+| 18 | 2 | 2 | HYDRAULIC_2 | ADC1_CH1 | Hydraulic pressure sensor 2 (input only) |
+| 19 | 1 | 1 | PRESSURE_3 | ADC1_CH0 | Pressure sensor 3 (input only) |
+| 20 | RX | 44 | RX0 | UART0 | RX of UART0 |
+| 21 | TX | 43 | TX0 | UART0 | TX of UART0 |
+| 22 | GND | - | GND | Power | Ground (top of right edge / RIGHT_HEADER pin 22) |
+| 23 | 3V3 | - | 3V3 | Power | 3.3V supply (generated by S3 module LDO from 5V input) — top of left edge / LEFT_HEADER row 1 |
+| 24 | 3V3 | - | 3V3 | Power | 3.3V supply |
+| 25 | EN | - | RST | Reset | Reset (Espressif silkscreens this as `EN` for chip enable) |
+| 26 | 4 | 4 | PEDAL_ACC | ADC1_CH3 | Accelerator pedal (input only) |
+| 27 | 5 | 5 | PEDAL_BRAKE | ADC1_CH4 | Brake pedal |
+| 28 | 6 | 6 | PRESSURE_1 | ADC1_CH5 | Pressure sensor 1 (input only) |
+| 29 | 7 | 7 | PRESSURE_2 | ADC1_CH6 | Pressure sensor 2 (input only) |
+| 30 | 15 | 15 | SELECT_THROTTLE | Digital Out | Drives the MAX4660 SELECT pin (manual/autonomous throttle mux). Pulldown 10 kΩ to GND on this net so hardware default = manual. Was previously held as SPARE/SPI-CS; reassigned 2026-05-02. |
+| 31 | 16 | 16 | MOTOR_HALL_1 | Digital In | Motor hall sensor 1 (moved from GPIO 37 for N8R8 compatibility) |
+| 32 | 17 | 17 | TX1 | UART1 | TX of UART1 |
+| 33 | 18 | 18 | RX1 | UART1 | RX of UART1 |
+| 34 | 8 | 8 | SDA | I2C | I²C data — AS5600 steering angle sensor + PCF8574 I/O expander share this bus |
+| 35 | 3 | 3 | BUZZER | Digital Out | Buzzer for debugging (strap pin: JTAG src select, default high — buzzer idle high at boot is acceptable; moved from GPIO 36 for N8R8 compatibility) |
+| 36 | 46 | 46 | RESERVED | - | STRAP pin (flash/boot risk) |
+| 37 | 9 | 9 | SCL | I2C | I²C clock — same bus as SDA |
+| 38 | 10 | 10 | HYDRAULIC_1 | ADC1_CH9 | Hydraulic pressure sensor 1 (input only) |
+| 39 | 11 | 11 | MOSI | SPI | SPI data out (→ MCP4922 SDI). Also referred to as `OUT_SDI` in some parts of the schematic. |
+| 40 | 12 | 12 | CLK | SPI | SPI clock (→ MCP4922 SCK). Also `OUT_SCK` in some schematic labels. |
+| 41 | 13 | 13 | MISO | SPI | SPI data in. Unused by MCP4922 (write-only DAC); available for future SPI peripheral. |
+| 42 | 14 | 14 | CMD_DAC_CS | SPI | MCP4922 chip select (active low). Also `OUT_CS` in some schematic labels. |
+| 43 | 5V | - | +5V_USB | Power | 5V from USB VBUS via the medulla USB-C connector — powers the ESP32 dev board only (split-rail design, see history.md 2026-05-02). NOT connected to the L7805 +5V_REG rail. |
+| 44 | GND | - | GND | Power | Ground (bottom of left edge / LEFT_HEADER row 22) |
+
+## MCP4922 (dual 12-bit SPI DAC) — external chip connections on the PCB
+
+| Pin | Signal | Connects to |
+|---|---|---|
+| VDD | 5V | 5V rail (from H1.21) |
+| VSS | GND | Ground |
+| SHDN | 5V | Tied high (DAC always enabled) |
+| LDAC | GND | Tied low → every SPI write latches to output immediately |
+| CS | → ESP32 GPIO14 (CMD_DAC_CS) | |
+| SCK | → ESP32 GPIO12 (CLK) | |
+| SDI | → ESP32 GPIO11 (MOSI) | |
+| VREFA | 5V via RC filter | 100 Ω series + 10 µF ceramic to GND, placed next to chip |
+| VREFB | 5V via RC filter | 100 Ω series + 10 µF ceramic to GND (can share filter node) |
+| VOUTA | CMD_ACC | Accelerator analog command (0-5V) → motor controller |
+| VOUTB | CMD_BRAKE | Brake analog command (0-5V) → brake valve driver |
+
+RC filter purpose: attenuates ~150 kHz switching ripple from the XW-1224 buck
+by ~60 dB at the DAC reference pins. DAC VREF draws <100 µA so the 100 Ω
+series resistor drops <10 mV (negligible vs 5V).
+
+## Power architecture
+
+```
+Kart 12V battery ─┬─→ XW-1224 buck (external, 5A) ──→ 5V kart-wide rail
+                  │                                   │
+                  │                                   ├→ Medulla PCB 5V (H1.21)
+                  │                                   │   │
+                  │                                   │   ├→ ESP32-S3 module VIN ─→ module LDO ─→ 3.3V
+                  │                                   │   ├→ MCP4922 VDD
+                  │                                   │   ├→ MAX4660 Vcc (×2, throttle + brake mux)
+                  │                                   │   └→ [100 Ω + 10 µF] ─→ MCP4922 VREFA, VREFB
+                  │                                   │
+                  │                                   └→ other kart 5V loads
+                  │
+                  ├─→ LM2596SX-ADJ buck (on-PCB, qty 8 in stock) ──→ alternative 5V rail
+                  │   feeds ESP32 + MAX4660 Vcc when the kart-wide XW-1224 rail is not available.
+                  │   (The medulla can be powered from either the kart-wide 5V rail via H1.21 or
+                  │   from an on-board LM2596 buck; final source is decided at integration time.)
+                  │
+                  └─→ Cytron H-bridge 12V (steering driver) — permanently powered, NOT gated by
+                      the manual/autonomous mode switch. Decision 2026-05-01: routing the Cytron
+                      through the mode switch caused inrush brownouts on the Orin every time the
+                      kart was switched to autonomous. See history.md (2026-05-01) for details.
+                      The PCB only routes signals (CMD_STEER_PWM, CMD_STEER_DIR) to the Cytron,
+                      not power. Mode handling for steering is done in firmware (PWM = 0 in manual).
+```
+
+## Manual/autonomous signal mux (MAX4660 ×2 + open-drain reverse, decision 2026-05-01 / refined 2026-05-02)
+
+**Two** MAX4660EUA+T SPDT analog switches on the PCB mux the two analog signals
+(throttle, brake) between the manual source and the ESP32 autonomous output. The
+digital reverse signal does NOT use a MAX4660 — it uses an ESP32 GPIO in **open-drain**
+mode wired in parallel with the manual reverse button (wired-OR via the motor
+controller's existing pull-up). Steering is NOT muxed (ESP32 drives the Cytron
+directly; PWM = 0 in manual mode).
+
+See `.agents/history.md` in the dv vault — entries `2026-05-01` (initial PCB-mux
+design) and `2026-05-02` (reverse refinement to open-drain) — for the full rationale.
+
+| Chip / signal | Type | NC input (manual) | NO input (autonomous) | COM output |
+|---|---|---|---|---|
+| **U14 MAX4660 (THR)** | analog 0–5 V | Manual throttle source | MCP4922 VOUTA = `CMD_ACC` | → AliExpress motor electronics |
+| **U17 MAX4660 (BRK)** | analog 0–5 V | Manual brake source    | MCP4922 VOUTB = `CMD_BRAKE` | → AliExpress motor electronics |
+| **No chip — direct GPIO open-drain** | digital | Manual reverse button (in parallel) | ESP32 `CMD_REVERSE` GPIO (open-drain) | → kart-electronics-box REVERSE wire |
+
+SELECT pins of both MAX4660 chips are tied in parallel to a single ESP32 GPIO
+(`SELECT_THROTTLE`) with a **10 kΩ pulldown to GND** → hardware default = manual passthrough,
+no firmware involvement.
+
+`CMD_REVERSE` GPIO is in parallel with the manual reverse button. The motor
+controller's REVERSE input already has its own pull-up to 5 V (that is why the
+button works by pulling the line LOW). Both the button and the ESP32 GPIO can
+only sink to GND, never push HIGH actively → wired-OR with no electrical conflict.
+Fail-safe property: ESP32 dead → GPIO high-Z → only the button controls the line
+(identical to the current manual-only setup).
+
+**Critical firmware constraint**: `CMD_REVERSE` MUST be configured as open-drain
+(`GPIO_MODE_OUTPUT_OD` in ESP-IDF, or `pinMode(pin, OUTPUT_OPEN_DRAIN)` in
+Arduino-ESP32). NEVER push-pull driving HIGH — would fight the pull-up and, worse,
+if the manual button were pressed simultaneously, would cause direct shoot-through
+from the ESP32 pin through the button to GND. As of 2026-05-02 the PlatformIO
+firmware (`/Users/rubenayla/repos/kart_medulla`) does not yet configure this pin —
+add `GPIO_MODE_OUTPUT_OD` config in the GPIO setup when CMD_REVERSE is wired in.
+
+### GPIO assignments (committed 2026-05-02 for N8R2 module)
+
+Module variant in use: **WROOM-1-N8R2** (quad PSRAM). Confirmed in this doc's title.
+Assignments below are valid on N8R2. For N8R8 cross-compatibility, see the
+SPARE/ prefix on the rows that depend on the N8R2-only GPIOs.
+
+| Signal | GPIO | Header | Critical on N8R8? | Notes |
+|---|---|---|---|---|
+| `SELECT_THROTTLE` | 15 | H1.8 | yes — works on any module | Drives both MAX4660 SELECT pins; 10 kΩ pulldown on the net. Push-pull digital out. |
+| `CMD_REVERSE` | 36 | H2.12 | **NO — droppable on N8R8** | Open-drain (`GPIO_MODE_OUTPUT_OD`) in parallel with manual reverse button. Listed as `SPARE/CMD_REVERSE` in the main pin table to flag it as the first signal to sacrifice on N8R8 migration. |
+
+Pin-budget rationale: the design intentionally pushes the only N8R2-only-safe GPIO
+to the least critical signal (autonomous reverse). On N8R8 the kart loses
+autonomous reverse but every other function survives — including manual reverse,
+which is electrically independent of the ESP32 (the manual button works through
+the motor controller's own pull-up regardless of what the ESP32 is doing).
+
+Other signals related to this design:
+- `MANUAL_THR`, `MANUAL_BRK`, manual reverse button — passive signals routed from the kart panel to the PCB; no ESP32 GPIOs consumed.
+- `CMD_STEER_PWM` (GPIO 40) and `CMD_STEER_DIR` (GPIO 0) — unchanged, bypass the MAX4660 and feed the Cytron directly.
+- `U12` (PC357N1J000F opto with planned BSS123 swap) for driving the kart REVERSE wire is now redundant — the ESP32 GPIO open-drain output drives the line directly. **TODO**: decide whether to remove U12 from the schematic or keep it as an inline buffer. Default plan: remove for simplicity.
+
+### Datasheet references
+
+Datasheets live in the shared `dv/datasheets/` folder (one canonical copy per part, indexed in `dv/datasheets/README.md`). Per-board project folders hold integration-specific docs only (e.g. `kart/kart-medulla/resources/esp32-s3-devkitc-1/` keeps mechanical drawings + the local clone-vendor PDF, not the chip datasheet itself).
+
+- **MAX4660EUA+T**: `dv/datasheets/max4660_analogdevices_datasheet.pdf` (mirrored 2026-05-02; canonical URL <https://www.analog.com/media/en/technical-documentation/data-sheets/MAX4659-MAX4660.pdf>).
+- **LM2596SX-ADJ**: `dv/datasheets/lm2596_ti_datasheet.pdf` (mirrored 2026-05-02).
+
+---
+
+# Legacy: classic ESP32 (previous board, kept for reference)
+
+| Pin | Header | GPIO | Signal | Type | Notes |
+|---|---|---|---|---|---|
+| 1 | H1.1 | 6 | RESERVED | - | FLASH/SDIO |
+| 2 | H1.2 | 7 | RESERVED | - | FLASH/SDIO |
+| 3 | H1.3 | 8 | RESERVED | - | FLASH/SDIO |
+| 4 | H1.4 | 15 | RESERVED | - | STRAP pin (boot config risk) |
+| 5 | H1.5 | 2 | STATUS_LED | Digital Out | Onboard LED (strap pin, keep LOW at boot) |
+| 6 | H1.6 | 0 | RESERVED | - | STRAP pin (BOOT mode) |
+| 7 | H1.7 | 4 | RESERVED | - | STRAP pin (boot config risk) |
+| 8 | H1.8 | 16 | MOTOR_HALL_3 | Digital In | Motor hall sensor 3 (also UART2 RX) |
+| 9 | H1.9 | 17 | MOTOR_HALL_1 | Digital In | Motor hall sensor 1 (also UART2 TX) |
+| 10 | H1.10 | 5 | RESERVED | - | STRAP pin (boot config risk) |
+| 11 | H1.11 | 18 | CMD_STEER_PWM | LEDC PWM | Steering motor PWM (Cytron H-bridge) |
+| 12 | H1.12 | 19 | CMD_STEER_DIR | Digital Out | Steering motor direction (Cytron H-bridge) |
+| 13 | H1.13 | - | GND | Power | Ground |
+| 14 | H1.14 | 21 | I2C_SDA | I2C | AS5600 steering angle sensor data |
+| 15 | H1.15 | 3 | USB_UART_RX | UART0 RX | Reserved (binary protocol from Orin) |
+| 16 | H1.16 | 1 | USB_UART_TX | UART0 TX | Reserved (binary protocol to Orin) |
+| 17 | H1.17 | 22 | I2C_SCL | I2C | AS5600 steering angle sensor clock |
+| 18 | H1.18 | 23 | SPARE | - | Available |
+| 19 | H1.19 | - | GND | Power | Ground |
+| 20 | H2.1 | - | 3V3 | Power | 3.3V supply |
+| 21 | H2.2 | - | EN | Reset | Active-low reset |
+| 22 | H2.3 | 36 (VP) | PRESSURE_1 | ADC1_CH0 | Pressure sensor 1 (input only) |
+| 23 | H2.4 | 39 (VN) | PRESSURE_2 | ADC1_CH3 | Pressure sensor 2 (input only) |
+| 24 | H2.5 | 34 | PRESSURE_3 | ADC1_CH6 | Pressure sensor 3 (input only) |
+| 25 | H2.6 | 35 | PEDAL_ACC | ADC1_CH7 | Accelerator pedal (input only) |
+| 26 | H2.7 | 32 | PEDAL_BRAKE | ADC1_CH4 | Brake pedal |
+| 27 | H2.8 | 33 | MOTOR_HALL_2 | Digital In | Motor hall sensor 2 |
+| 28 | H2.9 | 25 | CMD_ACC | DAC1 | Throttle analog output (0-255) |
+| 29 | H2.10 | 26 | CMD_BRAKE | DAC2 | Brake analog output (0-255) |
+| 30 | H2.11 | 27 | HYDRAULIC_1 | ADC2_CH7 | Hydraulic pressure sensor 1 |
+| 31 | H2.12 | 14 | HYDRAULIC_2 | ADC2_CH6 | Hydraulic pressure sensor 2 |
+| 32 | H2.13 | 12 | RESERVED | - | STRAP pin (flash/boot risk) |
+| 33 | H2.14 | - | GND | Power | Ground |
+| 34 | H2.15 | 13 | SDC_NOT_EMERGENCY | Digital In | Shutdown circuit emergency status |
+| 35 | H2.16 | 9 | RESERVED | - | FLASH/SDIO |
+| 36 | H2.17 | 10 | RESERVED | - | FLASH/SDIO |
+| 37 | H2.18 | 11 | RESERVED | - | FLASH/SDIO |
+| 38 | H2.19 | - | 5V | Power | 5V supply |
