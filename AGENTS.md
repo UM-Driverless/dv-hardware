@@ -43,6 +43,15 @@ docs/                           cross-board notes (fab process, KiCad setup, lib
 4. Commit small, commit often.
 5. Tag fab releases: `<board>-v<rev>` here, `<board>-v<rev>-fw` on the firmware repo, link both READMEs.
 
+## KiCad UI menu names (macOS)
+
+When telling the user where to click, use the actual KiCad menu names, not invented ones:
+- **`KiCad → Settings…`** (not "Preferences"). The cross-app dialog is reached via "Settings", not "Preferences", even on macOS where most apps use "Preferences".
+- Inside Settings, sections are e.g. **Mouse and Touchpad**, **PCB Editor**, **Schematic Editor**.
+- View menu: **Draw Zone Outlines Only**, **Recalculate Ratsnest** — exact names, no paraphrasing.
+
+If unsure of an exact label, say "the menu that does X" and ask the user to find it, rather than inventing a path.
+
 ## Editing KiCad files outside KiCad (agents)
 
 When editing `.kicad_sch`, `.kicad_pcb`, or `.kicad_sym` from a script/agent (Edit tool, sed, anything that isn't KiCad itself):

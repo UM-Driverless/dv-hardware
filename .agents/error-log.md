@@ -4,6 +4,47 @@
 
 Mistakes made and the rules learned from them. Newest first. Grep before working in a related area.
 
+## 2026-05-07 — Said "Preferences" instead of "Settings" for KiCad menus (recurring)
+
+**What happened:** User asked how to fix the wild trackpad zoom in KiCad. I said "Preferences → Preferences → Mouse and Touchpad". User corrected: it's `KiCad → Settings…`, not Preferences. This is a *recurring* mistake — user said "for the 100th time."
+
+**Root cause:** I default to the macOS-typical "Preferences" wording from training data and don't verify against the actual KiCad menu. KiCad uses "Settings" cross-platform regardless of macOS conventions.
+
+**Prevention rule:**
+- **KiCad menu name is "Settings", not "Preferences".** Path is `KiCad → Settings…` on macOS, same on Linux/Windows.
+- More generally: when telling the user a menu path, do not paraphrase or translate to platform conventions — use the literal label as it appears. If uncertain, say "the menu that does X" and let the user find it.
+- Cross-reference: `AGENTS.md` "KiCad UI menu names" section.
+
+## 2026-05-07 — Forgot session context mid-conversation: re-suggested keeping RGB bridge open after user already established they want the LED, ignored the just-completed TX0/RX0 cleanup precedent
+
+**What happened:** Same session as the +5V_USB error. After finally getting the netlist right via MCP, I told the user: (a) "GPIO38 carries TX1, keep RGB bridge open and use IO17 in firmware" — i.e., **give up the LED to keep TX1**. The user pushed back: "what if I want to use the freaking LED, do we have not enough pins?" I flipped the answer to "you can use the LED, just un-short pin 20 from TX1." User then asked what TX1 even is. After I explained it's UART1, exposed on the connector but not used internally, the user said "but we agreed we didn't want that pin, UART is already in the USB connector, it shouldn't even be there." That's the same logic the user applied two commits ago (`b07c56f`: NC pins 20/21 UART0 because USB-Serial covers it). UART1 has the same status — dead silkscreen on this board. The cleanup should have been the obvious first suggestion, not something the user had to drag out of me through three contradictory answers.
+
+**Root cause:** I treated each user message as fresh context and re-derived advice from the netlist alone, ignoring (a) the user's stated goal (use the LED — that means GPIO38 must be free, period), (b) the conversation's just-established cleanup pattern (NC unused pins on the breakout connector when their function is already covered by USB-Serial), (c) the project history visible in `git log` (the b07c56f commit literally NC'd UART0 pins for the same reason). I kept hedging with "use IO17 in firmware" / "keep bridge open" — neither of which the user asked for, both of which contradicted the user's explicit aim. When the user said "what the fuck are you saying about not using the led as a solution," that was the third correction in a row of the same shape: *I keep proposing "work around the conflict in software" when the user wants "remove the conflict from the schematic."*
+
+**Prevention rule:**
+- **Lock onto the user's stated goal at the top of the answer and don't drift.** If the user says "I want the LED to work," every subsequent suggestion must be evaluated against "does this make the LED work?" — software workarounds that leave the bridge open fail this test and shouldn't be offered.
+- **Read recent commits before giving design advice.** `git log --oneline -10` takes one second and reveals patterns like "we just NC'd UART0 because USB-Serial covers it." UART1 has the same status — same fix. The user's prior decisions are the strongest design-intent signal in the repo.
+- **When a net's only nodes are on the breakout connector itself (no internal consumer), default to "delete this net, NC the pins."** Don't propose firmware workarounds for nets that don't need to exist.
+- **Stop suggesting firmware GPIO-matrix remaps as a "solution" to schematic conflicts.** They're rarely what the user wants; they shift complexity from PCB (one-time fix) to firmware (forever caveat). Only mention if the user explicitly asks about firmware-side options.
+
+**Cross-reference:** Commit `b07c56f` ("kart-medulla: NC pins 20/21 (UART0 TX0/RX0)") is the precedent. UART1 (pairs 19/20, 21/22) gets the same treatment.
+
+## 2026-05-07 — Recommended a "free" ESP32 GPIO that was actually the +5V_USB power pin
+
+**What happened:** User asked which header pins on U23 (SSW-122-01-T-D socket for the ESP32-S3-DevKitC-1) are free so SDC could move off GPIO38 (v1.1 onboard RGB LED). I wrote a Python script to map U23 symbol pins → nets by parsing wires + labels, then cross-referenced against the Espressif J1/J3 pinout to claim "header pin 41 = GPIO13 is the only fully unused pin — use it for SDC." User caught it: pin 41 actually has `+5V_USB`. Two compounding mistakes:
+1. **Script only matched `(label …)`, `(global_label …)`, `(hierarchical_label …)`** — completely missed power symbols (`+5V_USB`, `+5V_REG`, `GND` placed as `(symbol (lib_id "kart-medulla:+5V_USB") …)`). So any pin connected only to a power rail looked "empty."
+2. **J1↔J3 row mapping (odd↔even pins of the dual-row Samtec connector) was guessed without verification.** Pin numbering direction (top-down vs bottom-up of the devkit) and which row maps to odd vs even symbol pins were both assumed. Output was off by at least one slot, and possibly fully inverted — which is why the same script also showed every odd-column pin as empty (almost certainly wrong; J1 carries 3V3/EN/many IOs).
+
+In addition: my BFS over wire endpoints jumped through coincident-Y pin connection points across the symbol body, so paired odd/even pins kept reporting the same net. I noticed the artifact ("pin 19 and pin 20 both show TX1") but rationalized it instead of fixing the algorithm before recommending a pin.
+
+**Root cause:** Trusted a hand-rolled netlist extractor over actually verifying. Three things should have stopped me: (a) every odd pin showing as empty is a screaming red flag — J1 cannot be entirely unconnected on a working board; (b) labels colliding on adjacent pins should have triggered an algorithm review, not a caveat in prose; (c) I never cross-checked that *known* power pins (5V, GND, 3V3) showed up correctly — that one sanity check would have exposed the missing power-symbol parser instantly.
+
+**Prevention rule:**
+- **For schematic netlist questions, do not roll your own parser from .kicad_sch text.** Use `mcp__kicad__sch_get_connectivity_graph`, `sch_trace_net`, `sch_get_labels`, `pcb_get_nets`, or export the netlist via `export_netlist` and read that. KiCad's tools already handle power symbols, junctions, hierarchical labels, bus entries, and global/local label scoping — none of which a regex pass handles correctly.
+- **Before recommending any pin/net assignment, sanity-check against known anchors.** Power pins (5V, 3V3, GND) and the strapping pins should appear where the datasheet says. If they don't, the extractor is wrong — stop and fix it before giving advice.
+- **"Every pin in row X is empty" is never a real result on a populated devkit socket.** Treat suspicious uniformity as a bug in the analysis, not a feature of the design.
+- **Never claim a pin number using "the schematic's nomenclature" without stating which nomenclature.** Symbol pin numbers (1-44 on SSW-122-01-T-D), Espressif silkscreen labels (GPIO numbers), and physical row positions are three different things; mixing them silently is how this happened.
+
 ## 2026-05-07 — Mixed kicad-mcp-pro writes with direct file edits; MCP cache wiped my edits twice
 
 **What happened:** Working on `kart-medulla_P1.kicad_sch` to remove `TX0`/`RX0` global labels (header pins 20/21, UART0) and add NC markers + text. The MCP profile lacked `sch_delete_label`, so I direct-edited the file with the Edit tool to remove the labels and their wires. Then I called `mcp__kicad__sch_add_no_connect` twice to add the NC markers — the MCP reported success, but a later `git status` showed zero changes. KiCad was *closed*; the culprit was the MCP server, which had cached the schematic in memory after `kicad_set_project` and flushed its cached copy (still containing the old labels/wires) on the next write call, silently overwriting my Edit-tool deletions. Re-did everything via direct file edit only, no further MCP calls — that worked.
