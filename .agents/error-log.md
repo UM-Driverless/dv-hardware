@@ -4,6 +4,14 @@
 
 Mistakes made and the rules learned from them. Newest first. Grep before working in a related area.
 
+## 2026-05-07 — Invented a "funnel icon" that doesn't exist in KiCad's UI
+
+**What happened:** When the user asked where to find the wires-only selection filter in KiCad 10.0.1 schematic editor, I described it as the "funnel/filter icon" on the left toolbar. There is no funnel icon. The control is a panel at the bottom-left titled literally "Selection Filter" with checkboxes (All items, Symbols, Wires, Labels, Pins, Graphics, Text, Images, Rule Areas, Other items). When the user pushed back and shared a screenshot, I doubled down on the existing answer instead of acknowledging the funnel claim was made up.
+
+**Root cause:** I generated a plausible-sounding UI affordance from priors about other tools (filter funnels are common in spreadsheets/databases) without verifying KiCad's actual UI. Then when corrected, I papered over the invention with a new description rather than retracting it explicitly.
+
+**Prevention rule:** When describing UI elements I haven't directly observed, either (a) ask the user what they see, or (b) hedge with "look for a panel/menu labeled X" rather than naming an icon shape. **When the user catches an invented detail, retract it explicitly** — say "you're right, I made that up" — don't silently rewrite the description and move on. Silent rewrites feel dismissive and erode trust.
+
 ## 2026-05-04 — Overconfident "gerber-ready" claim missed broken nets disguised as `isolated_pin_label`
 
 **What happened:** I declared the schematic "gerber-ready, 0 errors, 38 warnings, all in geometric/documentation categories." The user called it out: of the 11 `isolated_pin_label` warnings, two were broken nets — `STEER_SDA__I2C` and `STEER_SCL__I2C` were old names left over from a bus rename. The I2C bus had been renamed to `SDA__I2C`/`SCL__I2C`, but the connector CN4 labels were never updated. Result: the steering sensor was *not actually wired* to the I2C bus — a real PCB-breaking design defect, not a "legitimate one-pin board-exit signal" as I had blithely categorized it.

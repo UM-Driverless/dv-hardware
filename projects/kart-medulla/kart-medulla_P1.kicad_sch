@@ -6233,7 +6233,7 @@
 	)
 	(text "Throttle mux\nSend to motor value from sensor by default,\nor esp32 when autonomous"
 		(exclude_from_sim no)
-		(at 359.41 190.5 0)
+		(at 355.854 195.834 0)
 		(effects
 			(font
 				(size 3.048 3.048)
@@ -6340,12 +6340,6 @@
 		(uuid "58e55764-96ae-4025-b3eb-6129352c125a")
 	)
 	(junction
-		(at 125.73 306.07)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "5f7860aa-86ca-4318-8915-44f3abfc355e")
-	)
-	(junction
 		(at 125.73 311.15)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -6362,12 +6356,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "6beccc12-2065-45c9-a478-d6117b63852e")
-	)
-	(junction
-		(at 242.57 215.9)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "74c1fffa-27dd-4b05-8ccc-a5fd298bc6ea")
 	)
 	(junction
 		(at 355.6 66.04)
@@ -6388,16 +6376,16 @@
 		(uuid "851ac20f-abee-43da-a5fd-cfe9ae393a3b")
 	)
 	(junction
-		(at 393.7 306.07)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "8bdbf58e-69d4-4446-82cc-fcb60831e942")
-	)
-	(junction
 		(at 355.6 93.98)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "9c241c7f-fe41-431a-8c20-3a2b4b68a581")
+	)
+	(junction
+		(at 254 313.69)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "9de311db-6aa2-4ecd-a472-cd10d8461f24")
 	)
 	(junction
 		(at 355.6 55.88)
@@ -6470,12 +6458,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "e7f12489-5c2e-4130-b2a7-4d18f684bd41")
-	)
-	(junction
-		(at 254 313.69)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "e9951d2a-c609-45f8-9d87-0dfdcb3919f6")
 	)
 	(junction
 		(at 501.65 205.74)
@@ -6597,6 +6579,16 @@
 	)
 	(wire
 		(pts
+			(xy 55.88 298.45) (xy 76.2 298.45)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "06629c96-2ba6-4ff1-9f49-f26b55cb8e87")
+	)
+	(wire
+		(pts
 			(xy 85.09 308.61) (xy 90.17 308.61)
 		)
 		(stroke
@@ -6614,16 +6606,6 @@
 			(type default)
 		)
 		(uuid "07d6f276-1b8a-4871-a71e-61ee97ac9112")
-	)
-	(wire
-		(pts
-			(xy 427.99 88.9) (xy 389.89 88.9)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "08765c8f-f81b-4196-9394-760bf76a24ad")
 	)
 	(wire
 		(pts
@@ -6687,16 +6669,6 @@
 	)
 	(wire
 		(pts
-			(xy 427.99 53.34) (xy 389.89 53.34)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "0f8efd3b-1376-4444-87dd-a9560b3f2c41")
-	)
-	(wire
-		(pts
 			(xy 85.09 303.53) (xy 90.17 303.53)
 		)
 		(stroke
@@ -6734,16 +6706,6 @@
 			(type default)
 		)
 		(uuid "16afae3a-a10f-4a1a-a708-397f3fb579f9")
-	)
-	(wire
-		(pts
-			(xy 424.18 306.07) (xy 393.7 306.07)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "16daac87-d572-53ab-a2e4-623314f6484f")
 	)
 	(wire
 		(pts
@@ -6827,7 +6789,7 @@
 	)
 	(wire
 		(pts
-			(xy 242.57 217.17) (xy 242.57 215.9)
+			(xy 242.57 214.63) (xy 242.57 217.17)
 		)
 		(stroke
 			(width 0)
@@ -6874,26 +6836,6 @@
 			(type default)
 		)
 		(uuid "220a1918-b0d2-46fb-a65a-c7e93997f183")
-	)
-	(wire
-		(pts
-			(xy 242.57 215.9) (xy 260.35 215.9)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "22ede563-e73f-5e64-9f92-b902991e6ec4")
-	)
-	(wire
-		(pts
-			(xy 125.73 308.61) (xy 163.83 308.61)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "2354a649-2c11-5407-8a21-cb16e10df08a")
 	)
 	(wire
 		(pts
@@ -6974,16 +6916,6 @@
 			(type default)
 		)
 		(uuid "34ad48cc-d714-466f-be33-943ba000fb1b")
-	)
-	(wire
-		(pts
-			(xy 125.73 300.99) (xy 125.73 298.45)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "3a9e16e7-7b4a-521c-93c0-f2bd9c5aed7d")
 	)
 	(wire
 		(pts
@@ -7097,16 +7029,6 @@
 	)
 	(wire
 		(pts
-			(xy 427.99 86.36) (xy 389.89 86.36)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4bfe4cb2-9d48-44ba-9656-5dee92aec1ca")
-	)
-	(wire
-		(pts
 			(xy 90.17 360.68) (xy 87.63 360.68)
 		)
 		(stroke
@@ -7134,6 +7056,16 @@
 			(type default)
 		)
 		(uuid "4e2bacb4-d8c1-4c55-8989-0b47a7fff0f2")
+	)
+	(wire
+		(pts
+			(xy 49.53 360.68) (xy 76.2 360.68)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4f69fa53-14de-4dd2-89fd-5c494b66c368")
 	)
 	(wire
 		(pts
@@ -7337,16 +7269,6 @@
 	)
 	(wire
 		(pts
-			(xy 38.1 360.68) (xy 76.2 360.68)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "67cc596a-72fd-468b-813f-a8ad4141bcf1")
-	)
-	(wire
-		(pts
 			(xy 100.33 64.77) (xy 137.16 64.77)
 		)
 		(stroke
@@ -7507,16 +7429,6 @@
 	)
 	(wire
 		(pts
-			(xy 427.99 68.58) (xy 389.89 68.58)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "7e243479-0aaa-4b01-be26-74266b76a6e3")
-	)
-	(wire
-		(pts
 			(xy 313.69 96.52) (xy 355.6 96.52)
 		)
 		(stroke
@@ -7607,16 +7519,6 @@
 	)
 	(wire
 		(pts
-			(xy 227.33 350.52) (xy 245.11 350.52)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "8c98b9c9-f036-4eca-b2b3-366439f0a483")
-	)
-	(wire
-		(pts
 			(xy 54.61 243.84) (xy 54.61 241.3)
 		)
 		(stroke
@@ -7687,16 +7589,6 @@
 	)
 	(wire
 		(pts
-			(xy 242.57 214.63) (xy 242.57 215.9)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "9f6d07cc-a1a6-4a2b-9237-8588d6b3afa7")
-	)
-	(wire
-		(pts
 			(xy 481.33 69.85) (xy 481.33 72.39)
 		)
 		(stroke
@@ -7757,26 +7649,6 @@
 	)
 	(wire
 		(pts
-			(xy 238.76 313.69) (xy 254 313.69)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a8cbf1a0-ad12-56cf-a1c7-519e1235d736")
-	)
-	(wire
-		(pts
-			(xy 163.83 303.53) (xy 125.73 303.53)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a92d69bb-4f2c-4b3b-b823-39dac4566656")
-	)
-	(wire
-		(pts
 			(xy 375.92 222.25) (xy 361.95 222.25)
 		)
 		(stroke
@@ -7817,16 +7689,6 @@
 	)
 	(wire
 		(pts
-			(xy 427.99 63.5) (xy 389.89 63.5)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "abe9626d-dccf-4536-a85b-1ccecaa8543c")
-	)
-	(wire
-		(pts
 			(xy 467.36 208.28) (xy 467.36 210.82)
 		)
 		(stroke
@@ -7857,7 +7719,7 @@
 	)
 	(wire
 		(pts
-			(xy 45.72 308.61) (xy 74.93 308.61)
+			(xy 55.88 308.61) (xy 74.93 308.61)
 		)
 		(stroke
 			(width 0)
@@ -7884,26 +7746,6 @@
 			(type default)
 		)
 		(uuid "b2bfa1a1-9b0a-4407-9fa4-97fb573a126a")
-	)
-	(wire
-		(pts
-			(xy 125.73 306.07) (xy 125.73 308.61)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "b2eb879a-4040-4336-80df-bd0d01fed54f")
-	)
-	(wire
-		(pts
-			(xy 124.46 306.07) (xy 125.73 306.07)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "b49dc963-f67d-5508-bb07-15fcb81d2115")
 	)
 	(wire
 		(pts
@@ -8047,36 +7889,6 @@
 	)
 	(wire
 		(pts
-			(xy 427.99 78.74) (xy 389.89 78.74)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c4fdb68b-b418-48c7-ab59-f84cb594defa")
-	)
-	(wire
-		(pts
-			(xy 427.99 55.88) (xy 389.89 55.88)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c934101e-f7fd-425d-b033-ea8c14376a4a")
-	)
-	(wire
-		(pts
-			(xy 76.2 298.45) (xy 45.72 298.45)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "cea31a50-e9d3-4d0c-9b47-96fc78025ef3")
-	)
-	(wire
-		(pts
 			(xy 313.69 88.9) (xy 355.6 88.9)
 		)
 		(stroke
@@ -8094,6 +7906,16 @@
 			(type default)
 		)
 		(uuid "d1e1867a-778a-4a34-a23a-c326325e5f57")
+	)
+	(wire
+		(pts
+			(xy 243.84 313.69) (xy 254 313.69)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d30b3f24-7739-4050-a924-70e57f725483")
 	)
 	(wire
 		(pts
@@ -8117,7 +7939,7 @@
 	)
 	(wire
 		(pts
-			(xy 45.72 303.53) (xy 74.93 303.53)
+			(xy 55.88 303.53) (xy 74.93 303.53)
 		)
 		(stroke
 			(width 0)
@@ -8147,7 +7969,7 @@
 	)
 	(wire
 		(pts
-			(xy 361.95 217.17) (xy 384.81 217.17)
+			(xy 361.95 217.17) (xy 375.92 217.17)
 		)
 		(stroke
 			(width 0)
@@ -8497,16 +8319,6 @@
 	)
 	(wire
 		(pts
-			(xy 163.83 298.45) (xy 125.73 298.45)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "f8d32596-7aa5-4ff6-844a-c223a3aed529")
-	)
-	(wire
-		(pts
 			(xy 218.44 48.26) (xy 255.27 48.26)
 		)
 		(stroke
@@ -8645,7 +8457,7 @@
 		(uuid "17893f19-f04d-4a38-95c9-db457ae59431")
 	)
 	(label "CMD_STEER__PWM_3V3"
-		(at 401.32 63.5 0)
+		(at 389.89 63.5 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8689,7 +8501,7 @@
 		(uuid "1fb73a9a-6a64-42bd-a206-4387955451b9")
 	)
 	(label "MOTOR_HALL_2__5V"
-		(at 48.26 303.53 0)
+		(at 55.88 303.53 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8700,7 +8512,7 @@
 		(uuid "206a55bf-cc59-4fbb-8f00-943a38f05ea6")
 	)
 	(label "MOTOR_HALL_1__3V3"
-		(at 137.16 298.45 0)
+		(at 125.73 300.99 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8755,7 +8567,7 @@
 		(uuid "2bcee986-531a-4700-967d-f7b83125275b")
 	)
 	(label "PRESSURE_3__0_3V3"
-		(at 403.86 53.34 0)
+		(at 389.89 53.34 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8766,7 +8578,7 @@
 		(uuid "2cf15267-8366-47d4-88bd-ea0db44c2378")
 	)
 	(label "SDC_NOT_EMERGENCY__3V3"
-		(at 40.64 360.68 0)
+		(at 49.53 360.68 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8832,7 +8644,7 @@
 		(uuid "39ebb7a6-0d85-4051-86ef-047f79812ec2")
 	)
 	(label "MOTOR_HALL_3__3V3"
-		(at 403.86 88.9 0)
+		(at 389.89 88.9 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8898,7 +8710,7 @@
 		(uuid "4e9cfdf2-14d9-4b23-bea4-5424fb7f4288")
 	)
 	(label "MOTOR_HALL_2__3V3"
-		(at 403.86 86.36 0)
+		(at 389.89 86.36 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9008,7 +8820,7 @@
 		(uuid "75dbea17-54d6-4960-ae6c-dec0b41d4edd")
 	)
 	(label "HYDRAULIC_2__0_3V3"
-		(at 245.11 215.9 0)
+		(at 242.57 215.9 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9041,7 +8853,7 @@
 		(uuid "823ad1fc-e99e-4977-9292-1a4ec30cbf7b")
 	)
 	(label "CMD_BRAKE__0_10V"
-		(at 394.97 306.07 0)
+		(at 393.7 306.07 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9063,7 +8875,7 @@
 		(uuid "86522823-f6a4-40c2-bec3-1a83dc8d2a38")
 	)
 	(label "+5V_REG"
-		(at 241.3 313.69 0)
+		(at 243.84 313.69 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9162,7 +8974,7 @@
 		(uuid "9da8d02e-2e5b-4157-b27b-4646c30e1801")
 	)
 	(label "SDC_NOT_EMERGENCY__3V3"
-		(at 394.97 68.58 0)
+		(at 389.89 68.58 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9173,7 +8985,7 @@
 		(uuid "9efa8ad9-0123-4076-a6bf-d117527f4631")
 	)
 	(label "MOTOR_HALL_1__5V"
-		(at 48.26 298.45 0)
+		(at 55.88 298.45 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9305,7 +9117,7 @@
 		(uuid "c73ab5e0-319d-4a7f-95b6-3656e5c00b07")
 	)
 	(label "MOTOR_HALL_3__5V"
-		(at 48.26 308.61 0)
+		(at 55.88 308.61 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9338,7 +9150,7 @@
 		(uuid "d56b25f0-327f-418d-b067-6051d573ae9f")
 	)
 	(label "HYDRAULIC_2__0_3V3"
-		(at 403.86 55.88 0)
+		(at 389.89 55.88 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9393,7 +9205,7 @@
 		(uuid "e7fd59bb-c41c-461e-8cdf-4d7bb9644fd5")
 	)
 	(label "CMD_STEER_DIR__3V3"
-		(at 402.59 78.74 0)
+		(at 389.89 78.74 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9404,7 +9216,7 @@
 		(uuid "eedfdda0-6b4b-4986-aeb3-3c39dbcf459c")
 	)
 	(label "MOTOR_HALL_2__3V3"
-		(at 137.16 303.53 0)
+		(at 125.73 303.53 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9437,7 +9249,7 @@
 		(uuid "f9c4de17-f67b-49b7-9ad7-0bba022d3345")
 	)
 	(label "MOTOR_HALL_3__3V3"
-		(at 137.16 308.61 0)
+		(at 125.73 306.07 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -15757,7 +15569,7 @@
 		(dnp no)
 		(uuid "b1084955-5e47-4901-b424-0d7efde49abe")
 		(property "Reference" "R22"
-			(at 81.28 358.14 180)
+			(at 81.28 358.14 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -15768,7 +15580,7 @@
 			)
 		)
 		(property "Value" "100"
-			(at 81.28 363.22 180)
+			(at 81.28 363.22 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -17336,7 +17148,7 @@
 		(dnp no)
 		(uuid "dd6d7a2c-0c0f-4c63-86f7-eb8e036f977b")
 		(property "Reference" "R23"
-			(at 92.71 367.03 180)
+			(at 92.71 367.03 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -17347,7 +17159,7 @@
 			)
 		)
 		(property "Value" "100k"
-			(at 92.71 372.11 180)
+			(at 92.71 372.11 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
