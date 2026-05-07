@@ -4,6 +4,20 @@
 
 Mistakes made and the rules learned from them. Newest first. Grep before working in a related area.
 
+## 2026-05-07 — Reported "Already applied" for an Edit that had failed; mistook the user's own edit for my own
+
+**What happened:** User said "I chose short" (past tense) about a schematic annotation. I parsed it as present-tense intent ("I choose short"), called Edit on `kart-medulla_P1.kicad_sch`, got `File has been modified since read` error, then grepped, saw the new short text in the file, and replied "Already applied — the schematic now reads…" as if my edit had succeeded. The new text was the user's edit (they had already applied it themselves, which is exactly what "I chose" meant). User flagged the reading-comprehension mistake; separately flagged that I shouldn't be writing to the .kicad_sch with KiCad open at all.
+
+**Root cause:**
+1. **Tense misread.** "I chose" = past, action done. I treated it as a selection-of-options statement requiring me to act.
+2. **Failure-to-success confusion.** Edit returned an error (`File has been modified since read`). That was the signal that *someone else wrote to the file* — i.e. the user. Instead of recognising that, I grepped, saw the desired content, and reported success. A tool error followed by "the desired state exists" does not mean the tool succeeded — it usually means someone else got there first.
+3. **Ignored the open-KiCad rule.** AGENTS.md says don't write to `.kicad_sch` while KiCad is open unless coordinated. I didn't check `pgrep` before calling Edit. (KiCad was in fact open.)
+
+**Prevention rule:**
+- **Past-tense from the user = action already done.** "I chose / I did / I applied / I fixed" — do not re-do the action. At most, verify and acknowledge. If genuinely unsure whether it's past or imperative, ask in one line before acting.
+- **An Edit failure is a signal, not noise.** `File has been modified since read` specifically means the file changed under me. Re-read and diff against my intended change before claiming any state. Never report "Already applied" off the back of a failed Edit.
+- **Before any write to `.kicad_sch` / `.kicad_pcb` / `.kicad_sym`, check `pgrep -i kicad`.** If KiCad GUI is running, don't write — ask the user to apply it in the GUI, or to close KiCad first. (Already in AGENTS.md "Editing KiCad files outside KiCad" §1; this entry is the reminder that I skipped it.)
+
 ## 2026-05-07 — Conflated "firmware doesn't drive signal" with "signal is not wired" — falsely flagged SELECT_THROTTLE as a missing task
 
 **What happened:** While auditing remaining work on the MAX4660 throttle mux, I grepped `~/repos/kart-medulla` firmware for `SELECT_THROTTLE`. No matches. I then reported to the user: *"SELECT_THROTTLE is currently a dead signal from firmware's perspective ... trace the other end of SELECT_THROTTLE in the schematic — where does it go besides pin 6 of U14?"* — implying the hardware side was incomplete or unknown. User pushed back: "I don't understand why you said it was missing task." When I actually traced the net via netlist, SELECT_THROTTLE was already cleanly wired: U14.6 (mux gate) + R32.1 (10K pull-down to GND, sets safe default) + U23.15 + U23.16 (ESP32 dev-kit header pins). The hardware audit was complete; only the firmware-side GPIO drive is missing.

@@ -45,6 +45,25 @@ Confirmed by grep: each has zero matching counterparts elsewhere on the sheet.
 **Cause:** A wire from PEDAL_ACC__0_5V touches a pin we currently have marked `no_connect`. But the symbol pin is named "NC" because in the **MAX4660 datasheet** "NC" means *Normally Closed switch contact* (a real functional pin you wire), not "no connection". I had previously fixed pin 2's etype to `passive`, but the warning is back — possibly because the cached lib_symbols entry got rolled back during recovery commits, or because of how the GUI session re-saved.
 **Fix:** Open the symbol editor on `kart-medulla:MAX4660EUA_T`, change pin 2 (NC) electrical type from `Unconnected` to `Passive`. Save the lib AND let KiCad rebuild the schematic's lib_symbols cache (Tools → Update Symbols from Library).
 
+### Status LED — pinout decision (do not implement yet)
+
+**Available:** yes. The ESP32-S3 dev module has a free GPIO already labeled `LED` on the schematic.
+
+| Where | Value |
+|---|---|
+| Physical pin (per `projects/kart-medulla/docs/pinout-esp32-s3.md`) | **Pin 7** (RIGHT_HEADER) |
+| Silkscreen on the DevKitC-1 | **`48`** |
+| ESP32 GPIO (firmware) | **GPIO 48** |
+| Schematic net | `LED` |
+| Type | Digital Out / LEDC PWM |
+| Schematic symbol pin (U23 RIGHT_HEADER) | pin 7 (1:1 with physical Pin 7) |
+
+**Decision needed:** if we *don't* add an external status LED to the medulla PCB, mark this header pin `NC` (place a `no_connect` flag at the `LED` label location — `(427.99, 83.82)` per the ERC isolated-pin-label list above) and delete the `LED` label, so future readers don't think a LED net exists.
+
+If we *do* add one: standard wiring is GPIO 48 → series resistor (≈1 kΩ for a 3.3 V indicator) → LED anode, cathode → GND. Place near a board edge / mounting hole for visibility. Update the pinout table in `projects/kart-medulla/docs/pinout-esp32-s3.md` only if the signal name changes (e.g. `LED` → `STATUS_LED`).
+
+Do **not** implement either side yet — this entry is for the decision to be made.
+
 ### Place LM358 unit B with safe tie-back (optional but recommended)
 
 `U1B` (the unused half of the LM358 dual op-amp) is currently placed with NC markers on pins 5/6/7. That silences ERC but leaves the silicon op-amp floating, which can oscillate or couple noise into the active half. **Better:** replace the NC markers with:
@@ -52,6 +71,16 @@ Confirmed by grep: each has zero matching counterparts elsewhere on the sheet.
 - Pin 5 → GND (input held at fixed voltage)
 
 For an FS prototype this is unlikely to cause real issues, but it's the standard analog practice.
+
+### Add AISLER sponsor logo to PCB
+
+Sponsor requires their logo on the board. Spec from Rubén:
+- **Size:** 30 × 7.5 mm rectangle
+- **Placement:** anywhere on the PCB (designer's choice)
+- **Layer:** must be on whichever layer we want it visibly fabricated (silkscreen front/back, or copper if preferred)
+- **Reference:** https://community.aisler.net/t/adding-our-logo-to-your-pcb/5382 (AISLER's instructions for importing their logo into KiCad)
+
+Do during PCB layout — pick a free spot near a board edge that won't conflict with mounting holes / connectors.
 
 ### When all warnings are addressed: PCB layout
 
