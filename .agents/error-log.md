@@ -4,6 +4,57 @@
 
 Mistakes made and the rules learned from them. Newest first. Grep before working in a related area.
 
+## 2026-05-08 — Suggested switching to the buzzer task while a PCB-sync issue was actively in flight
+
+**What happened:** While the user was in the middle of resolving "Update PCB from Schematic" producing duplicates (the same ratsnest/PCB-sync workstream that already has a 2026-05-07 error-log entry), I read `.agents/tasks.md`, summarized the TODOs, and recommended starting the buzzer circuit "for the next thing to do on YOUR side while the peer routes." The user pushed back: poor organization, I should have known the issue we were dealing with — i.e., stay on the in-flight thread, don't pivot to an unrelated task list item.
+
+**Root cause:** I treated `tasks.md` as the canonical "what to do next" without weighing context. The in-flight thread (PCB↔schematic resync, originally framed by the user as "use pcb with ratsnets") was the actual work; suggesting a different task is a context-switch the user didn't ask for. Same shape as past "drift away from user's stated goal" entries (e.g. 2026-05-07 "Forgot session context mid-conversation: re-suggested keeping RGB bridge open after user already established they want the LED").
+
+**Prevention rule:**
+- **Default to finishing the in-flight task before suggesting any task pivot.** "What's left" questions in the middle of a workstream mean "what's left in *this* thread first, then what's after" — not "here's a menu of unrelated TODOs."
+- **When the user references an "original task" or earlier framing, anchor the response to that thread.** Re-read the recent conversation before suggesting next-step priorities. The user's framing wins over `tasks.md` ordering.
+- **Task pivots are a user decision, not mine.** I can list what's open, but recommending a pivot mid-thread imposes an organizational choice the user hasn't asked for.
+
+**Cross-reference:** 2026-05-07 ratsnest-Nets:1 entry (same workstream this conversation is continuing). 2026-05-07 RGB-bridge entry (same shape — drifting from stated goal).
+
+## 2026-05-08 — Ranked "delete the symbol" as risky without first checking for coordinate collisions
+
+**What happened:** User asked me to delete a hidden U02 reference in `kart-medulla_P1.kicad_sch`. I found it (a `kart-medulla:GND` symbol at (125.73, 311.15) with `Reference: U02`, hidden), and offered two options: (A) rename the reference to `#PWR<n>` — "recommended", "safe"; (B) delete the symbol — "Risky without checking the wiring." The user then asked why they couldn't simply select-and-delete it in the GUI. *That* prompted me to grep for the coordinates `125.73 311.15` — which immediately showed a second `power:GND` symbol stacked at the **exact same point**, plus a junction. The U02 GND was a fully redundant duplicate. Option B was the obvious safe answer all along; I had the file open and the grep took two seconds. The user pointed out I'd been confidently wrong.
+
+**Root cause:** I assigned risk labels ("safe" / "risky") to the two options based on a generic prior ("deleting a wired symbol could orphan a net") without doing the cheap inspection that would have eliminated the prior in this specific case. The user's own observation — "I can find it with Find but can't click-select it" — was already strong evidence of a stacked/buried symbol; I didn't pick up on the signal. Same shape as the 2026-05-07 SELECT_THROTTLE entry: pushing a trace onto the user when the answer is one grep away.
+
+**Prevention rule:**
+- **Before assigning risk labels to schematic edits, grep the relevant coordinates / net / reference.** "Symbol at (x, y)" → `grep "at <x> <y>"` — finds stacks. "Net X" → trace netlist. "Reference Y" → grep both `Reference "Y"` and `(reference "Y")`. Cheap; eliminates whole categories of false caution.
+- **"User can find it but can't click-select it" almost always means the item is stacked under another item.** Tab-cycle, or grep the coords. Don't speculate before grepping.
+- **Don't pre-grade options as "safe vs risky" without the inspection that would tell you which is which.** Either do the inspection, or present both neutrally and say "I haven't checked which is safe."
+
+**Cross-reference:** Same pattern as 2026-05-07 "Conflated firmware-doesn't-drive with hardware-not-wired" and 2026-05-07 "Made user re-explain the same KiCad ERC issue 8+ times" — reasoning from priors instead of inspecting the file.
+
+## 2026-05-07 — Spent 20+ messages on "hide GND ratsnest" UI when the real problem was PCB/schematic out of sync (Nets: 1)
+
+**What happened:** User asked how to show ratsnest for everything except GND. I went through ~6 wrong UI suggestions (Appearance-panel eye toggle, "Net Tools" submenu — wrong label, "Show All Hidden Nets" — invented, etc.) and only after using `osascript` to screencap KiCad's status bar did I notice **Nets: 1, Pads: 228** at the bottom. The PCB had only one net assigned across all pads — the schematic and PCB were not synced. There was no ratsnest to show because there were no nets to connect. Fix was a single F8 → "Update PCB from Schematic" → click "Update PCB". After sync: Nets: 83, ratsnest populated.
+
+**Root cause:** I iterated on the user's described symptom ("ratsnest missing for non-GND nets") without ever verifying the underlying PCB state. Net count, pad count, footprint count, and unrouted count are all visible in the status bar at the bottom of the PCB editor — checking that first would have shown "Nets: 1" immediately and exposed the real issue. Instead I anchored on "user toggled eye → eye toggle is buggy → here are workarounds" because the user's narrative pointed there.
+
+**Prevention rule:**
+- **For any "ratsnest missing / wrong" report on a KiCad PCB, check the status bar net count first.** Pads/Nets/Unrouted at the bottom of the PCB editor. If `Nets` is much lower than expected (e.g. 1 on a real board), the PCB isn't synced — run **F8 → Update PCB from Schematic** before debugging any visibility settings. This is the single highest-leverage check.
+- **`osascript` + `screencapture` is the right tool the moment a KiCad UI question goes past two wrong-path suggestions.** It costs nothing and shows ground truth.
+- **Don't iterate on UI workarounds for a symptom whose root cause hasn't been verified.** "User says X is hidden" is one hypothesis; "X never existed" is another. Check the data, not the user's mental model.
+
+## 2026-05-07 — Wrong path for "hide ratsnest of one net" in KiCad 10; iterated wrong guesses instead of verifying
+
+**What happened:** User asked how to show ratsnest for everything except GND (planning a ground pour). I told them to use the eye-icon column in Appearance panel → Nets tab. Toggling GND's eye there blanked **all** ratsnest, not just GND. I then suggested Net Display Options ("Ratsnest display: All") and a non-existent "Net Inspector" entry under the Inspect menu. User had to push three times before I delegated to a subagent to verify the actual UI.
+
+**Root cause:** Guessed UI behavior instead of checking. The Appearance Nets panel's eye column does not behave as "subtract this net from the visible set" — it's a known buggy interaction (KiCad GitLab #7039). The real path is the right-click context menu, which I should have known or verified up front.
+
+**Prevention rule:**
+- **KiCad 10 PCB editor — hide ratsnest of one net:** select a pad/track of that net (or right-click directly on it) → **Net Inspection Tools → Hide Net in Ratsnest**. Inverse: **Net Inspection Tools → Show Net in Ratsnest**. Greyed out if no net is selected. Hidden nets persist in `.kicad_pro` under `board.hidden_nets` (list of net names). The submenu is "Net Inspection Tools" — *not* "Net Tools" (I had this wrong twice — labels matter).
+- **KiCad 10 — there is no "Net Inspector" entry in the Inspect menu.** The Net Inspector is a docked bottom panel (columns: Netclass, Total Length, Via Count, …), toggled from the left toolbar.
+- **The Appearance → Nets tab eye column is not a per-net ratsnest toggle.** Don't recommend it for that purpose. Use Net Tools right-click instead.
+- More generally: when a UI suggestion fails on the first try, **stop and verify the actual UI** (subagent + web search of docs.kicad.org / forum.kicad.info / GitLab issues) before offering a second guess. Three wrong-path messages is two too many.
+
+**Cross-reference:** GitLab kicad/code/kicad #7039 (Nets-tab eye desync); forum.kicad.info threads "Hide specific ratsnests in PCB" and "How can I hide GND ratsnest".
+
 ## 2026-05-07 — Reported "Already applied" for an Edit that had failed; mistook the user's own edit for my own
 
 **What happened:** User said "I chose short" (past tense) about a schematic annotation. I parsed it as present-tense intent ("I choose short"), called Edit on `kart-medulla_P1.kicad_sch`, got `File has been modified since read` error, then grepped, saw the new short text in the file, and replied "Already applied — the schematic now reads…" as if my edit had succeeded. The new text was the user's edit (they had already applied it themselves, which is exactly what "I chose" meant). User flagged the reading-comprehension mistake; separately flagged that I shouldn't be writing to the .kicad_sch with KiCad open at all.
@@ -169,3 +220,14 @@ I treated (1) as if it implied (2), which led me to advise the user that NC was 
 - Cross-reference: `history.md` 2026-05-04 entry has the docs quote and the correction.
 
 **Verification:** KiCad master docs, eeschema chapter — "No-connection flags are used to indicate that a pin is intentionally unconnected. These flags prevent 'unconnected pin' ERC warnings for pins that are intentionally unconnected." (https://docs.kicad.org/master/en/eeschema/eeschema.html)
+
+## 2026-05-07 — Markdown ate a literal backtick in instructions
+
+**What happened:** Telling the user how to highlight a net in KiCad, I wrote the keyboard shortcut as `**`** (backtick)` — a backtick wrapped in bold-asterisks. Markdown rendered it as `****` on the user's side, with the actual backtick character lost/escaped. User couldn't tell which key I meant and got (justifiably) frustrated.
+
+**Root cause:** Wrapping a backtick — which is itself markdown's code-fence character — inside `**...**` is fragile. The renderer collapses or escapes it inconsistently. I prioritized visual emphasis over the user actually being able to read the character.
+
+**Prevention rule:**
+- When the answer IS a literal punctuation/symbol character (especially backtick, asterisk, underscore, tilde), render it inside an inline code span with double backticks: `` `` ` `` `` — not bolded, not bare.
+- Never wrap a backtick in `**...**`. Same for `*` inside `*...*`, `_` inside `_..._`, etc.
+- For non-US-keyboard users, also give the alternative input (e.g. `Option+Ñ` on Spanish Mac) — the literal character on its own isn't enough if the key isn't directly typeable.

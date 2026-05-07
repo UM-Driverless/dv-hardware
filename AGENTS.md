@@ -30,6 +30,9 @@ docs/                           cross-board notes (fab process, KiCad setup, lib
 - `projects/<board>/docs/` (per-board) = pinout, mechanical drawings, design-decision notes, board-revision changelog, app notes specific to this design's use of a part.
 - Rule of thumb: *would another board's designer read this?* → shared. *Only meaningful for this PCB?* → project folder.
 
+## Tooling
+- **KiCad 10.0.1+** on macOS. Confirmed — don't ask again or assume an older version. UI labels and menu paths follow KiCad 10 (e.g. Grids live in `KiCad → Settings… → PCB Editor → Grids`, not under the View menu).
+
 ## Conventions
 - Naming: kebab-case for repos, folders, and project files (`kart-medulla`, not `kart-medulla` or `KartMedulla`). Matches verbal team usage (`kart-brain`, `kart-medulla`).
 - One project folder per board under `projects/`. Board name = folder name = `.kicad_pro` basename.
@@ -54,6 +57,8 @@ If unsure of an exact label, say "the menu that does X" and ask the user to find
 
 ## Editing KiCad files outside KiCad (agents)
 
+**See `.agents/kicad-workflow.md` for the full workflow** — the two modes (read-only MCP vs. direct-edit-with-KiCad-closed), tool selection cheat-sheet, and rationale. Default to Mode A (read-only MCP). Run `scripts/guard-kicad-write.sh` before any direct edit.
+
 When editing `.kicad_sch`, `.kicad_pcb`, or `.kicad_sym` from a script/agent (Edit tool, sed, anything that isn't KiCad itself):
 
 1. **Don't mix kicad-mcp-pro writes with direct file edits in the same session.** The MCP server caches the schematic in memory after `kicad_set_project` and silently flushes its cache to disk on the next MCP write call (`sch_add_no_connect`, sometimes `run_erc` / `sch_reload`), wiping any direct file edits made between MCP calls. Pick one workflow per session — pure-MCP or pure-file-edit. KiCad open in the GUI is actually fine *if you only reload (File → Revert) and never save before the agent commits* — KiCad only writes on explicit save. Check before editing: `pgrep -fl kicad-mcp-pro; pgrep -i 'KiCad' -a`.
@@ -65,9 +70,12 @@ When editing `.kicad_sch`, `.kicad_pcb`, or `.kicad_sym` from a script/agent (Ed
 
 ## Knowledge files
 - `.agents/tasks.md` — shared kanban (TODO / In Progress / Done). Read before starting work.
+- `.agents/kicad10-ui.md` — verified KiCad 10 UI cheat-sheet (menus, panels, hotkeys). Grep before describing any KiCad UI element.
+- `.agents/kicad-workflow.md` — the two modes for KiCad work (read-only MCP vs direct-edit), tool cheat-sheet. Read when touching `.kicad_*` files.
 - `history.md` — append-only log: what was tried, what worked, what didn't, gotchas, references. Grep — don't read in full.
 - `.agents/error-log.md` — mistakes made + prevention rules. Grep before working in a related area, especially after a correction.
 - `projects/<board>/parts.md` — per-part sourcing (manufacturer URLs, SnapEDA/UltraLib download links, which file is from where, replacement notes). Add an entry whenever a new part is integrated.
+- `scripts/guard-kicad-write.sh` — preflight check before any agent-driven edit to KiCad project files. Run it; if it fails, do not write.
 
 ## Pairing with firmware
 Match-tagged. Hardware rev `medulla-v1.2` here pairs with firmware tag `medulla-v1.2-fw` in `kart-medulla`. Cross-link in both READMEs at release time.
