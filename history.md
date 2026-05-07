@@ -4,6 +4,24 @@
 
 Append-only log. Newest first.
 
+## 2026-05-07 — Idea: agent works in a separate git worktree so user can keep KiCad open
+
+**Problem context:** Twice today the agent's edits to `kart-medulla_P1.kicad_sch` were silently clobbered — once by KiCad's stale-buffer save, once by interleaving direct file edits with kicad-mcp-pro writes. Root cause is that the agent and the user's KiCad are racing for the same on-disk file.
+
+**Idea (not yet implemented; user said note it, don't set up):** add a sibling worktree just for agent work.
+
+```
+~/repos/dv-hardware/         user's main worktree, KiCad stays open
+~/repos/dv-hardware-agent/   agent's worktree, on branch agent/<topic>
+```
+
+Setup is `git worktree add ../dv-hardware-agent agent-work`. Agent points the MCP at the worktree's project path with `kicad_set_project /Users/rubenayla/repos/dv-hardware-agent/projects/<board>` and edits there. KiCad's `${KIPRJMOD}` resolves relative to the worktree's `.kicad_pro`, so symbol libs (`*.kicad_sym`), footprint pretties (`*.pretty/*.kicad_mod`), and 3D models (`3dmodels/*.step`) all work without re-pathing. Agent commits + pushes on its branch; user pulls into their worktree when ready and runs `File → Revert` in KiCad to pick up the changes.
+
+**Trade-offs to remember if/when this gets set up:**
+- KiCad files are text but not line-mergeable. Concurrent edits to the *same* `.kicad_sch` or `.kicad_pcb` in both worktrees → ugly manual merge (KiCad re-formats huge sections on save, so even small logical changes can collide on hundreds of lines). Coordinate by topic — agent on one feature branch per task, user avoids touching the same file.
+- The MCP is a single process. `kicad_set_project` per session is enough; no reconfig of the MCP itself.
+- Could be wrapped in `~/.claude/skills/dv-worktree/SKILL.md` so the agent can spin one up on demand.
+
 ## 2026-05-07 — kicad-mcp-pro installed; pins 20/21 (UART0 TX0/RX0) NC'd on kart-medulla
 
 **Tooling change:**
