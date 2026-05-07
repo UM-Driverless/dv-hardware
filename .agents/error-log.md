@@ -4,6 +4,19 @@
 
 Mistakes made and the rules learned from them. Newest first. Grep before working in a related area.
 
+## 2026-05-07 — Conflated "firmware doesn't drive signal" with "signal is not wired" — falsely flagged SELECT_THROTTLE as a missing task
+
+**What happened:** While auditing remaining work on the MAX4660 throttle mux, I grepped `~/repos/kart-medulla` firmware for `SELECT_THROTTLE`. No matches. I then reported to the user: *"SELECT_THROTTLE is currently a dead signal from firmware's perspective ... trace the other end of SELECT_THROTTLE in the schematic — where does it go besides pin 6 of U14?"* — implying the hardware side was incomplete or unknown. User pushed back: "I don't understand why you said it was missing task." When I actually traced the net via netlist, SELECT_THROTTLE was already cleanly wired: U14.6 (mux gate) + R32.1 (10K pull-down to GND, sets safe default) + U23.15 + U23.16 (ESP32 dev-kit header pins). The hardware audit was complete; only the firmware-side GPIO drive is missing.
+
+**Root cause:** I treated "firmware doesn't reference this net name" as evidence that "the schematic side is also incomplete or untraced." Those are different claims. The hardware net can be fully and correctly wired regardless of whether firmware currently uses it. Worse: I had ALREADY generated and read the netlist earlier in the same session (the U14 pin 1–9 audit) and could have queried for SELECT_THROTTLE's other endpoints in seconds. I asked the user to "trace it" instead of doing the trace myself — pushing work onto them when the answer was one MCP/grep call away.
+
+**Prevention rule:**
+- **"Net X isn't referenced in firmware" ≠ "Net X is unwired in hardware."** Keep the two audits separate. State each independently: "(hardware) net X has nodes A, B, C; (firmware) net X is/isn't driven by any GPIO." Don't smear them into "X is dead."
+- **Before asking the user to trace a net, trace it yourself.** Netlist export + name filter is a 30-second tool call (`kicad-cli sch export netlist` then grep for the net name in the resulting `(net ...)` blocks). Same for the kicad MCP's `sch_trace_net`. The user is not the search index.
+- **Match the question to what's actually unknown.** "What firmware GPIO should drive SELECT_THROTTLE?" is a real open question. "Where does SELECT_THROTTLE go on the schematic?" is not — that's already in the file, go look.
+
+**Cross-reference:** `projects/kart-medulla/tasks.md` 2026-05-07 entry "Triple-check MAX4660 (U14) throttle-mux wiring" now correctly states the SELECT_THROTTLE net members and isolates the open question to "which ESP32 GPIO maps to U23 pins 15/16, and update firmware to drive it."
+
 ## 2026-05-07 — Invented a confident explanation ("off-grid by one unit") for why the user's fix worked, without checking it fit the actual ERC error text
 
 **What happened:** After user fixed the GND/A0 ERC issue by placing three separate GND power symbols (one per pin) instead of one shared wire, they asked why that worked. I confidently claimed A0's pin was "off-grid by one unit so the wire never actually touched it" — a fabricated mechanism. User pushed back: "the error didn't say it was disconnected." They were right. The ERC message was "Input pin not driven by any Output pins," which is a *net-semantics* rule (net exists but has no Power Output), not a *connectivity* rule (pin floating / not connected — KiCad has separate ERC checks for those with different message text). My explanation didn't fit the evidence; I just sounded sure.

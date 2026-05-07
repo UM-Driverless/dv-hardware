@@ -8,6 +8,234 @@
 		(title "P1")
 	)
 	(lib_symbols
+		(symbol "GND_1"
+			(power global)
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "#PWR042"
+				(at -6.35 0 90)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "GND"
+				(at 0.254 -5.334 90)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 90)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "global power"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "GND_1_0_1"
+				(polyline
+					(pts
+						(xy 0 0) (xy 0 -1.27) (xy 1.27 -1.27) (xy 0 -2.54) (xy -1.27 -1.27) (xy 0 -1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "GND_1_1_1"
+				(pin power_in line
+					(at 0 0 270)
+					(length 0)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "GND_2"
+			(power global)
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "#PWR043"
+				(at 6.35 0 270)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "GND"
+				(at 0 -5.334 270)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 270)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "global power"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "GND_2_0_1"
+				(polyline
+					(pts
+						(xy 0 0) (xy 0 -1.27) (xy 1.27 -1.27) (xy 0 -2.54) (xy -1.27 -1.27) (xy 0 -1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "GND_2_1_1"
+				(pin power_in line
+					(at 0 0 270)
+					(length 0)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "kart-medulla:+12V"
 			(power global)
 			(pin_numbers
@@ -6205,7 +6433,7 @@
 	)
 	(text "SPARE"
 		(exclude_from_sim no)
-		(at 394.97 59.69 0)
+		(at 392.938 58.674 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -6241,7 +6469,7 @@
 	)
 	(text "SPARE - Octal-PSRAM pin on N8R8"
 		(exclude_from_sim no)
-		(at 391.16 73.66 0)
+		(at 393 73.66 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -6289,7 +6517,7 @@
 	)
 	(text "SPARE - Octal-PSRAM pin on N8R8"
 		(exclude_from_sim no)
-		(at 391.16 76.2 0)
+		(at 393 76.2 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -6313,7 +6541,7 @@
 	)
 	(text "SPARE"
 		(exclude_from_sim no)
-		(at 394.97 62.23 0)
+		(at 392.938 61.214 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -6385,7 +6613,7 @@
 	)
 	(text "SPARE - Octal-PSRAM pin on N8R8"
 		(exclude_from_sim no)
-		(at 391.16 71.12 0)
+		(at 393 71.12 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -6432,7 +6660,7 @@
 	)
 	(text "SDC_ENABLE — orphan, expected from external module"
 		(exclude_from_sim no)
-		(at 394.97 66.04 0)
+		(at 393 66.04 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -6830,6 +7058,16 @@
 	)
 	(wire
 		(pts
+			(xy 392.43 86.36) (xy 389.89 86.36)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "03d3647b-bee0-4fb4-a911-aa3b2197ec9c")
+	)
+	(wire
+		(pts
 			(xy 85.09 308.61) (xy 90.17 308.61)
 		)
 		(stroke
@@ -7010,16 +7248,6 @@
 	)
 	(wire
 		(pts
-			(xy 471.17 226.06) (xy 471.17 227.33)
-		)
-		(stroke
-			(width 0)
-			(type solid)
-		)
-		(uuid "1c1a1116-519a-4732-a821-c82f90ed1a46")
-	)
-	(wire
-		(pts
 			(xy 55.88 308.61) (xy 74.93 308.61)
 		)
 		(stroke
@@ -7087,16 +7315,6 @@
 			(type solid)
 		)
 		(uuid "24649a00-66a6-4d68-94c7-0a9b522ca84a")
-	)
-	(wire
-		(pts
-			(xy 452.12 218.44) (xy 473.71 218.44)
-		)
-		(stroke
-			(width 0)
-			(type solid)
-		)
-		(uuid "271c3818-76b0-4fe4-adf3-e1e3b68aacb9")
 	)
 	(wire
 		(pts
@@ -7230,16 +7448,6 @@
 	)
 	(wire
 		(pts
-			(xy 471.17 226.06) (xy 473.71 226.06)
-		)
-		(stroke
-			(width 0)
-			(type solid)
-		)
-		(uuid "401eefee-b3ff-4693-a522-28626dbaa60c")
-	)
-	(wire
-		(pts
 			(xy 374.65 292.1) (xy 374.65 303.53)
 		)
 		(stroke
@@ -7247,6 +7455,16 @@
 			(type solid)
 		)
 		(uuid "421d311d-eb1f-49e3-8157-98087499b527")
+	)
+	(wire
+		(pts
+			(xy 392.43 68.58) (xy 389.89 68.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4275e337-3c75-4ecb-9004-251326c02652")
 	)
 	(wire
 		(pts
@@ -7480,6 +7698,16 @@
 	)
 	(wire
 		(pts
+			(xy 392.43 78.74) (xy 389.89 78.74)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7175c64a-c880-49b2-967a-491755065739")
+	)
+	(wire
+		(pts
 			(xy 151.13 213.36) (xy 151.13 215.9)
 		)
 		(stroke
@@ -7487,6 +7715,16 @@
 			(type solid)
 		)
 		(uuid "7356dec0-0c3e-4775-8d8d-02e5a15cfb60")
+	)
+	(wire
+		(pts
+			(xy 392.43 88.9) (xy 389.89 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7564244b-ae63-4e7f-b97e-f2ad61ca7cce")
 	)
 	(wire
 		(pts
@@ -7517,6 +7755,26 @@
 			(type solid)
 		)
 		(uuid "7e289c07-74c9-4cc7-bcb1-5600521bd3bc")
+	)
+	(wire
+		(pts
+			(xy 392.43 63.5) (xy 389.89 63.5)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "811ee9cf-a64c-4c50-b6ad-7397d650e9db")
+	)
+	(wire
+		(pts
+			(xy 392.43 55.88) (xy 389.89 55.88)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8163433b-7b0a-4008-ab36-5aca27872ad3")
 	)
 	(wire
 		(pts
@@ -7610,16 +7868,6 @@
 	)
 	(wire
 		(pts
-			(xy 452.12 223.52) (xy 473.71 223.52)
-		)
-		(stroke
-			(width 0)
-			(type solid)
-		)
-		(uuid "975bd803-6cdb-432d-85ba-ae8a39d17ab9")
-	)
-	(wire
-		(pts
 			(xy 494.03 59.69) (xy 494.03 62.23)
 		)
 		(stroke
@@ -7650,6 +7898,16 @@
 	)
 	(wire
 		(pts
+			(xy 392.43 53.34) (xy 389.89 53.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9cc14387-740d-47cf-8020-858f43be1183")
+	)
+	(wire
+		(pts
 			(xy 313.69 83.82) (xy 370.84 83.82)
 		)
 		(stroke
@@ -7657,16 +7915,6 @@
 			(type solid)
 		)
 		(uuid "9da33b88-0f13-4874-8cef-3b789bb76fa9")
-	)
-	(wire
-		(pts
-			(xy 452.12 220.98) (xy 473.71 220.98)
-		)
-		(stroke
-			(width 0)
-			(type solid)
-		)
-		(uuid "a01e14e7-78ce-4a7c-96fd-f63204393128")
 	)
 	(wire
 		(pts
@@ -8268,7 +8516,7 @@
 		(uuid "17893f19-f04d-4a38-95c9-db457ae59431")
 	)
 	(label "CMD_STEER__PWM_3V3"
-		(at 389.89 63.5 0)
+		(at 392.43 63.5 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8378,7 +8626,7 @@
 		(uuid "2bcee986-531a-4700-967d-f7b83125275b")
 	)
 	(label "PRESSURE_3__0_3V3"
-		(at 389.89 53.34 0)
+		(at 392.43 53.34 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8475,7 +8723,7 @@
 		(uuid "39ebb7a6-0d85-4051-86ef-047f79812ec2")
 	)
 	(label "MOTOR_HALL_3__3V3"
-		(at 389.89 88.9 0)
+		(at 392.43 88.9 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8507,13 +8755,13 @@
 		(uuid "4466198d-36fe-4ad8-8b3e-70fab70d8dea")
 	)
 	(label "EXP_P1"
-		(at 452.12 218.44 0)
+		(at 473.71 218.44 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 				(thickness 0.1524)
 			)
-			(justify left bottom)
+			(justify right bottom)
 		)
 		(uuid "4575f061-d4e5-430f-8a41-31f31ede9e7a")
 	)
@@ -8561,7 +8809,7 @@
 		(uuid "4f73ffc8-442d-4e66-b27b-a66ecef1c172")
 	)
 	(label "MOTOR_HALL_2__3V3"
-		(at 389.89 86.36 0)
+		(at 392.43 86.36 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8648,13 +8896,13 @@
 		(uuid "6cdc8163-6589-41b1-8a15-7056954323ed")
 	)
 	(label "EXP_P2"
-		(at 452.12 220.98 0)
+		(at 473.71 220.98 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 				(thickness 0.1524)
 			)
-			(justify left bottom)
+			(justify right bottom)
 		)
 		(uuid "6e6755e5-b31b-4fe9-a091-197e57fe0db3")
 	)
@@ -8865,7 +9113,7 @@
 		(uuid "9da8d02e-2e5b-4157-b27b-4646c30e1801")
 	)
 	(label "SDC_NOT_EMERGENCY__3V3"
-		(at 389.89 68.58 0)
+		(at 392.43 68.58 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9050,18 +9298,18 @@
 		(uuid "d3c90f8f-df54-4da7-a3e5-30e9bf7e42b6")
 	)
 	(label "EXP_P3"
-		(at 452.12 223.52 0)
+		(at 473.71 223.52 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 				(thickness 0.1524)
 			)
-			(justify left bottom)
+			(justify right bottom)
 		)
 		(uuid "d56b25f0-327f-418d-b067-6051d573ae9f")
 	)
 	(label "HYDRAULIC_2__0_3V3"
-		(at 389.89 55.88 0)
+		(at 392.43 55.88 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9116,7 +9364,7 @@
 		(uuid "e7fd59bb-c41c-461e-8cdf-4d7bb9644fd5")
 	)
 	(label "CMD_STEER_DIR__3V3"
-		(at 389.89 78.74 0)
+		(at 392.43 78.74 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9671,7 +9919,7 @@
 	)
 	(symbol
 		(lib_id "kart-medulla:GND")
-		(at 471.17 227.33 0)
+		(at 473.71 226.06 270)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -9682,7 +9930,7 @@
 		(fields_autoplaced yes)
 		(uuid "1380d95e-77a2-4045-b719-fa26043d0e84")
 		(property "Reference" "#PWR30"
-			(at 471.17 229.87 0)
+			(at 471.17 226.06 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9694,7 +9942,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 471.17 231.14 0)
+			(at 469.9 226.06 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -9702,10 +9950,11 @@
 					(size 1.27 1.27)
 					(thickness 0.1524)
 				)
+				(justify right)
 			)
 		)
 		(property "Footprint" ""
-			(at 471.17 227.33 0)
+			(at 473.71 226.06 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9717,7 +9966,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 471.17 227.33 0)
+			(at 473.71 226.06 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9729,7 +9978,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 471.17 227.33 0)
+			(at 473.71 226.06 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -10667,6 +10916,7 @@
 		)
 	)
 	(symbol
+		(lib_name "GND_1")
 		(lib_id "power:GND")
 		(at 405.13 217.17 90)
 		(unit 1)
@@ -10677,7 +10927,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "39908814-9e14-4432-8aa1-0223c4466541")
-		(property "Reference" "#PWR25ce01"
+		(property "Reference" "#PWR042"
 			(at 405.13 223.52 90)
 			(hide yes)
 			(show_name no)
@@ -10689,7 +10939,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 405.13 222.25 90)
+			(at 410.464 216.916 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -10736,7 +10986,7 @@
 		(instances
 			(project "kart-medulla"
 				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
-					(reference "#PWR25ce01")
+					(reference "#PWR042")
 					(unit 1)
 				)
 			)
@@ -12053,7 +12303,7 @@
 		(dnp no)
 		(uuid "60ac7636-837d-427b-be5a-9f8239e910b9")
 		(property "Reference" "U14"
-			(at 389.89 226.06 0)
+			(at 392.938 227.076 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -12065,7 +12315,7 @@
 			)
 		)
 		(property "Value" "MAX4660EUA+T"
-			(at 389.89 229.616 0)
+			(at 394.716 229.362 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -12682,7 +12932,6 @@
 		(on_board no)
 		(in_pos_files yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "6c30655a-bdef-4d45-8e2b-0f5c4bafc894")
 		(property "Reference" "#PWR19"
 			(at 394.97 212.09 0)
@@ -12697,7 +12946,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 394.97 213.36 0)
+			(at 394.97 205.74 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -12754,6 +13003,7 @@
 		)
 	)
 	(symbol
+		(lib_name "GND_2")
 		(lib_id "power:GND")
 		(at 384.81 219.71 270)
 		(unit 1)
@@ -12764,7 +13014,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "6e0d2726-bc4f-42a1-8711-2fb004c769cd")
-		(property "Reference" "#PWRdf4d01"
+		(property "Reference" "#PWR043"
 			(at 384.81 226.06 270)
 			(hide yes)
 			(show_name no)
@@ -12776,7 +13026,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 384.81 224.79 270)
+			(at 379.476 219.71 270)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -12823,7 +13073,7 @@
 		(instances
 			(project "kart-medulla"
 				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
-					(reference "#PWRdf4d01")
+					(reference "#PWR043")
 					(unit 1)
 				)
 			)
@@ -13952,7 +14202,7 @@
 		(dnp no)
 		(uuid "8929b703-260f-4602-ae17-ad1add2d200d")
 		(property "Reference" "C5"
-			(at 382.27 226.06 270)
+			(at 379.73 226.06 270)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -13963,7 +14213,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 382.27 228.6 270)
+			(at 381.254 228.346 270)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects

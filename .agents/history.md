@@ -6,6 +6,18 @@ Append-only log of investigations, decisions, surprising findings, and gotchas. 
 
 ---
 
+## 2026-05-07 — Decision: stay on KiCad long-term (vs EasyEDA)
+
+Revisited tool choice after MCP-related friction. Decision: **KiCad**, long-term.
+
+Reasoning:
+- Open format, local files, git-tracked — work is owned, not hosted on a vendor's servers.
+- No vendor lock-in; portable across fabs (not tied to JLCPCB pipeline).
+- Scriptable; MCP tooling is improving and recent ERC issues were all resolved within KiCad.
+- EasyEDA is fine for quick JLC-bound boards but wrong foundation for hardware meant to live for years.
+
+---
+
 ## 2026-05-07 — KiCad ERC: "Input pin not driven" on GND net (kart-medulla GPIO expander U25 A0)
 
 ### Problem
