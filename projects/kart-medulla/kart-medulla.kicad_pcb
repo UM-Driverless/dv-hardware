@@ -3304,13 +3304,14 @@
 		(embedded_fonts no)
 	)
 	(footprint "HDR-TH_ESQ-122-59-G-D"
+		(locked yes)
 		(layer "F.Cu")
 		(uuid "772bb67e-0f4e-4cf3-9a62-5328b918520c")
-		(at 169.5516 114.9931 90)
+		(at 96.73 73.83 90)
 		(property "Reference" "U23"
 			(at -28.4665 -2.702 90)
 			(layer "F.SilkS")
-			(uuid "8f05ad97-aefc-42a0-8d1f-7b9f15ebe4e4")
+			(uuid "fc9cf5eb-98f5-4829-b7d5-50cb75dcdf63")
 			(effects
 				(font
 					(size 0.6858 0.7201)
@@ -3323,7 +3324,7 @@
 			(at -0.1714 1.5 90)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "7175d08a-dd4e-4d6f-850d-14e8cd082f01")
+			(uuid "dba4ce43-92d1-490b-a8f6-2ab096b23151")
 			(effects
 				(font
 					(size 0.6858 0.7201)
@@ -3336,7 +3337,7 @@
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "82432879-e595-4454-9a65-1e90f30dc27d")
+			(uuid "649ae424-5fcc-4239-96bc-15c709c905ed")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3347,7 +3348,7 @@
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "8418b6e9-e067-4782-888e-cd952e3e6753")
+			(uuid "cfc6275b-ea4b-403d-88bb-3874d9ce2082")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6795,9 +6796,10 @@
 		(embedded_fonts no)
 	)
 	(footprint "HDR-TH_ESQ-122-23-G-S"
+		(locked yes)
 		(layer "F.Cu")
 		(uuid "d0e8e52c-8ae1-4d01-9c60-f25554e7fc2b")
-		(at 177.9336 114.9931 90)
+		(at 120.86 73.53 90)
 		(property "Reference" "U24"
 			(at -28.4884 -1.459 90)
 			(layer "F.SilkS")
