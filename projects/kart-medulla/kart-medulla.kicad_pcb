@@ -3412,7 +3412,7 @@
 			)
 		)
 		(property "Value" "3.9k"
-			(at 0.1714 1.5 270)
+			(at 0.1714 1.5 90)
 			(layer "B.SilkS")
 			(hide yes)
 			(uuid "9504d781-958b-49aa-a583-2d1e1cf35219")
@@ -3421,11 +3421,11 @@
 					(size 0.6858 0.7201)
 					(thickness 0.0871)
 				)
-				(justify left bottom mirror)
+				(justify right top mirror)
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 270)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "1cbd64a2-5273-4886-93e8-32eb8a3f2713")
@@ -3436,7 +3436,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 0 0 270)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "5c41b613-673d-4f9a-a145-c7175535d79f")
@@ -13607,7 +13607,7 @@
 			)
 		)
 		(property "Value" "2k"
-			(at 0.1714 1.5 270)
+			(at 0.1714 1.5 90)
 			(layer "B.SilkS")
 			(hide yes)
 			(uuid "be0307f8-9bdf-4468-a878-ad2a4dfdeab0")
@@ -13616,11 +13616,11 @@
 					(size 0.6858 0.7201)
 					(thickness 0.0871)
 				)
-				(justify left bottom mirror)
+				(justify right top mirror)
 			)
 		)
 		(property "Datasheet" ""
-			(at 0 0 270)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "62583bd6-4856-4742-b87a-b21066257201")
@@ -13631,7 +13631,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 0 0 270)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "641f6928-b4af-47c1-8b31-71f5308d2931")
