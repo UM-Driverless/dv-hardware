@@ -43,6 +43,16 @@ docs/                           cross-board notes (fab process, KiCad setup, lib
 4. Commit small, commit often.
 5. Tag fab releases: `<board>-v<rev>` here, `<board>-v<rev>-fw` on the firmware repo, link both READMEs.
 
+## Editing KiCad files outside KiCad (agents)
+
+When editing `.kicad_sch`, `.kicad_pcb`, or `.kicad_sym` from a script/agent (Edit tool, sed, anything that isn't KiCad itself):
+
+1. **Confirm KiCad is closed before editing.** Run `pgrep -i kicad-eeschema -a; pgrep -i kicad-pcb -a; pgrep -i 'KiCad' -a` — empty output means safe. If KiCad is running, ask the user to close it (and any open MCP servers that auto-attach KiCad). KiCad keeps the whole project in memory and writes the in-memory state on its next save, silently overwriting external edits.
+2. **Run `kicad-cli sch erc -o /tmp/x.rpt …` (or `pcb drc`) immediately after editing** to confirm the file is still valid and the edit had the intended electrical effect.
+3. **Commit immediately**, then `git diff HEAD -- <file>` to confirm the working tree matches the commit. If a diff shows up unprompted later, KiCad probably reopened and clobbered — use `git checkout HEAD -- <file>` to restore.
+4. **For symbol fixes that affect ERC behavior** (electrical type changes on pins like `passive`/`no_connect`/`power_in`), re-run ERC after the change. A "cosmetic" symbol fix can surface real wiring bugs the broken symbol was masking — investigate any new violations rather than dismissing them.
+5. **Two-copy rule for symbols.** Each symbol exists twice: the master in `<project>.kicad_sym` and a snapshot in the schematic's `lib_symbols` block. KiCad renders from the snapshot. When fixing a symbol bug, edit both copies, or fix the master and tell the user to run `Schematic → Tools → Update Symbols from Library`. Verify with `grep -A30 '(symbol "<lib>:<name>"' <board>_<sheet>.kicad_sch` to see the cached version.
+
 ## Knowledge files
 - `.agents/tasks.md` — shared kanban (TODO / In Progress / Done). Read before starting work.
 - `history.md` — append-only log: what was tried, what worked, what didn't, gotchas, references. Grep — don't read in full.
