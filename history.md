@@ -4,6 +4,20 @@
 
 Append-only log. Newest first.
 
+## 2026-05-07 — kicad-mcp-pro installed; pins 20/21 (UART0 TX0/RX0) NC'd on kart-medulla
+
+**Tooling change:**
+- `kicad-cli` symlinked to `/opt/homebrew/bin/kicad-cli` (was buried inside `/Applications/KiCad/KiCad.app/Contents/MacOS/`). Reports KiCad 10.0.1.
+- `kicad-mcp-pro` v3.1.8 installed via `pipx --python /opt/homebrew/bin/python3.14` (the package needs Python ≥3.12; the user's default `python3` is 3.11 from a platformio venv). Registered in Claude Code at user scope: `claude mcp add kicad -s user -- /Users/rubenayla/.local/bin/kicad-mcp-pro --transport stdio --profile agent_full`. MIT-licensed despite the "Pro" name. Other contenders considered: `lamaalrajih/kicad-mcp` (lighter, KiCad 7+), `Seeed-Studio/kicad-mcp-server` (39 tools, targets KiCad 9), `mixelpixx/KiCAD-MCP-Server`. Picked the Pro one because it's the only one that explicitly supports KiCad 10.
+
+**Design change applied:**
+- Header pins 20/21 of the ESP32-S3-DevKitC-1 footprint on `kart-medulla_P1.kicad_sch` are GPIO 44/43 = RX0/TX0 = UART0. Previously rendered as global labels `TX0` / `RX0` with single-pin wires going nowhere. Confirmed via grep that nothing on the medulla PCB or in `~/dv/kart/kart-medulla` firmware references these nets. They are nonetheless reserved by the dev board's on-board CP210x USB-UART bridge (which physically drives those module pins whenever the UART USB-C is plugged in) — so they must not be reassigned on the medulla side either. Fix: removed the global labels + their wires, added `(no_connect)` markers at the pin endpoints (389.89, 48.26 / 50.8), and added `(text)` annotations explaining the reservation. Commit `b07c56f`.
+
+**Gotchas hit (now also rules in AGENTS.md):**
+- **kicad-mcp-pro caches the schematic in memory** between calls. After `kicad_set_project`, the next MCP write call (`sch_add_no_connect`, etc.) flushes the cached copy to disk, silently overwriting any direct-file edits made between MCP calls. Symptom: `git status` shows zero changes after multiple "successful" Edit calls. Fix: pick one workflow per session — pure-MCP or pure-file-edit, never interleave. KiCad open in the GUI is *fine* if you only reload (File → Revert) and never save before the agent commits; KiCad itself only writes on explicit save.
+- **`agent_full` MCP profile** is missing `sch_delete_label` and `sch_add_text`. So "replace a global label with a text annotation" must be done by direct file edit. Filed mentally as a feature gap.
+- **`sch_add_no_connect` snaps to 2.54 mm by default.** Header pins on the official ESP32-S3-DevKitC-1 sit on 1.27 mm offsets (x=389.89). Marker landed 1.27 mm off; fix: pass `snap_to_grid=False`.
+
 ## 2026-05-07 — MAX4660 (U14) integration: SnapEDA footprint+3D adopted, hidden wire-disconnect bug found and fixed
 
 **Symbol correctness summary (the part that confused things):**

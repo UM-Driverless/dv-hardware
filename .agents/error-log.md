@@ -4,6 +4,19 @@
 
 Mistakes made and the rules learned from them. Newest first. Grep before working in a related area.
 
+## 2026-05-07 — Mixed kicad-mcp-pro writes with direct file edits; MCP cache wiped my edits twice
+
+**What happened:** Working on `kart-medulla_P1.kicad_sch` to remove `TX0`/`RX0` global labels (header pins 20/21, UART0) and add NC markers + text. The MCP profile lacked `sch_delete_label`, so I direct-edited the file with the Edit tool to remove the labels and their wires. Then I called `mcp__kicad__sch_add_no_connect` twice to add the NC markers — the MCP reported success, but a later `git status` showed zero changes. KiCad was *closed*; the culprit was the MCP server, which had cached the schematic in memory after `kicad_set_project` and flushed its cached copy (still containing the old labels/wires) on the next write call, silently overwriting my Edit-tool deletions. Re-did everything via direct file edit only, no further MCP calls — that worked.
+
+**Root cause:** I treated the kicad-mcp-pro server as stateless, like a wrapper that reads the file each time. It isn't. It loads the schematic into memory at `kicad_set_project` and writes from that memory model on the next mutating call. Direct file edits made in between are invisible to the MCP and get clobbered.
+
+**Prevention rule:**
+- **Pick one workflow per session: pure-MCP or pure-file-edit. Never interleave.** If the MCP profile is missing a tool you need (e.g. `sch_delete_label`, `sch_add_text` are gaps in `agent_full`), do the *entire* edit via the Edit tool — and do not call any MCP write tools (including `sch_reload`, possibly `run_erc`) until after the user has reopened the file in KiCad and re-saved it (which lets the MCP re-cache the on-disk state).
+- KiCad open in the GUI is **not** the same threat — KiCad only writes on explicit save, so direct-edit + File → Revert works. The MCP is the silent overwriter.
+- After direct edits, verify the diff stuck: `cd ~/repos/dv-hardware && git status projects/<board>/`. Zero changes = something silently reverted; investigate before continuing.
+
+**Cross-reference:** `history.md` 2026-05-07 entry has the full incident in context (symlinking `kicad-cli`, choosing `kicad-mcp-pro` over alternatives, the actual schematic change applied as commit `b07c56f`).
+
 ## 2026-05-07 — Edited KiCad files while KiCad had them open; auto-save reverted my changes
 
 **What happened:** Edited `kart-medulla_P1.kicad_sch` to fix the U14 cached symbol pin 2 type, footprint property, datasheet URL, and a wire endpoint. Committed and pushed (ded1933). Later in the session, the user installed the KiCad MCP server and asked me to verify the symbol via MCP. When I queried via MCP, U14 showed the OLD footprint (`UMAX-8_…`) — not my fix. Investigation showed all four edits were silently reverted in the working tree: KiCad must have been open with a stale in-memory copy of the schematic; some action (MCP attach, file-watch, autosave) caused KiCad to flush its in-memory state to disk, overwriting the committed-correct file. Discovered only because the MCP showed the old footprint string. The library file (`kart-medulla.kicad_sym`) was not affected because KiCad didn't have it open in the symbol editor.
