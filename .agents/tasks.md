@@ -22,13 +22,7 @@ Reference: https://community.aisler.net/t/adding-our-logo-to-your-pcb/5382
 
 ### Design the buzzer circuit
 
-`BUZZER` net (ESP32 GPIO3) is currently a dangling label — only one endpoint, no driver, no transducer. ERC doesn't flag it (single-pin nets with labels pass). Decide and implement:
-
-- **Pick the buzzer part.** Active (built-in oscillator, just needs DC) vs passive (needs PWM tone from MCU). Voltage (3.3 V vs 5 V vs 12 V). Through-hole vs SMD. Loudness/frequency for kart use (cabin noise — likely needs >85 dB @ 10 cm). Add the chosen part to the BOM.
-- **Design the drive circuit.** GPIO3 can't sink/source enough for a typical buzzer. Use an NPN/N-MOSFET low-side switch (e.g. BSS138, MMBT2222) with base/gate resistor + flyback diode if the buzzer is inductive. Note GPIO3 is a strap pin (JTAG src select, default high) — buzzer must be idle-LOW-safe at boot, OR the transistor stage must invert so high-at-boot ≠ buzzing. Confirm this against the chosen part's drive polarity.
-- **Power rail.** Pick from existing rails (+3V3, +5V_USB, +12V) — most likely +5V_USB or +12V depending on buzzer.
-- **Placement.** On-board (footprint on the medulla PCB) or external on a 2-pin connector? If external, add to one of the green screw terminals.
-- **Update** `docs/pinout-esp32-s3.md` line 178 BUZZER row with the final polarity / idle-state behavior, and remove the "for debugging" framing if it's now a real feature.
+Moved to `projects/kart-medulla/tasks.md` → "Wire ASSI/AS-emergency buzzer on the BUZZER GPIO" — has the concrete inventory parts (CPT-407-105-L60 ×5, RE46C100S8F ×10) and the FS-Rules SPL constraint worked out.
 
 ## In Progress
 
