@@ -8,234 +8,6 @@
 		(title "P1")
 	)
 	(lib_symbols
-		(symbol "GND_1"
-			(power global)
-			(pin_numbers
-				(hide yes)
-			)
-			(pin_names
-				(offset 0)
-				(hide yes)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(in_pos_files yes)
-			(duplicate_pin_numbers_are_jumpers no)
-			(property "Reference" "#PWR042"
-				(at -6.35 0 90)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "GND"
-				(at 0.254 -5.334 90)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 90)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Datasheet" "~"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Description" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ki_keywords" "global power"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(symbol "GND_1_0_1"
-				(polyline
-					(pts
-						(xy 0 0) (xy 0 -1.27) (xy 1.27 -1.27) (xy 0 -2.54) (xy -1.27 -1.27) (xy 0 -1.27)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "GND_1_1_1"
-				(pin power_in line
-					(at 0 0 270)
-					(length 0)
-					(name ""
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
-		(symbol "GND_2"
-			(power global)
-			(pin_numbers
-				(hide yes)
-			)
-			(pin_names
-				(offset 0)
-				(hide yes)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(in_pos_files yes)
-			(duplicate_pin_numbers_are_jumpers no)
-			(property "Reference" "#PWR043"
-				(at 6.35 0 270)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "GND"
-				(at 0 -5.334 270)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 270)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Datasheet" "~"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Description" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ki_keywords" "global power"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(symbol "GND_2_0_1"
-				(polyline
-					(pts
-						(xy 0 0) (xy 0 -1.27) (xy 1.27 -1.27) (xy 0 -2.54) (xy -1.27 -1.27) (xy 0 -1.27)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "GND_2_1_1"
-				(pin power_in line
-					(at 0 0 270)
-					(length 0)
-					(name ""
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
 		(symbol "kart-medulla:+12V"
 			(power global)
 			(pin_numbers
@@ -6503,7 +6275,7 @@
 		)
 		(uuid "68ec1f90-00e1-4e2e-a721-46d8f7920a16")
 	)
-	(text "TX1 — UART1 unused (USB-Serial covers debug)"
+	(text "RESERVE - TX1 — UART1 (usb-c)"
 		(exclude_from_sim no)
 		(at 353.568 68.58 0)
 		(effects
@@ -6527,7 +6299,7 @@
 		)
 		(uuid "761deb9b-cece-4d51-af71-e16516a367a2")
 	)
-	(text "RX1 — UART1 unused (USB-Serial covers debug)"
+	(text "RESERVE - RX1 — UART1 (usb-c)"
 		(exclude_from_sim no)
 		(at 353.822 71.882 0)
 		(effects
@@ -6575,7 +6347,7 @@
 		)
 		(uuid "8e399554-9fae-48e9-ad38-5ed8aebb0d71")
 	)
-	(text "TX0 (GPIO43, UART0) - reserved by dev-board USB-UART bridge"
+	(text "RESERVE - TX0 (GPIO43, UART0), dev-board USB-UART bridge"
 		(exclude_from_sim no)
 		(at 390.144 48.006 0)
 		(effects
@@ -6587,7 +6359,7 @@
 		)
 		(uuid "a1c0fe11-4a01-4ff1-9001-eaa6b4c0001a")
 	)
-	(text "RX0 (GPIO44, UART0) - reserved by dev-board USB-UART bridge"
+	(text "RESERVE - RX0 (GPIO44, UART0), dev-board USB-UART bridge"
 		(exclude_from_sim no)
 		(at 390.144 50.546 0)
 		(effects
@@ -9736,6 +9508,66 @@
 				)
 			)
 		)
+		(property "head_version" "1.7.22.9df0ac"
+			(at 481.33 64.77 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_maxId" "43"
+			(at 481.33 64.77 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_symbolType" "2"
+			(at 481.33 64.77 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Symbol" "CAP"
+			(at 481.33 64.77 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "part_bbox" "-10,8,10,-8"
+			(at 481.33 64.77 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "4c49a58e-20a8-508b-8e69-408830251dcc")
 		)
@@ -9816,6 +9648,66 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "head_symbolType" "2"
+			(at 83.82 66.04 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_version" "0.13.0"
+			(at 83.82 66.04 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Symbol" "1990012"
+			(at 83.82 66.04 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Designator" "CN?"
+			(at 83.82 66.04 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "part_bbox" "-10,-20,10,20"
+			(at 83.82 66.04 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
 				)
 			)
 		)
@@ -10067,6 +9959,66 @@
 				)
 			)
 		)
+		(property "head_version" "2"
+			(at 107.95 303.53 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_maxId" "91"
+			(at 107.95 303.53 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_symbolType" "2"
+			(at 107.95 303.53 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Designator" ""
+			(at 107.95 303.53 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "part_bbox" "-50,40,50,-40"
+			(at 107.95 303.53 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "bdec4185-c7be-5488-bf92-93a88d28d206")
 		)
@@ -10246,6 +10198,54 @@
 				)
 			)
 		)
+		(property "head_version" "2"
+			(at 242.57 222.25 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_maxId" "106"
+			(at 242.57 222.25 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_symbolType" "2"
+			(at 242.57 222.25 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "part_bbox" "-10,4,10,-4"
+			(at 242.57 222.25 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "ca5756cb-67ec-5813-a91a-c4764dbad3c2")
 		)
@@ -10316,7 +10316,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Special symbol for telling ERC where power comes from"
 			(at 109.22 81.28 0)
 			(hide yes)
 			(show_name no)
@@ -10565,6 +10565,66 @@
 				)
 			)
 		)
+		(property "head_symbolType" "2"
+			(at 83.82 49.53 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_version" "0.13.0"
+			(at 83.82 49.53 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Symbol" "1990012"
+			(at 83.82 49.53 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Designator" "CN?"
+			(at 83.82 49.53 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "part_bbox" "-10,-20,10,20"
+			(at 83.82 49.53 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "42d2d89d-be8d-58e0-bc7e-7114795ee330")
 		)
@@ -10648,6 +10708,66 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "head_symbolType" "2"
+			(at 95.25 360.68 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_version" "0.13.0"
+			(at 95.25 360.68 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Symbol" "IRLZ44NPBF"
+			(at 95.25 360.68 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Designator" "Q?"
+			(at 95.25 360.68 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "part_bbox" "-10.5,-10.5,24.5,10.5"
+			(at 95.25 360.68 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
 				)
 			)
 		)
@@ -10736,6 +10856,54 @@
 				)
 			)
 		)
+		(property "head_version" "2"
+			(at 113.03 220.98 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_maxId" "106"
+			(at 113.03 220.98 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_symbolType" "2"
+			(at 113.03 220.98 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "part_bbox" "-10,4,10,-4"
+			(at 113.03 220.98 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "c6ce2852-c761-55de-bb9c-c3f2657d84e4")
 		)
@@ -10815,6 +10983,54 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "head_version" "2"
+			(at 83.82 209.55 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_maxId" "106"
+			(at 83.82 209.55 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_symbolType" "2"
+			(at 83.82 209.55 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "part_bbox" "-10,4,10,-4"
+			(at 83.82 209.55 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
 				)
 			)
 		)
@@ -10900,6 +11116,54 @@
 				)
 			)
 		)
+		(property "head_version" "2"
+			(at 194.31 359.41 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_maxId" "106"
+			(at 194.31 359.41 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_symbolType" "2"
+			(at 194.31 359.41 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "part_bbox" "-10,4,10,-4"
+			(at 194.31 359.41 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "c251a309-ae35-5068-8296-0b47338f2660")
 		)
@@ -10916,7 +11180,6 @@
 		)
 	)
 	(symbol
-		(lib_name "GND_1")
 		(lib_id "power:GND")
 		(at 405.13 217.17 90)
 		(unit 1)
@@ -10970,8 +11233,9 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
 			(at 405.13 217.17 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -11624,6 +11888,66 @@
 				)
 			)
 		)
+		(property "head_symbolType" "2"
+			(at 205.74 81.28 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_version" "0.13.0"
+			(at 205.74 81.28 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Symbol" "1990012"
+			(at 205.74 81.28 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Designator" "CN?"
+			(at 205.74 81.28 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "part_bbox" "-10,-20,10,20"
+			(at 205.74 81.28 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "5dc62490-46a1-4f31-b74f-fa5e8be57f01")
 		)
@@ -11788,6 +12112,66 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "head_symbolType" "2"
+			(at 83.82 82.55 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_version" "0.13.0"
+			(at 83.82 82.55 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Symbol" "1990012"
+			(at 83.82 82.55 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Designator" "CN?"
+			(at 83.82 82.55 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "part_bbox" "-10,-20,10,20"
+			(at 83.82 82.55 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
 				)
 			)
 		)
@@ -11958,6 +12342,66 @@
 				)
 			)
 		)
+		(property "head_symbolType" "2"
+			(at 80.01 303.53 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_version" "0.13.0"
+			(at 80.01 303.53 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Symbol" "1k"
+			(at 80.01 303.53 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Designator" "R?"
+			(at 80.01 303.53 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "part_bbox" "-15.5,-5.5,15.5,5.5"
+			(at 80.01 303.53 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "7c400ed4-fa72-51a6-a42d-f06f8d6483fa")
 		)
@@ -12108,7 +12552,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Special symbol for telling ERC where power comes from"
 			(at 316.23 96.52 0)
 			(hide yes)
 			(show_name no)
@@ -12276,6 +12720,54 @@
 				)
 			)
 		)
+		(property "head_version" "2"
+			(at 516.89 213.36 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_maxId" "106"
+			(at 516.89 213.36 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_symbolType" "2"
+			(at 516.89 213.36 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "part_bbox" "-10,4,10,-4"
+			(at 516.89 213.36 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "a416e0d5-7838-51ff-90cf-5da893390b71")
 		)
@@ -12359,6 +12851,66 @@
 				)
 			)
 		)
+		(property "head_symbolType" "2"
+			(at 393.7 218.44 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_version" "0.13.0"
+			(at 393.7 218.44 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Symbol" "MAX4660EUA+T"
+			(at 393.7 218.44 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Designator" "U?"
+			(at 393.7 218.44 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "part_bbox" "-25,-25,35,25"
+			(at 393.7 218.44 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "dec61efe-4a5c-5cf1-be9b-045c70fb73a1")
 		)
@@ -12405,7 +12957,6 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "61d604dc-d78c-43a7-ac02-d4363f4f99b8")
 		(property "Reference" "#FLG01"
 			(at 387.35 43.815 0)
@@ -12419,7 +12970,7 @@
 			)
 		)
 		(property "Value" "PWR_FLAG"
-			(at 387.35 40.64 0)
+			(at 391.16 40.894 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -12528,7 +13079,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Special symbol for telling ERC where power comes from"
 			(at 53.34 49.53 0)
 			(hide yes)
 			(show_name no)
@@ -12618,6 +13169,54 @@
 				)
 			)
 		)
+		(property "head_version" "2"
+			(at 83.82 220.98 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_maxId" "106"
+			(at 83.82 220.98 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_symbolType" "2"
+			(at 83.82 220.98 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "part_bbox" "-10,4,10,-4"
+			(at 83.82 220.98 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "83e209c3-bad4-51c5-8781-df12e9e09a06")
 		)
@@ -12698,6 +13297,66 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "head_symbolType" "2"
+			(at 486.41 217.17 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_version" "0.13.0"
+			(at 486.41 217.17 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Symbol" "PCF8574T/3,518"
+			(at 486.41 217.17 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Designator" "U?"
+			(at 486.41 217.17 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "part_bbox" "-30,-45,30,45"
+			(at 486.41 217.17 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
 				)
 			)
 		)
@@ -12825,6 +13484,54 @@
 				)
 			)
 		)
+		(property "head_version" "2"
+			(at 113.03 236.22 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_maxId" "106"
+			(at 113.03 236.22 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_symbolType" "2"
+			(at 113.03 236.22 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "part_bbox" "-10,4,10,-4"
+			(at 113.03 236.22 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "277d691a-52da-57a9-b417-9a4f4b201813")
 		)
@@ -12904,6 +13611,66 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "head_version" "1.7.22.9df0ac"
+			(at 529.59 67.31 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_maxId" "43"
+			(at 529.59 67.31 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_symbolType" "2"
+			(at 529.59 67.31 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Symbol" "CAP"
+			(at 529.59 67.31 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "part_bbox" "-10,8,10,-8"
+			(at 529.59 67.31 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
 				)
 			)
 		)
@@ -13003,7 +13770,6 @@
 		)
 	)
 	(symbol
-		(lib_name "GND_2")
 		(lib_id "power:GND")
 		(at 384.81 219.71 270)
 		(unit 1)
@@ -13057,8 +13823,9 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
 			(at 384.81 219.71 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -13146,6 +13913,54 @@
 				)
 			)
 		)
+		(property "head_version" "2"
+			(at 177.8 208.28 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_maxId" "106"
+			(at 177.8 208.28 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_symbolType" "2"
+			(at 177.8 208.28 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "part_bbox" "-10,4,10,-4"
+			(at 177.8 208.28 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "ea24e572-a49f-5b10-a26d-0969f4e0e788")
 		)
@@ -13226,6 +14041,66 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "head_symbolType" "2"
+			(at 501.65 62.23 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_version" "0.13.0"
+			(at 501.65 62.23 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Symbol" "L7805CDT_C20611927"
+			(at 501.65 62.23 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Designator" "U?"
+			(at 501.65 62.23 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "part_bbox" "-20,-20,30,10"
+			(at 501.65 62.23 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
 				)
 			)
 		)
@@ -13312,6 +14187,66 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "head_symbolType" "2"
+			(at 363.22 73.66 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_version" "0.13.0"
+			(at 363.22 73.66 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Symbol" "SSW-122-01-T-D"
+			(at 363.22 73.66 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Designator" "U?"
+			(at 363.22 73.66 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "part_bbox" "-20,-110,20,120"
+			(at 363.22 73.66 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
 				)
 			)
 		)
@@ -14007,6 +14942,54 @@
 				)
 			)
 		)
+		(property "head_version" "2"
+			(at 113.03 209.55 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_maxId" "106"
+			(at 113.03 209.55 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_symbolType" "2"
+			(at 113.03 209.55 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "part_bbox" "-10,4,10,-4"
+			(at 113.03 209.55 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "e6f8087c-901c-5e2a-8b57-95cc55149aec")
 		)
@@ -14086,6 +15069,54 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "head_version" "2"
+			(at 410.21 224.79 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_maxId" "106"
+			(at 410.21 224.79 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_symbolType" "2"
+			(at 410.21 224.79 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "part_bbox" "-10,4,10,-4"
+			(at 410.21 224.79 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
 				)
 			)
 		)
@@ -14169,6 +15200,66 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "head_symbolType" "2"
+			(at 142.24 49.53 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_version" "0.13.0"
+			(at 142.24 49.53 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Symbol" "1990012"
+			(at 142.24 49.53 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Designator" "CN?"
+			(at 142.24 49.53 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "part_bbox" "-10,-20,10,20"
+			(at 142.24 49.53 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
 				)
 			)
 		)
@@ -14257,6 +15348,66 @@
 				)
 			)
 		)
+		(property "head_version" "1.7.22.9df0ac"
+			(at 375.92 227.33 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_maxId" "43"
+			(at 375.92 227.33 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_symbolType" "2"
+			(at 375.92 227.33 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Symbol" "CAP"
+			(at 375.92 227.33 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "part_bbox" "-10,8,10,-8"
+			(at 375.92 227.33 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "cf0f48da-42be-543e-8bec-f8665c5a3d71")
 		)
@@ -14336,6 +15487,54 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "head_version" "2"
+			(at 209.55 222.25 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_maxId" "106"
+			(at 209.55 222.25 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_symbolType" "2"
+			(at 209.55 222.25 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "part_bbox" "-10,4,10,-4"
+			(at 209.55 222.25 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
 				)
 			)
 		)
@@ -14499,6 +15698,54 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "head_version" "2"
+			(at 54.61 220.98 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_maxId" "106"
+			(at 54.61 220.98 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_symbolType" "2"
+			(at 54.61 220.98 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "part_bbox" "-10,4,10,-4"
+			(at 54.61 220.98 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
 				)
 			)
 		)
@@ -14746,6 +15993,54 @@
 				)
 			)
 		)
+		(property "head_version" "2"
+			(at 54.61 236.22 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_maxId" "106"
+			(at 54.61 236.22 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_symbolType" "2"
+			(at 54.61 236.22 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "part_bbox" "-10,4,10,-4"
+			(at 54.61 236.22 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "70d29e82-e7d6-5dd8-a60c-e3ba660bd176")
 		)
@@ -14909,6 +16204,54 @@
 				)
 			)
 		)
+		(property "head_version" "2"
+			(at 151.13 208.28 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_maxId" "106"
+			(at 151.13 208.28 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_symbolType" "2"
+			(at 151.13 208.28 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "part_bbox" "-10,4,10,-4"
+			(at 151.13 208.28 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "347b9735-2683-5b78-bfe2-4b41a6cfc161")
 		)
@@ -14988,6 +16331,66 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "head_version" "1.7.22.9df0ac"
+			(at 515.62 67.31 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_maxId" "43"
+			(at 515.62 67.31 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_symbolType" "2"
+			(at 515.62 67.31 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Symbol" "CAP"
+			(at 515.62 67.31 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "part_bbox" "-10,8,10,-8"
+			(at 515.62 67.31 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
 				)
 			)
 		)
@@ -15071,6 +16474,66 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "head_symbolType" "2"
+			(at 205.74 48.26 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_version" "0.13.0"
+			(at 205.74 48.26 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Symbol" "1990012"
+			(at 205.74 48.26 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Designator" "CN?"
+			(at 205.74 48.26 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "part_bbox" "-10,-20,10,20"
+			(at 205.74 48.26 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
 				)
 			)
 		)
@@ -15240,6 +16703,66 @@
 				)
 			)
 		)
+		(property "head_version" "1.7.22.9df0ac"
+			(at 509.27 205.74 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_maxId" "43"
+			(at 509.27 205.74 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_symbolType" "2"
+			(at 509.27 205.74 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Symbol" "CAP"
+			(at 509.27 205.74 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "part_bbox" "-10,8,10,-8"
+			(at 509.27 205.74 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "2fe99d0e-e640-59e0-9d1a-086ade65606c")
 		)
@@ -15402,6 +16925,66 @@
 				)
 			)
 		)
+		(property "head_symbolType" "2"
+			(at 171.45 303.53 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_version" "0.13.0"
+			(at 171.45 303.53 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Symbol" "100nF"
+			(at 171.45 303.53 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Designator" "C?"
+			(at 171.45 303.53 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "part_bbox" "-10.5,-8.5,10.5,8.5"
+			(at 171.45 303.53 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "c536e771-6c15-5cef-9a9c-734b5e2b424e")
 		)
@@ -15482,6 +17065,66 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "head_symbolType" "2"
+			(at 260.35 48.26 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_version" "0.13.0"
+			(at 260.35 48.26 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Symbol" "1990012"
+			(at 260.35 48.26 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Designator" "CN?"
+			(at 260.35 48.26 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "part_bbox" "-10,-20,10,20"
+			(at 260.35 48.26 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
 				)
 			)
 		)
@@ -15650,6 +17293,54 @@
 				)
 			)
 		)
+		(property "head_version" "2"
+			(at 81.28 360.68 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_maxId" "106"
+			(at 81.28 360.68 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_symbolType" "2"
+			(at 81.28 360.68 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "part_bbox" "-10,4,10,-4"
+			(at 81.28 360.68 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "90aa8cd8-38d4-5d55-8d09-ce51898745f2")
 		)
@@ -15729,6 +17420,54 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "head_version" "2"
+			(at 177.8 220.98 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_maxId" "106"
+			(at 177.8 220.98 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_symbolType" "2"
+			(at 177.8 220.98 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "part_bbox" "-10,4,10,-4"
+			(at 177.8 220.98 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
 				)
 			)
 		)
@@ -15897,6 +17636,66 @@
 				)
 			)
 		)
+		(property "head_symbolType" "2"
+			(at 81.28 298.45 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_version" "0.13.0"
+			(at 81.28 298.45 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Symbol" "1k"
+			(at 81.28 298.45 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Designator" "R?"
+			(at 81.28 298.45 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "part_bbox" "-15.5,-5.5,15.5,5.5"
+			(at 81.28 298.45 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "2c99f4a4-af7a-5cdf-8fd6-ad61c5ec31df")
 		)
@@ -15976,6 +17775,54 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "head_version" "2"
+			(at 383.54 292.1 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_maxId" "106"
+			(at 383.54 292.1 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_symbolType" "2"
+			(at 383.54 292.1 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "part_bbox" "-10,4,10,-4"
+			(at 383.54 292.1 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
 				)
 			)
 		)
@@ -16223,6 +18070,54 @@
 				)
 			)
 		)
+		(property "head_version" "2"
+			(at 516.89 210.82 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_maxId" "106"
+			(at 516.89 210.82 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_symbolType" "2"
+			(at 516.89 210.82 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "part_bbox" "-10,4,10,-4"
+			(at 516.89 210.82 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "6365bb67-8a6b-52cb-a97b-906ae6bef74d")
 		)
@@ -16302,6 +18197,54 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "head_version" "2"
+			(at 83.82 236.22 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_maxId" "106"
+			(at 83.82 236.22 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_symbolType" "2"
+			(at 83.82 236.22 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "part_bbox" "-10,4,10,-4"
+			(at 83.82 236.22 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
 				)
 			)
 		)
@@ -16466,6 +18409,66 @@
 				)
 			)
 		)
+		(property "head_symbolType" "2"
+			(at 142.24 81.28 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_version" "0.13.0"
+			(at 142.24 81.28 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Symbol" "1990012"
+			(at 142.24 81.28 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Designator" "CN?"
+			(at 142.24 81.28 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "part_bbox" "-10,-20,10,20"
+			(at 142.24 81.28 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "8945b7cb-9f70-5b07-892f-99d3e2c76b0d")
 		)
@@ -16549,6 +18552,66 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "head_symbolType" "2"
+			(at 224.79 361.95 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_version" "0.13.0"
+			(at 224.79 361.95 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Symbol" "BSS123_C5184436"
+			(at 224.79 361.95 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Designator" "Q?"
+			(at 224.79 361.95 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "part_bbox" "-22.5,-13.5,23.5,20.5"
+			(at 224.79 361.95 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
 				)
 			)
 		)
@@ -16720,6 +18783,66 @@
 				)
 			)
 		)
+		(property "head_symbolType" "2"
+			(at 80.01 308.61 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_version" "0.13.0"
+			(at 80.01 308.61 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Symbol" "1k"
+			(at 80.01 308.61 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Designator" "R?"
+			(at 80.01 308.61 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "part_bbox" "-15.5,-5.5,15.5,5.5"
+			(at 80.01 308.61 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "852262ed-28ba-57d9-88c1-020dc31f02c7")
 		)
@@ -16800,6 +18923,126 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "head_symbolType" "2"
+			(at 267.97 299.72 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_version" "0.13.0"
+			(at 267.97 299.72 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Symbol" "MCP4922-E/SL"
+			(at 267.97 299.72 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Designator" "U?"
+			(at 267.97 299.72 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Supplier" "LCSC"
+			(at 267.97 299.72 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Manufacturer" "MICROCHIP(美国微芯)"
+			(at 267.97 299.72 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Manufacturer Part" "MCP4922-E/SL"
+			(at 267.97 299.72 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Supplier Part" "C39851"
+			(at 267.97 299.72 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "JLCPCB Part Class" "Extended Part"
+			(at 267.97 299.72 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "part_bbox" "-35,-65,35,65"
+			(at 267.97 299.72 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
 				)
 			)
 		)
@@ -17000,6 +19243,54 @@
 				)
 			)
 		)
+		(property "head_version" "2"
+			(at 365.76 292.1 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_maxId" "106"
+			(at 365.76 292.1 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_symbolType" "2"
+			(at 365.76 292.1 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "part_bbox" "-10,4,10,-4"
+			(at 365.76 292.1 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "f24e0c42-ff03-5121-af3d-fdfa150e08b5")
 		)
@@ -17079,6 +19370,66 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "head_symbolType" "2"
+			(at 382.27 72.39 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_version" "0.13.0"
+			(at 382.27 72.39 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Symbol" "SSW-122-01-T-S"
+			(at 382.27 72.39 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Designator" "U?"
+			(at 382.27 72.39 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "part_bbox" "-10,-115,10,115"
+			(at 382.27 72.39 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
 				)
 			)
 		)
@@ -17221,6 +19572,54 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "head_version" "2"
+			(at 209.55 209.55 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_maxId" "106"
+			(at 209.55 209.55 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_symbolType" "2"
+			(at 209.55 209.55 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "part_bbox" "-10,4,10,-4"
+			(at 209.55 209.55 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
 				)
 			)
 		)
@@ -17464,6 +19863,54 @@
 				)
 			)
 		)
+		(property "head_version" "2"
+			(at 92.71 369.57 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_maxId" "106"
+			(at 92.71 369.57 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_symbolType" "2"
+			(at 92.71 369.57 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "part_bbox" "-10,4,10,-4"
+			(at 92.71 369.57 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "a89ca48c-ed18-5242-a5d5-4fa939bd375e")
 		)
@@ -17544,6 +19991,66 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "head_symbolType" "2"
+			(at 142.24 64.77 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_version" "0.13.0"
+			(at 142.24 64.77 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Symbol" "1990012"
+			(at 142.24 64.77 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Designator" "CN?"
+			(at 142.24 64.77 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "part_bbox" "-10,-20,10,20"
+			(at 142.24 64.77 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
 				)
 			)
 		)
@@ -17794,6 +20301,54 @@
 				)
 			)
 		)
+		(property "head_version" "2"
+			(at 151.13 220.98 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_maxId" "106"
+			(at 151.13 220.98 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_symbolType" "2"
+			(at 151.13 220.98 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "part_bbox" "-10,4,10,-4"
+			(at 151.13 220.98 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "62b48608-e64d-5111-b94c-881548e42e8a")
 		)
@@ -17874,6 +20429,66 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "head_symbolType" "2"
+			(at 205.74 64.77 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_version" "0.13.0"
+			(at 205.74 64.77 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Symbol" "1990012"
+			(at 205.74 64.77 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Designator" "CN?"
+			(at 205.74 64.77 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "part_bbox" "-10,-20,10,20"
+			(at 205.74 64.77 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
 				)
 			)
 		)
@@ -17959,6 +20574,54 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "head_version" "2"
+			(at 242.57 209.55 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_maxId" "106"
+			(at 242.57 209.55 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_symbolType" "2"
+			(at 242.57 209.55 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "part_bbox" "-10,4,10,-4"
+			(at 242.57 209.55 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
 				)
 			)
 		)
@@ -18125,6 +20788,54 @@
 				)
 			)
 		)
+		(property "head_version" "2"
+			(at 54.61 209.55 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_maxId" "106"
+			(at 54.61 209.55 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_symbolType" "2"
+			(at 54.61 209.55 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "part_bbox" "-10,4,10,-4"
+			(at 54.61 209.55 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "7f191e1d-84b5-59d1-989c-642f181c8745")
 		)
@@ -18285,6 +20996,54 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "head_version" "2"
+			(at 212.09 369.57 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_maxId" "106"
+			(at 212.09 369.57 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "head_symbolType" "2"
+			(at 212.09 369.57 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "part_bbox" "-10,4,10,-4"
+			(at 212.09 369.57 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
 				)
 			)
 		)
