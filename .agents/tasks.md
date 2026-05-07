@@ -6,95 +6,29 @@ Shared task board for `kart-medulla` schematic cleanup. Update status as you go:
 
 ## TODO
 
-### Run `Tools → Annotate Schematic` once
+### Add AISLER sponsor logo placeholder to PCB
 
-The recently-added `+3V3` power symbol replacing the old `SPARE__3V3` label has Reference `#PWR?` (intentionally — KiCad will assign the next free number on annotate). One click of the Annotate button clears the "Item not annotated" error.
+AISLER does NOT provide a logo file — their fab pipeline auto-detects a placeholder rectangle on silkscreen and substitutes the real logo at manufacture time. Draw the placeholder per their spec:
 
-### Schematic ERC cleanup (~32 warnings, 0 errors)
+- **Shape:** rectangle drawn as **4 individual lines** (do NOT use the rectangle tool — recognition fails on grouped shapes)
+- **Line width:** 0.08382 mm (3.3 mil) — exact
+- **Aspect ratio:** 4:1 long:short
+- **Long side:** 30–60 mm (we'll use 30 × 7.5 mm)
+- **Layer:** silkscreen (F.Silkscreen or B.Silkscreen — designer's choice)
+- **Orientation:** horizontal or vertical
+- **Placement:** any free spot, away from mounting holes/connectors
 
-The schematic is logically correct and netlist-clean. Remaining items are GUI cleanup or design-decision documentation. Run `Inspect → Electrical Rules Checker → Run ERC` to see the live list.
-
-#### Wire endpoint cleanup (~25 warnings)
-Floating wire stubs left over from the EasyEDA import. For each `unconnected_wire_endpoint`:
-- Click the marker in the ERC panel → schematic jumps to the spot.
-- Either drag the endpoint onto its real target (`M` to grab, snap onto pin/label), or delete the dangling stub.
-
-Hot spots (multiple wire-end warnings clustered):
-- Voltage divider section near (78–137, 228) — pressure dividers
-- Throttle mux area near (151–242, 214–215) — analog switch wiring
-- DAC/level-shifter area near (45–164, 298–308)
-- A few scattered single endpoints
-
-#### Isolated single-pin labels (6 warnings — accept or annotate)
-These are real signals exiting the board through one connector pin each. The warning *is* the documentation that they go off-board to a test point or external wire. Either:
-- Accept and right-click each marker → **Exclude this violation** (silences future ERC), or
-- Add a "TestPoint" or "Connector" symbol if you want them visible in BOM.
-
-The 6:
-- `TX0` @ (427.99, 48.26)
-- `RX0` @ (427.99, 50.80)
-- `SDC_ENABLE` @ (427.99, 66.04)
-- `LED` @ (427.99, 83.82)
-- `USB_D+` @ (427.99, 91.44)
-- `USB_D-` @ (427.99, 93.98)
-
-Confirmed by grep: each has zero matching counterparts elsewhere on the sheet.
-
-#### `no_connect_connected` on U14 MCP4922 NC pin (1 warning)
-**Location:** Symbol U14 (it's actually the MAX4660 throttle mux — reference numbering is misleading), pin 2 at (384.81, 217.17).
-**Cause:** A wire from PEDAL_ACC__0_5V touches a pin we currently have marked `no_connect`. But the symbol pin is named "NC" because in the **MAX4660 datasheet** "NC" means *Normally Closed switch contact* (a real functional pin you wire), not "no connection". I had previously fixed pin 2's etype to `passive`, but the warning is back — possibly because the cached lib_symbols entry got rolled back during recovery commits, or because of how the GUI session re-saved.
-**Fix:** Open the symbol editor on `kart-medulla:MAX4660EUA_T`, change pin 2 (NC) electrical type from `Unconnected` to `Passive`. Save the lib AND let KiCad rebuild the schematic's lib_symbols cache (Tools → Update Symbols from Library).
-
-### Status LED — pinout decision (do not implement yet)
-
-**Available:** yes. The ESP32-S3 dev module has a free GPIO already labeled `LED` on the schematic.
-
-| Where | Value |
-|---|---|
-| Physical pin (per `projects/kart-medulla/docs/pinout-esp32-s3.md`) | **Pin 7** (RIGHT_HEADER) |
-| Silkscreen on the DevKitC-1 | **`48`** |
-| ESP32 GPIO (firmware) | **GPIO 48** |
-| Schematic net | `LED` |
-| Type | Digital Out / LEDC PWM |
-| Schematic symbol pin (U23 RIGHT_HEADER) | pin 7 (1:1 with physical Pin 7) |
-
-**Decision needed:** if we *don't* add an external status LED to the medulla PCB, mark this header pin `NC` (place a `no_connect` flag at the `LED` label location — `(427.99, 83.82)` per the ERC isolated-pin-label list above) and delete the `LED` label, so future readers don't think a LED net exists.
-
-If we *do* add one: standard wiring is GPIO 48 → series resistor (≈1 kΩ for a 3.3 V indicator) → LED anode, cathode → GND. Place near a board edge / mounting hole for visibility. Update the pinout table in `projects/kart-medulla/docs/pinout-esp32-s3.md` only if the signal name changes (e.g. `LED` → `STATUS_LED`).
-
-Do **not** implement either side yet — this entry is for the decision to be made.
-
-### Place LM358 unit B with safe tie-back (optional but recommended)
-
-`U1B` (the unused half of the LM358 dual op-amp) is currently placed with NC markers on pins 5/6/7. That silences ERC but leaves the silicon op-amp floating, which can oscillate or couple noise into the active half. **Better:** replace the NC markers with:
-- Pin 6 → Pin 7 (loop, unity-gain follower)
-- Pin 5 → GND (input held at fixed voltage)
-
-For an FS prototype this is unlikely to cause real issues, but it's the standard analog practice.
-
-### Add AISLER sponsor logo to PCB
-
-Sponsor requires their logo on the board. Spec from Rubén:
-- **Size:** 30 × 7.5 mm rectangle
-- **Placement:** anywhere on the PCB (designer's choice)
-- **Layer:** must be on whichever layer we want it visibly fabricated (silkscreen front/back, or copper if preferred)
-- **Reference:** https://community.aisler.net/t/adding-our-logo-to-your-pcb/5382 (AISLER's instructions for importing their logo into KiCad)
-
-Do during PCB layout — pick a free spot near a board edge that won't conflict with mounting holes / connectors.
-
-### When all warnings are addressed: PCB layout
-
-The board hasn't been laid out yet. Workflow once schematic is settled:
-1. `Tools → Update PCB from Schematic` (in PCB editor) to sync footprints.
-2. Lay out per the constraints in `~/repos/kart-docs` (mounting holes, connector positions, height).
-3. Run `kicad-cli pcb drc -o /tmp/drc.rpt projects/kart-medulla/kart-medulla.kicad_pcb` before fab.
+Reference: https://community.aisler.net/t/adding-our-logo-to-your-pcb/5382
 
 ## In Progress
 
-(none)
+- [2026-05-07] **PCB layout** — peer working on it.
 
 ## Done
 
+- LM358 U1B tied back (pin 7→6 follower, pin 5→GND) — replaces NC flags.
+- Annotate schematic + ERC cleanup (wire endpoints, isolated single-pin labels, U14 MAX4660 NC pin etype). Schematic clean.
+- Status LED decision resolved.
 - 2026-05-04 — Schematic ERC: 313 → 32 (0 errors). Major cleanups: extracted EasyEDA-cached symbols into project lib + registered sym-lib-table; set pin electrical types on all chips; added PWR_FLAGs on +3V3/+5V_USB/+12V/GND rails; split LM358DR into proper multi-unit symbol; converted text annotations to real labels; wired ESP32 header pin-pair shorting on U23; renamed CN4 I2C labels (`STEER_SDA__I2C` → `SDA__I2C`, same for SCL — was a real bus-rename orphan that would have left steering sensor unwired); promoted/demoted labels for consistent local-vs-global scope; replaced misnamed `SPARE__3V3` with proper +3V3 power symbol on the connector; documented strap pins (U23 27/28 + U24 8) with NC + text annotation. See `history.md` for the lessons learned (KiCad no_connect semantics, isolated_pin_label false-confidence trap, mid-wire labels vs wire endpoints).
 
 ## Notes for the next person

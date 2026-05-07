@@ -6699,10 +6699,6 @@
 		(uuid "1ebf0aab-a394-4ef6-99aa-81231b0c40c4")
 	)
 	(no_connect
-		(at 393.7 331.47)
-		(uuid "2a32ecb1-241b-4e43-9af4-082025893696")
-	)
-	(no_connect
 		(at 387.35 83.82)
 		(uuid "2f25dac7-6c63-4d93-9fde-183597e2d7f4")
 	)
@@ -6729,14 +6725,6 @@
 	(no_connect
 		(at 387.35 71.12)
 		(uuid "77e7622f-c955-4377-8523-b44ffffecfbb")
-	)
-	(no_connect
-		(at 378.46 328.93)
-		(uuid "78aa5513-661b-497c-a2db-4466d1c88fc1")
-	)
-	(no_connect
-		(at 378.46 334.01)
-		(uuid "7db30f83-592d-43b7-a235-d6518ead863e")
 	)
 	(no_connect
 		(at 405.13 222.25)
@@ -6947,6 +6935,16 @@
 			(type solid)
 		)
 		(uuid "10c75b29-a2e4-4b5b-abe5-9ebd11d0cab0")
+	)
+	(wire
+		(pts
+			(xy 393.7 325.12) (xy 377.19 325.12)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "11bb02f0-fef4-4b6c-9a95-46f64869f3d0")
 	)
 	(wire
 		(pts
@@ -7417,6 +7415,16 @@
 			(type solid)
 		)
 		(uuid "59845fd1-5d7b-4b9d-ba89-dc5153b79e01")
+	)
+	(wire
+		(pts
+			(xy 377.19 325.12) (xy 377.19 328.93)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5e17f595-a95c-4279-ace0-86bfcdb8540f")
 	)
 	(wire
 		(pts
@@ -8000,6 +8008,16 @@
 	)
 	(wire
 		(pts
+			(xy 377.19 328.93) (xy 378.46 328.93)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e04c9545-6582-442b-bd7e-ba793ac21893")
+	)
+	(wire
+		(pts
 			(xy 313.69 88.9) (xy 370.84 88.9)
 		)
 		(stroke
@@ -8037,6 +8055,16 @@
 			(type solid)
 		)
 		(uuid "e937e2f1-a06b-4015-8c2d-a2ef1c31d2a7")
+	)
+	(wire
+		(pts
+			(xy 393.7 331.47) (xy 393.7 325.12)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e98010ca-a4e0-42b7-b5ff-bd6c9e87ef2f")
 	)
 	(wire
 		(pts
@@ -12492,6 +12520,85 @@
 			(project "kart-medulla"
 				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
 					(reference "#PWR15")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 378.46 334.01 270)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "5c664978-e398-4e2e-bec5-b38fce20107d")
+		(property "Reference" "#PWR044"
+			(at 372.11 334.01 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 374.65 334.0099 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" ""
+			(at 378.46 334.01 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 378.46 334.01 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 378.46 334.01 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "dd675aec-08d1-4659-949e-cc61497254ce")
+		)
+		(instances
+			(project "kart-medulla"
+				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
+					(reference "#PWR044")
 					(unit 1)
 				)
 			)
