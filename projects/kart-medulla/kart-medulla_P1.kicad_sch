@@ -6485,6 +6485,12 @@
 		(uuid "10b92c0e-5278-4c54-a36d-ba2c59e1e160")
 	)
 	(junction
+		(at 109.22 81.28)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "1206da08-2b09-4195-bc46-b8f32530ae19")
+	)
+	(junction
 		(at 355.6 63.5)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -6549,6 +6555,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "6085555a-39b6-4e12-8696-0cbaf5551a8c")
+	)
+	(junction
+		(at 316.23 96.52)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "608f37fc-05aa-44c9-8fa2-af1d81bdba63")
 	)
 	(junction
 		(at 515.62 72.39)
@@ -7108,7 +7120,7 @@
 	)
 	(wire
 		(pts
-			(xy 313.69 96.52) (xy 370.84 96.52)
+			(xy 316.23 96.52) (xy 370.84 96.52)
 		)
 		(stroke
 			(width 0)
@@ -8038,6 +8050,16 @@
 	)
 	(wire
 		(pts
+			(xy 109.22 81.28) (xy 137.16 81.28)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "ec38c004-3ab4-4b58-b26a-3cc262f1dc49")
+	)
+	(wire
+		(pts
 			(xy 168.91 359.41) (xy 189.23 359.41)
 		)
 		(stroke
@@ -8108,7 +8130,7 @@
 	)
 	(wire
 		(pts
-			(xy 106.68 81.28) (xy 137.16 81.28)
+			(xy 106.68 81.28) (xy 109.22 81.28)
 		)
 		(stroke
 			(width 0)
@@ -8190,6 +8212,16 @@
 			(justify left bottom)
 		)
 		(uuid "0e0a7038-f96c-4f84-a4fa-cbd067611ea2")
+	)
+	(label "CLK"
+		(at 313.69 88.9 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "10016651-968c-4aa1-9c8b-40bd1c3f9712")
 	)
 	(label "PRESSURE_2__0_10V"
 		(at 54.61 196.85 0)
@@ -8411,6 +8443,26 @@
 		)
 		(uuid "36d7c003-8a0b-43c9-af22-614bc56ba6dd")
 	)
+	(label "CMD_DAC_CS"
+		(at 254 290.83 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "37003fed-e521-4c09-8b04-f28ba035988d")
+	)
+	(label "MOSI"
+		(at 254 285.75 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "39a7c471-0c12-4fbd-a204-3d202fb58b25")
+	)
 	(label "HYDRAULIC_2__0_5V"
 		(at 49.53 52.07 0)
 		(effects
@@ -8432,6 +8484,16 @@
 			(justify left bottom)
 		)
 		(uuid "3c81c75b-34a8-4a1f-b2b6-29f3eb560e63")
+	)
+	(label "RESET"
+		(at 313.69 50.8 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "4027b99b-2c33-4e7d-b6ed-befdd3f7f993")
 	)
 	(label "SCL__I2C"
 		(at 500.38 213.36 0)
@@ -8488,6 +8550,16 @@
 		)
 		(uuid "4e9cfdf2-14d9-4b23-bea4-5424fb7f4288")
 	)
+	(label "MISO"
+		(at 313.69 91.44 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "4f73ffc8-442d-4e66-b27b-a66ecef1c172")
+	)
 	(label "MOTOR_HALL_2__3V3"
 		(at 389.89 86.36 0)
 		(effects
@@ -8509,6 +8581,16 @@
 			(justify left bottom)
 		)
 		(uuid "5d2a7dce-48f8-4f89-8efd-449a894f16b8")
+	)
+	(label "BUZZER"
+		(at 313.69 76.2 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "5e9fa7e2-4071-4298-b89f-64a61f2a43c0")
 	)
 	(label "CMD_ACC_ESP32__0_5V"
 		(at 281.94 285.75 0)
@@ -8587,6 +8669,16 @@
 		)
 		(uuid "6ea9e304-0037-4476-839d-e0f4086c42ba")
 	)
+	(label "CMD_DAC_CS"
+		(at 313.69 93.98 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "731b057e-62d7-4c34-a21f-a34d076fbd46")
+	)
 	(label "PEDAL_ACC__0_5V"
 		(at 361.95 217.17 0)
 		(effects
@@ -8653,6 +8745,16 @@
 		)
 		(uuid "86522823-f6a4-40c2-bec3-1a83dc8d2a38")
 	)
+	(label "CMD_BRAKE__0_5V"
+		(at 281.94 288.29 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "8818126d-f982-44ff-9bd3-eb04103e6362")
+	)
 	(label "+5V_REG"
 		(at 243.84 313.69 0)
 		(effects
@@ -8696,6 +8798,16 @@
 			(justify left bottom)
 		)
 		(uuid "91edf541-07a6-40ef-9d6d-87b316dee138")
+	)
+	(label "CMD_BRAKE__0_5V"
+		(at 375.92 308.61 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "920ce58c-67c1-4172-9aef-92a9cd595190")
 	)
 	(label "HYDRAULIC_1__0_5V"
 		(at 209.55 196.85 0)
@@ -8763,6 +8875,16 @@
 		)
 		(uuid "9efa8ad9-0123-4076-a6bf-d117527f4631")
 	)
+	(label "CLK"
+		(at 254 293.37 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "a24e3103-fd9a-4435-9fd4-64f98ad84d8a")
+	)
 	(label "MOTOR_HALL_1__5V"
 		(at 55.88 298.45 0)
 		(effects
@@ -8773,6 +8895,16 @@
 			(justify left bottom)
 		)
 		(uuid "a3bdbd13-f41b-44f1-952b-d6837f46ee68")
+	)
+	(label "MOSI"
+		(at 313.69 86.36 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "a9500b63-fead-4d18-aa55-97a37c7ba14f")
 	)
 	(label "EXP_P7"
 		(at 520.7 218.44 0)
@@ -9048,257 +9180,6 @@
 			(justify left bottom)
 		)
 		(uuid "fce55aca-c41a-4395-a921-3f509c716d3c")
-	)
-	(global_label "MOSI"
-		(shape input)
-		(at 254 285.75 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
-			)
-			(justify right)
-		)
-		(uuid "0c7a20d2-c652-44ec-8a0f-1d49b6ce4117")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 254 285.75 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "CMD_DAC_CS"
-		(shape output)
-		(at 313.69 93.98 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
-			)
-			(justify left)
-		)
-		(uuid "2efb9a1a-df13-4018-8669-d507329395f4")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 313.69 93.98 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "CMD_DAC_CS"
-		(shape input)
-		(at 254 290.83 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
-			)
-			(justify right)
-		)
-		(uuid "48992d7a-eea8-4f10-866f-562a38d54026")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 254 290.83 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "CMD_BRAKE__0_5V"
-		(shape input)
-		(at 375.92 308.61 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
-			)
-			(justify right)
-		)
-		(uuid "52ce2b81-333c-41dd-8374-3aad23f2003a")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 375.92 308.61 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "MISO"
-		(shape input)
-		(at 313.69 91.44 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "78b81373-2351-483d-be81-a10105115899")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 313.69 91.44 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "BUZZER"
-		(shape output)
-		(at 313.69 76.2 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
-			)
-			(justify right)
-		)
-		(uuid "884cc676-9b8f-45e7-baa5-9f880119cef8")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 313.69 76.2 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "CMD_BRAKE__0_5V"
-		(shape output)
-		(at 281.94 288.29 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
-			)
-			(justify left)
-		)
-		(uuid "98872f38-883e-4c9f-b402-44f43156ff85")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 281.94 288.29 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "CLK"
-		(shape input)
-		(at 254 293.37 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
-			)
-			(justify right)
-		)
-		(uuid "9cd65693-151c-4506-9afa-cd37ba12c08c")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 254 293.37 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "CLK"
-		(shape output)
-		(at 313.69 88.9 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
-			)
-			(justify left)
-		)
-		(uuid "ab05703d-6aba-48a6-9827-f286eb19cfcc")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 313.69 88.9 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "RESET"
-		(shape input)
-		(at 313.69 50.8 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "d164c88d-16ba-4cb4-97a5-1add7c490a8d")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 313.69 50.8 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "MOSI"
-		(shape output)
-		(at 313.69 86.36 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
-			)
-			(justify left)
-		)
-		(uuid "d767c710-c3e3-47c6-a086-c6255bd81e7b")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 313.69 86.36 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 	)
 	(symbol
 		(lib_id "kart-medulla:+3V3")
@@ -10126,6 +10007,84 @@
 			(project "kart-medulla"
 				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
 					(reference "R27")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:PWR_FLAG")
+		(at 109.22 81.28 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "24c15c0d-3c1e-4240-a208-6102702bb12e")
+		(property "Reference" "#FLG_+12V01"
+			(at 114.22 79.28 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "PWR_FLAG"
+			(at 114.22 83.28 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 109.22 81.28 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 109.22 81.28 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 109.22 81.28 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "5b3f9711-8f22-4da5-bc97-c053569592b2")
+		)
+		(instances
+			(project "kart-medulla"
+				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
+					(reference "#FLG_+12V01")
 					(unit 1)
 				)
 			)
@@ -11269,7 +11228,7 @@
 	)
 	(symbol
 		(lib_id "kart-medulla:+12V")
-		(at 106.68 81.28 270)
+		(at 106.68 81.28 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -11279,7 +11238,7 @@
 		(dnp no)
 		(uuid "4a13e2c9-27f3-44aa-ab10-2b90c39f11bd")
 		(property "Reference" "#PWR14"
-			(at 106.68 83.82 90)
+			(at 109.22 81.28 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -11291,7 +11250,7 @@
 			)
 		)
 		(property "Value" "+12V"
-			(at 102.362 80.01 90)
+			(at 104.394 77.47 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -11774,7 +11733,6 @@
 		(on_board no)
 		(in_pos_files yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "52ecb558-b91e-4d53-aab8-b3edbeb1f77c")
 		(property "Reference" "#PWR15"
 			(at 254 300.99 90)
@@ -11789,7 +11747,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 254 302.26 90)
+			(at 248.412 298.45 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -11847,7 +11805,7 @@
 	)
 	(symbol
 		(lib_id "power:PWR_FLAG")
-		(at 313.69 96.52 0)
+		(at 316.23 96.52 90)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -11857,7 +11815,7 @@
 		(dnp no)
 		(uuid "5e52dfc0-309d-457f-8cb6-2b3ae1a7d02a")
 		(property "Reference" "#FLG_+5V_USB01"
-			(at 318.69 94.52 0)
+			(at 314.23 91.52 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -11868,7 +11826,7 @@
 			)
 		)
 		(property "Value" "PWR_FLAG"
-			(at 318.69 98.52 0)
+			(at 318.23 91.52 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -11879,7 +11837,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 313.69 96.52 0)
+			(at 316.23 96.52 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -11890,7 +11848,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 313.69 96.52 0)
+			(at 316.23 96.52 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -11901,7 +11859,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 313.69 96.52 0)
+			(at 316.23 96.52 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14310,84 +14268,6 @@
 		)
 	)
 	(symbol
-		(lib_id "power:PWR_FLAG")
-		(at 481.33 59.69 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "905aa632-eb42-4828-9020-d8a7461f40a5")
-		(property "Reference" "#FLG_+12V01"
-			(at 486.33 57.69 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "PWR_FLAG"
-			(at 486.33 61.69 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 481.33 59.69 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 481.33 59.69 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 481.33 59.69 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "5e46ac4b-3023-4a3f-b46d-59ec92cafe1f")
-		)
-		(instances
-			(project "kart-medulla"
-				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
-					(reference "#FLG_+12V01")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "kart-medulla:LM358DR")
 		(at 386.08 331.47 0)
 		(unit 2)
@@ -15375,7 +15255,7 @@
 	)
 	(symbol
 		(lib_id "kart-medulla:+5V_USB")
-		(at 313.69 96.52 270)
+		(at 316.23 96.52 270)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -15383,10 +15263,9 @@
 		(on_board no)
 		(in_pos_files yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "a8478967-b9cc-4cc1-a495-59d1c1c6fb7d")
 		(property "Reference" "#PWR35"
-			(at 313.69 99.06 90)
+			(at 316.23 99.06 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -15398,7 +15277,7 @@
 			)
 		)
 		(property "Value" "+5V_USB"
-			(at 313.69 92.71 90)
+			(at 320.04 98.806 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -15409,7 +15288,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 313.69 96.52 90)
+			(at 316.23 96.52 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -15421,7 +15300,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 313.69 96.52 90)
+			(at 316.23 96.52 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -15433,7 +15312,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 313.69 96.52 0)
+			(at 316.23 96.52 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects

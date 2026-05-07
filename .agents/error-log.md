@@ -4,6 +4,33 @@
 
 Mistakes made and the rules learned from them. Newest first. Grep before working in a related area.
 
+## 2026-05-07 — Invented a confident explanation ("off-grid by one unit") for why the user's fix worked, without checking it fit the actual ERC error text
+
+**What happened:** After user fixed the GND/A0 ERC issue by placing three separate GND power symbols (one per pin) instead of one shared wire, they asked why that worked. I confidently claimed A0's pin was "off-grid by one unit so the wire never actually touched it" — a fabricated mechanism. User pushed back: "the error didn't say it was disconnected." They were right. The ERC message was "Input pin not driven by any Output pins," which is a *net-semantics* rule (net exists but has no Power Output), not a *connectivity* rule (pin floating / not connected — KiCad has separate ERC checks for those with different message text). My explanation didn't fit the evidence; I just sounded sure.
+
+**Root cause:** Pressure to give a clean explanation when the user asked "why did this work" led me to invent a plausible-sounding mechanism rather than say "I don't know." The fabricated detail ("one grid unit") added false specificity that made it sound investigated. Violates the global rule: "Never state as fact what you haven't verified."
+
+**Prevention rule:**
+- **When asked "why did X work," if I haven't verified the mechanism, say so explicitly.** "I'd guess X but I haven't confirmed" is fine. Inventing a precise-sounding mechanism is not.
+- **Match the explanation to the actual error text.** "Input pin not driven by any Output pins" ≠ "Pin not connected" ≠ "Floating pin." If my explanation contradicts the message the user is staring at, the user will (correctly) reject it.
+- **Confident wrong answers are worse than uncertain ones** — the user can audit my reasoning when I show uncertainty; they can't audit a fabricated detail.
+
+**Cross-reference:** `.agents/history.md` 2026-05-07 entry, "Why three-symbols-works..." section now flagged as unverified hypothesis.
+
+## 2026-05-07 — Made user re-explain the same KiCad ERC issue 8+ times instead of inspecting the schematic via MCP
+
+**What happened:** User had ERC error "Input pin not driven by any Output pins" on PCF8574 A0 in kart-medulla. I went through ~8 rounds of guesses (wire floating, missing junction, wrong label type, missing PWR_FLAG, wrong power symbol shape, two PWR_FLAGs, pin not snapped) without ever opening the schematic file or invoking the kicad MCP. Each round added a new wrong instruction the user had to act on before correcting me. User got progressively more frustrated ("are you blind?", "I want GND!!!", "you're asking the same things over and over"). When I finally used the MCP (`grep PWR_FLAG`, `mcp__kicad__run_erc`), it took two tool calls to find the actual answer: only one PWR_FLAG exists on disk (`#FLG01` at known coords), saved schematic passes ERC, and the duplicate-PWR_FLAG error was from the user's own newly-added flag in the unsaved GUI state.
+
+**Root cause:** I treated the user's screenshots as the only source of truth and reasoned from images, when the schematic file is plain text on disk and a kicad MCP is connected. Iterating-from-screenshots is high-latency and low-fidelity — every wrong guess costs a real schematic edit by the user.
+
+**Prevention rule:**
+- **For any KiCad debugging session: read the schematic file or use the kicad MCP first.** `grep PWR_FLAG`, `mcp__kicad__run_erc`, and `mcp__kicad__sch_get_symbols` are one tool call each and answer most "what's actually on this net" questions definitively.
+- **The MCP reads disk. The user's GUI may be unsaved.** If MCP results disagree with what the user reports, the gap is unsaved GUI state — say so directly, don't loop on guesses.
+- **Stop iterating "try this, did that work?" past 2 rounds.** If two suggestions don't fix it, switch to inspecting the actual file. The user shouldn't be the debug loop.
+- **KiCad ERC drive rules (do not re-derive every time):** Power Input pins (GND/+3V3 power-symbol pins, IC power pins) do NOT drive a net. Need exactly one PWR_FLAG per power net across the whole design. Global labels named "GND" do not merge with the GND power-symbol net — only power symbols join the global power net. See `.agents/history.md` 2026-05-07 entry for full breakdown.
+
+**Cross-reference:** `.agents/history.md` "KiCad ERC: Input pin not driven on GND net" 2026-05-07.
+
 ## 2026-05-07 — Said "Preferences" instead of "Settings" for KiCad menus (recurring)
 
 **What happened:** User asked how to fix the wild trackpad zoom in KiCad. I said "Preferences → Preferences → Mouse and Touchpad". User corrected: it's `KiCad → Settings…`, not Preferences. This is a *recurring* mistake — user said "for the 100th time."

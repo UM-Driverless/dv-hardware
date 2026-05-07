@@ -430,9 +430,9 @@
       "endpoint_off_grid": "warning",
       "extra_units": "error",
       "field_name_whitespace": "warning",
-      "footprint_filter": "ignore",
+      "footprint_filter": "warning",
       "footprint_link_issues": "warning",
-      "four_way_junction": "ignore",
+      "four_way_junction": "warning",
       "global_label_dangling": "warning",
       "ground_pin_not_ground": "warning",
       "hier_label_mismatch": "error",
@@ -457,8 +457,8 @@
       "similar_label_and_power": "warning",
       "similar_labels": "warning",
       "similar_power": "warning",
-      "simulation_model_issue": "ignore",
-      "single_global_label": "ignore",
+      "simulation_model_issue": "warning",
+      "single_global_label": "error",
       "stacked_pin_name": "warning",
       "unannotated": "error",
       "unconnected_wire_endpoint": "warning",
@@ -645,7 +645,7 @@
         "uuid": "07374be3-c612-51bb-acb6-18bf22cc68ea"
       }
     ],
-    "used_designators": "#PWR24,#PWR26,#PWR28,#PWR38-41,#PWRdf4d1,#FLG1,#PWR25ce1",
+    "used_designators": "#FLG_+12V1,#PWR24,#PWR26,#PWR28,#PWR38-41,#PWRdf4d1,#FLG1,#PWR25ce1",
     "variants": []
   },
   "sheets": [
