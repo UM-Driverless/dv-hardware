@@ -1,0 +1,5673 @@
+(export
+	(version "E")
+	(design
+		(source "/Users/rubenayla/repos/dv-hardware/projects/kart-medulla/kart-medulla_P1.kicad_sch")
+		(date "2026-05-07T11:44:39")
+		(tool "Eeschema 10.0.1")
+		(sheet
+			(number "1")
+			(name "/")
+			(tstamps "/")
+			(title_block
+				(title "P1")
+				(company)
+				(rev)
+				(date)
+				(source "kart-medulla_P1.kicad_sch")
+				(comment
+					(number "1")
+					(value "")
+				)
+				(comment
+					(number "2")
+					(value "")
+				)
+				(comment
+					(number "3")
+					(value "")
+				)
+				(comment
+					(number "4")
+					(value "")
+				)
+				(comment
+					(number "5")
+					(value "")
+				)
+				(comment
+					(number "6")
+					(value "")
+				)
+				(comment
+					(number "7")
+					(value "")
+				)
+				(comment
+					(number "8")
+					(value "")
+				)
+				(comment
+					(number "9")
+					(value "")
+				)
+			)
+		)
+	)
+	(components
+		(comp
+			(ref "C1")
+			(value "100nF")
+			(footprint "kart-medulla:C0603")
+			(fields
+				(field
+					(name "Footprint") "kart-medulla:C0603")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "kart-medulla")
+				(part "100nF")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "")
+			)
+			(property
+				(name "Sheetfile")
+				(value "projects/kart-medulla/kart-medulla_P1.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "a8246b4f-3a40-40c8-bf94-ef67fd896b8d")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "C2")
+			(value "0.33uF")
+			(footprint "kart-medulla:C0603")
+			(fields
+				(field
+					(name "Footprint") "kart-medulla:C0603")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "kart-medulla")
+				(part "CAP")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "")
+			)
+			(property
+				(name "Sheetfile")
+				(value "projects/kart-medulla/kart-medulla_P1.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "0b3f2260-d134-4cb5-8000-af4601c1a54c")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "1")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "C3")
+			(value "0.1uF")
+			(footprint "kart-medulla:C0603")
+			(fields
+				(field
+					(name "Footprint") "kart-medulla:C0603")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "kart-medulla")
+				(part "CAP")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "")
+			)
+			(property
+				(name "Sheetfile")
+				(value "projects/kart-medulla/kart-medulla_P1.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "9d1a753d-87ee-467a-857a-1ff4e9c56b7e")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "1")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "C4")
+			(value "4.7uF")
+			(footprint "kart-medulla:C0603")
+			(fields
+				(field
+					(name "Footprint") "kart-medulla:C0603")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "kart-medulla")
+				(part "CAP")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "")
+			)
+			(property
+				(name "Sheetfile")
+				(value "projects/kart-medulla/kart-medulla_P1.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "6bf13155-7747-492e-99a3-198fbb8cc8d9")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "1")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "C5")
+			(value "100nF")
+			(footprint "kart-medulla:C0603")
+			(fields
+				(field
+					(name "Footprint") "kart-medulla:C0603")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "kart-medulla")
+				(part "CAP")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "")
+			)
+			(property
+				(name "Sheetfile")
+				(value "projects/kart-medulla/kart-medulla_P1.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "8929b703-260f-4602-ae17-ad1add2d200d")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "1")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "C6")
+			(value "0.1uF")
+			(footprint "kart-medulla:C0603")
+			(fields
+				(field
+					(name "Footprint") "kart-medulla:C0603")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "kart-medulla")
+				(part "CAP")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "")
+			)
+			(property
+				(name "Sheetfile")
+				(value "projects/kart-medulla/kart-medulla_P1.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "a6233537-6519-482d-8985-97b060b7f811")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "1")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "CN1")
+			(value "1990012")
+			(footprint "kart-medulla:CONN-TH_3P-P2.50-S5.00_1990012")
+			(fields
+				(field
+					(name "Footprint") "kart-medulla:CONN-TH_3P-P2.50-S5.00_1990012")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "kart-medulla")
+				(part "1990012")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "")
+			)
+			(property
+				(name "Sheetfile")
+				(value "projects/kart-medulla/kart-medulla_P1.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "2c3e32f6-d366-48ed-b774-3be7f703d286")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "3")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "CN2")
+			(value "1990012")
+			(footprint "kart-medulla:CONN-TH_3P-P2.50-S5.00_1990012")
+			(fields
+				(field
+					(name "Footprint") "kart-medulla:CONN-TH_3P-P2.50-S5.00_1990012")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "kart-medulla")
+				(part "1990012")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "")
+			)
+			(property
+				(name "Sheetfile")
+				(value "projects/kart-medulla/kart-medulla_P1.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "0b856733-8497-4f1f-883b-755988aac240")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "3")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "CN3")
+			(value "1990012")
+			(footprint "kart-medulla:CONN-TH_3P-P2.50-S5.00_1990012")
+			(fields
+				(field
+					(name "Footprint") "kart-medulla:CONN-TH_3P-P2.50-S5.00_1990012")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "kart-medulla")
+				(part "1990012")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "")
+			)
+			(property
+				(name "Sheetfile")
+				(value "projects/kart-medulla/kart-medulla_P1.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "4f75e7f2-d87d-4a90-b558-7b4612983ac1")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "3")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "CN4")
+			(value "1990012")
+			(footprint "kart-medulla:CONN-TH_3P-P2.50-S5.00_1990012")
+			(fields
+				(field
+					(name "Footprint") "kart-medulla:CONN-TH_3P-P2.50-S5.00_1990012")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "kart-medulla")
+				(part "1990012")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "")
+			)
+			(property
+				(name "Sheetfile")
+				(value "projects/kart-medulla/kart-medulla_P1.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "88c21bfe-56a1-4765-b0e3-fe3a84b7ce99")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "3")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "CN5")
+			(value "1990012")
+			(footprint "kart-medulla:CONN-TH_3P-P2.50-S5.00_1990012")
+			(fields
+				(field
+					(name "Footprint") "kart-medulla:CONN-TH_3P-P2.50-S5.00_1990012")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "kart-medulla")
+				(part "1990012")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "")
+			)
+			(property
+				(name "Sheetfile")
+				(value "projects/kart-medulla/kart-medulla_P1.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "de92f911-1e3e-4bcc-b198-1e452c132bac")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "3")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "CN6")
+			(value "1990012")
+			(footprint "kart-medulla:CONN-TH_3P-P2.50-S5.00_1990012")
+			(fields
+				(field
+					(name "Footprint") "kart-medulla:CONN-TH_3P-P2.50-S5.00_1990012")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "kart-medulla")
+				(part "1990012")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "")
+			)
+			(property
+				(name "Sheetfile")
+				(value "projects/kart-medulla/kart-medulla_P1.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "c24c5f6d-4099-480a-9a2a-894cc163fc74")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "3")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "CN7")
+			(value "1990012")
+			(footprint "kart-medulla:CONN-TH_3P-P2.50-S5.00_1990012")
+			(fields
+				(field
+					(name "Footprint") "kart-medulla:CONN-TH_3P-P2.50-S5.00_1990012")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "kart-medulla")
+				(part "1990012")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "")
+			)
+			(property
+				(name "Sheetfile")
+				(value "projects/kart-medulla/kart-medulla_P1.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "9d344446-3b85-41aa-bc88-34044b479569")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "3")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "CN8")
+			(value "1990012")
+			(footprint "kart-medulla:CONN-TH_3P-P2.50-S5.00_1990012")
+			(fields
+				(field
+					(name "Footprint") "kart-medulla:CONN-TH_3P-P2.50-S5.00_1990012")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "kart-medulla")
+				(part "1990012")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "")
+			)
+			(property
+				(name "Sheetfile")
+				(value "projects/kart-medulla/kart-medulla_P1.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "e2587327-bb24-43e4-81d4-bc8357fdcd54")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "3")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "CN9")
+			(value "1990012")
+			(footprint "kart-medulla:CONN-TH_3P-P2.50-S5.00_1990012")
+			(fields
+				(field
+					(name "Footprint") "kart-medulla:CONN-TH_3P-P2.50-S5.00_1990012")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "kart-medulla")
+				(part "1990012")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "")
+			)
+			(property
+				(name "Sheetfile")
+				(value "projects/kart-medulla/kart-medulla_P1.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "4b0b09cf-e8c7-4128-95d5-dc65c7755f3b")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "3")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "CN10")
+			(value "1990012")
+			(footprint "kart-medulla:CONN-TH_3P-P2.50-S5.00_1990012")
+			(fields
+				(field
+					(name "Footprint") "kart-medulla:CONN-TH_3P-P2.50-S5.00_1990012")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "kart-medulla")
+				(part "1990012")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "")
+			)
+			(property
+				(name "Sheetfile")
+				(value "projects/kart-medulla/kart-medulla_P1.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "a84749d2-1ce3-40a1-9dde-9e599037c046")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "3")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "Q3")
+			(value "IRLZ44NPBF")
+			(footprint "kart-medulla:TO-220-3_L10.0-W4.5-P2.54-T")
+			(datasheet "https://atta.szlcsc.com/upload/public/pdf/source/20141125/1457707250505.pdf")
+			(fields
+				(field
+					(name "Footprint") "kart-medulla:TO-220-3_L10.0-W4.5-P2.54-T")
+				(field
+					(name "Datasheet") "https://atta.szlcsc.com/upload/public/pdf/source/20141125/1457707250505.pdf")
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "kart-medulla")
+				(part "IRLZ44NPBF")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "")
+			)
+			(property
+				(name "Sheetfile")
+				(value "projects/kart-medulla/kart-medulla_P1.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "2cf049e0-c4f6-4bf7-99f7-6c8975095f71")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "3")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "Q4")
+			(value "BSS123_C5184436")
+			(footprint "kart-medulla:SOT-23_L2.9-W1.3-P1.90-LS2.4-BR")
+			(datasheet "https://item.szlcsc.com/datasheet/BSS123/5849872.html")
+			(fields
+				(field
+					(name "Footprint") "kart-medulla:SOT-23_L2.9-W1.3-P1.90-LS2.4-BR")
+				(field
+					(name "Datasheet") "https://item.szlcsc.com/datasheet/BSS123/5849872.html")
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "kart-medulla")
+				(part "BSS123_C5184436")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "")
+			)
+			(property
+				(name "Sheetfile")
+				(value "projects/kart-medulla/kart-medulla_P1.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "c5b9a721-dc0e-4112-b31a-a3b697de4ca1")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "3")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R1")
+			(value "1k")
+			(footprint "kart-medulla:R0603")
+			(fields
+				(field
+					(name "Footprint") "kart-medulla:R0603")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "kart-medulla")
+				(part "1k")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "")
+			)
+			(property
+				(name "Sheetfile")
+				(value "projects/kart-medulla/kart-medulla_P1.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "b6b5206c-3e1a-47db-882c-c82f07dcc0e1")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R2")
+			(value "1k")
+			(footprint "kart-medulla:R0603")
+			(fields
+				(field
+					(name "Footprint") "kart-medulla:R0603")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "kart-medulla")
+				(part "1k")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "")
+			)
+			(property
+				(name "Sheetfile")
+				(value "projects/kart-medulla/kart-medulla_P1.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "5067ec83-fb87-490a-aafe-749937218d37")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R3")
+			(value "1k")
+			(footprint "kart-medulla:R0603")
+			(fields
+				(field
+					(name "Footprint") "kart-medulla:R0603")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "kart-medulla")
+				(part "1k")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "")
+			)
+			(property
+				(name "Sheetfile")
+				(value "projects/kart-medulla/kart-medulla_P1.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "cb39b33d-87c8-4455-82ff-ad21e8198c00")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R4")
+			(value "10K")
+			(footprint "kart-medulla:R0603")
+			(fields
+				(field
+					(name "Footprint") "kart-medulla:R0603")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "kart-medulla")
+				(part "Res")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "")
+			)
+			(property
+				(name "Sheetfile")
+				(value "projects/kart-medulla/kart-medulla_P1.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "f06b3060-56fa-4612-b01b-1d4eb20b3550")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R6")
+			(value "10K")
+			(footprint "kart-medulla:R0603")
+			(fields
+				(field
+					(name "Footprint") "kart-medulla:R0603")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "kart-medulla")
+				(part "Res")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "")
+			)
+			(property
+				(name "Sheetfile")
+				(value "projects/kart-medulla/kart-medulla_P1.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "8e6c5228-4f81-4e31-b06d-05d5a9c55e4b")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R7")
+			(value "10K")
+			(footprint "kart-medulla:R0603")
+			(fields
+				(field
+					(name "Footprint") "kart-medulla:R0603")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "kart-medulla")
+				(part "Res")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "")
+			)
+			(property
+				(name "Sheetfile")
+				(value "projects/kart-medulla/kart-medulla_P1.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "92fea48f-ed39-46d3-8b24-b8a8a45becf4")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R8")
+			(value "10K")
+			(footprint "kart-medulla:R0603")
+			(fields
+				(field
+					(name "Footprint") "kart-medulla:R0603")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "kart-medulla")
+				(part "Res")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "")
+			)
+			(property
+				(name "Sheetfile")
+				(value "projects/kart-medulla/kart-medulla_P1.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "3169528e-7d7d-4d60-84b9-0055d3590b5b")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R9")
+			(value "10K")
+			(footprint "kart-medulla:R0603")
+			(fields
+				(field
+					(name "Footprint") "kart-medulla:R0603")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "kart-medulla")
+				(part "Res")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "")
+			)
+			(property
+				(name "Sheetfile")
+				(value "projects/kart-medulla/kart-medulla_P1.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "6709e91e-af58-45c8-9252-57b5da74e280")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R10")
+			(value "10K")
+			(footprint "kart-medulla:R0603")
+			(fields
+				(field
+					(name "Footprint") "kart-medulla:R0603")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "kart-medulla")
+				(part "Res")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "")
+			)
+			(property
+				(name "Sheetfile")
+				(value "projects/kart-medulla/kart-medulla_P1.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "ba86e082-28e8-47eb-85b0-df48b0b4c95f")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R11")
+			(value "10K")
+			(footprint "kart-medulla:R0603")
+			(fields
+				(field
+					(name "Footprint") "kart-medulla:R0603")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "kart-medulla")
+				(part "Res")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "")
+			)
+			(property
+				(name "Sheetfile")
+				(value "projects/kart-medulla/kart-medulla_P1.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "84dd512c-1bb5-48d7-a7fd-70c3fdd7e048")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R12")
+			(value "10K")
+			(footprint "kart-medulla:R0603")
+			(fields
+				(field
+					(name "Footprint") "kart-medulla:R0603")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "kart-medulla")
+				(part "Res")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "")
+			)
+			(property
+				(name "Sheetfile")
+				(value "projects/kart-medulla/kart-medulla_P1.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "2db7748f-5315-46e1-88af-7662233752c6")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R13")
+			(value "10K")
+			(footprint "kart-medulla:R0603")
+			(fields
+				(field
+					(name "Footprint") "kart-medulla:R0603")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "kart-medulla")
+				(part "Res")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "")
+			)
+			(property
+				(name "Sheetfile")
+				(value "projects/kart-medulla/kart-medulla_P1.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "6b578df9-85a2-496f-bac7-3630b808b736")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R14")
+			(value "10K")
+			(footprint "kart-medulla:R0603")
+			(fields
+				(field
+					(name "Footprint") "kart-medulla:R0603")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "kart-medulla")
+				(part "Res")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "")
+			)
+			(property
+				(name "Sheetfile")
+				(value "projects/kart-medulla/kart-medulla_P1.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "96ecfd15-99a5-42e7-bb9a-e441dacbe834")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R15")
+			(value "10K")
+			(footprint "kart-medulla:R0603")
+			(fields
+				(field
+					(name "Footprint") "kart-medulla:R0603")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "kart-medulla")
+				(part "Res")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "")
+			)
+			(property
+				(name "Sheetfile")
+				(value "projects/kart-medulla/kart-medulla_P1.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "e15e66e5-3963-4c79-a27f-01f3d70fd5e9")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R16")
+			(value "10K")
+			(footprint "kart-medulla:R0603")
+			(fields
+				(field
+					(name "Footprint") "kart-medulla:R0603")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "kart-medulla")
+				(part "Res")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "")
+			)
+			(property
+				(name "Sheetfile")
+				(value "projects/kart-medulla/kart-medulla_P1.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "71bbe11d-1859-452d-a648-7da0e63130f3")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R17")
+			(value "10K")
+			(footprint "kart-medulla:R0603")
+			(fields
+				(field
+					(name "Footprint") "kart-medulla:R0603")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "kart-medulla")
+				(part "Res")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "")
+			)
+			(property
+				(name "Sheetfile")
+				(value "projects/kart-medulla/kart-medulla_P1.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "b4041227-9873-44de-bdbb-fd2c882c9c1e")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R19")
+			(value "1K")
+			(footprint "kart-medulla:R0603")
+			(fields
+				(field
+					(name "Footprint") "kart-medulla:R0603")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "kart-medulla")
+				(part "Res")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "")
+			)
+			(property
+				(name "Sheetfile")
+				(value "projects/kart-medulla/kart-medulla_P1.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "b7a4039d-28e7-4127-8bba-a16e54811de0")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R20")
+			(value "1K")
+			(footprint "kart-medulla:R0603")
+			(fields
+				(field
+					(name "Footprint") "kart-medulla:R0603")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "kart-medulla")
+				(part "Res")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "")
+			)
+			(property
+				(name "Sheetfile")
+				(value "projects/kart-medulla/kart-medulla_P1.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "d0775c97-a8cb-4ab7-949b-06678fee9dde")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R22")
+			(value "100")
+			(footprint "kart-medulla:R0603")
+			(fields
+				(field
+					(name "Footprint") "kart-medulla:R0603")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "kart-medulla")
+				(part "Res")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "")
+			)
+			(property
+				(name "Sheetfile")
+				(value "projects/kart-medulla/kart-medulla_P1.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "b1084955-5e47-4901-b424-0d7efde49abe")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R23")
+			(value "100k")
+			(footprint "kart-medulla:R0603")
+			(fields
+				(field
+					(name "Footprint") "kart-medulla:R0603")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "kart-medulla")
+				(part "Res")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "")
+			)
+			(property
+				(name "Sheetfile")
+				(value "projects/kart-medulla/kart-medulla_P1.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "dd6d7a2c-0c0f-4c63-86f7-eb8e036f977b")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R24")
+			(value "2k")
+			(footprint "kart-medulla:R0603")
+			(fields
+				(field
+					(name "Footprint") "kart-medulla:R0603")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "kart-medulla")
+				(part "Res")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "")
+			)
+			(property
+				(name "Sheetfile")
+				(value "projects/kart-medulla/kart-medulla_P1.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "d0eebe14-298a-4310-8c6e-d72e9775f31e")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R25")
+			(value "3.9k")
+			(footprint "kart-medulla:R0603")
+			(fields
+				(field
+					(name "Footprint") "kart-medulla:R0603")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "kart-medulla")
+				(part "Res")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "")
+			)
+			(property
+				(name "Sheetfile")
+				(value "projects/kart-medulla/kart-medulla_P1.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "8dcf0b99-8581-4da6-bd00-68c53028cae2")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R26")
+			(value "2k")
+			(footprint "kart-medulla:R0603")
+			(fields
+				(field
+					(name "Footprint") "kart-medulla:R0603")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "kart-medulla")
+				(part "Res")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "")
+			)
+			(property
+				(name "Sheetfile")
+				(value "projects/kart-medulla/kart-medulla_P1.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "eeac1548-9aac-4f04-8fb4-c9a845234cdd")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R27")
+			(value "3.9k")
+			(footprint "kart-medulla:R0603")
+			(fields
+				(field
+					(name "Footprint") "kart-medulla:R0603")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "kart-medulla")
+				(part "Res")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "")
+			)
+			(property
+				(name "Sheetfile")
+				(value "projects/kart-medulla/kart-medulla_P1.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "22863c0e-deb6-4b72-8f47-726481d599b3")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R30")
+			(value "100")
+			(footprint "kart-medulla:R0603")
+			(fields
+				(field
+					(name "Footprint") "kart-medulla:R0603")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "kart-medulla")
+				(part "Res")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "")
+			)
+			(property
+				(name "Sheetfile")
+				(value "projects/kart-medulla/kart-medulla_P1.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "364de0e3-82e0-4dca-a5d8-e1d4570e3b74")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R31")
+			(value "10K")
+			(footprint "kart-medulla:R0603")
+			(fields
+				(field
+					(name "Footprint") "kart-medulla:R0603")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "kart-medulla")
+				(part "Res")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "")
+			)
+			(property
+				(name "Sheetfile")
+				(value "projects/kart-medulla/kart-medulla_P1.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "f9c46a35-3b15-49c8-9055-939db66e91e9")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R32")
+			(value "10K")
+			(footprint "kart-medulla:R0603")
+			(fields
+				(field
+					(name "Footprint") "kart-medulla:R0603")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "kart-medulla")
+				(part "Res")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "")
+			)
+			(property
+				(name "Sheetfile")
+				(value "projects/kart-medulla/kart-medulla_P1.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "87909bfe-97b3-4960-b275-c6e7fbf9bba2")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R33")
+			(value "4k7")
+			(footprint "kart-medulla:R0603")
+			(fields
+				(field
+					(name "Footprint") "kart-medulla:R0603")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "kart-medulla")
+				(part "Res")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "")
+			)
+			(property
+				(name "Sheetfile")
+				(value "projects/kart-medulla/kart-medulla_P1.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "ba3b1bbf-ec77-494e-945e-e7fdb8836642")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R34")
+			(value "4k7")
+			(footprint "kart-medulla:R0603")
+			(fields
+				(field
+					(name "Footprint") "kart-medulla:R0603")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "kart-medulla")
+				(part "Res")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "")
+			)
+			(property
+				(name "Sheetfile")
+				(value "projects/kart-medulla/kart-medulla_P1.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "5f7e83e2-430f-44bf-84ca-334d2075ff2b")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "U1")
+			(value "LM358DR")
+			(fields
+				(field
+					(name "head_symbolType") "2")
+				(field
+					(name "head_version") "0.13.0")
+				(field
+					(name "Symbol") "LM358DR")
+				(field
+					(name "Designator") "U?")
+				(field
+					(name "part_bbox") "-21,-22.69999999999999,21,21")
+				(field
+					(name "Footprint")
+				)
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "kart-medulla")
+				(part "LM358DR")
+				(description "")
+			)
+			(property
+				(name "head_symbolType")
+				(value "2")
+			)
+			(property
+				(name "head_version")
+				(value "0.13.0")
+			)
+			(property
+				(name "Symbol")
+				(value "LM358DR")
+			)
+			(property
+				(name "Designator")
+				(value "U?")
+			)
+			(property
+				(name "part_bbox")
+				(value "-21,-22.69999999999999,21,21")
+			)
+			(property
+				(name "Sheetname")
+				(value "")
+			)
+			(property
+				(name "Sheetfile")
+				(value "projects/kart-medulla/kart-medulla_P1.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "e0998187-9fed-4ad4-88d1-a52aca271151" "91519f98-3a7d-4399-99db-28cc33fe5ef1")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "3")
+						)
+						(pin
+							(num "8")
+						)
+						(pin
+							(num "4")
+						)
+						(pin
+							(num "1")
+						)
+					)
+				)
+				(unit
+					(name "B")
+					(pins
+						(pin
+							(num "6")
+						)
+						(pin
+							(num "5")
+						)
+						(pin
+							(num "7")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "U02")
+			(value "GND")
+			(fields
+				(field
+					(name "Footprint")
+				)
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "kart-medulla")
+				(part "GND")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "")
+			)
+			(property
+				(name "Sheetfile")
+				(value "projects/kart-medulla/kart-medulla_P1.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "789e796f-db1e-4b4c-ac00-3b850069deac")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "U5")
+			(value "SN74LVC3G17DCTR")
+			(footprint "kart-medulla:SOP65P400X130-8N")
+			(fields
+				(field
+					(name "Footprint") "kart-medulla:SOP65P400X130-8N")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "kart-medulla")
+				(part "SN74LVC3G17DCTR")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "")
+			)
+			(property
+				(name "Sheetfile")
+				(value "projects/kart-medulla/kart-medulla_P1.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "15d5a980-9810-49e8-92b4-94f76a25c2e1")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "3")
+						)
+						(pin
+							(num "6")
+						)
+						(pin
+							(num "8")
+						)
+						(pin
+							(num "7")
+						)
+						(pin
+							(num "5")
+						)
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "4")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "U13")
+			(value "MCP4922-E/SL")
+			(footprint "kart-medulla:SOIC-14_L8.7-W3.9-P1.27-LS6.0-BL")
+			(datasheet "https://item.szlcsc.com/datasheet/MCP4922-E%252FSL/40833.html")
+			(fields
+				(field
+					(name "Footprint") "kart-medulla:SOIC-14_L8.7-W3.9-P1.27-LS6.0-BL")
+				(field
+					(name "Datasheet") "https://item.szlcsc.com/datasheet/MCP4922-E%252FSL/40833.html")
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "kart-medulla")
+				(part "MCP4922-E_SL")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "")
+			)
+			(property
+				(name "Sheetfile")
+				(value "projects/kart-medulla/kart-medulla_P1.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "ce9c2fc1-430e-42b8-89af-9d2e9a9e88cd")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "5")
+						)
+						(pin
+							(num "3")
+						)
+						(pin
+							(num "4")
+						)
+						(pin
+							(num "8")
+						)
+						(pin
+							(num "9")
+						)
+						(pin
+							(num "13")
+						)
+						(pin
+							(num "11")
+						)
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "14")
+						)
+						(pin
+							(num "10")
+						)
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "6")
+						)
+						(pin
+							(num "7")
+						)
+						(pin
+							(num "12")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "U14")
+			(value "MAX4660EUA+T")
+			(footprint "kart-medulla:SOP65P490X110-9N")
+			(datasheet "https://www.analog.com/MAX4660/datasheet")
+			(fields
+				(field
+					(name "Footprint") "kart-medulla:SOP65P490X110-9N")
+				(field
+					(name "Datasheet") "https://www.analog.com/MAX4660/datasheet")
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "kart-medulla")
+				(part "MAX4660EUA_T")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "")
+			)
+			(property
+				(name "Sheetfile")
+				(value "projects/kart-medulla/kart-medulla_P1.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "60ac7636-837d-427b-be5a-9f8239e910b9")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "3")
+						)
+						(pin
+							(num "4")
+						)
+						(pin
+							(num "9")
+						)
+						(pin
+							(num "8")
+						)
+						(pin
+							(num "7")
+						)
+						(pin
+							(num "6")
+						)
+						(pin
+							(num "5")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "U19")
+			(value "L7805CDT_C20611927")
+			(footprint "kart-medulla:TO-252-2_L6.6-W6.1-P4.57-LS9.9-BR-CW")
+			(datasheet "https://item.szlcsc.com/datasheet/L7805CDT/21968527.html")
+			(fields
+				(field
+					(name "Footprint") "kart-medulla:TO-252-2_L6.6-W6.1-P4.57-LS9.9-BR-CW")
+				(field
+					(name "Datasheet") "https://item.szlcsc.com/datasheet/L7805CDT/21968527.html")
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "kart-medulla")
+				(part "L7805CDT_C20611927")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "")
+			)
+			(property
+				(name "Sheetfile")
+				(value "projects/kart-medulla/kart-medulla_P1.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "752a0ad2-4fd6-41ea-9b8e-97492819b587")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "3")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "U23")
+			(value "SSW-122-01-T-D")
+			(footprint "kart-medulla:HDR-TH_ESQ-122-59-G-D")
+			(datasheet "https://item.szlcsc.com/datasheet/SSW-122-01-T-D/7985850.html")
+			(fields
+				(field
+					(name "Footprint") "kart-medulla:HDR-TH_ESQ-122-59-G-D")
+				(field
+					(name "Datasheet") "https://item.szlcsc.com/datasheet/SSW-122-01-T-D/7985850.html")
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "kart-medulla")
+				(part "SSW-122-01-T-D")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "")
+			)
+			(property
+				(name "Sheetfile")
+				(value "projects/kart-medulla/kart-medulla_P1.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "772bb67e-0f4e-4cf3-9a62-5328b918520c")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "3")
+						)
+						(pin
+							(num "5")
+						)
+						(pin
+							(num "7")
+						)
+						(pin
+							(num "9")
+						)
+						(pin
+							(num "11")
+						)
+						(pin
+							(num "13")
+						)
+						(pin
+							(num "15")
+						)
+						(pin
+							(num "17")
+						)
+						(pin
+							(num "19")
+						)
+						(pin
+							(num "21")
+						)
+						(pin
+							(num "23")
+						)
+						(pin
+							(num "25")
+						)
+						(pin
+							(num "27")
+						)
+						(pin
+							(num "29")
+						)
+						(pin
+							(num "31")
+						)
+						(pin
+							(num "33")
+						)
+						(pin
+							(num "35")
+						)
+						(pin
+							(num "37")
+						)
+						(pin
+							(num "39")
+						)
+						(pin
+							(num "41")
+						)
+						(pin
+							(num "43")
+						)
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "4")
+						)
+						(pin
+							(num "6")
+						)
+						(pin
+							(num "8")
+						)
+						(pin
+							(num "10")
+						)
+						(pin
+							(num "12")
+						)
+						(pin
+							(num "14")
+						)
+						(pin
+							(num "16")
+						)
+						(pin
+							(num "18")
+						)
+						(pin
+							(num "20")
+						)
+						(pin
+							(num "22")
+						)
+						(pin
+							(num "24")
+						)
+						(pin
+							(num "26")
+						)
+						(pin
+							(num "28")
+						)
+						(pin
+							(num "30")
+						)
+						(pin
+							(num "32")
+						)
+						(pin
+							(num "34")
+						)
+						(pin
+							(num "36")
+						)
+						(pin
+							(num "38")
+						)
+						(pin
+							(num "40")
+						)
+						(pin
+							(num "42")
+						)
+						(pin
+							(num "44")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "U24")
+			(value "SSW-122-01-T-S")
+			(footprint "kart-medulla:HDR-TH_ESQ-122-23-G-S")
+			(datasheet "https://item.szlcsc.com/datasheet/SSW-122-01-T-S/7249907.html")
+			(fields
+				(field
+					(name "Footprint") "kart-medulla:HDR-TH_ESQ-122-23-G-S")
+				(field
+					(name "Datasheet") "https://item.szlcsc.com/datasheet/SSW-122-01-T-S/7249907.html")
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "kart-medulla")
+				(part "SSW-122-01-T-S")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "")
+			)
+			(property
+				(name "Sheetfile")
+				(value "projects/kart-medulla/kart-medulla_P1.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "d0e8e52c-8ae1-4d01-9c60-f25554e7fc2b")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "3")
+						)
+						(pin
+							(num "4")
+						)
+						(pin
+							(num "5")
+						)
+						(pin
+							(num "6")
+						)
+						(pin
+							(num "7")
+						)
+						(pin
+							(num "8")
+						)
+						(pin
+							(num "9")
+						)
+						(pin
+							(num "10")
+						)
+						(pin
+							(num "11")
+						)
+						(pin
+							(num "12")
+						)
+						(pin
+							(num "13")
+						)
+						(pin
+							(num "14")
+						)
+						(pin
+							(num "15")
+						)
+						(pin
+							(num "16")
+						)
+						(pin
+							(num "17")
+						)
+						(pin
+							(num "18")
+						)
+						(pin
+							(num "19")
+						)
+						(pin
+							(num "20")
+						)
+						(pin
+							(num "21")
+						)
+						(pin
+							(num "22")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "U25")
+			(value "PCF8574T/3,518")
+			(footprint "kart-medulla:SOIC-16_L10.3-W7.5-P1.27-LS10.3-BL")
+			(datasheet "https://www.nxp.com/docs/en/data-sheet/PCF8574_PCF8574A.pdf")
+			(fields
+				(field
+					(name "Footprint") "kart-medulla:SOIC-16_L10.3-W7.5-P1.27-LS10.3-BL")
+				(field
+					(name "Datasheet") "https://www.nxp.com/docs/en/data-sheet/PCF8574_PCF8574A.pdf")
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "kart-medulla")
+				(part "PCF8574T_3_518")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "")
+			)
+			(property
+				(name "Sheetfile")
+				(value "projects/kart-medulla/kart-medulla_P1.kicad_sch")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "698ae15a-0cad-45c2-bad2-00e853e0e77a")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "3")
+						)
+						(pin
+							(num "4")
+						)
+						(pin
+							(num "5")
+						)
+						(pin
+							(num "6")
+						)
+						(pin
+							(num "7")
+						)
+						(pin
+							(num "8")
+						)
+						(pin
+							(num "16")
+						)
+						(pin
+							(num "15")
+						)
+						(pin
+							(num "14")
+						)
+						(pin
+							(num "13")
+						)
+						(pin
+							(num "12")
+						)
+						(pin
+							(num "11")
+						)
+						(pin
+							(num "10")
+						)
+						(pin
+							(num "9")
+						)
+					)
+				)
+			)
+		)
+	)
+	(groups)
+	(variants)
+	(libparts
+		(libpart
+			(lib "kart-medulla")
+			(part "100nF")
+			(fields
+				(field
+					(name "Reference") "C")
+				(field
+					(name "Value") "100nF")
+				(field
+					(name "Footprint")
+				)
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+				(field
+					(name "head_symbolType") "2")
+				(field
+					(name "head_version") "0.13.0")
+				(field
+					(name "Symbol") "100nF")
+				(field
+					(name "Designator") "C?")
+				(field
+					(name "part_bbox") "-10.5,-8.5,10.5,8.5")
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "1")
+					(type "passive")
+				)
+				(pin
+					(num "2")
+					(name "2")
+					(type "passive")
+				)
+			)
+		)
+		(libpart
+			(lib "kart-medulla")
+			(part "1990012")
+			(fields
+				(field
+					(name "Reference") "CN")
+				(field
+					(name "Value") "1990012")
+				(field
+					(name "Footprint")
+				)
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+				(field
+					(name "head_symbolType") "2")
+				(field
+					(name "head_version") "0.13.0")
+				(field
+					(name "Symbol") "1990012")
+				(field
+					(name "Designator") "CN?")
+				(field
+					(name "part_bbox") "-10,-20,10,20")
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "1")
+					(type "passive")
+				)
+				(pin
+					(num "2")
+					(name "2")
+					(type "passive")
+				)
+				(pin
+					(num "3")
+					(name "3")
+					(type "passive")
+				)
+			)
+		)
+		(libpart
+			(lib "kart-medulla")
+			(part "1k")
+			(fields
+				(field
+					(name "Reference") "R")
+				(field
+					(name "Value") "1k")
+				(field
+					(name "Footprint")
+				)
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+				(field
+					(name "head_symbolType") "2")
+				(field
+					(name "head_version") "0.13.0")
+				(field
+					(name "Symbol") "1k")
+				(field
+					(name "Designator") "R?")
+				(field
+					(name "part_bbox") "-15.5,-5.5,15.5,5.5")
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "1")
+					(type "passive")
+				)
+				(pin
+					(num "2")
+					(name "2")
+					(type "passive")
+				)
+			)
+		)
+		(libpart
+			(lib "kart-medulla")
+			(part "BSS123_C5184436")
+			(fields
+				(field
+					(name "Reference") "Q")
+				(field
+					(name "Value") "BSS123_C5184436")
+				(field
+					(name "Footprint")
+				)
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+				(field
+					(name "head_symbolType") "2")
+				(field
+					(name "head_version") "0.13.0")
+				(field
+					(name "Symbol") "BSS123_C5184436")
+				(field
+					(name "Designator") "Q?")
+				(field
+					(name "part_bbox") "-22.5,-13.5,23.5,20.5")
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "G")
+					(type "input")
+				)
+				(pin
+					(num "2")
+					(name "S")
+					(type "passive")
+				)
+				(pin
+					(num "3")
+					(name "D")
+					(type "passive")
+				)
+			)
+		)
+		(libpart
+			(lib "kart-medulla")
+			(part "CAP")
+			(fields
+				(field
+					(name "Reference") "U")
+				(field
+					(name "Value") "CAP")
+				(field
+					(name "Footprint")
+				)
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+				(field
+					(name "head_version") "1.7.22.9df0ac")
+				(field
+					(name "head_maxId") "43")
+				(field
+					(name "head_symbolType") "2")
+				(field
+					(name "Symbol") "CAP")
+				(field
+					(name "part_bbox") "-10,8,10,-8")
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "1")
+					(type "passive")
+				)
+				(pin
+					(num "2")
+					(name "2")
+					(type "passive")
+				)
+			)
+		)
+		(libpart
+			(lib "kart-medulla")
+			(part "GND")
+			(fields
+				(field
+					(name "Reference") "#PWR")
+				(field
+					(name "Value") "GND")
+				(field
+					(name "Footprint")
+				)
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "")
+					(type "power_in")
+				)
+			)
+		)
+		(libpart
+			(lib "kart-medulla")
+			(part "IRLZ44NPBF")
+			(fields
+				(field
+					(name "Reference") "Q")
+				(field
+					(name "Value") "IRLZ44NPBF")
+				(field
+					(name "Footprint")
+				)
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+				(field
+					(name "head_symbolType") "2")
+				(field
+					(name "head_version") "0.13.0")
+				(field
+					(name "Symbol") "IRLZ44NPBF")
+				(field
+					(name "Designator") "Q?")
+				(field
+					(name "part_bbox") "-10.5,-10.5,24.5,10.5")
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "G")
+					(type "input")
+				)
+				(pin
+					(num "2")
+					(name "D")
+					(type "passive")
+				)
+				(pin
+					(num "3")
+					(name "S")
+					(type "passive")
+				)
+			)
+		)
+		(libpart
+			(lib "kart-medulla")
+			(part "L7805CDT_C20611927")
+			(fields
+				(field
+					(name "Reference") "U")
+				(field
+					(name "Value") "L7805CDT_C20611927")
+				(field
+					(name "Footprint")
+				)
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+				(field
+					(name "head_symbolType") "2")
+				(field
+					(name "head_version") "0.13.0")
+				(field
+					(name "Symbol") "L7805CDT_C20611927")
+				(field
+					(name "Designator") "U?")
+				(field
+					(name "part_bbox") "-20,-20,30,10")
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "IN")
+					(type "power_in")
+				)
+				(pin
+					(num "2")
+					(name "GND")
+					(type "power_in")
+				)
+				(pin
+					(num "3")
+					(name "OUT")
+					(type "power_out")
+				)
+			)
+		)
+		(libpart
+			(lib "kart-medulla")
+			(part "LM358DR")
+			(fields
+				(field
+					(name "Reference") "U")
+				(field
+					(name "Value") "LM358DR")
+				(field
+					(name "Footprint")
+				)
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+				(field
+					(name "head_symbolType") "2")
+				(field
+					(name "head_version") "0.13.0")
+				(field
+					(name "Symbol") "LM358DR")
+				(field
+					(name "Designator") "U?")
+				(field
+					(name "part_bbox") "-21,-22.69999999999999,21,21")
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "OUT1")
+					(type "output")
+				)
+				(pin
+					(num "2")
+					(name "-IN1")
+					(type "input")
+				)
+				(pin
+					(num "3")
+					(name "+IN1")
+					(type "input")
+				)
+				(pin
+					(num "4")
+					(name "GND")
+					(type "power_in")
+				)
+				(pin
+					(num "5")
+					(name "+IN2")
+					(type "input")
+				)
+				(pin
+					(num "6")
+					(name "-IN2")
+					(type "input")
+				)
+				(pin
+					(num "7")
+					(name "OUT2")
+					(type "output")
+				)
+				(pin
+					(num "8")
+					(name "+V")
+					(type "power_in")
+				)
+			)
+		)
+		(libpart
+			(lib "kart-medulla")
+			(part "MAX4660EUA_T")
+			(docs "https://www.analog.com/MAX4660/datasheet")
+			(fields
+				(field
+					(name "Reference") "U")
+				(field
+					(name "Value") "MAX4660EUA+T")
+				(field
+					(name "Footprint") "kart-medulla:SOP65P490X110-9N")
+				(field
+					(name "Datasheet") "https://www.analog.com/MAX4660/datasheet")
+				(field
+					(name "Description")
+				)
+				(field
+					(name "head_symbolType") "2")
+				(field
+					(name "head_version") "0.13.0")
+				(field
+					(name "Symbol") "MAX4660EUA+T")
+				(field
+					(name "Designator") "U?")
+				(field
+					(name "part_bbox") "-25,-25,35,25")
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "COM")
+					(type "passive")
+				)
+				(pin
+					(num "2")
+					(name "NC")
+					(type "passive")
+				)
+				(pin
+					(num "3")
+					(name "GND")
+					(type "power_in")
+				)
+				(pin
+					(num "4")
+					(name "V+")
+					(type "power_in")
+				)
+				(pin
+					(num "5")
+					(name "NC")
+					(type "no_connect")
+				)
+				(pin
+					(num "6")
+					(name "IN")
+					(type "input")
+				)
+				(pin
+					(num "7")
+					(name "V-")
+					(type "power_in")
+				)
+				(pin
+					(num "8")
+					(name "NO")
+					(type "passive")
+				)
+				(pin
+					(num "9")
+					(name "EP")
+					(type "passive")
+				)
+			)
+		)
+		(libpart
+			(lib "kart-medulla")
+			(part "MCP4922-E_SL")
+			(fields
+				(field
+					(name "Reference") "U")
+				(field
+					(name "Value") "MCP4922-E/SL")
+				(field
+					(name "Footprint")
+				)
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+				(field
+					(name "head_symbolType") "2")
+				(field
+					(name "head_version") "0.13.0")
+				(field
+					(name "Symbol") "MCP4922-E/SL")
+				(field
+					(name "Designator") "U?")
+				(field
+					(name "Supplier") "LCSC")
+				(field
+					(name "Manufacturer") "MICROCHIP(美国微芯)")
+				(field
+					(name "Manufacturer Part") "MCP4922-E/SL")
+				(field
+					(name "Supplier Part") "C39851")
+				(field
+					(name "JLCPCB Part Class") "Extended Part")
+				(field
+					(name "part_bbox") "-35,-65,35,65")
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "VDD")
+					(type "power_in")
+				)
+				(pin
+					(num "2")
+					(name "NC")
+					(type "no_connect")
+				)
+				(pin
+					(num "3")
+					(name "CS#")
+					(type "input")
+				)
+				(pin
+					(num "4")
+					(name "SCK")
+					(type "input")
+				)
+				(pin
+					(num "5")
+					(name "SDI")
+					(type "input")
+				)
+				(pin
+					(num "6")
+					(name "NC")
+					(type "no_connect")
+				)
+				(pin
+					(num "7")
+					(name "NC")
+					(type "no_connect")
+				)
+				(pin
+					(num "8")
+					(name "LDAC#")
+					(type "input")
+				)
+				(pin
+					(num "9")
+					(name "SHDN#")
+					(type "input")
+				)
+				(pin
+					(num "10")
+					(name "VOUTB")
+					(type "output")
+				)
+				(pin
+					(num "11")
+					(name "VREFB")
+					(type "input")
+				)
+				(pin
+					(num "12")
+					(name "VSS")
+					(type "power_in")
+				)
+				(pin
+					(num "13")
+					(name "VREFA")
+					(type "input")
+				)
+				(pin
+					(num "14")
+					(name "VOUTA")
+					(type "output")
+				)
+			)
+		)
+		(libpart
+			(lib "kart-medulla")
+			(part "PCF8574T_3_518")
+			(fields
+				(field
+					(name "Reference") "U")
+				(field
+					(name "Value") "PCF8574T/3,518")
+				(field
+					(name "Footprint")
+				)
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+				(field
+					(name "head_symbolType") "2")
+				(field
+					(name "head_version") "0.13.0")
+				(field
+					(name "Symbol") "PCF8574T/3,518")
+				(field
+					(name "Designator") "U?")
+				(field
+					(name "part_bbox") "-30,-45,30,45")
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "A0")
+					(type "input")
+				)
+				(pin
+					(num "2")
+					(name "A1")
+					(type "input")
+				)
+				(pin
+					(num "3")
+					(name "A2")
+					(type "input")
+				)
+				(pin
+					(num "4")
+					(name "P0")
+					(type "bidirectional")
+				)
+				(pin
+					(num "5")
+					(name "P1")
+					(type "bidirectional")
+				)
+				(pin
+					(num "6")
+					(name "P2")
+					(type "bidirectional")
+				)
+				(pin
+					(num "7")
+					(name "P3")
+					(type "bidirectional")
+				)
+				(pin
+					(num "8")
+					(name "VSS")
+					(type "power_in")
+				)
+				(pin
+					(num "9")
+					(name "P4")
+					(type "bidirectional")
+				)
+				(pin
+					(num "10")
+					(name "P5")
+					(type "bidirectional")
+				)
+				(pin
+					(num "11")
+					(name "P6")
+					(type "bidirectional")
+				)
+				(pin
+					(num "12")
+					(name "P7")
+					(type "bidirectional")
+				)
+				(pin
+					(num "13")
+					(name "INT#")
+					(type "open_collector")
+				)
+				(pin
+					(num "14")
+					(name "SCL")
+					(type "input")
+				)
+				(pin
+					(num "15")
+					(name "SDA")
+					(type "bidirectional")
+				)
+				(pin
+					(num "16")
+					(name "VDD")
+					(type "power_in")
+				)
+			)
+		)
+		(libpart
+			(lib "kart-medulla")
+			(part "Res")
+			(fields
+				(field
+					(name "Reference") "U")
+				(field
+					(name "Value") "Res")
+				(field
+					(name "Footprint")
+				)
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+				(field
+					(name "head_version") "2")
+				(field
+					(name "head_maxId") "106")
+				(field
+					(name "head_symbolType") "2")
+				(field
+					(name "part_bbox") "-10,4,10,-4")
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "1")
+					(type "passive")
+				)
+				(pin
+					(num "2")
+					(name "2")
+					(type "passive")
+				)
+			)
+		)
+		(libpart
+			(lib "kart-medulla")
+			(part "SN74LVC3G17DCTR")
+			(fields
+				(field
+					(name "Reference") "U")
+				(field
+					(name "Value") "SN74LVC3G17DCTR")
+				(field
+					(name "Footprint")
+				)
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+				(field
+					(name "head_version") "2")
+				(field
+					(name "head_maxId") "91")
+				(field
+					(name "head_symbolType") "2")
+				(field
+					(name "Designator")
+				)
+				(field
+					(name "part_bbox") "-50,40,50,-40")
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "1A")
+					(type "input")
+				)
+				(pin
+					(num "2")
+					(name "3Y")
+					(type "output")
+				)
+				(pin
+					(num "3")
+					(name "2A")
+					(type "input")
+				)
+				(pin
+					(num "4")
+					(name "GND")
+					(type "power_in")
+				)
+				(pin
+					(num "5")
+					(name "2Y")
+					(type "output")
+				)
+				(pin
+					(num "6")
+					(name "3A")
+					(type "input")
+				)
+				(pin
+					(num "7")
+					(name "1Y")
+					(type "output")
+				)
+				(pin
+					(num "8")
+					(name "VCC")
+					(type "power_in")
+				)
+			)
+		)
+		(libpart
+			(lib "kart-medulla")
+			(part "SSW-122-01-T-D")
+			(fields
+				(field
+					(name "Reference") "U")
+				(field
+					(name "Value") "SSW-122-01-T-D")
+				(field
+					(name "Footprint")
+				)
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+				(field
+					(name "head_symbolType") "2")
+				(field
+					(name "head_version") "0.13.0")
+				(field
+					(name "Symbol") "SSW-122-01-T-D")
+				(field
+					(name "Designator") "U?")
+				(field
+					(name "part_bbox") "-20,-110,20,120")
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "1")
+					(type "passive")
+				)
+				(pin
+					(num "2")
+					(name "2")
+					(type "passive")
+				)
+				(pin
+					(num "3")
+					(name "3")
+					(type "passive")
+				)
+				(pin
+					(num "4")
+					(name "4")
+					(type "passive")
+				)
+				(pin
+					(num "5")
+					(name "5")
+					(type "passive")
+				)
+				(pin
+					(num "6")
+					(name "6")
+					(type "passive")
+				)
+				(pin
+					(num "7")
+					(name "7")
+					(type "passive")
+				)
+				(pin
+					(num "8")
+					(name "8")
+					(type "passive")
+				)
+				(pin
+					(num "9")
+					(name "9")
+					(type "passive")
+				)
+				(pin
+					(num "10")
+					(name "10")
+					(type "passive")
+				)
+				(pin
+					(num "11")
+					(name "11")
+					(type "passive")
+				)
+				(pin
+					(num "12")
+					(name "12")
+					(type "passive")
+				)
+				(pin
+					(num "13")
+					(name "13")
+					(type "passive")
+				)
+				(pin
+					(num "14")
+					(name "14")
+					(type "passive")
+				)
+				(pin
+					(num "15")
+					(name "15")
+					(type "passive")
+				)
+				(pin
+					(num "16")
+					(name "16")
+					(type "passive")
+				)
+				(pin
+					(num "17")
+					(name "17")
+					(type "passive")
+				)
+				(pin
+					(num "18")
+					(name "18")
+					(type "passive")
+				)
+				(pin
+					(num "19")
+					(name "19")
+					(type "passive")
+				)
+				(pin
+					(num "20")
+					(name "20")
+					(type "passive")
+				)
+				(pin
+					(num "21")
+					(name "21")
+					(type "passive")
+				)
+				(pin
+					(num "22")
+					(name "22")
+					(type "passive")
+				)
+				(pin
+					(num "23")
+					(name "23")
+					(type "passive")
+				)
+				(pin
+					(num "24")
+					(name "24")
+					(type "passive")
+				)
+				(pin
+					(num "25")
+					(name "25")
+					(type "passive")
+				)
+				(pin
+					(num "26")
+					(name "26")
+					(type "passive")
+				)
+				(pin
+					(num "27")
+					(name "27")
+					(type "passive")
+				)
+				(pin
+					(num "28")
+					(name "28")
+					(type "passive")
+				)
+				(pin
+					(num "29")
+					(name "29")
+					(type "passive")
+				)
+				(pin
+					(num "30")
+					(name "30")
+					(type "passive")
+				)
+				(pin
+					(num "31")
+					(name "31")
+					(type "passive")
+				)
+				(pin
+					(num "32")
+					(name "32")
+					(type "passive")
+				)
+				(pin
+					(num "33")
+					(name "33")
+					(type "passive")
+				)
+				(pin
+					(num "34")
+					(name "34")
+					(type "passive")
+				)
+				(pin
+					(num "35")
+					(name "35")
+					(type "passive")
+				)
+				(pin
+					(num "36")
+					(name "36")
+					(type "passive")
+				)
+				(pin
+					(num "37")
+					(name "37")
+					(type "passive")
+				)
+				(pin
+					(num "38")
+					(name "38")
+					(type "passive")
+				)
+				(pin
+					(num "39")
+					(name "39")
+					(type "passive")
+				)
+				(pin
+					(num "40")
+					(name "40")
+					(type "passive")
+				)
+				(pin
+					(num "41")
+					(name "41")
+					(type "passive")
+				)
+				(pin
+					(num "42")
+					(name "42")
+					(type "passive")
+				)
+				(pin
+					(num "43")
+					(name "43")
+					(type "passive")
+				)
+				(pin
+					(num "44")
+					(name "44")
+					(type "passive")
+				)
+			)
+		)
+		(libpart
+			(lib "kart-medulla")
+			(part "SSW-122-01-T-S")
+			(fields
+				(field
+					(name "Reference") "U")
+				(field
+					(name "Value") "SSW-122-01-T-S")
+				(field
+					(name "Footprint")
+				)
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+				(field
+					(name "head_symbolType") "2")
+				(field
+					(name "head_version") "0.13.0")
+				(field
+					(name "Symbol") "SSW-122-01-T-S")
+				(field
+					(name "Designator") "U?")
+				(field
+					(name "part_bbox") "-10,-115,10,115")
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "1")
+					(type "passive")
+				)
+				(pin
+					(num "2")
+					(name "2")
+					(type "passive")
+				)
+				(pin
+					(num "3")
+					(name "3")
+					(type "passive")
+				)
+				(pin
+					(num "4")
+					(name "4")
+					(type "passive")
+				)
+				(pin
+					(num "5")
+					(name "5")
+					(type "passive")
+				)
+				(pin
+					(num "6")
+					(name "6")
+					(type "passive")
+				)
+				(pin
+					(num "7")
+					(name "7")
+					(type "passive")
+				)
+				(pin
+					(num "8")
+					(name "8")
+					(type "passive")
+				)
+				(pin
+					(num "9")
+					(name "9")
+					(type "passive")
+				)
+				(pin
+					(num "10")
+					(name "10")
+					(type "passive")
+				)
+				(pin
+					(num "11")
+					(name "11")
+					(type "passive")
+				)
+				(pin
+					(num "12")
+					(name "12")
+					(type "passive")
+				)
+				(pin
+					(num "13")
+					(name "13")
+					(type "passive")
+				)
+				(pin
+					(num "14")
+					(name "14")
+					(type "passive")
+				)
+				(pin
+					(num "15")
+					(name "15")
+					(type "passive")
+				)
+				(pin
+					(num "16")
+					(name "16")
+					(type "passive")
+				)
+				(pin
+					(num "17")
+					(name "17")
+					(type "passive")
+				)
+				(pin
+					(num "18")
+					(name "18")
+					(type "passive")
+				)
+				(pin
+					(num "19")
+					(name "19")
+					(type "passive")
+				)
+				(pin
+					(num "20")
+					(name "20")
+					(type "passive")
+				)
+				(pin
+					(num "21")
+					(name "21")
+					(type "passive")
+				)
+				(pin
+					(num "22")
+					(name "22")
+					(type "passive")
+				)
+			)
+		)
+	)
+	(libraries)
+	(nets
+		(net
+			(code "1")
+			(name "+3V3")
+			(class "Default")
+			(node
+				(ref "C1")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "C6")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "CN1")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "CN4")
+				(pin "3")
+				(pinfunction "3_3")
+				(pintype "passive")
+			)
+			(node
+				(ref "R33")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "R34")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "U23")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "U23")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "U23")
+				(pin "3")
+				(pinfunction "3_3")
+				(pintype "passive")
+			)
+			(node
+				(ref "U23")
+				(pin "4")
+				(pinfunction "4_4")
+				(pintype "passive")
+			)
+			(node
+				(ref "U25")
+				(pin "16")
+				(pinfunction "VDD_16")
+				(pintype "power_in")
+			)
+			(node
+				(ref "U5")
+				(pin "8")
+				(pinfunction "VCC_8")
+				(pintype "power_in")
+			)
+		)
+		(net
+			(code "2")
+			(name "+5V_REG")
+			(class "Default")
+			(node
+				(ref "C3")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "C4")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "C5")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "U13")
+				(pin "1")
+				(pinfunction "VDD_1")
+				(pintype "power_in")
+			)
+			(node
+				(ref "U13")
+				(pin "11")
+				(pinfunction "VREFB_11")
+				(pintype "input")
+			)
+			(node
+				(ref "U13")
+				(pin "13")
+				(pinfunction "VREFA_13")
+				(pintype "input")
+			)
+			(node
+				(ref "U13")
+				(pin "9")
+				(pinfunction "SHDN#_9")
+				(pintype "input")
+			)
+			(node
+				(ref "U14")
+				(pin "4")
+				(pinfunction "V+_4")
+				(pintype "power_in")
+			)
+			(node
+				(ref "U19")
+				(pin "3")
+				(pinfunction "OUT_3")
+				(pintype "power_out")
+			)
+		)
+		(net
+			(code "3")
+			(name "+5V_USB")
+			(class "Default")
+			(node
+				(ref "U23")
+				(pin "41")
+				(pinfunction "41_41")
+				(pintype "passive")
+			)
+			(node
+				(ref "U23")
+				(pin "42")
+				(pinfunction "42_42")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "4")
+			(name "+12V")
+			(class "Default")
+			(node
+				(ref "C2")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "CN6")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "U1")
+				(pin "8")
+				(pinfunction "+V_8")
+				(pintype "power_in")
+			)
+			(node
+				(ref "U19")
+				(pin "1")
+				(pinfunction "IN_1")
+				(pintype "power_in")
+			)
+		)
+		(net
+			(code "5")
+			(name "/CMD_ACC_ESP32__0_5V")
+			(class "Default")
+			(node
+				(ref "U13")
+				(pin "14")
+				(pinfunction "VOUTA_14")
+				(pintype "output")
+			)
+			(node
+				(ref "U14")
+				(pin "8")
+				(pinfunction "NO_8")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "6")
+			(name "/CMD_ACC__0_5V")
+			(class "Default")
+			(node
+				(ref "CN7")
+				(pin "3")
+				(pinfunction "3_3")
+				(pintype "passive")
+			)
+			(node
+				(ref "U14")
+				(pin "1")
+				(pinfunction "COM_1")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "7")
+			(name "/CMD_BRAKE__0_10V")
+			(class "Default")
+			(node
+				(ref "CN5")
+				(pin "3")
+				(pinfunction "3_3")
+				(pintype "passive")
+			)
+			(node
+				(ref "R19")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "U1")
+				(pin "1")
+				(pinfunction "OUT1_1")
+				(pintype "output")
+			)
+		)
+		(net
+			(code "8")
+			(name "/CMD_REVERSE")
+			(class "Default")
+			(node
+				(ref "R30")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "U25")
+				(pin "4")
+				(pinfunction "P0_4")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "9")
+			(name "/CMD_STEER_DIR__3V3")
+			(class "Default")
+			(node
+				(ref "CN3")
+				(pin "3")
+				(pinfunction "3_3")
+				(pintype "passive")
+			)
+			(node
+				(ref "U24")
+				(pin "9")
+				(pinfunction "9_9")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "10")
+			(name "/CMD_STEER__PWM_3V3")
+			(class "Default")
+			(node
+				(ref "CN3")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "U24")
+				(pin "15")
+				(pinfunction "15_15")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "11")
+			(name "/EXP_P1")
+			(class "Default")
+			(node
+				(ref "CN8")
+				(pin "3")
+				(pinfunction "3_3")
+				(pintype "passive")
+			)
+			(node
+				(ref "U25")
+				(pin "5")
+				(pinfunction "P1_5")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "12")
+			(name "/EXP_P2")
+			(class "Default")
+			(node
+				(ref "CN8")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "U25")
+				(pin "6")
+				(pinfunction "P2_6")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "13")
+			(name "/EXP_P3")
+			(class "Default")
+			(node
+				(ref "CN9")
+				(pin "3")
+				(pinfunction "3_3")
+				(pintype "passive")
+			)
+			(node
+				(ref "U25")
+				(pin "7")
+				(pinfunction "P3_7")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "14")
+			(name "/EXP_P4")
+			(class "Default")
+			(node
+				(ref "CN9")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "U25")
+				(pin "9")
+				(pinfunction "P4_9")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "15")
+			(name "/EXP_P5")
+			(class "Default")
+			(node
+				(ref "CN9")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "U25")
+				(pin "10")
+				(pinfunction "P5_10")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "16")
+			(name "/EXP_P6")
+			(class "Default")
+			(node
+				(ref "CN10")
+				(pin "3")
+				(pinfunction "3_3")
+				(pintype "passive")
+			)
+			(node
+				(ref "U25")
+				(pin "11")
+				(pinfunction "P6_11")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "17")
+			(name "/EXP_P7")
+			(class "Default")
+			(node
+				(ref "CN10")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "U25")
+				(pin "12")
+				(pinfunction "P7_12")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "18")
+			(name "/HYDRAULIC_1__0_3V3")
+			(class "Default")
+			(node
+				(ref "R24")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "R25")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "U23")
+				(pin "31")
+				(pinfunction "31_31")
+				(pintype "passive")
+			)
+			(node
+				(ref "U23")
+				(pin "32")
+				(pinfunction "32_32")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "19")
+			(name "/HYDRAULIC_1__0_5V")
+			(class "Default")
+			(node
+				(ref "CN1")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "R24")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "20")
+			(name "/HYDRAULIC_2__0_3V3")
+			(class "Default")
+			(node
+				(ref "R26")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "R27")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "U24")
+				(pin "18")
+				(pinfunction "18_18")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "21")
+			(name "/HYDRAULIC_2__0_5V")
+			(class "Default")
+			(node
+				(ref "CN1")
+				(pin "3")
+				(pinfunction "3_3")
+				(pintype "passive")
+			)
+			(node
+				(ref "R26")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "22")
+			(name "/MOTOR_HALL_1__3V3")
+			(class "Default")
+			(node
+				(ref "U23")
+				(pin "17")
+				(pinfunction "17_17")
+				(pintype "passive")
+			)
+			(node
+				(ref "U23")
+				(pin "18")
+				(pinfunction "18_18")
+				(pintype "passive")
+			)
+			(node
+				(ref "U5")
+				(pin "7")
+				(pinfunction "1Y_7")
+				(pintype "output")
+			)
+		)
+		(net
+			(code "23")
+			(name "/MOTOR_HALL_1__5V")
+			(class "Default")
+			(node
+				(ref "CN7")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "R1")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "24")
+			(name "/MOTOR_HALL_2__3V3")
+			(class "Default")
+			(node
+				(ref "U24")
+				(pin "6")
+				(pinfunction "6_6")
+				(pintype "passive")
+			)
+			(node
+				(ref "U5")
+				(pin "5")
+				(pinfunction "2Y_5")
+				(pintype "output")
+			)
+		)
+		(net
+			(code "25")
+			(name "/MOTOR_HALL_2__5V")
+			(class "Default")
+			(node
+				(ref "CN6")
+				(pin "3")
+				(pinfunction "3_3")
+				(pintype "passive")
+			)
+			(node
+				(ref "R2")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "26")
+			(name "/MOTOR_HALL_3__3V3")
+			(class "Default")
+			(node
+				(ref "U24")
+				(pin "5")
+				(pinfunction "5_5")
+				(pintype "passive")
+			)
+			(node
+				(ref "U5")
+				(pin "2")
+				(pinfunction "3Y_2")
+				(pintype "output")
+			)
+		)
+		(net
+			(code "27")
+			(name "/MOTOR_HALL_3__5V")
+			(class "Default")
+			(node
+				(ref "CN7")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "R3")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "28")
+			(name "/PEDAL_ACC__0_5V")
+			(class "Default")
+			(node
+				(ref "CN5")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "R14")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "U14")
+				(pin "2")
+				(pinfunction "NC_2")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "29")
+			(name "/PEDAL_ACC__3V3")
+			(class "Default")
+			(node
+				(ref "R14")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "R15")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "U23")
+				(pin "7")
+				(pinfunction "7_7")
+				(pintype "passive")
+			)
+			(node
+				(ref "U23")
+				(pin "8")
+				(pinfunction "8_8")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "30")
+			(name "/PEDAL_BRAKE__0_5V")
+			(class "Default")
+			(node
+				(ref "CN3")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "R16")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "31")
+			(name "/PEDAL_BRAKE__3V3")
+			(class "Default")
+			(node
+				(ref "R16")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "R17")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "U23")
+				(pin "10")
+				(pinfunction "10_10")
+				(pintype "passive")
+			)
+			(node
+				(ref "U23")
+				(pin "9")
+				(pinfunction "9_9")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "32")
+			(name "/PRESSURE_1__0_3V3")
+			(class "Default")
+			(node
+				(ref "R12")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "R13")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "U23")
+				(pin "11")
+				(pinfunction "11_11")
+				(pintype "passive")
+			)
+			(node
+				(ref "U23")
+				(pin "12")
+				(pinfunction "12_12")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "33")
+			(name "/PRESSURE_1__0_10V")
+			(class "Default")
+			(node
+				(ref "CN2")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "R11")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "34")
+			(name "/PRESSURE_2__0_3V3")
+			(class "Default")
+			(node
+				(ref "R6")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "R7")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "U23")
+				(pin "13")
+				(pinfunction "13_13")
+				(pintype "passive")
+			)
+			(node
+				(ref "U23")
+				(pin "14")
+				(pinfunction "14_14")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "35")
+			(name "/PRESSURE_2__0_10V")
+			(class "Default")
+			(node
+				(ref "CN2")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "R4")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "36")
+			(name "/PRESSURE_3__0_3V3")
+			(class "Default")
+			(node
+				(ref "R10")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "R9")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "U24")
+				(pin "19")
+				(pinfunction "19_19")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "37")
+			(name "/PRESSURE_3__0_10V")
+			(class "Default")
+			(node
+				(ref "CN2")
+				(pin "3")
+				(pinfunction "3_3")
+				(pintype "passive")
+			)
+			(node
+				(ref "R8")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "38")
+			(name "/REVERSE_WIRE")
+			(class "Default")
+			(node
+				(ref "CN8")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "Q4")
+				(pin "3")
+				(pinfunction "D_3")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "39")
+			(name "/SCL__I2C")
+			(class "Default")
+			(node
+				(ref "CN4")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "R34")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "U23")
+				(pin "29")
+				(pinfunction "29_29")
+				(pintype "passive")
+			)
+			(node
+				(ref "U23")
+				(pin "30")
+				(pinfunction "30_30")
+				(pintype "passive")
+			)
+			(node
+				(ref "U25")
+				(pin "14")
+				(pinfunction "SCL_14")
+				(pintype "input")
+			)
+		)
+		(net
+			(code "40")
+			(name "/SDA__I2C")
+			(class "Default")
+			(node
+				(ref "CN4")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "R33")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "U23")
+				(pin "23")
+				(pinfunction "23_23")
+				(pintype "passive")
+			)
+			(node
+				(ref "U23")
+				(pin "24")
+				(pinfunction "24_24")
+				(pintype "passive")
+			)
+			(node
+				(ref "U25")
+				(pin "15")
+				(pinfunction "SDA_15")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "41")
+			(name "/SDC_IN_LOW_SIDE")
+			(class "Default")
+			(node
+				(ref "CN5")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "Q3")
+				(pin "2")
+				(pinfunction "D_2")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "42")
+			(name "/SDC_NOT_EMERGENCY__3V3")
+			(class "Default")
+			(node
+				(ref "R22")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "U24")
+				(pin "13")
+				(pinfunction "13_13")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "43")
+			(name "/SELECT_THROTTLE")
+			(class "Default")
+			(node
+				(ref "R32")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "U14")
+				(pin "6")
+				(pinfunction "IN_6")
+				(pintype "input")
+			)
+			(node
+				(ref "U23")
+				(pin "15")
+				(pinfunction "15_15")
+				(pintype "passive")
+			)
+			(node
+				(ref "U23")
+				(pin "16")
+				(pinfunction "16_16")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "44")
+			(name "BUZZER")
+			(class "Default")
+			(node
+				(ref "U23")
+				(pin "25")
+				(pinfunction "25_25")
+				(pintype "passive")
+			)
+			(node
+				(ref "U23")
+				(pin "26")
+				(pinfunction "26_26")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "45")
+			(name "CLK")
+			(class "Default")
+			(node
+				(ref "U13")
+				(pin "4")
+				(pinfunction "SCK_4")
+				(pintype "input")
+			)
+			(node
+				(ref "U23")
+				(pin "35")
+				(pinfunction "35_35")
+				(pintype "passive")
+			)
+			(node
+				(ref "U23")
+				(pin "36")
+				(pinfunction "36_36")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "46")
+			(name "CMD_BRAKE__0_5V")
+			(class "Default")
+			(node
+				(ref "U1")
+				(pin "3")
+				(pinfunction "+IN1_3")
+				(pintype "input")
+			)
+			(node
+				(ref "U13")
+				(pin "10")
+				(pinfunction "VOUTB_10")
+				(pintype "output")
+			)
+		)
+		(net
+			(code "47")
+			(name "CMD_DAC_CS")
+			(class "Default")
+			(node
+				(ref "U13")
+				(pin "3")
+				(pinfunction "CS#_3")
+				(pintype "input")
+			)
+			(node
+				(ref "U23")
+				(pin "39")
+				(pinfunction "39_39")
+				(pintype "passive")
+			)
+			(node
+				(ref "U23")
+				(pin "40")
+				(pinfunction "40_40")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "48")
+			(name "GND")
+			(class "Default")
+			(node
+				(ref "C1")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "C2")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "C3")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "C4")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "C5")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "C6")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "CN10")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "CN6")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "Q3")
+				(pin "3")
+				(pinfunction "S_3")
+				(pintype "passive")
+			)
+			(node
+				(ref "Q4")
+				(pin "2")
+				(pinfunction "S_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "R10")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "R13")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "R15")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "R17")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "R20")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "R23")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "R25")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "R27")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "R31")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "R32")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "R7")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "U02")
+				(pin "1")
+				(pintype "power_in")
+			)
+			(node
+				(ref "U1")
+				(pin "4")
+				(pinfunction "GND_4")
+				(pintype "power_in")
+			)
+			(node
+				(ref "U13")
+				(pin "12")
+				(pinfunction "VSS_12")
+				(pintype "power_in")
+			)
+			(node
+				(ref "U13")
+				(pin "8")
+				(pinfunction "LDAC#_8")
+				(pintype "input")
+			)
+			(node
+				(ref "U14")
+				(pin "3")
+				(pinfunction "GND_3")
+				(pintype "power_in")
+			)
+			(node
+				(ref "U14")
+				(pin "7")
+				(pinfunction "V-_7")
+				(pintype "power_in")
+			)
+			(node
+				(ref "U14")
+				(pin "9")
+				(pinfunction "EP_9")
+				(pintype "passive")
+			)
+			(node
+				(ref "U19")
+				(pin "2")
+				(pinfunction "GND_2")
+				(pintype "power_in")
+			)
+			(node
+				(ref "U23")
+				(pin "43")
+				(pinfunction "43_43")
+				(pintype "passive")
+			)
+			(node
+				(ref "U23")
+				(pin "44")
+				(pinfunction "44_44")
+				(pintype "passive")
+			)
+			(node
+				(ref "U24")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "U24")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "U24")
+				(pin "22")
+				(pinfunction "22_22")
+				(pintype "passive")
+			)
+			(node
+				(ref "U25")
+				(pin "1")
+				(pinfunction "A0_1")
+				(pintype "input")
+			)
+			(node
+				(ref "U25")
+				(pin "2")
+				(pinfunction "A1_2")
+				(pintype "input")
+			)
+			(node
+				(ref "U25")
+				(pin "3")
+				(pinfunction "A2_3")
+				(pintype "input")
+			)
+			(node
+				(ref "U25")
+				(pin "8")
+				(pinfunction "VSS_8")
+				(pintype "power_in")
+			)
+			(node
+				(ref "U5")
+				(pin "4")
+				(pinfunction "GND_4")
+				(pintype "power_in")
+			)
+		)
+		(net
+			(code "49")
+			(name "LED")
+			(class "Default")
+			(node
+				(ref "U24")
+				(pin "7")
+				(pinfunction "7_7")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "50")
+			(name "MISO")
+			(class "Default")
+			(node
+				(ref "U23")
+				(pin "37")
+				(pinfunction "37_37")
+				(pintype "passive")
+			)
+			(node
+				(ref "U23")
+				(pin "38")
+				(pinfunction "38_38")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "51")
+			(name "MOSI")
+			(class "Default")
+			(node
+				(ref "U13")
+				(pin "5")
+				(pinfunction "SDI_5")
+				(pintype "input")
+			)
+			(node
+				(ref "U23")
+				(pin "33")
+				(pinfunction "33_33")
+				(pintype "passive")
+			)
+			(node
+				(ref "U23")
+				(pin "34")
+				(pinfunction "34_34")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "52")
+			(name "RESET")
+			(class "Default")
+			(node
+				(ref "U23")
+				(pin "5")
+				(pinfunction "5_5")
+				(pintype "passive")
+			)
+			(node
+				(ref "U23")
+				(pin "6")
+				(pinfunction "6_6")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "53")
+			(name "RX1")
+			(class "Default")
+			(node
+				(ref "U23")
+				(pin "21")
+				(pinfunction "21_21")
+				(pintype "passive")
+			)
+			(node
+				(ref "U23")
+				(pin "22")
+				(pinfunction "22_22")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "54")
+			(name "SDC_ENABLE")
+			(class "Default")
+			(node
+				(ref "U24")
+				(pin "14")
+				(pinfunction "14_14")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "55")
+			(name "TX1")
+			(class "Default")
+			(node
+				(ref "U23")
+				(pin "19")
+				(pinfunction "19_19")
+				(pintype "passive")
+			)
+			(node
+				(ref "U23")
+				(pin "20")
+				(pinfunction "20_20")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "56")
+			(name "USB_D+")
+			(class "Default")
+			(node
+				(ref "U24")
+				(pin "4")
+				(pinfunction "4_4")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "57")
+			(name "USB_D-")
+			(class "Default")
+			(node
+				(ref "U24")
+				(pin "3")
+				(pinfunction "3_3")
+				(pintype "passive")
+			)
+		)
+	)
+)

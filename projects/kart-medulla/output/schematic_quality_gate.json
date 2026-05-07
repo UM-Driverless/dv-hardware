@@ -1,0 +1,2463 @@
+{
+    "$schema": "https://schemas.kicad.org/erc.v1.json",
+    "coordinate_units": "mm",
+    "date": "2026-05-07T11:43:59",
+    "ignored_checks": [
+        {
+            "description": "Global label only appears once in the schematic",
+            "key": "single_global_label"
+        },
+        {
+            "description": "Four connection points are joined together",
+            "key": "four_way_junction"
+        },
+        {
+            "description": "SPICE model issue",
+            "key": "simulation_model_issue"
+        },
+        {
+            "description": "Assigned footprint doesn't match footprint filters",
+            "key": "footprint_filter"
+        }
+    ],
+    "included_severities": [
+        "error",
+        "warning",
+        "exclusion"
+    ],
+    "kicad_version": "10.0.1",
+    "sheets": [
+        {
+            "path": "/",
+            "uuid_path": "/ca70726b-7894-594f-a6f9-dfff97cbc924",
+            "violations": [
+                {
+                    "description": "Wires not connected to anything",
+                    "items": [
+                        {
+                            "description": "Vertical Wire, length 0.0127 mm",
+                            "pos": {
+                                "x": 0.5461,
+                                "y": 2.1463
+                            },
+                            "uuid": "008c574b-b4df-477d-88f9-2be8acba4078"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "wire_dangling"
+                },
+                {
+                    "description": "Wires not connected to anything",
+                    "items": [
+                        {
+                            "description": "Vertical Wire, length 0.0127 mm",
+                            "pos": {
+                                "x": 0.8382,
+                                "y": 2.1463
+                            },
+                            "uuid": "1b78da92-eec9-49b7-9888-73135344644b"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "wire_dangling"
+                },
+                {
+                    "description": "Wires not connected to anything",
+                    "items": [
+                        {
+                            "description": "Vertical Wire, length 0.0127 mm",
+                            "pos": {
+                                "x": 1.1303,
+                                "y": 2.1463
+                            },
+                            "uuid": "d186d5a6-61d9-47f5-b938-a229700ece64"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "wire_dangling"
+                },
+                {
+                    "description": "Wires not connected to anything",
+                    "items": [
+                        {
+                            "description": "Horizontal Wire, length 0.0381 mm",
+                            "pos": {
+                                "x": 0.8636,
+                                "y": 2.9845
+                            },
+                            "uuid": "1250e4dc-ef6a-464d-92ba-050f7fc2aa61"
+                        },
+                        {
+                            "description": "Vertical Wire, length 0.0254 mm",
+                            "pos": {
+                                "x": 0.9017,
+                                "y": 2.9845
+                            },
+                            "uuid": "48de0702-6705-4784-bb2d-f8f6d9dada92"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "wire_dangling"
+                },
+                {
+                    "description": "Wires not connected to anything",
+                    "items": [
+                        {
+                            "description": "Horizontal Wire, length 0.0508 mm",
+                            "pos": {
+                                "x": 0.8509,
+                                "y": 3.0353
+                            },
+                            "uuid": "afe42df2-f2d5-4f74-ade6-a07697e2c75a"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "wire_dangling"
+                },
+                {
+                    "description": "Wires not connected to anything",
+                    "items": [
+                        {
+                            "description": "Horizontal Wire, length 0.0508 mm",
+                            "pos": {
+                                "x": 0.8509,
+                                "y": 3.0861
+                            },
+                            "uuid": "095f4828-fc79-4331-ab9d-3e46291fa19c"
+                        },
+                        {
+                            "description": "Vertical Wire, length 0.0254 mm",
+                            "pos": {
+                                "x": 0.9017,
+                                "y": 3.0607
+                            },
+                            "uuid": "9a482423-9409-4d92-a430-cc03425c8c23"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "wire_dangling"
+                },
+                {
+                    "description": "Wires not connected to anything",
+                    "items": [
+                        {
+                            "description": "Horizontal Wire, length 0.0381 mm",
+                            "pos": {
+                                "x": 0.8636,
+                                "y": 3.6068
+                            },
+                            "uuid": "c4df9019-423f-46c9-bdf1-9ad07fed2798"
+                        },
+                        {
+                            "description": "Vertical Wire, length 0.0889 mm",
+                            "pos": {
+                                "x": 0.8763,
+                                "y": 3.6068
+                            },
+                            "uuid": "0e3a249d-459e-4610-8900-f2ac77020872"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "wire_dangling"
+                },
+                {
+                    "description": "Wires not connected to anything",
+                    "items": [
+                        {
+                            "description": "Horizontal Wire, length 0.1778 mm",
+                            "pos": {
+                                "x": 1.9939,
+                                "y": 3.5941
+                            },
+                            "uuid": "44ee4064-5ea4-433d-bcc7-710a61f3e707"
+                        },
+                        {
+                            "description": "Vertical Wire, length 0.0508 mm",
+                            "pos": {
+                                "x": 2.1209,
+                                "y": 3.5941
+                            },
+                            "uuid": "4398a413-7a47-4297-b132-4a2b00d94fe0"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "wire_dangling"
+                },
+                {
+                    "description": "Wires not connected to anything",
+                    "items": [
+                        {
+                            "description": "Horizontal Wire, length 0.0762 mm",
+                            "pos": {
+                                "x": 3.7084,
+                                "y": 2.921
+                            },
+                            "uuid": "fb6751ab-cda2-4823-9d22-1356ac980e58"
+                        },
+                        {
+                            "description": "Horizontal Wire, length 0.0254 mm",
+                            "pos": {
+                                "x": 3.7465,
+                                "y": 3.0353
+                            },
+                            "uuid": "c6c8e056-6105-4c0c-bc10-9b78ba1c12e2"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "wire_dangling"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol #PWR10 [+3V3]",
+                            "pos": {
+                                "x": 0.5334,
+                                "y": 0.4953
+                            },
+                            "uuid": "8206b33a-3804-4b1a-8def-4bf1cc405f56"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the footprint library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol CN1 [1990012]",
+                            "pos": {
+                                "x": 0.8382,
+                                "y": 0.4953
+                            },
+                            "uuid": "2c3e32f6-d366-48ed-b774-3be7f703d286"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "footprint_link_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol CN1 [1990012]",
+                            "pos": {
+                                "x": 0.8382,
+                                "y": 0.4953
+                            },
+                            "uuid": "2c3e32f6-d366-48ed-b774-3be7f703d286"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the footprint library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol CN2 [1990012]",
+                            "pos": {
+                                "x": 0.8382,
+                                "y": 0.6604
+                            },
+                            "uuid": "0b856733-8497-4f1f-883b-755988aac240"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "footprint_link_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol CN2 [1990012]",
+                            "pos": {
+                                "x": 0.8382,
+                                "y": 0.6604
+                            },
+                            "uuid": "0b856733-8497-4f1f-883b-755988aac240"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol #PWR037 [+3V3]",
+                            "pos": {
+                                "x": 1.0541,
+                                "y": 0.5207
+                            },
+                            "uuid": "01c284aa-f25d-48b9-a141-1b8c03afd642"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the footprint library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol CN3 [1990012]",
+                            "pos": {
+                                "x": 0.8382,
+                                "y": 0.8255
+                            },
+                            "uuid": "4f75e7f2-d87d-4a90-b558-7b4612983ac1"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "footprint_link_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol CN3 [1990012]",
+                            "pos": {
+                                "x": 0.8382,
+                                "y": 0.8255
+                            },
+                            "uuid": "4f75e7f2-d87d-4a90-b558-7b4612983ac1"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol #PWR14 [+12V]",
+                            "pos": {
+                                "x": 1.0668,
+                                "y": 0.8128
+                            },
+                            "uuid": "4a13e2c9-27f3-44aa-ab10-2b90c39f11bd"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol #PWR034 [GND]",
+                            "pos": {
+                                "x": 1.27,
+                                "y": 0.7874
+                            },
+                            "uuid": "fdadd9ee-2ae5-4dc6-8b38-9cac370f9e09"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the footprint library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol CN4 [1990012]",
+                            "pos": {
+                                "x": 1.4224,
+                                "y": 0.4953
+                            },
+                            "uuid": "88c21bfe-56a1-4765-b0e3-fe3a84b7ce99"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "footprint_link_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol CN4 [1990012]",
+                            "pos": {
+                                "x": 1.4224,
+                                "y": 0.4953
+                            },
+                            "uuid": "88c21bfe-56a1-4765-b0e3-fe3a84b7ce99"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the footprint library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol CN5 [1990012]",
+                            "pos": {
+                                "x": 1.4224,
+                                "y": 0.6477
+                            },
+                            "uuid": "de92f911-1e3e-4bcc-b198-1e452c132bac"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "footprint_link_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol CN5 [1990012]",
+                            "pos": {
+                                "x": 1.4224,
+                                "y": 0.6477
+                            },
+                            "uuid": "de92f911-1e3e-4bcc-b198-1e452c132bac"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the footprint library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol CN6 [1990012]",
+                            "pos": {
+                                "x": 1.4224,
+                                "y": 0.8128
+                            },
+                            "uuid": "c24c5f6d-4099-480a-9a2a-894cc163fc74"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "footprint_link_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol CN6 [1990012]",
+                            "pos": {
+                                "x": 1.4224,
+                                "y": 0.8128
+                            },
+                            "uuid": "c24c5f6d-4099-480a-9a2a-894cc163fc74"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the footprint library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol CN7 [1990012]",
+                            "pos": {
+                                "x": 2.0574,
+                                "y": 0.4826
+                            },
+                            "uuid": "9d344446-3b85-41aa-bc88-34044b479569"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "footprint_link_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol CN7 [1990012]",
+                            "pos": {
+                                "x": 2.0574,
+                                "y": 0.4826
+                            },
+                            "uuid": "9d344446-3b85-41aa-bc88-34044b479569"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the footprint library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol CN8 [1990012]",
+                            "pos": {
+                                "x": 2.0574,
+                                "y": 0.6477
+                            },
+                            "uuid": "e2587327-bb24-43e4-81d4-bc8357fdcd54"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "footprint_link_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol CN8 [1990012]",
+                            "pos": {
+                                "x": 2.0574,
+                                "y": 0.6477
+                            },
+                            "uuid": "e2587327-bb24-43e4-81d4-bc8357fdcd54"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the footprint library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol R4 [Res]",
+                            "pos": {
+                                "x": 0.5461,
+                                "y": 2.0955
+                            },
+                            "uuid": "f06b3060-56fa-4612-b01b-1d4eb20b3550"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "footprint_link_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol R4 [Res]",
+                            "pos": {
+                                "x": 0.5461,
+                                "y": 2.0955
+                            },
+                            "uuid": "f06b3060-56fa-4612-b01b-1d4eb20b3550"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the footprint library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol CN9 [1990012]",
+                            "pos": {
+                                "x": 2.0574,
+                                "y": 0.8128
+                            },
+                            "uuid": "4b0b09cf-e8c7-4128-95d5-dc65c7755f3b"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "footprint_link_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol CN9 [1990012]",
+                            "pos": {
+                                "x": 2.0574,
+                                "y": 0.8128
+                            },
+                            "uuid": "4b0b09cf-e8c7-4128-95d5-dc65c7755f3b"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol #PWR36 [GND]",
+                            "pos": {
+                                "x": 2.1844,
+                                "y": 0.4572
+                            },
+                            "uuid": "a72b006c-00e9-437d-b608-6f1a374e60a5"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the footprint library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol R8 [Res]",
+                            "pos": {
+                                "x": 0.8382,
+                                "y": 2.0955
+                            },
+                            "uuid": "3169528e-7d7d-4d60-84b9-0055d3590b5b"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "footprint_link_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol R8 [Res]",
+                            "pos": {
+                                "x": 0.8382,
+                                "y": 2.0955
+                            },
+                            "uuid": "3169528e-7d7d-4d60-84b9-0055d3590b5b"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the footprint library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol R6 [Res]",
+                            "pos": {
+                                "x": 0.5461,
+                                "y": 2.2098
+                            },
+                            "uuid": "8e6c5228-4f81-4e31-b06d-05d5a9c55e4b"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "footprint_link_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol R6 [Res]",
+                            "pos": {
+                                "x": 0.5461,
+                                "y": 2.2098
+                            },
+                            "uuid": "8e6c5228-4f81-4e31-b06d-05d5a9c55e4b"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the footprint library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol R9 [Res]",
+                            "pos": {
+                                "x": 0.8382,
+                                "y": 2.2098
+                            },
+                            "uuid": "6709e91e-af58-45c8-9252-57b5da74e280"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "footprint_link_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol R9 [Res]",
+                            "pos": {
+                                "x": 0.8382,
+                                "y": 2.2098
+                            },
+                            "uuid": "6709e91e-af58-45c8-9252-57b5da74e280"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the footprint library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol R11 [Res]",
+                            "pos": {
+                                "x": 1.1303,
+                                "y": 2.0955
+                            },
+                            "uuid": "84dd512c-1bb5-48d7-a7fd-70c3fdd7e048"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "footprint_link_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol R11 [Res]",
+                            "pos": {
+                                "x": 1.1303,
+                                "y": 2.0955
+                            },
+                            "uuid": "84dd512c-1bb5-48d7-a7fd-70c3fdd7e048"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the footprint library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol R7 [Res]",
+                            "pos": {
+                                "x": 0.5461,
+                                "y": 2.3622
+                            },
+                            "uuid": "92fea48f-ed39-46d3-8b24-b8a8a45becf4"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "footprint_link_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol R7 [Res]",
+                            "pos": {
+                                "x": 0.5461,
+                                "y": 2.3622
+                            },
+                            "uuid": "92fea48f-ed39-46d3-8b24-b8a8a45becf4"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the footprint library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol R12 [Res]",
+                            "pos": {
+                                "x": 1.1303,
+                                "y": 2.2098
+                            },
+                            "uuid": "2db7748f-5315-46e1-88af-7662233752c6"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "footprint_link_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol R12 [Res]",
+                            "pos": {
+                                "x": 1.1303,
+                                "y": 2.2098
+                            },
+                            "uuid": "2db7748f-5315-46e1-88af-7662233752c6"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol #PWR01 [GND]",
+                            "pos": {
+                                "x": 0.5461,
+                                "y": 2.4384
+                            },
+                            "uuid": "782d4096-1f70-4de2-8b6f-1a3ad2145ec8"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the footprint library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol R10 [Res]",
+                            "pos": {
+                                "x": 0.8382,
+                                "y": 2.3622
+                            },
+                            "uuid": "ba86e082-28e8-47eb-85b0-df48b0b4c95f"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "footprint_link_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol R10 [Res]",
+                            "pos": {
+                                "x": 0.8382,
+                                "y": 2.3622
+                            },
+                            "uuid": "ba86e082-28e8-47eb-85b0-df48b0b4c95f"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the footprint library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol R14 [Res]",
+                            "pos": {
+                                "x": 1.5113,
+                                "y": 2.0828
+                            },
+                            "uuid": "96ecfd15-99a5-42e7-bb9a-e441dacbe834"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "footprint_link_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol R14 [Res]",
+                            "pos": {
+                                "x": 1.5113,
+                                "y": 2.0828
+                            },
+                            "uuid": "96ecfd15-99a5-42e7-bb9a-e441dacbe834"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol #PWR02 [GND]",
+                            "pos": {
+                                "x": 0.8382,
+                                "y": 2.4384
+                            },
+                            "uuid": "7d1a873a-ed65-4b2b-80cd-4a924dd0c9f7"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the footprint library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol R13 [Res]",
+                            "pos": {
+                                "x": 1.1303,
+                                "y": 2.3622
+                            },
+                            "uuid": "6b578df9-85a2-496f-bac7-3630b808b736"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "footprint_link_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol R13 [Res]",
+                            "pos": {
+                                "x": 1.1303,
+                                "y": 2.3622
+                            },
+                            "uuid": "6b578df9-85a2-496f-bac7-3630b808b736"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the footprint library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol CN10 [1990012]",
+                            "pos": {
+                                "x": 2.6035,
+                                "y": 0.4826
+                            },
+                            "uuid": "a84749d2-1ce3-40a1-9dde-9e599037c046"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "footprint_link_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol CN10 [1990012]",
+                            "pos": {
+                                "x": 2.6035,
+                                "y": 0.4826
+                            },
+                            "uuid": "a84749d2-1ce3-40a1-9dde-9e599037c046"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the footprint library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol R15 [Res]",
+                            "pos": {
+                                "x": 1.5113,
+                                "y": 2.2098
+                            },
+                            "uuid": "e15e66e5-3963-4c79-a27f-01f3d70fd5e9"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "footprint_link_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol R15 [Res]",
+                            "pos": {
+                                "x": 1.5113,
+                                "y": 2.2098
+                            },
+                            "uuid": "e15e66e5-3963-4c79-a27f-01f3d70fd5e9"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol #PWR03 [GND]",
+                            "pos": {
+                                "x": 1.1303,
+                                "y": 2.4384
+                            },
+                            "uuid": "a339d0a1-9dda-4d2a-84b1-945540ab3cf8"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol #PWR04 [GND]",
+                            "pos": {
+                                "x": 1.5113,
+                                "y": 2.2606
+                            },
+                            "uuid": "7ef13501-885d-4b1a-99b7-a0a4ea91cfa3"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the footprint library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol R16 [Res]",
+                            "pos": {
+                                "x": 1.778,
+                                "y": 2.0828
+                            },
+                            "uuid": "71bbe11d-1859-452d-a648-7da0e63130f3"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "footprint_link_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol R16 [Res]",
+                            "pos": {
+                                "x": 1.778,
+                                "y": 2.0828
+                            },
+                            "uuid": "71bbe11d-1859-452d-a648-7da0e63130f3"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the footprint library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol R17 [Res]",
+                            "pos": {
+                                "x": 1.778,
+                                "y": 2.2098
+                            },
+                            "uuid": "b4041227-9873-44de-bdbb-fd2c882c9c1e"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "footprint_link_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol R17 [Res]",
+                            "pos": {
+                                "x": 1.778,
+                                "y": 2.2098
+                            },
+                            "uuid": "b4041227-9873-44de-bdbb-fd2c882c9c1e"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol #PWR05 [GND]",
+                            "pos": {
+                                "x": 1.778,
+                                "y": 2.2606
+                            },
+                            "uuid": "f2ec582d-7fa3-472d-9ff0-d1df3578eaef"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the footprint library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol R24 [Res]",
+                            "pos": {
+                                "x": 2.0955,
+                                "y": 2.0955
+                            },
+                            "uuid": "d0eebe14-298a-4310-8c6e-d72e9775f31e"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "footprint_link_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol R24 [Res]",
+                            "pos": {
+                                "x": 2.0955,
+                                "y": 2.0955
+                            },
+                            "uuid": "d0eebe14-298a-4310-8c6e-d72e9775f31e"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the footprint library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol R25 [Res]",
+                            "pos": {
+                                "x": 2.0955,
+                                "y": 2.2225
+                            },
+                            "uuid": "8dcf0b99-8581-4da6-bd00-68c53028cae2"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "footprint_link_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol R25 [Res]",
+                            "pos": {
+                                "x": 2.0955,
+                                "y": 2.2225
+                            },
+                            "uuid": "8dcf0b99-8581-4da6-bd00-68c53028cae2"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol #PWR12 [GND]",
+                            "pos": {
+                                "x": 2.0955,
+                                "y": 2.2733
+                            },
+                            "uuid": "439ab2f2-d7d0-42c6-8f2d-6e66c7aaedd1"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the footprint library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol R1 [1k]",
+                            "pos": {
+                                "x": 0.8128,
+                                "y": 2.9845
+                            },
+                            "uuid": "b6b5206c-3e1a-47db-882c-c82f07dcc0e1"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "footprint_link_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol R1 [1k]",
+                            "pos": {
+                                "x": 0.8128,
+                                "y": 2.9845
+                            },
+                            "uuid": "b6b5206c-3e1a-47db-882c-c82f07dcc0e1"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the footprint library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol R2 [1k]",
+                            "pos": {
+                                "x": 0.8001,
+                                "y": 3.0353
+                            },
+                            "uuid": "5067ec83-fb87-490a-aafe-749937218d37"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "footprint_link_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol R2 [1k]",
+                            "pos": {
+                                "x": 0.8001,
+                                "y": 3.0353
+                            },
+                            "uuid": "5067ec83-fb87-490a-aafe-749937218d37"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the footprint library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol R3 [1k]",
+                            "pos": {
+                                "x": 0.8001,
+                                "y": 3.0861
+                            },
+                            "uuid": "cb39b33d-87c8-4455-82ff-ad21e8198c00"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "footprint_link_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol R3 [1k]",
+                            "pos": {
+                                "x": 0.8001,
+                                "y": 3.0861
+                            },
+                            "uuid": "cb39b33d-87c8-4455-82ff-ad21e8198c00"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the footprint library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol R26 [Res]",
+                            "pos": {
+                                "x": 2.4257,
+                                "y": 2.0955
+                            },
+                            "uuid": "eeac1548-9aac-4f04-8fb4-c9a845234cdd"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "footprint_link_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol R26 [Res]",
+                            "pos": {
+                                "x": 2.4257,
+                                "y": 2.0955
+                            },
+                            "uuid": "eeac1548-9aac-4f04-8fb4-c9a845234cdd"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol #PWR11 [+3V3]",
+                            "pos": {
+                                "x": 1.2573,
+                                "y": 2.9591
+                            },
+                            "uuid": "4ff3a789-7c08-4b22-8409-7f43a3464438"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol #PWR33 [+3V3]",
+                            "pos": {
+                                "x": 3.1877,
+                                "y": 0.4572
+                            },
+                            "uuid": "06813f5f-78a4-45ea-931d-f4ddf6146fb9"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the footprint library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol U5 [SN74LVC3G17DCTR]",
+                            "pos": {
+                                "x": 1.0795,
+                                "y": 3.0353
+                            },
+                            "uuid": "15d5a980-9810-49e8-92b4-94f76a25c2e1"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "footprint_link_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol U5 [SN74LVC3G17DCTR]",
+                            "pos": {
+                                "x": 1.0795,
+                                "y": 3.0353
+                            },
+                            "uuid": "15d5a980-9810-49e8-92b4-94f76a25c2e1"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol #PWR35 [+5V_USB]",
+                            "pos": {
+                                "x": 3.1369,
+                                "y": 0.9652
+                            },
+                            "uuid": "a8478967-b9cc-4cc1-a495-59d1c1c6fb7d"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the footprint library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol R27 [Res]",
+                            "pos": {
+                                "x": 2.4257,
+                                "y": 2.2225
+                            },
+                            "uuid": "22863c0e-deb6-4b72-8f47-726481d599b3"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "footprint_link_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol R27 [Res]",
+                            "pos": {
+                                "x": 2.4257,
+                                "y": 2.2225
+                            },
+                            "uuid": "22863c0e-deb6-4b72-8f47-726481d599b3"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol #PWR13 [GND]",
+                            "pos": {
+                                "x": 2.4257,
+                                "y": 2.2733
+                            },
+                            "uuid": "8286f9aa-20b6-43ae-895f-a038bcb868cf"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol U02 [GND]",
+                            "pos": {
+                                "x": 1.2573,
+                                "y": 3.1115
+                            },
+                            "uuid": "789e796f-db1e-4b4c-ac00-3b850069deac"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the footprint library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol C1 [100nF]",
+                            "pos": {
+                                "x": 1.7145,
+                                "y": 3.0353
+                            },
+                            "uuid": "a8246b4f-3a40-40c8-bf94-ef67fd896b8d"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "footprint_link_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol C1 [100nF]",
+                            "pos": {
+                                "x": 1.7145,
+                                "y": 3.0353
+                            },
+                            "uuid": "a8246b4f-3a40-40c8-bf94-ef67fd896b8d"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the footprint library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol R22 [Res]",
+                            "pos": {
+                                "x": 0.8128,
+                                "y": 3.6068
+                            },
+                            "uuid": "b1084955-5e47-4901-b424-0d7efde49abe"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "footprint_link_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol R22 [Res]",
+                            "pos": {
+                                "x": 0.8128,
+                                "y": 3.6068
+                            },
+                            "uuid": "b1084955-5e47-4901-b424-0d7efde49abe"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the footprint library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol U23 [SSW-122-01-T-D]",
+                            "pos": {
+                                "x": 3.6322,
+                                "y": 0.7366
+                            },
+                            "uuid": "772bb67e-0f4e-4cf3-9a62-5328b918520c"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "footprint_link_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol U23 [SSW-122-01-T-D]",
+                            "pos": {
+                                "x": 3.6322,
+                                "y": 0.7366
+                            },
+                            "uuid": "772bb67e-0f4e-4cf3-9a62-5328b918520c"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the footprint library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol Q3 [IRLZ44NPBF]",
+                            "pos": {
+                                "x": 0.9525,
+                                "y": 3.6068
+                            },
+                            "uuid": "2cf049e0-c4f6-4bf7-99f7-6c8975095f71"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "footprint_link_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol Q3 [IRLZ44NPBF]",
+                            "pos": {
+                                "x": 0.9525,
+                                "y": 3.6068
+                            },
+                            "uuid": "2cf049e0-c4f6-4bf7-99f7-6c8975095f71"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the footprint library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol R23 [Res]",
+                            "pos": {
+                                "x": 0.9271,
+                                "y": 3.6957
+                            },
+                            "uuid": "dd6d7a2c-0c0f-4c63-86f7-eb8e036f977b"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "footprint_link_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol R23 [Res]",
+                            "pos": {
+                                "x": 0.9271,
+                                "y": 3.6957
+                            },
+                            "uuid": "dd6d7a2c-0c0f-4c63-86f7-eb8e036f977b"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol #PWR09 [GND]",
+                            "pos": {
+                                "x": 0.9779,
+                                "y": 3.7465
+                            },
+                            "uuid": "49c2583d-f761-43d2-858f-973e5eb1becf"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the footprint library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol U24 [SSW-122-01-T-S]",
+                            "pos": {
+                                "x": 3.8481,
+                                "y": 0.7239
+                            },
+                            "uuid": "d0e8e52c-8ae1-4d01-9c60-f25554e7fc2b"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "footprint_link_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol U24 [SSW-122-01-T-S]",
+                            "pos": {
+                                "x": 3.8481,
+                                "y": 0.7239
+                            },
+                            "uuid": "d0e8e52c-8ae1-4d01-9c60-f25554e7fc2b"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol #PWR15 [GND]",
+                            "pos": {
+                                "x": 2.54,
+                                "y": 2.9845
+                            },
+                            "uuid": "52ecb558-b91e-4d53-aab8-b3edbeb1f77c"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the footprint library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol U13 [MCP4922-E_SL]",
+                            "pos": {
+                                "x": 2.6797,
+                                "y": 2.9972
+                            },
+                            "uuid": "ce9c2fc1-430e-42b8-89af-9d2e9a9e88cd"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "footprint_link_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol U13 [MCP4922-E_SL]",
+                            "pos": {
+                                "x": 2.6797,
+                                "y": 2.9972
+                            },
+                            "uuid": "ce9c2fc1-430e-42b8-89af-9d2e9a9e88cd"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the footprint library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol R30 [Res]",
+                            "pos": {
+                                "x": 1.9431,
+                                "y": 3.5941
+                            },
+                            "uuid": "364de0e3-82e0-4dca-a5d8-e1d4570e3b74"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "footprint_link_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol R30 [Res]",
+                            "pos": {
+                                "x": 1.9431,
+                                "y": 3.5941
+                            },
+                            "uuid": "364de0e3-82e0-4dca-a5d8-e1d4570e3b74"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the footprint library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol Q4 [BSS123_C5184436]",
+                            "pos": {
+                                "x": 2.2479,
+                                "y": 3.6195
+                            },
+                            "uuid": "c5b9a721-dc0e-4112-b31a-a3b697de4ca1"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "footprint_link_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol Q4 [BSS123_C5184436]",
+                            "pos": {
+                                "x": 2.2479,
+                                "y": 3.6195
+                            },
+                            "uuid": "c5b9a721-dc0e-4112-b31a-a3b697de4ca1"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the footprint library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol R31 [Res]",
+                            "pos": {
+                                "x": 2.1209,
+                                "y": 3.6957
+                            },
+                            "uuid": "f9c46a35-3b15-49c8-9055-939db66e91e9"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "footprint_link_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol R31 [Res]",
+                            "pos": {
+                                "x": 2.1209,
+                                "y": 3.6957
+                            },
+                            "uuid": "f9c46a35-3b15-49c8-9055-939db66e91e9"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol #PWR16 [GND]",
+                            "pos": {
+                                "x": 2.921,
+                                "y": 3.1369
+                            },
+                            "uuid": "ef8db365-1776-4390-9a26-423efa3c1f63"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "Label connected to only one pin",
+                    "items": [
+                        {
+                            "description": "Global Label 'SDC_ENABLE'",
+                            "pos": {
+                                "x": 4.2799,
+                                "y": 0.6604
+                            },
+                            "uuid": "a2a4c25c-0f0a-4dad-9ade-365940eb0115"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "isolated_pin_label"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol #PWR18 [GND]",
+                            "pos": {
+                                "x": 2.2733,
+                                "y": 3.6957
+                            },
+                            "uuid": "4d6a73a7-2002-4362-a133-2951d3bbcc90"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "Label connected to only one pin",
+                    "items": [
+                        {
+                            "description": "Global Label 'LED'",
+                            "pos": {
+                                "x": 4.2799,
+                                "y": 0.8382
+                            },
+                            "uuid": "b697920f-9776-41c6-957d-c2611d258916"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "isolated_pin_label"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol #PWR17 [GND]",
+                            "pos": {
+                                "x": 2.1209,
+                                "y": 3.8227
+                            },
+                            "uuid": "c8720e17-ac04-49fb-8b6a-5b1b967c957c"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "Label connected to only one pin",
+                    "items": [
+                        {
+                            "description": "Global Label 'USB_D+'",
+                            "pos": {
+                                "x": 4.2799,
+                                "y": 0.9144
+                            },
+                            "uuid": "a04b2664-e6ad-4a24-bb1a-03387f2d5298"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "isolated_pin_label"
+                },
+                {
+                    "description": "Label connected to only one pin",
+                    "items": [
+                        {
+                            "description": "Global Label 'USB_D-'",
+                            "pos": {
+                                "x": 4.2799,
+                                "y": 0.9398
+                            },
+                            "uuid": "14f7fd13-d465-4a6a-92c0-d1b4cda4c3ea"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "isolated_pin_label"
+                },
+                {
+                    "description": "The current configuration does not include the footprint library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol C5 [CAP]",
+                            "pos": {
+                                "x": 3.7592,
+                                "y": 2.2733
+                            },
+                            "uuid": "8929b703-260f-4602-ae17-ad1add2d200d"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "footprint_link_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol C5 [CAP]",
+                            "pos": {
+                                "x": 3.7592,
+                                "y": 2.2733
+                            },
+                            "uuid": "8929b703-260f-4602-ae17-ad1add2d200d"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol #PWR25 [GND]",
+                            "pos": {
+                                "x": 3.7592,
+                                "y": 2.3241
+                            },
+                            "uuid": "422974a6-5f82-473a-b8a8-7c29171393e8"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol #PWR19 [GND]",
+                            "pos": {
+                                "x": 3.9497,
+                                "y": 2.0955
+                            },
+                            "uuid": "6c30655a-bdef-4d45-8e2b-0f5c4bafc894"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the footprint library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol U14 [MAX4660EUA_T]",
+                            "pos": {
+                                "x": 3.937,
+                                "y": 2.1844
+                            },
+                            "uuid": "60ac7636-837d-427b-be5a-9f8239e910b9"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "footprint_link_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol U14 [MAX4660EUA_T]",
+                            "pos": {
+                                "x": 3.937,
+                                "y": 2.1844
+                            },
+                            "uuid": "60ac7636-837d-427b-be5a-9f8239e910b9"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol #PWR08 [GND]",
+                            "pos": {
+                                "x": 3.5941,
+                                "y": 2.921
+                            },
+                            "uuid": "0e757949-97f5-41b5-8bf1-99ca674bf883"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the footprint library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol R32 [Res]",
+                            "pos": {
+                                "x": 4.1021,
+                                "y": 2.2479
+                            },
+                            "uuid": "87909bfe-97b3-4960-b275-c6e7fbf9bba2"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "footprint_link_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol R32 [Res]",
+                            "pos": {
+                                "x": 4.1021,
+                                "y": 2.2479
+                            },
+                            "uuid": "87909bfe-97b3-4960-b275-c6e7fbf9bba2"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the footprint library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol R20 [Res]",
+                            "pos": {
+                                "x": 3.6576,
+                                "y": 2.921
+                            },
+                            "uuid": "d0775c97-a8cb-4ab7-949b-06678fee9dde"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "footprint_link_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol R20 [Res]",
+                            "pos": {
+                                "x": 3.6576,
+                                "y": 2.921
+                            },
+                            "uuid": "d0775c97-a8cb-4ab7-949b-06678fee9dde"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol #PWR27 [GND]",
+                            "pos": {
+                                "x": 4.1021,
+                                "y": 2.2987
+                            },
+                            "uuid": "b8e2fa76-7755-496a-bfce-a63767b9ed9f"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the footprint library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol R19 [Res]",
+                            "pos": {
+                                "x": 3.8354,
+                                "y": 2.921
+                            },
+                            "uuid": "b7a4039d-28e7-4127-8bba-a16e54811de0"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "footprint_link_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol R19 [Res]",
+                            "pos": {
+                                "x": 3.8354,
+                                "y": 2.921
+                            },
+                            "uuid": "b7a4039d-28e7-4127-8bba-a16e54811de0"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol #PWR20 [+12V]",
+                            "pos": {
+                                "x": 4.8133,
+                                "y": 0.5969
+                            },
+                            "uuid": "29a6e9c7-cda4-4242-8dc2-5154761cbc36"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the footprint library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol C2 [CAP]",
+                            "pos": {
+                                "x": 4.8133,
+                                "y": 0.6477
+                            },
+                            "uuid": "0b3f2260-d134-4cb5-8000-af4601c1a54c"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "footprint_link_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol C2 [CAP]",
+                            "pos": {
+                                "x": 4.8133,
+                                "y": 0.6477
+                            },
+                            "uuid": "0b3f2260-d134-4cb5-8000-af4601c1a54c"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol #PWR21 [GND]",
+                            "pos": {
+                                "x": 4.8133,
+                                "y": 0.7239
+                            },
+                            "uuid": "b66ce9c9-777c-4fe3-843c-3a23e9e19ff8"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol #PWR06 [+12V]",
+                            "pos": {
+                                "x": 3.8481,
+                                "y": 3.0099
+                            },
+                            "uuid": "d2ed5d89-077e-45a8-859f-fb5d8c740565"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol U1 [LM358DR]",
+                            "pos": {
+                                "x": 3.8481,
+                                "y": 3.0607
+                            },
+                            "uuid": "e0998187-9fed-4ad4-88d1-a52aca271151"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol #PWR07 [GND]",
+                            "pos": {
+                                "x": 3.8481,
+                                "y": 3.1115
+                            },
+                            "uuid": "948d434f-a8d2-450d-9fe9-2cc92059e55f"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the footprint library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol U19 [L7805CDT_C20611927]",
+                            "pos": {
+                                "x": 5.0165,
+                                "y": 0.6223
+                            },
+                            "uuid": "752a0ad2-4fd6-41ea-9b8e-97492819b587"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "footprint_link_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol U19 [L7805CDT_C20611927]",
+                            "pos": {
+                                "x": 5.0165,
+                                "y": 0.6223
+                            },
+                            "uuid": "752a0ad2-4fd6-41ea-9b8e-97492819b587"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol U1 [LM358DR]",
+                            "pos": {
+                                "x": 3.8608,
+                                "y": 3.3147
+                            },
+                            "uuid": "91519f98-3a7d-4399-99db-28cc33fe5ef1"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol #PWR28 [GND]",
+                            "pos": {
+                                "x": 4.6355,
+                                "y": 2.1082
+                            },
+                            "uuid": "166f8e25-89f0-4661-aa6b-00cde2e2bd6c"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol #PWR22 [+5V_REG]",
+                            "pos": {
+                                "x": 5.1562,
+                                "y": 0.5969
+                            },
+                            "uuid": "42a0070c-cd88-493b-adc6-2f8415edc3cf"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the footprint library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol C3 [CAP]",
+                            "pos": {
+                                "x": 5.1562,
+                                "y": 0.6731
+                            },
+                            "uuid": "9d1a753d-87ee-467a-857a-1ff4e9c56b7e"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "footprint_link_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol C3 [CAP]",
+                            "pos": {
+                                "x": 5.1562,
+                                "y": 0.6731
+                            },
+                            "uuid": "9d1a753d-87ee-467a-857a-1ff4e9c56b7e"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol #PWR23 [GND]",
+                            "pos": {
+                                "x": 5.1562,
+                                "y": 0.7239
+                            },
+                            "uuid": "b9babfc9-65d7-41bd-bb2e-6bc48df0cf7f"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol #PWR30 [GND]",
+                            "pos": {
+                                "x": 4.7117,
+                                "y": 2.2733
+                            },
+                            "uuid": "1380d95e-77a2-4045-b719-fa26043d0e84"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the footprint library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol U25 [PCF8574T_3_518]",
+                            "pos": {
+                                "x": 4.8641,
+                                "y": 2.1717
+                            },
+                            "uuid": "698ae15a-0cad-45c2-bad2-00e853e0e77a"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "footprint_link_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol U25 [PCF8574T_3_518]",
+                            "pos": {
+                                "x": 4.8641,
+                                "y": 2.1717
+                            },
+                            "uuid": "698ae15a-0cad-45c2-bad2-00e853e0e77a"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the footprint library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol C4 [CAP]",
+                            "pos": {
+                                "x": 5.2959,
+                                "y": 0.6731
+                            },
+                            "uuid": "6bf13155-7747-492e-99a3-198fbb8cc8d9"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "footprint_link_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol C4 [CAP]",
+                            "pos": {
+                                "x": 5.2959,
+                                "y": 0.6731
+                            },
+                            "uuid": "6bf13155-7747-492e-99a3-198fbb8cc8d9"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol #PWR29 [+3V3]",
+                            "pos": {
+                                "x": 5.0165,
+                                "y": 2.0574
+                            },
+                            "uuid": "02ce2ff1-5d20-4108-9227-9880fd706321"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the footprint library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol C6 [CAP]",
+                            "pos": {
+                                "x": 5.0927,
+                                "y": 2.0574
+                            },
+                            "uuid": "a6233537-6519-482d-8985-97b060b7f811"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "footprint_link_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol C6 [CAP]",
+                            "pos": {
+                                "x": 5.0927,
+                                "y": 2.0574
+                            },
+                            "uuid": "a6233537-6519-482d-8985-97b060b7f811"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol #PWR31 [GND]",
+                            "pos": {
+                                "x": 5.1435,
+                                "y": 2.0574
+                            },
+                            "uuid": "8df15de7-c8df-42bd-a246-7bb0c815f05e"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the footprint library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol R33 [Res]",
+                            "pos": {
+                                "x": 5.1689,
+                                "y": 2.1082
+                            },
+                            "uuid": "ba3b1bbf-ec77-494e-945e-e7fdb8836642"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "footprint_link_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol R33 [Res]",
+                            "pos": {
+                                "x": 5.1689,
+                                "y": 2.1082
+                            },
+                            "uuid": "ba3b1bbf-ec77-494e-945e-e7fdb8836642"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the footprint library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol R34 [Res]",
+                            "pos": {
+                                "x": 5.1689,
+                                "y": 2.1336
+                            },
+                            "uuid": "5f7e83e2-430f-44bf-84ca-334d2075ff2b"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "footprint_link_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol R34 [Res]",
+                            "pos": {
+                                "x": 5.1689,
+                                "y": 2.1336
+                            },
+                            "uuid": "5f7e83e2-430f-44bf-84ca-334d2075ff2b"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'kart-medulla'",
+                    "items": [
+                        {
+                            "description": "Symbol #PWR32 [+3V3]",
+                            "pos": {
+                                "x": 5.2578,
+                                "y": 2.1209
+                            },
+                            "uuid": "422f0110-969a-4e0a-b3fd-8e5e557659b3"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                }
+            ]
+        }
+    ],
+    "source": "kart-medulla_P1.kicad_sch"
+}
