@@ -10,6 +10,8 @@ projects/<board>/               one folder per board
   ├── <board>.pretty/           project-local footprint library
   ├── easyeda-source/           original .epro exports (audit trail, never edit)
   ├── datasheets/               PDFs for chips on this board (subset of vault catalog)
+  ├── 3dmodels/                 .step files referenced by footprints (${KIPRJMOD}/3dmodels/)
+  ├── parts.md                  per-part sourcing (where symbol/footprint/3D came from)
   └── docs/                     board-specific notes (pinout, mechanical, app notes)
 fab/<board>/<rev>/              released Gerbers, BOM, pick-and-place, JLC zip
 docs/                           cross-board notes (fab process, KiCad setup, library standards)
@@ -45,6 +47,7 @@ docs/                           cross-board notes (fab process, KiCad setup, lib
 - `.agents/tasks.md` — shared kanban (TODO / In Progress / Done). Read before starting work.
 - `history.md` — append-only log: what was tried, what worked, what didn't, gotchas, references. Grep — don't read in full.
 - `.agents/error-log.md` — mistakes made + prevention rules. Grep before working in a related area, especially after a correction.
+- `projects/<board>/parts.md` — per-part sourcing (manufacturer URLs, SnapEDA/UltraLib download links, which file is from where, replacement notes). Add an entry whenever a new part is integrated.
 
 ## Pairing with firmware
 Match-tagged. Hardware rev `medulla-v1.2` here pairs with firmware tag `medulla-v1.2-fw` in `kart-medulla`. Cross-link in both READMEs at release time.

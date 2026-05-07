@@ -2409,7 +2409,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "kart-medulla:SOP65P490X110-9N"
 			(at 0 0 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2421,7 +2421,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.analog.com/MAX4660/datasheet"
 			(at 0 0 0)
 			(show_name no)
 			(do_not_autoplace no)

@@ -2837,7 +2837,7 @@
 					)
 				)
 			)
-			(property "Footprint" ""
+			(property "Footprint" "kart-medulla:SOP65P490X110-9N"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -2849,7 +2849,7 @@
 					)
 				)
 			)
-			(property "Datasheet" ""
+			(property "Datasheet" "https://www.analog.com/MAX4660/datasheet"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -2962,7 +2962,7 @@
 						)
 					)
 				)
-				(pin no_connect line
+				(pin passive line
 					(at -8.89 1.27 0)
 					(length 2.54)
 					(name "NC"
@@ -7969,7 +7969,7 @@
 	)
 	(wire
 		(pts
-			(xy 361.95 217.17) (xy 375.92 217.17)
+			(xy 361.95 217.17) (xy 384.81 217.17)
 		)
 		(stroke
 			(width 0)
@@ -12374,7 +12374,7 @@
 				)
 			)
 		)
-		(property "Footprint" "kart-medulla:UMAX-8_L3.0-W3.0-P0.65-LS4.9-BL-EP"
+		(property "Footprint" "kart-medulla:SOP65P490X110-9N"
 			(at 393.7 218.44 0)
 			(hide yes)
 			(show_name no)
@@ -12386,7 +12386,7 @@
 				)
 			)
 		)
-		(property "Datasheet" "https://item.szlcsc.com/datasheet/MAX4660EUA%252BT/2765309.html"
+		(property "Datasheet" "https://www.analog.com/MAX4660/datasheet"
 			(at 393.7 218.44 0)
 			(hide yes)
 			(show_name no)
@@ -16844,7 +16844,7 @@
 		(dnp no)
 		(uuid "d0e8e52c-8ae1-4d01-9c60-f25554e7fc2b")
 		(property "Reference" "U24"
-			(at 384.81 41.91 180)
+			(at 384.81 41.91 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -16855,7 +16855,7 @@
 			)
 		)
 		(property "Value" "SSW-122-01-T-S"
-			(at 384.81 102.87 180)
+			(at 384.81 102.87 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects

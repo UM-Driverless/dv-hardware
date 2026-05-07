@@ -1,0 +1,737 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+
+
+    
+    
+
+
+    <!-- *** FE html start -->
+    <meta charset="utf-8">
+
+                <title>404 Error | Analog Devices</title>
+                    <meta name="robots" content="follow, index" />
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="apple-mobile-web-app-capable" content="yes" />
+            <meta name="mobile-web-app-capable" content="yes" />
+            <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <meta name="referrer" content="no-referrer-when-downgrade" />
+                        <meta name="yandex-verification" content="86a60d9bcaab43f0" />
+                        <meta name="google-site-verification" content="aVOSmh5Dsd1VpzYMM3a_ZvOQcjP9G5GDlvU-atf48ss" />
+                        <meta name="baidu-site-verification" content="cSddD8r1N7" />
+                        <meta name="msvalidate.01" content="381E86BC7EF76D19F9365D26D8BFCD35" />
+                                <link rel="alternate" hreflang=en-US href="https://www.analog.com/endia/en/technical-documentation/data-sheets/max4660-max4662.pdf" />
+                                <link rel="alternate" hreflang=en-CN href="https://www.analog.com/cndia/en/technical-documentation/data-sheets/max4660-max4662.pdf" />
+                                <link rel="alternate" hreflang=en-JP href="https://www.analog.com/jpdia/en/technical-documentation/data-sheets/max4660-max4662.pdf" />
+                            <link rel="canonical" href="https://www.analog.com/endia/en/technical-documentation/data-sheets/max4660-max4662.pdf" />
+
+
+
+    <script>!function (e, a, n, t) { var i = e.head; if (i) { if (a) return; var o = e.createElement("style"); o.id = "alloy-prehiding", o.innerText = n, i.appendChild(o), setTimeout(function () { o.parentNode && o.parentNode.removeChild(o) }, t) } }(document, document.location.href.indexOf("adobe_authoring_enabled") !== -1, "body { opacity: 0 !important }", 3000);</script>
+
+    <script type="text/javascript">
+        var datalayer = {"device":{"browser":"","type":""},"page":{"details":{"part":{"applicableParts":null,"categories":null,"id":null,"lifeCycle":null,"markets":null,"name":null,"type":null}},"meta":{"breadcrumbs":null,"id":null,"journey":null,"language":null,"pathname":null,"persona":null,"publishDate":null,"title":null,"taxonomy":null,"type":null}},"user":{"cart":{"purchaseID":"","sampleID":"","transactionID":""},"email":"","loggedIn":false,"blocked":false,"memberStatus":false}};
+    </script>
+
+
+        <link rel="stylesheet" href="https://assets2.analog.com/cms-assets-optimizations/css/vendor.min.css">
+        <link rel="stylesheet" href="https://assets2.analog.com/cms-assets/css/pages/styles/vendor.bundle.css">
+                        <link rel="icon" href="https://www.analog.com/media/favicon/favicon.ico">
+        <link rel="apple-touch-icon" href="https://www.analog.com/media/favicon/apple_favicon.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="https://www.analog.com/media/favicon/adi-icon-ipad-152x152.png ">
+        <link rel="apple-touch-icon" sizes="180x180" href="https://www.analog.com/media/favicon/adi-icon-iphone-retina-180x180.png ">
+        <link rel="apple-touch-icon" sizes="167x167" href="https://www.analog.com/media/favicon/adi-icon-ipad-retina-167x167.png ">
+        <link href="https://assets2.analog.com/cms-assets/images/images/adi-favicon.svg" rel="shortcut icon" />
+        
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Barlow:wght@600&family=Inter:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@600&family=Inter:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"></noscript>
+    <style>
+        :root {
+            --cta-color: #fff;
+            --cta-background: #1c1c1c;
+        }
+    </style>
+
+
+
+
+
+
+    <!-- Font-awesome -->
+    <!-- Latest compiled and minified CSS -->
+    <!-- Optional theme -->
+    <!-- owl-slider -->
+    <!-- Algolia Instant Search Theme -->
+    <!-- Autocomplete Theme -->
+
+
+    <!-- Latest compiled and minified JavaScript -->
+        <link rel="preload" href="https://assets2.analog.com/cms-assets/css/app.bundle.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://assets2.analog.com/cms-assets/css/app.bundle.css"></noscript>
+    
+        <link rel="preload" href="https://assets2.analog.com/cms-assets/css/pages/styles/common.bundle.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://assets2.analog.com/cms-assets/css/pages/styles/common.bundle.css"></noscript>
+                        <link rel="stylesheet" href="https://assets2.analog.com/cms-assets/css/pages/styles/mediaresourcepage.bundle.css">
+        <link rel="stylesheet" href="https://assets2.analog.com/cms-assets/css/pages/styles/awardspage.bundle.css">
+        <link rel="stylesheet" href="https://assets2.analog.com/cms-assets/css/pages/styles/productevaluationpage.bundle.css">
+        <link rel="stylesheet" href="https://assets2.analog.com/cms-assets/css/pages/styles/error400page.bundle.css">
+        <link rel="stylesheet" href="https://assets2.analog.com/cms-assets/css/pages/styles/error500page.bundle.css">
+        <link rel="stylesheet" href="https://assets2.analog.com/cms-assets/css/pages/styles/aboutuspage.bundle.css">
+        <link rel="stylesheet" href="https://assets2.analog.com/cms-assets/css/pages/styles/resourcelibrarypage.bundle.css">
+        <link rel="stylesheet" href="https://assets2.analog.com/cms-assets/css/pages/styles/newsroompage.bundle.css">
+        <link rel="stylesheet" href="https://assets2.analog.com/cms-assets/css/pages/styles/solutionsl1page.bundle.css">
+        <!-- New Pavilion CSS -->
+            <link rel="stylesheet" href="https://assets2.analog.com/cms-assets-optimizations/css/pavilion.min.css">
+            <!-- New Pavilion JS Module -->
+            <script type="module" src="https://assets2.analog.com/cms-assets-optimizations/js/pavilion.min.mjs"></script>
+
+        <script src="https://assets2.analog.com/cms-assets/js/pages/scripts/analog-vendor.js"></script>
+        <link rel="stylesheet" href="https://assets2.analog.com/cms-assets/css/pages/styles/rte-editor-control.bundle.css">
+
+
+
+    <link rel="stylesheet" type="text/css" href="https://assets2.analog.com/header-footer/index.css">
+    <script src="https://assets2.analog.com/header-footer/index.js" type="module" defer></script>
+
+    <script src="https://assets.adobedtm.com/bc68b7886092/25785b612092/launch-715705770daf.min.js" async></script>
+    <!-- *** FE html end -->
+</head>
+<body class="default-device bodyclass" data-comp-prefix="app-js__" data-show-legacy-div-wrapper="False">
+
+    
+
+    
+
+<!-- #wrapper -->
+<div id="wrapper" class="page-wrap">
+    <!-- #header -->
+    <header>
+        <div id="header" class="container-fluid">
+            <div class="row">
+                <div>
+        <adi-header>            
+            <adi-account></adi-account>
+        </adi-header>
+            <adi-menu divided>
+                <adi-cart slot="buttons"></adi-cart>
+                <adi-search slot="drawer">
+                    <div slot="search"></div>
+                    <div slot="results"></div>
+                </adi-search>
+            </adi-menu>
+        <adi-dispatch></adi-dispatch>
+</div>
+            </div>
+        </div>
+    </header>
+    <!-- /#header -->
+    <!-- #content -->
+        <main role="main" id="main" tabindex="-1" class="main-content content adi__landing">
+            <div id="content" class="container-fluid">
+                <div class="row">
+<div>
+
+<article class="error-400 app-js__error-400">
+                <div class="vertical-gradient"></div>
+                <div class="error-400__container">
+ <div class="error-400__container">
+<div class="error-400__container__type web-overline-ExtraSmall-inverse">This is a 404 Error</div>
+ <div class="sr-only" aria-live="assertive" role="alert">This is a 404 Error - Ahhh, Technology. We can’t find that page. - We can’t seem to find that page. Please use the navigation to reach what you are looking for - Get Help</div>
+<div class="error-400__container__title web-title-grey">Ahhh, Technology. We can’t find that page.</div>
+<div class="error-400__container__description body-medium-grayscale500">We can’t seem to find that page. Please use the navigation to reach what you are looking for.</div>
+<a href="/en/support.html" class="error-400__container__cta">
+<img alt="gethelp" src="https://www.analog.com/en/_/media/project/analogweb/analogweb/icons/gethelp.svg"><span class="error-400__container__cta__title button-medium-blue">Get Help</span>
+</a>
+</div>
+</div>
+ </article>
+
+    <script type="text/javascript">
+
+    var analyticsObject = {"pageInformation":{"pageName":"404 Error","itemId":"f5a30718-83bd-4133-951e-eca7015b6df2","pageUrl":"https://www.analog.com/media/en/technical-documentation/data-sheets/max4660-max4662.pdf","pageCategory":"Content Page","previousPageUrl":"https://www.analog.com/media/en/technical-documentation/data-sheets/MAX4660-MAX4662.pdf","pageType":"Content Page","isProduct":false}};
+    </script>
+    <script>
+        let userLoggedState = false;
+        try {
+            const savedAuthToken = localStorage.getItem('active-tokens');
+            if (savedAuthToken) {
+                const activeTokenObject = JSON.parse(savedAuthToken);
+                if (activeTokenObject && activeTokenObject['my'] && activeTokenObject['my']['token']) {
+                    var base64Url = activeTokenObject['my']['token'].split('.')[1]
+                    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+                    var jsonPayload = decodeURIComponent(
+                        atob(base64)
+                            .split('')
+                            .map(function (c) {
+                                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+                            })
+                            .join('')
+                    )
+                }
+                const decodedToken = JSON.parse(jsonPayload)
+                const currentTimestamp = Math.floor(Date.now() / 1000);
+                if (!(decodedToken.exp && currentTimestamp > decodedToken.exp)) {
+                    userLoggedState = true;
+                }
+            } else {
+                const tempAuthStatusKey = 'isAuthenticated';
+                const cookies = document.cookie.split( '; ' );
+                const cookieOptions = 'domain=.analog.com; path=/; secure;';
+	            const tempAuthStatus = cookies.find( ( cookie ) => cookie.includes( tempAuthStatusKey ) )
+                                             ?.slice( ( tempAuthStatusKey.length + 1 ) ) || null;
+        	    
+        	    // Updating 'isLoggedIn' only for the first page visit post login redirect
+        	    if ( tempAuthStatus ) {
+            		userLoggedState = tempAuthStatus === 'true';
+
+                    // Delete 'isAuthenticated' cookie
+                    document.cookie = `${tempAuthStatusKey}=; expires=${new Date().toUTCString()}; ${cookieOptions}`;
+        	    }
+        	}
+        }
+        catch (error) {
+            console.log(error)
+        }
+        const localAnalyticsObject = window.analyticsObject;
+
+        if (localAnalyticsObject && localAnalyticsObject?.pageInformation) {
+            const isPDPPage = localAnalyticsObject?.pageInformation?.isProduct || false;
+            const pageViewObject = {
+				"event": "pageview"
+			};
+
+            let commonBreadCrumb = '';
+            const breadcrumbListSections = document.querySelectorAll('.breadcrumb__container__section');
+            breadcrumbListSections?.forEach((DomElement, indexOfDomElement) => {
+                const itemText = DomElement.querySelector(".breadcrumb__container__section_item")
+                const dropdownText = DomElement.querySelector(".breadcrumb__container__section_dropdown-item")
+                let breadcrumbText = "";
+                if (itemText) {
+                    breadcrumbText = ((indexOfDomElement === 0) ? "" : (breadcrumbText + "|")) + itemText.textContent.trim();
+                } else if (dropdownText) {
+                    breadcrumbText = ((indexOfDomElement === 0) ? "" : (breadcrumbText + "|")) + dropdownText.textContent.trim();
+                } else {
+                    breadcrumbText = ((indexOfDomElement === 0) ? "" : (breadcrumbText + "|")) + DomElement.textContent.trim();
+                }
+                commonBreadCrumb = commonBreadCrumb + breadcrumbText;
+            });
+            if (isPDPPage) {
+                const productLifeCycle = document.querySelector('.recently-viewed-flag');
+                pageViewObject.productInfo = {
+                    eventName: 'Product View',
+                    productListItems: []
+                };
+                pageViewObject.productInfo.productListItems.push({
+                    productLifeCycle: productLifeCycle ? productLifeCycle.textContent.trim().toUpperCase() : '',
+                    productBreadCrumb: '',
+                    SKU: ''
+                })
+                pageViewObject.productInfo.productListItems[0].productBreadCrumb = commonBreadCrumb;
+                pageViewObject.productInfo.productListItems[0].SKU = commonBreadCrumb.split("|").reverse()[0];
+            } else {
+                pageViewObject.productInfo = {};
+            }
+            const url = localAnalyticsObject?.pageInformation?.pageUrl
+            let previousPageName = localAnalyticsObject?.pageInformation?.previousPageUrl;
+            if (previousPageName) {
+                previousPageName = previousPageName.split('.html')[0];
+                previousPageName = previousPageName.split('/').reverse()[0];
+            }
+            const category = url?.split('/');
+            category.shift();
+            category.splice(0, 2);
+            pageViewObject.pageInfo = {
+                "pageName": localAnalyticsObject?.pageInformation?.pageName,
+                "pageCategory": localAnalyticsObject?.pageInformation?.pageCategory,
+                "pageURL": localAnalyticsObject?.pageInformation?.pageUrl,
+                "pageType": localAnalyticsObject?.pageInformation?.pageType,
+                "pageBreadCrumb": commonBreadCrumb,
+                "previousPageName": previousPageName,
+                "previousPageUrl": localAnalyticsObject?.pageInformation?.previousPageUrl,
+                "pageEvents": '',
+                "siteSection1": category[1],
+                "siteSection2": category[2] ? category[2] : '',
+                "siteSection3": category[3] ? category[3] : '',
+                "siteSection4": category[4] ? category[4] : '',
+                "siteSection5": category[5] ? category[5] : '',
+                "sitecoreItemID": localAnalyticsObject?.pageInformation?.itemId
+            };
+            pageViewObject.siteInfo = {
+                "siteLanguage": category[0]
+            };
+            pageViewObject.userInfo = {
+                "userType": '',
+                "isLoggedIn": userLoggedState
+            }
+            window.adobeDataLayer = window.adobeDataLayer || [];
+            window.adobeDataLayer.push(pageViewObject);
+			window.adobeDataLayer.reverse();
+            console.log(window.adobeDataLayer);
+        }
+    </script>
+
+
+
+
+
+
+
+            <script type="text/x-handlebars-template" id="add-to-myanalog-hbs-template">
+                <article id='add-to-myanalog-modal-apis'
+                         class='add-to-myanalog-modal app-js__add-to-myanalog-modal'
+                         data-class-name='{{className}}'
+                         data-translations-api='{{translationsAPI}}'
+                         data-modal-added-icon='{{modalAddedIcon}}'
+                         data-modal-error-icon='{{modalErrorIcon}}'
+                         data-add-to-my-analog-api='{{addToMyAnalogAPI}}'
+                         data-artifact-api='{{artifactAPI}}'
+                         data-create-project-api='{{createProjectAPI}}'
+                         data-body-data='{{bodyData}}'
+                         data-is-table-product='{{isTableProduct}}'>
+                    <div class='add-to-myanalog-modal__container'>
+                        <div class='modal-container' aria-label="{{dropdownTitle}} Modal">
+                            <div class='modal-container__header'>
+                                <div class='modal-container__header__title'>
+                                    <img src="/en/_/media/project/analogweb/analogweb/addtomyanalog/part-updates-modal-bookmark.svg?rev=a3ca34e1e7fb492a8486be300d9b702f"
+                                         width='24'
+                                         height='24'
+                                         loading="lazy"
+                                         class='modal-container__header__title__icon'
+                                         alt='modal bookmark icon' />
+                                    <h2 class='modal-container__header__title__text title-extraSmall'>{{modalTitle}}</h2>
+                                </div>
+                                <img src="/en/_/media/project/analogweb/analogweb/videomodalicons/modal-close-icon.svg?rev=3118d8d7637e43d48516217b5de375a8"
+                                     alt='modal close icon'
+                                     width='24'
+                                     height='24'
+                                     loading="lazy"
+                                     class='modal-container__header__close'
+                                     aria-label="Close Modal" role="button" tabindex="0" />
+                            </div>
+                            <div class='modal-container__content__error__content' role="alert">
+                            </div>
+                            <div class='modal-container__content'>
+                                <p class='modal-container__content__description body-medium-inverse'>{{modalDescription}}</p>
+
+                                <div class='modal-container__content__products'>
+                                    <h2 class='modal-container__content__products__title body-small'>{{dropdownTitle}}</h2>
+                                    <div class='modal-container__content__products__dropdown-container'>
+                                        <div class='dropdown-wrapper'>
+                                            <div class='dropdown-wrapper__input-container'>
+                                                <input type='text'
+                                                       value='{{defaultSelectedText}}'
+                                                       class='body-small dropdown-wrapper__input-container__box' aria-expanded="false" role="combobox" tabindex="0" aria-label="{{dropdownTitle}}" aria-autocomplete="list" />
+                                                <span id='arrow-input-dropdown'
+                                                      class='dropdown-wrapper__input-container__down-arrow'>
+                                                    <img src="/en/_/media/project/analogweb/analogweb/contactadi/arrowimg.svg?rev=682c7547b6084fa5a1bfa14c688e5142"
+                                                         alt='input down arrow'
+                                                         loading="lazy"
+                                                         width='24'
+                                                         height='24' />
+                                                </span>
+                                                <p id="dropdown-aria-label" class="sr-only" aria-live="assertive" role="alert" aria-atomic="true" data-navigate-text="Navigate into the list items using tab key"></p>
+                                                <p id="input-aria-label" class="sr-only sr-only-input" aria-live="assertive" role="alert" aria-atomic="true" data-navigate-text="Use Down arrow key to open the drodpown"></p>
+                                            </div>
+                                            <div id='dropdownContent' class='dropdown-wrapper__content'>
+                                                <ul class='dropdown-content__lists'
+                                                    data-default-selected-text='{{defaultSelectedText}}'
+                                                    data-new-project-plus-icon='{{newProjectPlusIcon}}'
+                                                    data-new-project-text='{{newProjectText}}'
+                                                    data-project-names='{{projectNames}}'
+                                                    role="listbox">
+                                                    <li role="button" tabindex="0" aria-label="{{defaultSelectedText}}">
+                                                        <span class='body-small dropdown-content__list__border'>{{defaultSelectedText}}</span>
+                                                    </li>
+                                                    {{#each projectNames}}
+                                                    <li role="button" tabindex="0" aria-label="{{name}}"><span class='body-small dropdown-content__list__border'>{{name}}</span></li>
+                                                    {{/each}}
+                                                    {{#if newProjectText}}
+                                                    <li class='dropdown-content__list__new-product' role="button" tabindex="0" aria-label="{{newProjectText}}">
+                                                        <img src="/en/_/media/project/analogweb/analogweb/addtomyanalog/part-updates-modal-plus.svg?rev=92e1fe6fd6d846ee8c6a037e7a3aec06" alt='plus icon' width='24' height='24' loading="lazy" />
+                                                        <span class='body-small'>{{newProjectText}}</span>
+                                                    </li>
+                                                    {{/if}}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{#if toggleButtonDescription}}
+                                <div class='modal-container__content__toggle-button-container'>
+                                    <div class='modal-container__content__toggle-button-container__wrapper'>
+                                        <label class='toggle-button-wrapper'
+                                               tabindex="0"
+                                               aria-label="Toggle Button for {{toggleButtonDescription}}"
+                                               aria-checked="false">
+                                            <input type='checkbox'
+                                                   id='add-to-myanalog-toggle-button'
+                                                   class='toggle-button-wrapper__box'
+                                                   tabindex="-1" />
+                                            <span class='toggle-button-wrapper__slider'></span>
+                                        </label>
+                                        <div class='modal-container__content__toggle-button-container__wrapper__text body-medium'>{{toggleButtonDescription}}</div>
+                                    </div>
+                                </div>
+                                {{/if}}
+                                {{#if newProjectTitle}}
+                                <div class='modal-container__content__new-project-container'>
+                                    <div class='modal-container__content__new-project-container__wrapper'>
+                                        <h3 class='modal-container__content__new-project-container__wrapper__title subtitle-small'>
+                                            {{newProjectTitle}}
+                                        </h3>
+                                        <div class='modal-container__content__new-project-container__wrapper__name'>
+                                            <label for=''
+                                                   class='body-small-greyscale modal-container__content__new-project-container__wrapper__name__text'>{{newProjectNameText}}</label>
+                                            <input type='text'
+                                                   aria-label="{{newProjectNameText}}"
+                                                   aria-invalid="false"
+                                                   class='modal-container__content__new-project-container__wrapper__name__input body-small' />
+                                            <div class='modal-container__content__new-project-container__wrapper__name__error'>
+                                                <img src="/en/_/media/project/analogweb/analogweb/addtomyanalog/add-to-myanalog-error.svg?rev=59f82523eb254771a702ad10fe29cb8c"
+                                                     width='16'
+                                                     height='16'
+                                                     loading="lazy"
+                                                     class='modal-container__content__new-project-container__wrapper__name__error__icon' />
+                                                <p class='modal-container__content__new-project-container__wrapper__name__error__text body-extraSmall'>{{projectNameErrorText}}</p>
+                                            </div>
+                                        </div>
+                                        <div class='modal-container__content__new-project-container__wrapper__description'>
+                                            <label for=''
+                                                   class='body-small-greyscale modal-container__content__new-project-container__wrapper__description__text'>{{newProjectDescriptionText}}</label>
+                                            <input type='text'
+                                                   aria-label="{{newProjectDescriptionText}}"
+                                                   class='modal-container__content__new-project-container__wrapper__description__input body-small' />
+                                        </div>
+                                    </div>
+                                </div>
+                                {{/if}}
+                            </div>
+                            <div class='modal-container__footer'>
+                                <div class='modal-container__footer__button'>
+                                    <button aria-label="{{cancelButtonText}}"
+                                            role="button"
+                                            class='modal-container__footer__button__cancel button-medium'>
+                                        {{cancelButtonText}}
+                                    </button>
+                                    <button aria-label="{{confirmButtonText}}"
+                                            role="button"
+                                            class='modal-container__footer__button__confirm button-medium'>
+                                        {{confirmButtonText}}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </script>
+            <script type="text/javascript">
+            window.addToMyAnalogCommonJSON = {
+                "modalTitle": "Add to myAnalog",
+                "modalCloseIcon": "/en/_/media/project/analogweb/analogweb/videomodalicons/modal-close-icon.svg?rev=3118d8d7637e43d48516217b5de375a8",
+                "modalBookmarkIcon": "/en/_/media/project/analogweb/analogweb/addtomyanalog/part-updates-modal-bookmark.svg?rev=a3ca34e1e7fb492a8486be300d9b702f",
+                "inputDownArrowIcon": "/en/_/media/project/analogweb/analogweb/contactadi/arrowimg.svg?rev=682c7547b6084fa5a1bfa14c688e5142",
+                "cancelButtonText": "Cancel",
+                "confirmButtonText": "Confirm",
+                "modalAddedIcon":"/en/_/media/project/analogweb/analogweb/addtomyanalog/part-updates-modal-added.svg?rev=dae85b8e8998417da6b147854d31ec51",
+                "modalErrorIcon": "/en/_/media/project/analogweb/analogweb/addtomyanalog/add-to-myanalog-error.svg?rev=59f82523eb254771a702ad10fe29cb8c",
+                "translationsAPI": "translations?pageId=a89dc8dd3e864dd39c826c1b3c679be1&amp;languageCode=en"
+            }
+            var addToMyAnalogProductJSON = {
+                "toggleButtonDescription": "Receive PCN/PDN notifications for all part models.",
+                "modalDescription": "Add product to the Products section of myAnalog (to receive notifications), to an existing project or to a new project.",
+                "dropdownTitle": "Add product to",
+                "addToMyAnalogAPI": ["POST", "products"],
+                "artifactAPI": ["POST", "project/${projectID}/artifact"],
+                "createProjectAPI": ["POST", "project"],
+                "newProjectText": "New Project",
+                "defaultSelectedText": "Products on myAnalog",
+                "newProjectTitle": "Create New Project",
+                "newProjectPlusIcon": "/en/_/media/project/analogweb/analogweb/addtomyanalog/part-updates-modal-plus.svg?rev=92e1fe6fd6d846ee8c6a037e7a3aec06",
+                "newProjectNameText": "Project Name",
+                "newProjectDescriptionText": "Description",
+                "projectNameErrorIcon": "/en/_/media/project/analogweb/analogweb/addtomyanalog/part-updates-modal-error.svg?rev=107ad58f138e44a382fad8143d5a83f2",
+                "projectNameErrorText": "The Project Name is already taken. Try giving a different name.",
+                "projectNames": [
+                    {
+                        "name": "Dummmy Name 1"
+                    }
+                ],
+            }
+            var addToMyAnalogArticleJSON = {
+                "modalDescription": "Add article to the Resources section of myAnalog, to an existing project or to a new project.",
+                "dropdownTitle": "Add article to",
+                "addToMyAnalogAPI": ["POST", "bookmarks"],
+                "artifactAPI": ["POST", "project/${projectID}/artifact"],
+                "defaultSelectedText": "Resources on myAnalog",
+                "createProjectAPI": ["POST", "project"],
+                "newProjectText": "New Project",
+                "newProjectTitle": "Create New Project",
+                "newProjectNameText": "Project Name",
+                "newProjectPlusIcon": "/en/_/media/project/analogweb/analogweb/addtomyanalog/part-updates-modal-plus.svg?rev=92e1fe6fd6d846ee8c6a037e7a3aec06",
+                "newProjectDescriptionText": "Description",
+                "projectNameErrorIcon":  "/en/_/media/project/analogweb/analogweb/addtomyanalog/part-updates-modal-error.svg?rev=107ad58f138e44a382fad8143d5a83f2",
+                "projectNameErrorText": "The Project Name is already taken. Try giving a different name.",
+                "projectNames": [
+                    {
+                        "name": "Dummmy Name 1"
+                    }
+                ],
+            }
+            var addToMyAnalogProductAlertJSON = {
+                "modalDescription": "Add product alert to the Resources section of myAnalog, to an existing project or to a new project.",
+                "dropdownTitle": "Add product alert to",
+                "addToMyAnalogAPI": ["POST", "bookmarks"],
+                "defaultSelectedText": "Resources on myAnalog",
+            }
+            var addToMyAnalogMediaJSON = {
+                "modalDescription": "Add media to the Resources section of myAnalog, to an existing project or to a new project.",
+                "dropdownTitle": "Add media to",
+                "addToMyAnalogAPI": ["POST", "bookmarks"],
+                "defaultSelectedText": "Resources on myAnalog",
+            }
+            var addToMyAnalogPressReleaseJSON = {
+                "modalDescription": "Add press release to the Resources section of myAnalog, to an existing project or to a new project.",
+                "dropdownTitle": "Add press release to",
+                "addToMyAnalogAPI": ["POST", "bookmarks"],
+                "defaultSelectedText": "Resources on myAnalog",
+            }
+            </script>
+            <div id="add-to-myanalog-container">
+                <article id='add-to-myanalog-modal-apis'
+                         class='add-to-myanalog-modal app-js__add-to-myanalog-modal'
+                         data-class-name='{{className}}'
+                         data-translations-api='{{translationsAPI}}'
+                         data-modal-added-icon='{{modalAddedIcon}}'
+                         data-modal-error-icon='{{modalErrorIcon}}'
+                         data-add-to-my-analog-api='{{addToMyAnalogAPI}}'
+                         data-artifact-api='{{artifactAPI}}'
+                         data-create-project-api='{{createProjectAPI}}'
+                         data-body-data='{{bodyData}}'
+                         data-is-table-product='{{isTableProduct}}'>
+                    <div class='add-to-myanalog-modal__container'>
+                        <div class='modal-container' aria-label="{{dropdownTitle}} Modal">
+                            <div class='modal-container__header'>
+                                <div class='modal-container__header__title'>
+                                    <img src="/en/_/media/project/analogweb/analogweb/addtomyanalog/part-updates-modal-bookmark.svg?rev=a3ca34e1e7fb492a8486be300d9b702f"
+                                         width='24'
+                                         height='24'
+                                         loading="lazy"
+                                         class='modal-container__header__title__icon'
+                                         alt='modal bookmark icon' />
+                                    <h2 class='modal-container__header__title__text title-extraSmall'>{{modalTitle}}</h2>
+                                </div>
+                                <img src="/en/_/media/project/analogweb/analogweb/videomodalicons/modal-close-icon.svg?rev=3118d8d7637e43d48516217b5de375a8"
+                                     alt='modal close icon'
+                                     width='24'
+                                     height='24'
+                                     loading="lazy"
+                                     class='modal-container__header__close'
+                                     aria-label="Close Modal" role="button" tabindex="0" />
+                            </div>
+                            <div class='modal-container__content__error__content' role="alert">
+                            </div>
+                            <div class='modal-container__content'>
+                                <p class='modal-container__content__description body-medium-inverse'>{{modalDescription}}</p>
+
+                                <div class='modal-container__content__products'>
+                                    <h2 class='modal-container__content__products__title body-small'>{{dropdownTitle}}</h2>
+                                    <div class='modal-container__content__products__dropdown-container'>
+                                        <div class='dropdown-wrapper'>
+                                            <div class='dropdown-wrapper__input-container'>
+                                                <input type='text'
+                                                       value='{{defaultSelectedText}}'
+                                                       class='body-small dropdown-wrapper__input-container__box' aria-expanded="false" role="combobox" tabindex="0" aria-label="{{dropdownTitle}}" aria-autocomplete="list" />
+                                                <span id='arrow-input-dropdown'
+                                                      class='dropdown-wrapper__input-container__down-arrow'>
+                                                    <img src="/en/_/media/project/analogweb/analogweb/contactadi/arrowimg.svg?rev=682c7547b6084fa5a1bfa14c688e5142"
+                                                         alt='input down arrow'
+                                                         width='24'
+                                                         height='24'
+                                                         loading="lazy" />
+                                                </span>
+                                                <p id="dropdown-aria-label" class="sr-only" aria-live="assertive" role="alert" aria-atomic="true" data-navigate-text="Navigate into the list items using tab key"></p>
+                                                <p id="input-aria-label" class="sr-only sr-only-input" aria-live="assertive" role="alert" aria-atomic="true" data-navigate-text="Use Down arrow key to open the drodpown"></p>
+                                            </div>
+                                            <div id='dropdownContent' class='dropdown-wrapper__content'>
+                                                <ul class='dropdown-content__lists'
+                                                    data-default-selected-text='{{defaultSelectedText}}'
+                                                    data-new-project-plus-icon='{{newProjectPlusIcon}}'
+                                                    data-new-project-text='{{newProjectText}}'
+                                                    data-project-names='{{projectNames}}'
+                                                    role="listbox">
+                                                    <li role="button" tabindex="0" aria-label="{{defaultSelectedText}}">
+                                                        <span class='body-small dropdown-content__list__border'>{{defaultSelectedText}}</span>
+                                                    </li>
+                                                    {{#each projectNames}}
+                                                    <li role="button" tabindex="0" aria-label="{{name}}"><span class='body-small dropdown-content__list__border'>{{name}}</span></li>
+                                                    {{/each}}
+                                                    {{#if newProjectText}}
+                                                    <li class='dropdown-content__list__new-product' role="button" tabindex="0" aria-label="{{newProjectText}}">
+                                                        <img src="/en/_/media/project/analogweb/analogweb/addtomyanalog/part-updates-modal-plus.svg?rev=92e1fe6fd6d846ee8c6a037e7a3aec06" alt='plus icon' width='24' height='24' loading="lazy" />
+                                                        <span class='body-small'>{{newProjectText}}</span>
+                                                    </li>
+                                                    {{/if}}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{#if toggleButtonDescription}}
+                                <div class='modal-container__content__toggle-button-container'>
+                                    <div class='modal-container__content__toggle-button-container__wrapper'>
+                                        <label class='toggle-button-wrapper'
+                                               tabindex="0"
+                                               aria-label="Toggle Button for {{toggleButtonDescription}}"
+                                               aria-checked="false">
+                                            <input type='checkbox'
+                                                   id='add-to-myanalog-toggle-button'
+                                                   class='toggle-button-wrapper__box'
+                                                   tabindex="-1" />
+                                            <span class='toggle-button-wrapper__slider'></span>
+                                        </label>
+                                        <div class='modal-container__content__toggle-button-container__wrapper__text body-medium'>{{toggleButtonDescription}}</div>
+                                    </div>
+                                </div>
+                                {{/if}}
+                                {{#if newProjectTitle}}
+                                <div class='modal-container__content__new-project-container'>
+                                    <div class='modal-container__content__new-project-container__wrapper'>
+                                        <h3 class='modal-container__content__new-project-container__wrapper__title subtitle-small'>
+                                            {{newProjectTitle}}
+                                        </h3>
+                                        <div class='modal-container__content__new-project-container__wrapper__name'>
+                                            <label for=''
+                                                   class='body-small-greyscale modal-container__content__new-project-container__wrapper__name__text'>{{newProjectNameText}}</label>
+                                            <input type='text'
+                                                   aria-label="{{newProjectNameText}}"
+                                                   aria-invalid="false"
+                                                   class='modal-container__content__new-project-container__wrapper__name__input body-small' />
+                                            <div class='modal-container__content__new-project-container__wrapper__name__error'>
+                                                <img src="/en/_/media/project/analogweb/analogweb/addtomyanalog/add-to-myanalog-error.svg?rev=59f82523eb254771a702ad10fe29cb8c"
+                                                     width='16'
+                                                     height='16'
+                                                     loading="lazy"
+                                                     class='modal-container__content__new-project-container__wrapper__name__error__icon' />
+                                                <p class='modal-container__content__new-project-container__wrapper__name__error__text body-extraSmall'>{{projectNameErrorText}}</p>
+                                            </div>
+                                        </div>
+                                        <div class='modal-container__content__new-project-container__wrapper__description'>
+                                            <label for=''
+                                                   class='body-small-greyscale modal-container__content__new-project-container__wrapper__description__text'>{{newProjectDescriptionText}}</label>
+                                            <input type='text'
+                                                   aria-label="{{newProjectDescriptionText}}"
+                                                   class='modal-container__content__new-project-container__wrapper__description__input body-small' />
+                                        </div>
+                                    </div>
+                                </div>
+                                {{/if}}
+                            </div>
+                            <div class='modal-container__footer'>
+                                <div class='modal-container__footer__button'>
+                                    <button aria-label="{{cancelButtonText}}"
+                                            role="button"
+                                            class='modal-container__footer__button__cancel button-medium'>
+                                        {{cancelButtonText}}
+                                    </button>
+                                    <button aria-label="{{confirmButtonText}}"
+                                            role="button"
+                                            class='modal-container__footer__button__confirm button-medium'>
+                                        {{confirmButtonText}}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+
+</div>
+
+                </div>
+            </div>
+        </main>
+    <!-- /#content -->
+    <!-- #footer -->
+    <footer role="contentinfo">
+        <div id="footer" class="container-fluid">
+            <div class=" row">
+                <div>
+        <adi-footer></adi-footer>
+</div>
+            </div>
+        </div>
+    </footer>
+    <!-- /#footer -->
+</div>
+<!-- /#wrapper -->
+
+
+    
+            
+
+
+    <!-- Inject Brightcove script only on rendering containing Video tag from CSHTML -->
+
+        <script src="https://assets2.analog.com/cms-assets/js/pages/scripts/common.bundle.js"></script>
+        <script src="https://assets2.analog.com/cms-assets/js/pages/scripts/rte-editor-control.bundle.js"></script>
+        <script async src="https://assets2.analog.com/cms-assets/js/legacy/scripts/legacy-plugin.bundle.js"></script>
+        <script src="https://assets2.analog.com/cms-assets/js/app.bundle.js"></script>
+        <script src="https://assets2.analog.com/lib/scripts/plugins/bootstrap-slider.min.js"></script>
+    <!-- Latest compiled and minified JS -->
+
+            <script src="https://assets2.analog.com/cms-assets/js/pages/scripts/solutionsl1page.bundle.js"></script>
+        <script src="https://assets2.analog.com/cms-assets/js/pages/scripts/aboutuspage.bundle.js"></script>
+        <script src="https://assets2.analog.com/cms-assets/js/pages/scripts/resourcelibrarypage.bundle.js"></script>
+        <script src="https://assets2.analog.com/cms-assets/js/pages/scripts/searchresultspage.bundle.js"></script>
+        <script src="https://assets2.analog.com/cms-assets/js/pages/scripts/mediaresourcepage.bundle.js"></script>
+        <script src="https://assets2.analog.com/cms-assets/js/pages/scripts/productevaluationpage.bundle.js"></script>
+    
+    <script id="image-rte-modal-template" type="text/x-handlebars-template">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="image-label">{{{title}}}</h4>
+        </div>
+        <div class="modal-body">
+            <ul class="control-icons">
+                <li>
+                    {{#if data_download}}
+                    <a class="downloadimagelink" href="{{data_download}}" download="{{data_download}}">
+                        <span id="downbutton" class="icon-download"></span>
+                    </a>
+                    {{else}}
+                    <a class="downloadimagelink" href="{{src}}" download="{{src}}">
+                        <span id="downbutton" class="icon-download"></span>
+                    </a>
+                    {{/if}}
+                </li>
+                <li><a class="print pull-right"><span class="icon-print"></span></a></li>
+            </ul>
+            <br />
+            <img alt="{{{title}}}" class="img-responsive" title="{{{title}}}" src="{{src}}" loading="lazy" />
+            <br />
+        </div>
+    </script>
+
+    <div class="rte-control">
+        <div class="modal fade product-modal image-rte-modal" id="image-rte-modal" tabindex="-1" role="dialog" aria-labelledby="product-modal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content"></div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+</body>
+</html>

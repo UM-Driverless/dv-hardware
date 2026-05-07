@@ -4,6 +4,16 @@
 
 Mistakes made and the rules learned from them. Newest first. Grep before working in a related area.
 
+## 2026-05-07 — Built a "scary catastrophe" finding from an unverified WebSearch snippet
+
+**What happened:** When evaluating the MAX4660 (U14) symbol, I asked WebSearch for the datasheet pinout. The result included a fragment "`IN N.C. V+ 1 2 8 7 NO V- NC GND COM TOP VIEW 3 4 6 5`" — a position-list snippet from the datasheet caption — which the search model interpreted as `1=IN 2=N.C. 3=GND 4=COM 5=NC 6=V- 7=NO 8=V+`. I took that as verified ground truth and produced a detailed "everything is wired wrong, this would damage the chip" table comparing it to the project's symbol. When the user later downloaded the SnapEDA-verified symbol, its pin numbers matched the project's original (`1=COM 2=NC 3=GND 4=V+ 5=NC 6=IN 7=V- 8=NO`) — meaning my "verified pinout" was a misdecoded snippet and the alarm was false.
+
+**Root cause:** I treated a search-engine-summarized text snippet as authoritative for a precise technical claim (pin number → name mapping) without fetching the actual datasheet PDF or cross-checking against any other source. Pinout decoded from a position-list caption requires careful spatial reconstruction that an LLM summarizer is likely to get wrong. Then I escalated rhetorically ("catastrophic", "would damage the chip") on top of that unverified base.
+
+**Prevention rule:** **Never present a pinout, register map, or other precise technical mapping as verified fact based on a single WebSearch snippet.** Either (a) fetch the actual datasheet PDF and read it, (b) cross-check with at least one other independent source (vendor symbol, SnapEDA-verified part, KiCad official lib), or (c) hedge clearly: "based on a search snippet — needs datasheet confirmation". When multiple existing sources (e.g. the project's converted symbol + a vendor verified symbol) agree against a single search snippet, treat the snippet as wrong.
+
+**Also:** Don't escalate to alarming language ("catastrophic", "chip damage", "would not function") on top of unverified premises. Match emotional weight to evidence weight. A measured "the symbol's electrical types are wrong; pin numbers should also be cross-checked against the datasheet" would have been correct and proportionate.
+
 ## 2026-05-07 — Invented a "funnel icon" that doesn't exist in KiCad's UI
 
 **What happened:** When the user asked where to find the wires-only selection filter in KiCad 10.0.1 schematic editor, I described it as the "funnel/filter icon" on the left toolbar. There is no funnel icon. The control is a panel at the bottom-left titled literally "Selection Filter" with checkboxes (All items, Symbols, Wires, Labels, Pins, Graphics, Text, Images, Rule Areas, Other items). When the user pushed back and shared a screenshot, I doubled down on the existing answer instead of acknowledging the funnel claim was made up.
