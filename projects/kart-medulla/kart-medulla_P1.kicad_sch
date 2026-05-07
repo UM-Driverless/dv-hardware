@@ -6028,6 +6028,30 @@
 		)
 		(uuid "09828bc4-83dc-4f0b-a8d3-b99a75d41de0")
 	)
+	(text "TX0 (GPIO43, UART0) - reserved by dev-board USB-UART bridge"
+		(exclude_from_sim no)
+		(at 393 48.26 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.1524)
+			)
+			(justify left bottom)
+		)
+		(uuid "a1c0fe11-4a01-4ff1-9001-eaa6b4c0001a")
+	)
+	(text "RX0 (GPIO44, UART0) - reserved by dev-board USB-UART bridge"
+		(exclude_from_sim no)
+		(at 393 50.8 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.1524)
+			)
+			(justify left bottom)
+		)
+		(uuid "a1c0fe11-4a01-4ff1-9001-eaa6b4c0002b")
+	)
 	(text "GPIO Expander"
 		(exclude_from_sim no)
 		(at 473.71 198.12 0)
@@ -6486,6 +6510,14 @@
 	(no_connect
 		(at 281.94 303.53)
 		(uuid "1ebf0aab-a394-4ef6-99aa-81231b0c40c4")
+	)
+	(no_connect
+		(at 389.89 48.26)
+		(uuid "f46cfca1-1b0c-4012-8507-a36b4d489eb2")
+	)
+	(no_connect
+		(at 389.89 50.8)
+		(uuid "a1e77eb6-2af1-472a-b9e0-f8e84ec864a3")
 	)
 	(no_connect
 		(at 393.7 331.47)
@@ -7769,16 +7801,6 @@
 	)
 	(wire
 		(pts
-			(xy 427.99 48.26) (xy 389.89 48.26)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "b75f27b2-63bf-4bf8-8ac8-55f37321d1e1")
-	)
-	(wire
-		(pts
 			(xy 313.69 86.36) (xy 355.6 86.36)
 		)
 		(stroke
@@ -8306,16 +8328,6 @@
 			(type default)
 		)
 		(uuid "f7e42797-73bd-52bf-aa29-6415847140d7")
-	)
-	(wire
-		(pts
-			(xy 427.99 50.8) (xy 389.89 50.8)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "f8bef28f-acb7-455e-8f65-26c602201bb2")
 	)
 	(wire
 		(pts
@@ -9450,28 +9462,6 @@
 			)
 		)
 	)
-	(global_label "TX0"
-		(shape input)
-		(at 427.99 48.26 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "638e59e4-e7de-4aa1-899a-6eabb8b78371")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 427.99 48.26 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
 	(global_label "GND"
 		(shape input)
 		(at 427.99 96.52 180)
@@ -9506,28 +9496,6 @@
 		(uuid "78b81373-2351-483d-be81-a10105115899")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 313.69 91.44 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "RX0"
-		(shape input)
-		(at 427.99 50.8 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "8189b06e-9d2f-4c89-a730-0cb847729e31")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 427.99 50.8 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
