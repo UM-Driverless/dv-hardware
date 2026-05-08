@@ -6203,7 +6203,7 @@
 		)
 		(uuid "21c30e19-e422-43a2-8387-94a20c1b5992")
 	)
-	(text "SPARE for CAN_TX"
+	(text "HOLD for CAN_TX"
 		(exclude_from_sim no)
 		(at 390.144 58.42 0)
 		(effects
@@ -6229,7 +6229,7 @@
 	)
 	(text "USB_D- — no USB connector on this board"
 		(exclude_from_sim no)
-		(at 390.144 93.726 0)
+		(at 390.144 94.996 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -6239,9 +6239,9 @@
 		)
 		(uuid "486a514b-7527-4810-8854-1b1f67aa2a79")
 	)
-	(text "SPARE - Octal-PSRAM pin on N8R8"
+	(text "HOLD - Octal-PSRAM pin on N8R8"
 		(exclude_from_sim no)
-		(at 390.144 73.406 0)
+		(at 389.89 74.422 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -6275,21 +6275,9 @@
 		)
 		(uuid "68ec1f90-00e1-4e2e-a721-46d8f7920a16")
 	)
-	(text "UART1 TX1 - free (usbc uses UART0)"
+	(text "HOLD - Octal-PSRAM pin on N8R8"
 		(exclude_from_sim no)
-		(at 313.5376 68.834 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
-			)
-			(justify left bottom)
-		)
-		(uuid "6c78ed2f-117a-43c4-8a34-06c1d85966f6")
-	)
-	(text "SPARE - Octal-PSRAM pin on N8R8"
-		(exclude_from_sim no)
-		(at 390.144 75.946 0)
+		(at 389.89 76.962 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -6299,19 +6287,7 @@
 		)
 		(uuid "761deb9b-cece-4d51-af71-e16516a367a2")
 	)
-	(text "UART1 RX1 - free (usbc uses UART0)"
-		(exclude_from_sim no)
-		(at 313.436 71.374 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
-			)
-			(justify left bottom)
-		)
-		(uuid "7e832d75-4039-40f6-805e-970a415b8f54")
-	)
-	(text "SPARE for CAN_RX"
+	(text "HOLD for CAN_RX"
 		(exclude_from_sim no)
 		(at 390.144 60.96 0)
 		(effects
@@ -6323,7 +6299,7 @@
 		)
 		(uuid "82111458-ffbd-46f5-83fb-f89ca49663a0")
 	)
-	(text "STRAP PIN (flash/boot risk)"
+	(text "HOLD (strap, flash/boot risk)"
 		(exclude_from_sim no)
 		(at 313.5376 78.74 0)
 		(effects
@@ -6347,7 +6323,17 @@
 		)
 		(uuid "8e399554-9fae-48e9-ad38-5ed8aebb0d71")
 	)
-	(text "RESERVE - TX0 (GPIO43, UART0), dev-board USB-UART bridge"
+	(text "HOLD (BOOT strap, GPIO 0)\n"
+		(exclude_from_sim no)
+		(at 403.098 78.74 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "99e4e9c6-4af3-4971-be91-dcfff5e41d60")
+	)
+	(text "BLOCKED - TX0 (GPIO43, UART0), dev-board USB-UART bridge"
 		(exclude_from_sim no)
 		(at 390.144 48.006 0)
 		(effects
@@ -6359,7 +6345,7 @@
 		)
 		(uuid "a1c0fe11-4a01-4ff1-9001-eaa6b4c0001a")
 	)
-	(text "RESERVE - RX0 (GPIO44, UART0), dev-board USB-UART bridge"
+	(text "BLOCKED - RX0 (GPIO44, UART0), dev-board USB-UART bridge"
 		(exclude_from_sim no)
 		(at 390.144 50.546 0)
 		(effects
@@ -6371,9 +6357,9 @@
 		)
 		(uuid "a1c0fe11-4a01-4ff1-9001-eaa6b4c0002b")
 	)
-	(text "RESERVE: on-board LED of ESP32-S3 pcb, GPIO48"
+	(text "BLOCKED: on-board LED of ESP32-S3 pcb, GPIO48"
 		(exclude_from_sim no)
-		(at 390.144 83.566 0)
+		(at 389.89 84.582 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -6383,9 +6369,19 @@
 		)
 		(uuid "a2416432-91a8-44a4-b138-01a5429fe122")
 	)
-	(text "SPARE - Octal-PSRAM pin on N8R8"
+	(text "free"
 		(exclude_from_sim no)
-		(at 390.144 70.866 0)
+		(at 391.922 68.58 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "a7dbe7f4-dd2a-42f6-82b5-9e1b185282f2")
+	)
+	(text "HOLD - Octal-PSRAM pin on N8R8"
+		(exclude_from_sim no)
+		(at 389.89 71.882 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -6407,9 +6403,9 @@
 		)
 		(uuid "b1d64549-1270-4262-bcba-2d0e777ceb20")
 	)
-	(text "STRAP PIN (flash/boot risk)"
+	(text "HOLD (strap, flash/boot risk)"
 		(exclude_from_sim no)
-		(at 390.144 81.026 0)
+		(at 389.89 82.042 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -6420,7 +6416,7 @@
 	)
 	(text "USB_D+ — no USB connector on this board"
 		(exclude_from_sim no)
-		(at 390.144 91.186 0)
+		(at 390.144 92.456 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -6430,9 +6426,9 @@
 		)
 		(uuid "d0979816-ba3c-47af-bb3c-c1d33ffd8140")
 	)
-	(text "SDC_ENABLE — orphan, expected from external module"
+	(text "HOLD - unconstrained GPIO 39, kept free for future expansion"
 		(exclude_from_sim no)
-		(at 390.144 65.786 0)
+		(at 390.144 66.802 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -6489,6 +6485,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "10b92c0e-5278-4c54-a36d-ba2c59e1e160")
+	)
+	(junction
+		(at 355.6 68.58)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "11d50952-a182-4bf4-90bf-ab7ac1353b02")
 	)
 	(junction
 		(at 355.6 63.5)
@@ -6555,6 +6557,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "63993699-6d58-45a2-96cf-22db28f5e738")
+	)
+	(junction
+		(at 355.6 71.12)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "65a902fe-06bb-44e0-b4f9-ebbe19863d78")
 	)
 	(junction
 		(at 515.62 72.39)
@@ -6699,6 +6707,10 @@
 		(uuid "1ebf0aab-a394-4ef6-99aa-81231b0c40c4")
 	)
 	(no_connect
+		(at 387.35 68.58)
+		(uuid "290fc47c-1b69-4717-ad57-70cfd19a62da")
+	)
+	(no_connect
 		(at 387.35 83.82)
 		(uuid "2f25dac7-6c63-4d93-9fde-183597e2d7f4")
 	)
@@ -6709,10 +6721,6 @@
 	(no_connect
 		(at 387.35 60.96)
 		(uuid "3b48edfa-ce97-4c9d-85a9-81523b81f183")
-	)
-	(no_connect
-		(at 355.6 71.12)
-		(uuid "3d8b32ff-06d6-415d-8611-758bd7b0436b")
 	)
 	(no_connect
 		(at 499.11 215.9)
@@ -6747,16 +6755,8 @@
 		(uuid "a29aabdd-bed4-4ddc-898e-f0fc5673ea9a")
 	)
 	(no_connect
-		(at 370.84 71.12)
-		(uuid "a49bc57b-ae70-464d-813d-e09a3d1316e5")
-	)
-	(no_connect
 		(at 387.35 66.04)
 		(uuid "abe183c7-a160-452e-a030-3a08235f96c7")
-	)
-	(no_connect
-		(at 355.6 68.58)
-		(uuid "aff3beea-0942-4bb6-baf7-4ae5729e8edf")
 	)
 	(no_connect
 		(at 387.35 73.66)
@@ -6773,6 +6773,10 @@
 	(no_connect
 		(at 499.11 223.52)
 		(uuid "d106c790-f893-4f9d-bd09-a17ca16d0fc6")
+	)
+	(no_connect
+		(at 387.35 78.74)
+		(uuid "e02c2d62-c4ed-4aaf-a1f3-77bed64dcf12")
 	)
 	(no_connect
 		(at 355.6 78.74)
@@ -6793,10 +6797,6 @@
 	(no_connect
 		(at 387.35 48.26)
 		(uuid "f46cfca1-1b0c-4012-8507-a36b4d489eb2")
-	)
-	(no_connect
-		(at 370.84 68.58)
-		(uuid "f7130ecb-c15c-4134-a898-87015067b69f")
 	)
 	(wire
 		(pts
@@ -7170,6 +7170,16 @@
 	)
 	(wire
 		(pts
+			(xy 313.69 68.58) (xy 355.6 68.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "33d3afdc-96dd-4851-b999-4a0213bc6e39")
+	)
+	(wire
+		(pts
 			(xy 355.6 99.06) (xy 370.84 99.06)
 		)
 		(stroke
@@ -7227,16 +7237,6 @@
 			(type solid)
 		)
 		(uuid "421d311d-eb1f-49e3-8157-98087499b527")
-	)
-	(wire
-		(pts
-			(xy 389.89 68.58) (xy 387.35 68.58)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4275e337-3c75-4ecb-9004-251326c02652")
 	)
 	(wire
 		(pts
@@ -7430,6 +7430,16 @@
 	)
 	(wire
 		(pts
+			(xy 313.69 71.12) (xy 355.6 71.12)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "682dfabb-89f3-411b-8061-d7568e4deb5c")
+	)
+	(wire
+		(pts
 			(xy 511.81 62.23) (xy 529.59 62.23)
 		)
 		(stroke
@@ -7490,13 +7500,13 @@
 	)
 	(wire
 		(pts
-			(xy 389.89 78.74) (xy 387.35 78.74)
+			(xy 100.33 81.28) (xy 137.16 81.28)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "7175c64a-c880-49b2-967a-491755065739")
+		(uuid "71e705ed-ec47-42b5-8b71-4c8b17f9e2e2")
 	)
 	(wire
 		(pts
@@ -7630,26 +7640,6 @@
 	)
 	(wire
 		(pts
-			(xy 119.38 81.28) (xy 137.16 81.28)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "9670f8b9-cd18-4b45-85ae-2588d9ca124a")
-	)
-	(wire
-		(pts
-			(xy 137.16 78.74) (xy 116.84 78.74)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "975b7b36-c333-45b1-9382-9b8b98e12636")
-	)
-	(wire
-		(pts
 			(xy 494.03 59.69) (xy 494.03 62.23)
 		)
 		(stroke
@@ -7730,6 +7720,16 @@
 	)
 	(wire
 		(pts
+			(xy 100.33 78.74) (xy 137.16 78.74)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a77b87b7-154a-4939-8f55-9b06904d1e7c")
+	)
+	(wire
+		(pts
 			(xy 313.69 55.88) (xy 370.84 55.88)
 		)
 		(stroke
@@ -7797,6 +7797,16 @@
 			(type solid)
 		)
 		(uuid "bf46fd05-369b-4b37-840f-bd17e523f183")
+	)
+	(wire
+		(pts
+			(xy 355.6 71.12) (xy 370.84 71.12)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c22e23be-8b65-49bd-a76a-2506f7ebdd79")
 	)
 	(wire
 		(pts
@@ -8060,6 +8070,16 @@
 	)
 	(wire
 		(pts
+			(xy 355.6 68.58) (xy 370.84 68.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ebbbb339-670f-41c0-a0b7-25a5d41a69ee")
+	)
+	(wire
+		(pts
 			(xy 168.91 359.41) (xy 189.23 359.41)
 		)
 		(stroke
@@ -8159,6 +8179,16 @@
 		)
 		(uuid "014070a6-504c-4c52-85a1-331680619860")
 	)
+	(label "SDC_NOT_EMERGENCY__3V3"
+		(at 313.69 71.12 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "01b6f445-c1e8-419d-8231-e03a8a742afc")
+	)
 	(label "MOTOR_HALL_3__5V"
 		(at 45.72 63.5 0)
 		(effects
@@ -8170,7 +8200,7 @@
 		)
 		(uuid "01ce875c-3355-4274-b62d-db2aa7ce943e")
 	)
-	(label "EXP_P1"
+	(label "EXP_P2"
 		(at 45.72 82.55 0)
 		(effects
 			(font
@@ -8323,7 +8353,7 @@
 		)
 		(uuid "20f8aac2-1bb3-4b30-b206-df24b795df57")
 	)
-	(label "EXP_P2"
+	(label "EXP_P1"
 		(at 45.72 85.09 0)
 		(effects
 			(font
@@ -8538,7 +8568,7 @@
 		)
 		(uuid "491adcdb-481d-4235-98e5-3a3fb06a7306")
 	)
-	(label "GND"
+	(label "+3V3"
 		(at 45.72 46.99 0)
 		(effects
 			(font
@@ -8720,13 +8750,13 @@
 		)
 		(uuid "7c1a8ff1-9923-4424-be7c-02f7c6a892e7")
 	)
-	(label "PEDAL_BRAKE__0_5V"
-		(at 119.38 81.28 180)
+	(label "PEDAL_ACC__0_5V"
+		(at 100.33 81.28 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify right)
+			(justify left)
 		)
 		(uuid "83e692bd-4fd0-4129-9d0f-0e4fdb06930a")
 	)
@@ -8870,17 +8900,6 @@
 			(justify left bottom)
 		)
 		(uuid "9da8d02e-2e5b-4157-b27b-4646c30e1801")
-	)
-	(label "SDC_NOT_EMERGENCY__3V3"
-		(at 389.89 68.58 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
-			)
-			(justify left bottom)
-		)
-		(uuid "9efa8ad9-0123-4076-a6bf-d117527f4631")
 	)
 	(label "CLK"
 		(at 254 293.37 180)
@@ -9056,6 +9075,16 @@
 		)
 		(uuid "d56b25f0-327f-418d-b067-6051d573ae9f")
 	)
+	(label "CMD_STEER_DIR__3V3"
+		(at 313.69 68.58 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "d56e7fbb-e8e1-4900-a178-a48a5f697022")
+	)
 	(label "HYDRAULIC_2__0_3V3"
 		(at 389.89 55.88 0)
 		(effects
@@ -9111,26 +9140,15 @@
 		)
 		(uuid "e7fd59bb-c41c-461e-8cdf-4d7bb9644fd5")
 	)
-	(label "PEDAL_ACC__0_5V"
-		(at 116.84 78.74 180)
+	(label "PEDAL_BRAKE__0_5V"
+		(at 100.33 78.74 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify right)
+			(justify left)
 		)
 		(uuid "eac83611-91f1-4b4a-89bd-81b94e06bbc2")
-	)
-	(label "CMD_STEER_DIR__3V3"
-		(at 389.89 78.74 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
-			)
-			(justify left bottom)
-		)
-		(uuid "eedfdda0-6b4b-4986-aeb3-3c39dbcf459c")
 	)
 	(label "MOTOR_HALL_2__3V3"
 		(at 125.73 303.53 0)
