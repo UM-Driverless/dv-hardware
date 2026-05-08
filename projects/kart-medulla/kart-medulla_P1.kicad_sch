@@ -8353,7 +8353,7 @@
 		)
 		(uuid "20f8aac2-1bb3-4b30-b206-df24b795df57")
 	)
-	(label "EXP_P1"
+	(label "EXP_P3"
 		(at 45.72 85.09 0)
 		(effects
 			(font
@@ -8385,7 +8385,7 @@
 		)
 		(uuid "2627eb74-163e-46fe-a9e1-1927442e2d01")
 	)
-	(label "REVERSE_WIRE"
+	(label "SCL__I2C"
 		(at 100.33 46.99 0)
 		(effects
 			(font
@@ -8632,7 +8632,7 @@
 		)
 		(uuid "5fa479a0-6594-4916-a440-ca00ed16e93d")
 	)
-	(label "SCL__I2C"
+	(label "REVERSE_WIRE"
 		(at 100.33 52.07 0)
 		(effects
 			(font
@@ -8825,7 +8825,7 @@
 		)
 		(uuid "91d00794-df7c-4a2a-8a35-6c751c9e72d7")
 	)
-	(label "EXP_P3"
+	(label "EXP_P1"
 		(at 45.72 80.01 0)
 		(effects
 			(font
