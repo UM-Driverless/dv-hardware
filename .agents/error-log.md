@@ -4,6 +4,18 @@
 
 Mistakes made and the rules learned from them. Newest first. Grep before working in a related area.
 
+## 2026-05-08 — Repeated common-sense lapses across the session
+
+Patterns the user kept having to correct in this session:
+- Gave the bare label `HOLD` when asked "what to put in pin 14" — user already established earlier in the same conversation that they wanted the full annotation `HOLD — <reason>`. Had to be told twice in a row.
+- Wrote `Noted` without actually noting (no file edit). User said "don't say Noted if you didn't note it."
+- Shortened net names (`SDA` instead of `SDA__I2C`) in chat. User said this is how naming drifts.
+- Suggested using `SPARE` GPIOs as if they were free-to-grab when SPARE meant "kept free intentionally."
+- Suggested deleting power symbols without checking what chips they were feeding.
+- Verbose multi-paragraph answers when user asked for one line.
+
+**Rule:** when the user has just established a preference (full-line explanations, exact net names, terse output, no narration), carry it forward for the rest of the session. Don't snap back to defaults at the next turn.
+
 ## 2026-05-08 — Overcomplicated git advice for peer pcb-conflict
 
 Peer had local pcb edits and couldn't pull. I led with stash + checkout-theirs + stash-drop, then escalated to fetch + reset-hard. Actual fix: `git pull` worked.
