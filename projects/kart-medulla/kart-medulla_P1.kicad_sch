@@ -6719,12 +6719,20 @@
 		(uuid "5f13f7ed-1a73-4347-81d1-bee12e1b9dfd")
 	)
 	(no_connect
+		(at 499.11 218.44)
+		(uuid "682d23b1-c773-44ae-86c7-8ef041c564b5")
+	)
+	(no_connect
 		(at 387.35 76.2)
 		(uuid "747af8b3-91fd-4112-88eb-381d472103ab")
 	)
 	(no_connect
 		(at 387.35 71.12)
 		(uuid "77e7622f-c955-4377-8523-b44ffffecfbb")
+	)
+	(no_connect
+		(at 499.11 220.98)
+		(uuid "864d61da-4bf8-4d1b-8e45-097e9b22d904")
 	)
 	(no_connect
 		(at 405.13 222.25)
@@ -6761,6 +6769,10 @@
 	(no_connect
 		(at 281.94 306.07)
 		(uuid "c58b6c99-85dd-4a0b-a798-1e70089b9665")
+	)
+	(no_connect
+		(at 499.11 223.52)
+		(uuid "d106c790-f893-4f9d-bd09-a17ca16d0fc6")
 	)
 	(no_connect
 		(at 355.6 78.74)
@@ -6978,16 +6990,6 @@
 	)
 	(wire
 		(pts
-			(xy 499.11 223.52) (xy 520.7 223.52)
-		)
-		(stroke
-			(width 0)
-			(type solid)
-		)
-		(uuid "12d733fa-eea3-4a65-8903-db0ef516076f")
-	)
-	(wire
-		(pts
 			(xy 313.69 93.98) (xy 370.84 93.98)
 		)
 		(stroke
@@ -7108,7 +7110,7 @@
 	)
 	(wire
 		(pts
-			(xy 499.11 226.06) (xy 520.7 226.06)
+			(xy 499.11 226.06) (xy 501.65 226.06)
 		)
 		(stroke
 			(width 0)
@@ -7125,16 +7127,6 @@
 			(type solid)
 		)
 		(uuid "2902e336-f19a-4255-9e08-ca77639b496a")
-	)
-	(wire
-		(pts
-			(xy 499.11 218.44) (xy 520.7 218.44)
-		)
-		(stroke
-			(width 0)
-			(type solid)
-		)
-		(uuid "2970b0cf-25a4-4367-b84a-988cb1b2716e")
 	)
 	(wire
 		(pts
@@ -7758,16 +7750,6 @@
 	)
 	(wire
 		(pts
-			(xy 499.11 220.98) (xy 520.7 220.98)
-		)
-		(stroke
-			(width 0)
-			(type solid)
-		)
-		(uuid "b4f58e63-f958-4895-af8e-1865c01347ec")
-	)
-	(wire
-		(pts
 			(xy 125.73 295.91) (xy 171.45 295.91)
 		)
 		(stroke
@@ -8352,17 +8334,6 @@
 		)
 		(uuid "22183d76-0368-4be5-9d28-c8a6f4ec9d55")
 	)
-	(label "EXP_P5"
-		(at 520.7 223.52 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
-			)
-			(justify left bottom)
-		)
-		(uuid "23175065-76a9-4161-b10e-46c46299b58f")
-	)
 	(label "SDC_IN_LOW_SIDE"
 		(at 97.79 347.98 0)
 		(effects
@@ -8663,19 +8634,8 @@
 		)
 		(uuid "6b855a1c-22c1-4809-9e15-ef868ac8d643")
 	)
-	(label "EXP_P6"
-		(at 520.7 220.98 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
-			)
-			(justify left bottom)
-		)
-		(uuid "6c6d9067-d021-47ee-a1c1-6d802b0eef90")
-	)
 	(label "EXP_P4"
-		(at 520.7 226.06 0)
+		(at 501.65 226.06 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8952,17 +8912,6 @@
 			(justify left bottom)
 		)
 		(uuid "a9500b63-fead-4d18-aa55-97a37c7ba14f")
-	)
-	(label "EXP_P7"
-		(at 520.7 218.44 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
-			)
-			(justify left bottom)
-		)
-		(uuid "af931bc6-4873-4b80-a864-8155539b9cdf")
 	)
 	(label "CMD_REVERSE"
 		(at 473.71 215.9 180)
