@@ -6491,12 +6491,6 @@
 		(uuid "10b92c0e-5278-4c54-a36d-ba2c59e1e160")
 	)
 	(junction
-		(at 109.22 81.28)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "1206da08-2b09-4195-bc46-b8f32530ae19")
-	)
-	(junction
 		(at 355.6 63.5)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -6597,12 +6591,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "9de311db-6aa2-4ecd-a472-cd10d8461f24")
-	)
-	(junction
-		(at 78.74 49.53)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "affac148-9858-4eb6-b968-501cdc9b5b9e")
 	)
 	(junction
 		(at 355.6 55.88)
@@ -6958,6 +6946,16 @@
 	)
 	(wire
 		(pts
+			(xy 255.27 45.72) (xy 250.19 45.72)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1222c423-9a92-4134-8b31-747346893054")
+	)
+	(wire
+		(pts
 			(xy 86.36 298.45) (xy 90.17 298.45)
 		)
 		(stroke
@@ -6995,6 +6993,16 @@
 			(type solid)
 		)
 		(uuid "17547e27-aaf4-43a4-8c2e-541687be114f")
+	)
+	(wire
+		(pts
+			(xy 78.74 49.53) (xy 54.61 49.53)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "19ee4ef2-1c17-4b9b-a55d-6793e8419867")
 	)
 	(wire
 		(pts
@@ -7598,6 +7606,16 @@
 	)
 	(wire
 		(pts
+			(xy 137.16 78.74) (xy 132.08 78.74)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "975b7b36-c333-45b1-9382-9b8b98e12636")
+	)
+	(wire
+		(pts
 			(xy 494.03 59.69) (xy 494.03 62.23)
 		)
 		(stroke
@@ -8008,16 +8026,6 @@
 	)
 	(wire
 		(pts
-			(xy 109.22 81.28) (xy 137.16 81.28)
-		)
-		(stroke
-			(width 0)
-			(type solid)
-		)
-		(uuid "ec38c004-3ab4-4b58-b26a-3cc262f1dc49")
-	)
-	(wire
-		(pts
 			(xy 168.91 359.41) (xy 189.23 359.41)
 		)
 		(stroke
@@ -8088,16 +8096,6 @@
 	)
 	(wire
 		(pts
-			(xy 106.68 81.28) (xy 109.22 81.28)
-		)
-		(stroke
-			(width 0)
-			(type solid)
-		)
-		(uuid "fceff437-2329-4f6d-8db3-0145a93e2d60")
-	)
-	(wire
-		(pts
 			(xy 151.13 195.58) (xy 151.13 203.2)
 		)
 		(stroke
@@ -8127,7 +8125,7 @@
 		)
 		(uuid "014070a6-504c-4c52-85a1-331680619860")
 	)
-	(label "PRESSURE_1__0_10V"
+	(label "MOTOR_HALL_3__5V"
 		(at 45.72 63.5 0)
 		(effects
 			(font
@@ -8138,7 +8136,7 @@
 		)
 		(uuid "01ce875c-3355-4274-b62d-db2aa7ce943e")
 	)
-	(label "PEDAL_BRAKE__0_5V"
+	(label "EXP_P1"
 		(at 45.72 82.55 0)
 		(effects
 			(font
@@ -8149,7 +8147,7 @@
 		)
 		(uuid "086463b2-f021-4ab0-bf87-9615032665fc")
 	)
-	(label "PRESSURE_3__0_10V"
+	(label "+5V_REG"
 		(at 45.72 68.58 0)
 		(effects
 			(font
@@ -8160,7 +8158,7 @@
 		)
 		(uuid "09661efa-f5e4-4365-8575-a2126c6b0b2a")
 	)
-	(label "PRESSURE_2__0_10V"
+	(label "MOTOR_HALL_2__5V"
 		(at 45.72 66.04 0)
 		(effects
 			(font
@@ -8192,7 +8190,7 @@
 		)
 		(uuid "11ffca81-b618-4cf1-b2f4-25f82b78af4a")
 	)
-	(label "EXP_P7"
+	(label "CMD_BRAKE__0_5V"
 		(at 218.44 48.26 0)
 		(effects
 			(font
@@ -8203,7 +8201,7 @@
 		)
 		(uuid "13ba712d-cd32-41d4-8fca-64c6a1235691")
 	)
-	(label "CMD_BRAKE__0_10V"
+	(label "GND"
 		(at 100.33 67.31 0)
 		(effects
 			(font
@@ -8214,7 +8212,7 @@
 		)
 		(uuid "15edd207-b8e8-422b-bb56-ddd4f5d91162")
 	)
-	(label "EXP_P2"
+	(label "BUZZER"
 		(at 163.83 64.77 0)
 		(effects
 			(font
@@ -8247,7 +8245,7 @@
 		)
 		(uuid "18cd92b8-3a3e-4840-8239-840db057cb1b")
 	)
-	(label "REVERSE_WIRE"
+	(label "SDA__I2C"
 		(at 163.83 62.23 0)
 		(effects
 			(font
@@ -8258,7 +8256,7 @@
 		)
 		(uuid "1b8a8cf1-ac36-4a55-b516-366abc958115")
 	)
-	(label "EXP_P6"
+	(label "GND"
 		(at 218.44 50.8 0)
 		(effects
 			(font
@@ -8291,7 +8289,7 @@
 		)
 		(uuid "20f8aac2-1bb3-4b30-b206-df24b795df57")
 	)
-	(label "CMD_STEER_DIR__3V3"
+	(label "EXP_P2"
 		(at 45.72 85.09 0)
 		(effects
 			(font
@@ -8324,7 +8322,17 @@
 		)
 		(uuid "24e220ad-4bb7-4e23-bd6f-46d4994e29d0")
 	)
-	(label "EXP_P5"
+	(label "CMD_ACC__0_5V"
+		(at 250.19 45.72 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "2627eb74-163e-46fe-a9e1-1927442e2d01")
+	)
+	(label "SCL__I2C"
 		(at 163.83 78.74 0)
 		(effects
 			(font
@@ -8379,7 +8387,7 @@
 		)
 		(uuid "328b3889-6b5d-4c6d-9142-26fe9ff96479")
 	)
-	(label "PEDAL_ACC__0_5V"
+	(label "HYDRAULIC_2__0_5V"
 		(at 100.33 62.23 0)
 		(effects
 			(font
@@ -8390,7 +8398,7 @@
 		)
 		(uuid "360656ed-fb2f-478d-9c23-d06d54712446")
 	)
-	(label "MOTOR_HALL_1__5V"
+	(label "PRESSURE_1__0_10V"
 		(at 163.83 45.72 0)
 		(effects
 			(font
@@ -8421,7 +8429,7 @@
 		)
 		(uuid "39a7c471-0c12-4fbd-a204-3d202fb58b25")
 	)
-	(label "HYDRAULIC_2__0_5V"
+	(label "GND"
 		(at 49.53 52.07 0)
 		(effects
 			(font
@@ -8497,7 +8505,7 @@
 		)
 		(uuid "491adcdb-481d-4235-98e5-3a3fb06a7306")
 	)
-	(label "HYDRAULIC_1__0_5V"
+	(label "GND"
 		(at 49.53 46.99 0)
 		(effects
 			(font
@@ -8560,6 +8568,16 @@
 			(justify left)
 		)
 		(uuid "5fa479a0-6594-4916-a440-ca00ed16e93d")
+	)
+	(label "CMD_STEER__PWM_3V3"
+		(at 137.16 52.07 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "62885585-5299-41e6-8adb-13386ab71f38")
 	)
 	(label "HYDRAULIC_1__0_3V3"
 		(at 313.69 83.82 0)
@@ -8659,7 +8677,17 @@
 		)
 		(uuid "760d3d04-3177-44a3-b09d-27d7a45d1811")
 	)
-	(label "SDC_IN_LOW_SIDE"
+	(label "+12V"
+		(at 54.61 49.53 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "7bca0729-3c51-4255-98c5-5e5d8e220c4e")
+	)
+	(label "PRESSURE_3__0_10V"
 		(at 100.33 64.77 0)
 		(effects
 			(font
@@ -8670,7 +8698,7 @@
 		)
 		(uuid "7c1a8ff1-9923-4424-be7c-02f7c6a892e7")
 	)
-	(label "SDA__I2C"
+	(label "SDC_NOT_EMERGENCY__3V3"
 		(at 100.33 46.99 0)
 		(effects
 			(font
@@ -8680,6 +8708,16 @@
 			(justify left bottom)
 		)
 		(uuid "823ad1fc-e99e-4977-9292-1a4ec30cbf7b")
+	)
+	(label "PEDAL_BRAKE__0_5V"
+		(at 137.16 81.28 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "83e692bd-4fd0-4129-9d0f-0e4fdb06930a")
 	)
 	(label "CMD_BRAKE__0_10V"
 		(at 393.7 306.07 0)
@@ -8735,7 +8773,7 @@
 		)
 		(uuid "8e1937b1-37dc-43b9-b18b-a558ef3640f3")
 	)
-	(label "EXP_P4"
+	(label "HYDRAULIC_1__0_5V"
 		(at 163.83 81.28 0)
 		(effects
 			(font
@@ -8746,7 +8784,7 @@
 		)
 		(uuid "91d00794-df7c-4a2a-8a35-6c751c9e72d7")
 	)
-	(label "CMD_STEER__PWM_3V3"
+	(label "CMD_STEER_DIR__3V3"
 		(at 45.72 80.01 0)
 		(effects
 			(font
@@ -8778,7 +8816,7 @@
 		)
 		(uuid "92212ea9-d16c-47ab-a424-ca3f7b61a6f4")
 	)
-	(label "EXP_P3"
+	(label "EXP_P4"
 		(at 163.83 83.82 0)
 		(effects
 			(font
@@ -8789,7 +8827,7 @@
 		)
 		(uuid "953c2c9e-8c31-4191-abfd-06848df12142")
 	)
-	(label "SCL__I2C"
+	(label "SDC_ENABLE"
 		(at 100.33 49.53 0)
 		(effects
 			(font
@@ -8908,7 +8946,7 @@
 		)
 		(uuid "b78eccd7-bf08-43b5-aa83-fd717b5d9aad")
 	)
-	(label "EXP_P1"
+	(label "EXP_P3"
 		(at 163.83 67.31 0)
 		(effects
 			(font
@@ -8952,7 +8990,7 @@
 		)
 		(uuid "c1e1fdb8-9587-418f-a8f1-ac3282406da1")
 	)
-	(label "MOTOR_HALL_3__5V"
+	(label "PRESSURE_2__0_10V"
 		(at 163.83 48.26 0)
 		(effects
 			(font
@@ -8963,7 +9001,7 @@
 		)
 		(uuid "c29fd14f-6cf7-4a47-8246-d087bc98eee2")
 	)
-	(label "CMD_ACC__0_5V"
+	(label "MOTOR_HALL_1__5V"
 		(at 163.83 50.8 0)
 		(effects
 			(font
@@ -8996,7 +9034,7 @@
 		)
 		(uuid "cc7752be-2d67-4d6a-aa10-e78ef5af5079")
 	)
-	(label "MOTOR_HALL_2__5V"
+	(label "+3V3"
 		(at 100.33 83.82 0)
 		(effects
 			(font
@@ -9073,6 +9111,16 @@
 		)
 		(uuid "e7fd59bb-c41c-461e-8cdf-4d7bb9644fd5")
 	)
+	(label "PEDAL_ACC__0_5V"
+		(at 132.08 78.74 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "eac83611-91f1-4b4a-89bd-81b94e06bbc2")
+	)
 	(label "CMD_STEER_DIR__3V3"
 		(at 389.89 78.74 0)
 		(effects
@@ -9138,85 +9186,6 @@
 			(justify left bottom)
 		)
 		(uuid "fce55aca-c41a-4395-a921-3f509c716d3c")
-	)
-	(symbol
-		(lib_id "kart-medulla:+3V3")
-		(at 137.16 52.07 90)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom no)
-		(on_board no)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "01c284aa-f25d-48b9-a141-1b8c03afd642")
-		(property "Reference" "#PWR037"
-			(at 137.16 55.88 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Value" "+3V3"
-			(at 131.064 52.07 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 137.16 52.07 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 137.16 52.07 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 137.16 52.07 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "8298dd8f-f852-44d4-a274-7004b0d67b59")
-		)
-		(instances
-			(project "kart-medulla"
-				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
-					(reference "#PWR037")
-					(unit 1)
-				)
-			)
-		)
 	)
 	(symbol
 		(lib_id "kart-medulla:+3V3")
@@ -10194,84 +10163,6 @@
 			(project "kart-medulla"
 				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
 					(reference "R27")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:PWR_FLAG")
-		(at 109.22 81.28 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "24c15c0d-3c1e-4240-a208-6102702bb12e")
-		(property "Reference" "#FLG_+12V01"
-			(at 114.22 79.28 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "PWR_FLAG"
-			(at 114.22 83.28 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 109.22 81.28 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 109.22 81.28 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Special symbol for telling ERC where power comes from"
-			(at 109.22 81.28 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "5b3f9711-8f22-4da5-bc97-c053569592b2")
-		)
-		(instances
-			(project "kart-medulla"
-				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
-					(reference "#FLG_+12V01")
 					(unit 1)
 				)
 			)
@@ -11679,86 +11570,6 @@
 		)
 	)
 	(symbol
-		(lib_id "kart-medulla:+12V")
-		(at 106.68 81.28 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom no)
-		(on_board no)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "4a13e2c9-27f3-44aa-ab10-2b90c39f11bd")
-		(property "Reference" "#PWR14"
-			(at 109.22 81.28 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Value" "+12V"
-			(at 104.394 77.47 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 106.68 81.28 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 106.68 81.28 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 106.68 81.28 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "0d7d3b08-c0cf-5da5-8e20-fc8d4152cf5c")
-		)
-		(instances
-			(project "kart-medulla"
-				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
-					(reference "#PWR14")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "kart-medulla:1990012")
 		(at 205.74 81.28 0)
 		(unit 1)
@@ -13036,84 +12847,6 @@
 			(project "kart-medulla"
 				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
 					(reference "#FLG01")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:PWR_FLAG")
-		(at 78.74 49.53 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "63902169-8e9b-4d9a-ac20-389d82f4050b")
-		(property "Reference" "#FLG_+3V3"
-			(at 83.74 47.53 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "PWR_FLAG"
-			(at 83.74 51.53 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 78.74 49.53 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 78.74 49.53 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Special symbol for telling ERC where power comes from"
-			(at 78.74 49.53 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "c1021165-569a-442f-bfc0-5703c0e33a59")
-		)
-		(instances
-			(project "kart-medulla"
-				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
-					(reference "#FLG_+3V3")
 					(unit 1)
 				)
 			)
@@ -14646,86 +14379,6 @@
 			(project "kart-medulla"
 				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
 					(reference "#PWR04")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "kart-medulla:+3V3")
-		(at 78.74 49.53 90)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom no)
-		(on_board no)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "8206b33a-3804-4b1a-8def-4bf1cc405f56")
-		(property "Reference" "#PWR10"
-			(at 78.74 46.99 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Value" "+3V3"
-			(at 72.644 49.276 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 78.74 49.53 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 78.74 49.53 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 78.74 49.53 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "ab0e058d-286c-5eeb-bc03-2cc6de0a0f02")
-		)
-		(instances
-			(project "kart-medulla"
-				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
-					(reference "#PWR10")
 					(unit 1)
 				)
 			)
@@ -16710,86 +16363,6 @@
 			(project "kart-medulla"
 				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
 					(reference "C6")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "kart-medulla:GND")
-		(at 255.27 45.72 270)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom no)
-		(on_board no)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "a72b006c-00e9-437d-b608-6f1a374e60a5")
-		(property "Reference" "#PWR36"
-			(at 255.27 48.26 270)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Value" "GND"
-			(at 253.746 42.418 270)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 396.24 292.1 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 396.24 292.1 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 396.24 292.1 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "3ac4b003-37db-4dd8-be98-31aace88a397")
-		)
-		(instances
-			(project "kart-medulla"
-				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
-					(reference "#PWR36")
 					(unit 1)
 				)
 			)
@@ -21150,89 +20723,6 @@
 			(project "kart-medulla"
 				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
 					(reference "R31")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "kart-medulla:GND")
-		(at 137.16 78.74 270)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom no)
-		(on_board no)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "fdadd9ee-2ae5-4dc6-8b38-9cac370f9e09")
-		(property "Reference" "#PWR034"
-			(at 133.35 78.74 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Value" "GND"
-			(at 133.35 78.74 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-				(justify right)
-			)
-		)
-		(property "Footprint" ""
-			(at 137.16 78.74 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 137.16 78.74 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 137.16 78.74 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "206f8002-926b-495a-a6dd-712d0426ad4e")
-		)
-		(instances
-			(project "kart-medulla"
-				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
-					(reference "#PWR034")
 					(unit 1)
 				)
 			)

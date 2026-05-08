@@ -4,6 +4,112 @@
 
 Append-only log. Newest first.
 
+## 2026-05-08 — kart-medulla CN1–CN10 pin assignments locked to ESP32 geometry
+
+User asked: with CN1–CN5 going up the right side of the PCB and CN6–CN10 going down the left side (mirroring the ESP32 module's "chip" pinout convention), what's the best signal-to-CN-pin assignment so jumper wires from each ESP32 pin to its CN pin stay short?
+
+**Result — agreed assignment (CN pin 1 / 2 / 3):**
+
+Right side (bottom→top):
+- CN1: GND / +12V_IN / GND  — battery input
+- CN2: MOTOR_HALL_3 (5V) / MOTOR_HALL_2 (5V) / +5V  — halls (2 of 3)
+- CN3: CMD_STEER_DIR (3V3) / EXP_P1 / EXP_P2
+- CN4: SDC_NOT_EMERGENCY / SDC_ENABLE / CMD_STEER_PWM (3V3)
+- CN5: HYDRAULIC_2 (0–5V) / PRESSURE_3 (0–10V) / GND
+
+Left side (top→bottom):
+- CN6: PEDAL_ACC (0–5V) / PEDAL_BRAKE (0–5V) / +3V3
+- CN7: PRESSURE_1 (0–10V) / PRESSURE_2 (0–10V) / MOTOR_HALL_1 (5V)
+- CN8: SDA (I²C) / BUZZER / EXP_P3
+- CN9: SCL (I²C) / HYDRAULIC_1 (0–5V) / EXP_P4
+- CN10: CMD_ACC (DAC, 0–5V) / CMD_BRAKE (DAC, 0–5V) / GND
+
+**Rejected: swap MH1 ↔ CMD_STEER_DIR on the ESP32 to cluster all three halls on one side.** Tempting because halls then live on CN2 alone, but GPIO 0 is a strap pin (must be HIGH at boot for normal boot mode). The hall level shifter U5 (SN74LVC3G17) is push-pull, so:
+1. A pull-up to 3V3 on the MH1 net can't override U5 actively driving LOW at boot — if the rotor leaves the hall LOW at power-on, ESP32 enters ROM bootloader and the kart won't run until manually rolled and reset.
+2. If firmware ever mis-configures the GPIO as output, two push-pull drivers fight, risking damage to U5 or the ESP32 pad.
+
+Keeping CMD_STEER_DIR on GPIO 0 is safe because firmware actively drives it HIGH and the SDC keeps the Cytron disabled at boot regardless. So the swap stays NOT done; MH1 stays on GPIO 16 and rides on the left-side CN7 alongside the pressure sensors. Cable layout is fine because wires terminate in independent Wago slots — per-CN cable grouping doesn't have to match standard sensor pinouts.
+
+**Aside on GPIO 45 / Pin 8:** user spotted "VSPI" on a third-party pinout image and asked if the pin is reclaimable. The label is misleading — on ESP32-S3 it's the **VDD_SPI voltage select strap** (not the classic ESP32 "VSPI" peripheral). Internal pulldown at boot selects 3.3V flash (correct for our N8R2). The pin is usable as a regular GPIO after boot, provided nothing externally pulls it HIGH at boot. Same rule applies to GPIO 46 (Pin 36). Both still listed as RESERVED in `pinout-esp32-s3.md` out of caution; can be promoted to SPARE-usable if a future need arises. Not needed for this assignment.
+
+## 2026-05-08 — Open question: tasks.md is getting long for human peers, three options on the table
+
+**Problem:** `.agents/tasks.md` was written agent-first per `AGENTS.md` ("shared kanban for agents to read and update"). Long-form rationale per task is good for AI continuity but bad for human peers skimming the file. User flagged this and asked for alternatives. No decision yet — leaving the file as-is until we pick.
+
+**Options considered:**
+
+1. **Folder-per-task (`.agents/tasks/<slug>.md`, with `tasks.md` as a one-line-per-task index).** Best fit if individual tasks start growing real discussion threads — each gets its own git history, can be assigned by filename prefix, and humans only see the index. Cost: a tiny bit of indirection for agents (extra file open per task).
+2. **GitHub Issues for humans, lean `tasks.md` for agents.** If the team is already on GitHub, peers look at issues anyway. `tasks.md` becomes a short list of refs (`#42 — SDC_ENABLE wiring`). Cost: requires the project to be on GitHub with issues enabled, and adds a sync responsibility (close-issue ↔ move-to-Done).
+3. **Just compress.** Keep one file, each entry becomes one short line ("SDC_ENABLE missing — wire GPIO 39 to a connector, see history.md 2026-05-08"). Rationale lives in `history.md` (which is what `history.md` was designed for). Cheapest to do, matches the existing "history.md as the explainer, tasks.md as the to-do" split.
+
+**My recommendation if/when this is picked up:** option 3 first (one-pass cleanup, no structural change). Move to option 1 later if individual tasks start sprouting discussion. Option 2 only if the team is already living in GitHub Issues.
+
+## 2026-05-08 — Source-of-truth flip + design clarifications (manual/auto mux, connector audit)
+
+This session resolved several long-standing inconsistencies between the schematic, the pinout doc that lived in `~/dv/`, and what was actually built. Documenting the decisions here so we don't keep re-deriving them.
+
+### Source of truth: dv-hardware (this repo) is canonical for chips and wiring
+
+User's framing: "this is the pcb, can't be wrong." The schematic IS the physical artifact — derived docs can drift, the schematic cannot. So:
+
+- `dv-hardware/projects/<board>/` is canonical for chip choices, nets, header pin assignments, decoupling, footprints. Anything that asks "what is on the board" → look at `kart-medulla.kicad_sch`.
+- `~/dv/kart/<board>/` and `~/repos/kart-medulla` (firmware) defer. They carry firmware-specific overlays only: GPIO mode flags (open-drain etc.), idle-at-boot constraints, ISR notes, driver config.
+- The pinout doc was moved from `~/dv/kart/kart-medulla/pinout-esp32-s3.md` to `dv-hardware/projects/kart-medulla/docs/pinout-esp32-s3.md`. The `~/dv/` copy is now a 7-line tombstone pointing here.
+- Don't write "this repo is the source of truth" inside the source-of-truth repo itself — that's circular. The pointer goes in the deferring repo. (User caught me trying to do this in `dv-hardware/AGENTS.md`; reverted.)
+
+**Why this matters going forward:** disagreements between the schematic and any doc → fix the doc, not the schematic. PCB layout is in progress, so pin assignments will keep shifting; the doc has a header note saying re-verify before each fab release.
+
+### Brake mux dropped — one MAX4660 is enough
+
+Original 2026-05-01 design had two MAX4660s muxing throttle and brake separately between manual and autonomous modes. User clarified 2026-05-08: brake doesn't need autonomous-vs-manual muxing because manual mode doesn't route brake through the ESP32 at all (the manual brake is mechanical/hydraulic, not electrical). So:
+
+- U14 MAX4660 (throttle) — kept.
+- U17 MAX4660 (brake) — was never placed on the schematic. Don't add it. The brake autonomous command (`CMD_BRAKE__0_10V` on CN5) goes directly from the MCP4922 (via the 0–5 V → 0–10 V op-amp gain stage) to the brake valve driver, no switch.
+- `SELECT_THROTTLE` (ESP32 GPIO 15) drives U14 SELECT only. The "drives both MAX4660 SELECT pins" wording in the old doc is wrong and has been fixed.
+
+### CMD_REVERSE moved off ESP32 GPIO onto PCF8574 P0 (decision was 2026-05-03, but the pinout doc was still claiming the old design)
+
+Original 2026-05-02 plan: ESP32 GPIO 36 in `OUTPUT_OPEN_DRAIN` mode, wired in parallel with the manual reverse button (wired-OR through the motor controller's existing 5 V pull-up). 2026-05-03 it moved onto U25 PCF8574T port P0 (pin 4) instead. Reasons:
+
+- Frees GPIO 36, which was the only N8R2-only-safe GPIO assignment we had — design is now fully N8R8-compatible (no signal depends on the quad-PSRAM-only GPIOs 33–37).
+- PCF8574 quasi-bidirectional outputs are natively open-drain with weak internal pull-ups, so the wired-OR architecture works the same way without needing an `OUTPUT_OPEN_DRAIN` flag in firmware.
+- Firmware change: `CMD_REVERSE` is now an I²C write to the PCF8574 output register (writing 0 pulls REVERSE_WIRE LOW, writing 1 releases it to high-Z). No special pin-mode config.
+
+**Fail-safe property preserved:** ESP32 dead or I²C bus down → P0 stays in its power-on-default state (all outputs high = high-Z) → only the manual button controls the line. Identical behavior to manual-only operation.
+
+### Schematic-vs-doc discrepancies on the ESP32 header (7 pins)
+
+The pinout doc still said these pins were active when the schematic actually has NC markers. All fixed in `docs/pinout-esp32-s3.md`:
+
+| Pin | GPIO | Doc said | Schematic shows | Reason it's NC |
+|---|---|---|---|---|
+| 3 | 19 | USB_D- (USB-OTG to Orin) | NC | No USB-C connector on the medulla PCB this rev |
+| 4 | 20 | USB_D+ | NC | Same |
+| 7 | 48 | LED (status RGB) | NC | Using the dev-module's onboard LED, not an external one |
+| 20 | 44 | RX0 (UART0) | NC | Dev-board's onboard USB-UART bridge already owns GPIO 43/44 |
+| 21 | 43 | TX0 (UART0) | NC | Same |
+| 32 | 17 | TX1 (UART1) | NC / SPARE | UART1 unused — the only UART link off-board uses UART0 via dev-module USB-C |
+| 33 | 18 | RX1 (UART1) | NC / SPARE | Same |
+
+Lesson: when a pinout doc lives in a different repo from the schematic, it drifts. With the source-of-truth flip + the doc now next to the schematic, this should stay aligned.
+
+### SELECT_THROTTLE wiring traced clean (no action needed, just for the record)
+
+User asked to confirm `SELECT_THROTTLE` is correctly wired. It is:
+
+- U23 (LEFT_HEADER, SSW-122-01-T-D dual-row) symbol pins 15 & 16 (paired = LEFT_HEADER row 8 = physical Pin 30 = silkscreen `15` = ESP32 GPIO 15) → wire (313.69, 63.5)–(370.84, 63.5) → label `SELECT_THROTTLE`.
+- U14 MAX4660 pin 6 (IN, the SELECT input) at (405.13, 219.71) → wire (405.13, 219.71)–(410.21, 219.71) → label `SELECT_THROTTLE`.
+- R32 = 10 kΩ at (410.21, 224.79) on the same node → matches the spec'd hardware-default-manual pulldown.
+- Both labels are local on a single sheet, so they form one net by name. ERC: 0 violations.
+
+Earlier `mcp__kicad__sch_trace_net` reported "labels=2 pins=0" — that's misleading; it doesn't count pins reached via wire+label, only direct pin-to-name matches. Don't use it as a "no pins on this net" indicator.
+
+### External-connector audit (CN1–CN10) — captured in tasks.md
+
+Crossed every signal on the 10× green push-in connectors (CN1–CN10) against the schematic netlist. One signal definitely missing from the connectors: **`SDC_ENABLE`** (GPIO 39 — meant to drive the external SDC enable relay). The schematic only has a free-text annotation "SDC_ENABLE — orphan, expected from external module" near U24 pin 14; no actual label, no wire, no connector exit. Action item logged in `.agents/tasks.md` under "External-connector audit".
+
+Also flagged for verification (not necessarily wrong, just worth confirming before fab): CN4 has no GND for the AS5600 (3 pins: SDA/SCL/+3V3 only); `SDC_IN_LOW_SIDE` (CN5) vs `SDC_NOT_EMERGENCY__3V3` (internal) need to be confirmed as bridged via a divider; the manual-throttle passthrough relies on `PEDAL_ACC__0_5V` branching internally to both the ADC divider and U14 NC pin.
+
 ## 2026-05-07 — Idea: agent works in a separate git worktree so user can keep KiCad open
 
 **Problem context:** Twice today the agent's edits to `kart-medulla_P1.kicad_sch` were silently clobbered — once by KiCad's stale-buffer save, once by interleaving direct file edits with kicad-mcp-pro writes. Root cause is that the agent and the user's KiCad are racing for the same on-disk file.
