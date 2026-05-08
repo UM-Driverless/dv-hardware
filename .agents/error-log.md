@@ -4,6 +4,12 @@
 
 Mistakes made and the rules learned from them. Newest first. Grep before working in a related area.
 
+## 2026-05-08 — Overcomplicated git advice for peer pcb-conflict
+
+Peer had local pcb edits and couldn't pull. I led with stash + checkout-theirs + stash-drop, then escalated to fetch + reset-hard. Actual fix: `git pull` worked.
+
+**Rule:** start with the simplest command. Only suggest stash / reset / force-with-lease if the simple path actually fails.
+
 ## 2026-05-08 — Used shortened net names ("SDA", "SCL") instead of the exact schematic names ("SDA__I2C", "SCL__I2C")
 
 **What happened:** While proposing CN swaps, I wrote `SDA` and `SCL` instead of the exact existing schematic net names `SDA__I2C` and `SCL__I2C`. User pushed back: shortening net names in chat is exactly how naming drifts into the schematic and creates duplicate / mismatched nets.
