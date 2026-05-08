@@ -14,7 +14,7 @@ Right side (bottom→top):
 - CN1: GND / +12V_IN / GND  — battery input
 - CN2: MOTOR_HALL_3 (5V) / MOTOR_HALL_2 (5V) / +5V  — halls (2 of 3)
 - CN3: CMD_STEER_DIR (3V3) / EXP_P1 / EXP_P2
-- CN4: SDC_NOT_EMERGENCY / SDC_ENABLE / CMD_STEER_PWM (3V3)
+- CN4: (SDC_NOT_EMERGENCY is internal — should NOT be on a CN; replaced 2026-05-08 evening) / SDC_IN_LOW_SIDE / CMD_STEER_PWM (3V3)
 - CN5: HYDRAULIC_2 (0–5V) / PRESSURE_3 (0–10V) / GND
 
 Left side (top→bottom):

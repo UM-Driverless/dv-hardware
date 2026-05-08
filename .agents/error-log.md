@@ -4,6 +4,27 @@
 
 Mistakes made and the rules learned from them. Newest first. Grep before working in a related area.
 
+## 2026-05-08 — Bulk-renamed 30 CN labels without auditing what each signal was for (kart-medulla CN1–CN10 rewire)
+
+**What happened:** User asked to reassign CN1–CN10 pins so each connector pin sits next to its ESP32 GPIO (minimize jumper length). I produced a target table from the *intended* layout and rewired 30 nets in one Python pass over `kart-medulla_P1.kicad_sch`. Multiple compounding mistakes:
+
+1. **Trusted `pinout-esp32-s3.md` over the schematic.** The doc listed `SDC_NOT_EMERGENCY` as Digital In and a separate `SDC_ENABLE` on GPIO 39. The schematic actually has GPIO 38 driving Q3's gate (Digital Out) and no `SDC_ENABLE` net at all. I propagated the doc's wrong info into the new CN assignment. Exposed `SDC_NOT_EMERGENCY` (an internal-only ESP32→Q3-gate net) on CN4.1 and invented `SDC_ENABLE` on CN4.2 as a label that connects to nothing.
+2. **Renamed `REVERSE_WIRE` off CN8.1 without checking it was a real external output.** That label was the medulla's path for the PCF8574-driven reverse signal to reach the kart electronics. After the rename it became orphan. The kart-side reverse output is now disconnected.
+3. **Did not notice the schematic was already missing `MANUAL_THR`** — the MAX4660 mux's NC pin (manual throttle source) was floating with no source. A pre-rewire audit walking every chip pin would have caught this. Caught only when the user asked what to do with a freed-up pin and I happened to suggest `MANUAL_THR`.
+4. **Floating-point comparison bug** in the Python BFS that traced wire endpoints. Pin coordinates computed as `cy ± 2.54` produced values like `63.50000000000001` that didn't `==`-match the wire's `63.5`. Six pins were misclassified as "no existing label" and got duplicate labels added — would have been silent shorts on those nets if not caught by netlist verification.
+5. **Recommended deleting power symbols without checking what they powered.** Told the user to delete `+3V3` / `GND` / `+12V` / `PWR_FLAG` symbols at CN-pin coordinates to clear conflicts. Some of those were the *only* feeders for U5 (level shifter VCC) and U1 — caused new ERC errors. Should have grepped first to confirm the rail had another feeder before recommending removal.
+
+**Root cause (overall):** Treated the rewire as a *cosmetic* relabeling problem when it was actually a *semantic* problem about what each signal does, where it comes from, and where it has to go. The geometric optimization was easy; the audit-each-net-for-correctness step was skipped.
+
+**Prevention rules:**
+- **Schematic is the source of truth, not derived docs.** Before reasoning about any net, grep the schematic for that net name and follow the wires. Don't quote the pinout doc as authoritative — confirm against `kart-medulla_P1.kicad_sch` first. The pinout doc's job is to mirror the schematic; it's allowed to be stale.
+- **For every signal being moved or renamed: identify (a) what's the source, (b) what's the load, (c) is it internal-only or external.** Internal nets (e.g., GPIO→transistor-gate) must NOT land on a CN. External nets removed from a CN MUST be re-homed somewhere or the kart-side function breaks.
+- **Audit by chip-pin, not by wire.** Before mass schematic edits, walk every IC's pins (especially mux NC inputs, regulator outputs, transistor gates) and confirm each has a defined source/sink. A floating mux input is a silent failure that ERC won't flag.
+- **Never use `==` on KiCad coordinates.** Always epsilon-compare (`abs(a-b) < 0.01`). Symbol pin offsets accumulate float error fast.
+- **Before recommending deletion of any power symbol, grep for the rail name and count how many power symbols of that name exist in the same sheet.** If the count would drop to zero on a rail that has chip VCC pins, don't recommend deletion — recommend *moving* instead.
+
+**Cross-reference:** the entire `2026-05-08` history.md "kart-medulla CN1–CN10 pin assignments" entry — the assignment was *geometrically* correct but had to be patched by the user (CN4.1 swapped to MANUAL_THR, CN4.2 to SDC_IN_LOW_SIDE, REVERSE_WIRE still pending re-home as of writing). Future CN edits should re-read this entry before starting.
+
 ## 2026-05-08 — Suggested switching to the buzzer task while a PCB-sync issue was actively in flight
 
 **What happened:** While the user was in the middle of resolving "Update PCB from Schematic" producing duplicates (the same ratsnest/PCB-sync workstream that already has a 2026-05-07 error-log entry), I read `.agents/tasks.md`, summarized the TODOs, and recommended starting the buzzer circuit "for the next thing to do on YOUR side while the peer routes." The user pushed back: poor organization, I should have known the issue we were dealing with — i.e., stay on the in-flight thread, don't pivot to an unrelated task list item.
