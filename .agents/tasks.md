@@ -5,6 +5,9 @@
 Shared task board for `kart-medulla` schematic cleanup. Update status as you go: `TODO → In Progress → Done`. Read before editing; claim by adding `[YYYY-MM-DD <name>]` and the section change.
 
 ## TODO
+flip CN3 and CN4
+
+
 
 ### PCB finishing pass (pre-fab)
 
@@ -19,6 +22,26 @@ Remaining PCB work before running DRC and exporting fab files. Order matters —
    - **Subtask: configure DRC constraints for the chosen fab.** Before running DRC, set the board constraints in `File → Board Setup → Design Rules → Constraints` and `Net Classes` to match the fab's process capability. Even though we'll fab at AISLER, configuring to **JLCPCB's standard 2-layer process** (more conservative) gives a safe baseline that AISLER will also accept. Key values for JLCPCB standard 2-layer 1 oz: min track/clearance 0.127 mm (5 mil) — use 0.2 mm for margin; min via 0.45 mm with 0.2 mm drill; min hole-to-hole 0.5 mm; min annular ring 0.13 mm; silkscreen min width 0.153 mm, min text height 1 mm. Save these into the project's DRC config so the check is meaningful.
 7. **Re-verify after DRC fixes.** Refill zones again (DRC fixes may have moved tracks), re-run DRC until 0 errors. Then check: no unconnected nets in the ratsnest, all footprints have 3D models for the render, board edge is closed (no gaps), drill file matches mounting hole sizes.
 8. **Export fab package.** Gerbers + drill + pick-and-place + BOM, per AISLER's submission spec. Generate the 3D render / STEP for a final visual check before uploading.
+9. **Pass the personal PCB design-review checklist.** Rubén has a markdown checklist of things to verify before fab (location TBD — qmd-search and repo grep on 2026-05-09 didn't surface a dedicated PCB-checklist file; only `vault/other/sax-concert-checklist.md` turned up). Locate that file, link it here, and walk through every item before submitting fab files. Items typically include: silkscreen readability, decoupling cap placement, test points, fiducials, polarity marks, fab-house specific quirks, etc.
+
+### 3D-model placement values (re-apply if peers' PCB edits clobber them)
+
+Empirically tuned 2026-05-09 by visual verification in the 3D viewer. Peers editing the PCB may re-import footprints, change footprint properties, or re-link models — which can wipe these per-instance offsets/rotations. After any such peer edit, re-run the values below by either (a) editing `kart-medulla.kicad_pcb` directly via the Python snippet committed in `kart-medulla.kicad_pcb.bak.20260509*` history, or (b) opening Footprint Properties → 3D Models tab on a representative instance and copying the values to siblings.
+
+**Note on sign convention:** KiCad's Footprint Properties dialog displays rotation values with **opposite sign** from what gets written to the .kicad_pcb file. Dialog X=+90 ↔ File X=−90, Dialog Z=−90 ↔ File Z=+90, etc. The values below are documented in **both** forms.
+
+| Component | Footprint name | 3D model | Rotation (file / dialog) | Offset (file = dialog, mm) |
+|---|---|---|---|---|
+| CN1–CN10 (Phoenix PTSA push-in 3p) | `kart-medulla:CONN-TH_3P-P2.50-S5.00_1990012` | `${KIPRJMOD}/3dmodels/1990012_PTSA_3p_2.5mm.step` | `(xyz -90 0 0)` / dialog `(90, 0, 0)` | `(-0.75, -1.2, 0)` |
+| Q3 (IRLZ44N TO-220) | `kart-medulla:TO-220-3_L10.0-W4.5-P2.54-T` | `${KICAD10_3DMODEL_DIR}/Package_TO_SOT_THT.3dshapes/TO-220-3_Vertical.step` | `(xyz 0 0 90)` / dialog `(0, 0, -90)` | `(0, 2.54, 0)` |
+| U24 (1×22 pin socket, SSW-122-…-S) | `kart-medulla:HDR-TH_ESQ-122-23-G-S` | `${KICAD10_3DMODEL_DIR}/Connector_PinSocket_2.54mm.3dshapes/PinSocket_1x22_P2.54mm_Vertical.step` | `(xyz 0 0 90)` / dialog `(0, 0, -90)` | `(26.6, 0, 0)` |
+| U23 (2×22 pin socket, SSW-122-…-D) | `kart-medulla:HDR-TH_ESQ-122-59-G-D` | `${KICAD10_3DMODEL_DIR}/Connector_PinSocket_2.54mm.3dshapes/PinSocket_2x22_P2.54mm_Vertical.step` | `(xyz 0 0 90)` / dialog `(0, 0, -90)` | `(26.6, -1.5, 0)` |
+
+All other footprints with bulk-injected KiCad-bundled .step models (R0603, C0603, SOIC-8/14/16, MSOP-8, SOT-23, TO-252) currently use defaults: `rotate (xyz 0 0 0)`, `offset (xyz 0 0 0)`. **Verify visually** — TO-252 L7805 (U19) DPAK orientation and MSOP-8 SN74LVC3G17 (U5) pin-1 dot are likely candidates if anything still looks off after peer edits.
+
+**Standalone pads** (`standalone_pad_0001..4`) intentionally have no 3D model — they're fiducials/markers.
+
+**Backups:** `kart-medulla.kicad_pcb.bak.20260509` (pre-injection), `…20260509b` (post-CN STEP add), `…20260509c/d/e/f` (rotation/offset iteration snapshots).
 
 ### Update PCB silkscreen legend to match new CN assignments
 
