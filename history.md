@@ -14,7 +14,7 @@ Right side (bottom→top):
 - CN1: GND / +12V_IN / GND  — battery input
 - CN2: MOTOR_HALL_3 (5V) / MOTOR_HALL_2 (5V) / +5V  — halls (2 of 3)
 - CN3: CMD_STEER_DIR (3V3) / EXP_P1 / EXP_P2
-- CN4: (SDC_NOT_EMERGENCY is internal — should NOT be on a CN; replaced 2026-05-08 evening) / SDC_IN_LOW_SIDE / CMD_STEER_PWM (3V3)
+- CN4: REVERSE_WIRE / SDC_IN_LOW_SIDE / CMD_STEER_PWM (3V3) — final, after two corrections during the session: (a) `SDC_NOT_EMERGENCY` removed from CN4.1 (it's an internal ESP32→Q3-gate net, must not be on a CN), and (b) the `MANUAL_THR`/`PEDAL_THR` placeholder I briefly proposed for the freed pin was wrong — the manual-throttle source is the same net as `PEDAL_ACC__0_5V` (CN6.1), branched internally to the MAX4660 NC pin; no second external pedal wire exists. CN4.1 ended up as `REVERSE_WIRE` (the genuinely missing external output that I had clobbered when renaming CN8.1).
 - CN5: HYDRAULIC_2 (0–5V) / PRESSURE_3 (0–10V) / GND
 
 Left side (top→bottom):
