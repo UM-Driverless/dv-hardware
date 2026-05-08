@@ -8235,7 +8235,7 @@
 		)
 		(uuid "13ba712d-cd32-41d4-8fca-64c6a1235691")
 	)
-	(label "GND"
+	(label "EXP_P4"
 		(at 100.33 67.31 0)
 		(effects
 			(font
@@ -8827,7 +8827,7 @@
 		)
 		(uuid "92212ea9-d16c-47ab-a424-ca3f7b61a6f4")
 	)
-	(label "EXP_P4"
+	(label "GND"
 		(at 163.83 83.82 0)
 		(effects
 			(font
