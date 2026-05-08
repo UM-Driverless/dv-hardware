@@ -2,17 +2,23 @@
 
 > **Authoritative source: the schematic in this same project folder (`../kart-medulla.kicad_sch`).** This document mirrors the pin assignments for human reading and adds rationale/strap-pin/firmware-mode notes that the schematic doesn't carry. **PCB layout is in progress — pin assignments may shift as routing constraints surface.** When this doc and the schematic disagree, the schematic wins; fix this file. Re-verify before each fab release.
 
-Status legend:
-  RESERVED      — do not use, hard-reserved (flash/SDIO/strap/protocol)
-  SPARE         — routed to a header but unassigned; usable as last resort
-  SPARE/<sig>   — assigned to a non-critical signal but the pin is still considered
-                  SPARE for cross-module-variant compatibility: on N8R2 (current
-                  module) the signal is wired and active; on N8R8 the GPIO is
-                  internally reserved by octal PSRAM, so the assigned function
-                  must be sacrificed if/when migrating to N8R8. The SPARE prefix
-                  is a reminder that this signal is droppable.
-  NC            — pin physically not connected to anything on the PCB
-  (others)      — assigned signal, critical (cannot be dropped)
+Status legend (refreshed 2026-05-08):
+  BLOCKED       — physically off-limits. Hardware constraint, never reclaim.
+                  Examples: dev-board USB-UART bridge owns GPIO 43/44; dev-board
+                  on-board RGB LED on GPIO 48; USB_D+/- pins not wired on this
+                  PCB.
+  HOLD          — pin works, currently unassigned, kept free for future
+                  expansion. Includes octal-PSRAM-shared pins on N8R8 (GPIO
+                  33-37 — usable on N8R2 but held free for module-variant
+                  compatibility), conditional-strap pins (usable post-boot if
+                  signal's idle-state matches the strap default), and pins
+                  parked for known-but-not-yet-wired functions like CAN.
+                  Don't grab without team agreement.
+  NC            — pin physically not wired on this PCB rev. ERC silenced via
+                  no-connect symbol.
+  (signal)      — assigned, in use.
+
+Older labels in git history: RESERVED ≈ today's BLOCKED, SPARE ≈ today's HOLD.
 
 Each row's Notes column gives a brief reason for SPARE / RESERVED / SPARE/<sig>.
 
@@ -149,21 +155,21 @@ before assuming this pinout works:
 | 4 | 20 | 20 | NC | - | Same as Pin 3 — no USB connector on this board, GPIO 20 unwired. |
 | 5 | 21 | 21 | MOTOR_HALL_3 | Digital In | Motor hall sensor 3 |
 | 6 | 47 | 47 | MOTOR_HALL_2 | Digital In | Motor hall sensor 2 |
-| 7 | 48 | 48 | NC | - | Reserved for the dev-module's on-board LED (already present on the ESP32-S3-DevKitC-1). No external LED on the medulla PCB. Marked NC in schematic. |
-| 8 | 45 | 45 | RESERVED | - | STRAP pin (flash/boot risk) |
-| 9 | 0 | 0 | CMD_STEER_DIR | Digital Out | Steering motor direction (Cytron H-bridge) — strap pin (BOOT mode), pulled high externally; SDC keeps drive disabled at boot so brief glitch is harmless. Moved from GPIO 35 for N8R8 compatibility |
-| 10 | 35 | 35 | SPARE | - | Octal PSRAM pin on N8R8 — leave free for module compatibility |
-| 11 | 36 | 36 | SPARE | - | Octal PSRAM pin on N8R8 — leave free for module compatibility. (Was briefly assigned to CMD_REVERSE on 2026-05-02; reassigned to PCF8574 P0 on 2026-05-03 to keep the design fully N8R8-compatible.) |
-| 12 | 37 | 37 | SPARE | - | Octal PSRAM pin on N8R8 — leave free for module compatibility |
-| 13 | 38 | 38 | SDC_NOT_EMERGENCY__3V3 | Digital Out | Drives the gate of Q3 (IRLZ44N) through R22 (100 Ω). When HIGH, Q3 conducts and pulls `SDC_IN_LOW_SIDE` to GND, completing the kart's SDC chain return path → no emergency. When LOW, Q3 is off and the SDC chain is broken → emergency. R23 (100 kΩ) gate-pulldown ensures Q3 is OFF (= emergency) at boot until firmware drives it HIGH. The signal name reads as the *intent* the ESP32 is asserting, not the chain's electrical state. |
-| 14 | 39 | 39 | SPARE | - | Was previously documented as `SDC_ENABLE`; that signal does not exist in the schematic — the ESP32's contribution to the SDC chain is GPIO 38 driving Q3 directly (see Pin 13). GPIO 39 is free. |
-| 15 | 40 | 40 | CMD_STEER_PWM | LEDC PWM | Steering motor PWM (Cytron H-bridge) |
-| 16 | 41 | 41 | SPARE | - | (was reserved for CAN_RX; CAN moved to Orin carrier board on 2026-05-02 — no transceiver on the medulla) |
-| 17 | 42 | 42 | SPARE | - | (was reserved for CAN_TX; same as above) |
+| 7 | 48 | 48 | BLOCKED | - | Dev-module's on-board RGB LED. No external LED on the medulla PCB. NC in schematic, BLOCKED label. |
+| 8 | 45 | 45 | HOLD | - | Strap pin (VDD_SPI voltage select, flash/boot risk). Reclaimable post-boot if signal's idle state matches the strap default (LOW for 3.3V flash). |
+| 9 | 0 | 0 | HOLD | - | BOOT-mode strap pin (must be HIGH at boot for normal boot). Was previously assigned to `CMD_STEER_DIR` (signal moved to GPIO 17 on 2026-05-08 to remove the strap-pin risk from real signals). Reclaimable for any signal that is HIGH or high-Z at power-on. |
+| 10 | 35 | 35 | HOLD | - | Octal-PSRAM pin on N8R8 — keep free so the design works with either N8R2 (current module) or N8R8. |
+| 11 | 36 | 36 | HOLD | - | Octal-PSRAM pin on N8R8 — same as Pin 10. (Was briefly assigned to CMD_REVERSE on 2026-05-02; moved to PCF8574 P0 on 2026-05-03 to restore N8R8 compatibility.) |
+| 12 | 37 | 37 | HOLD | - | Octal-PSRAM pin on N8R8 — same as Pin 10. |
+| 13 | 38 | 38 | HOLD | - | Unconstrained GPIO. Was `SDC_NOT_EMERGENCY` until 2026-05-08; signal moved to GPIO 18 (Pin 33) so Q3's gate driver could sit on the left side of the PCB next to the MOSFET. Currently free. |
+| 14 | 39 | 39 | HOLD | - | Unconstrained GPIO. Earlier doc revisions described `SDC_ENABLE` here — that signal never existed in the schematic; the ESP32's contribution to the SDC chain is the GPIO driving Q3 directly (see Pin 33 / GPIO 18). |
+| 15 | 40 | 40 | CMD_STEER_PWM | LEDC PWM | Steering motor PWM (Cytron H-bridge). |
+| 16 | 41 | 41 | HOLD | - | Held for future CAN_RX (CAN currently moved to Orin carrier; medulla has no transceiver in this rev). |
+| 17 | 42 | 42 | HOLD | - | Held for future CAN_TX (same as Pin 16). |
 | 18 | 2 | 2 | HYDRAULIC_2 | ADC1_CH1 | Hydraulic pressure sensor 2 (input only) |
 | 19 | 1 | 1 | PRESSURE_3 | ADC1_CH0 | Pressure sensor 3 (input only) |
-| 20 | RX | 44 | NC | - | Used by the dev-module's on-board USB-UART bridge (one of the two USB-C ports on the DevKitC-1). Not broken out to the medulla — marked NC in schematic. |
-| 21 | TX | 43 | NC | - | Same as Pin 20 — the on-board USB-UART bridge owns GPIO 43/44. NC. |
+| 20 | RX | 44 | BLOCKED | - | Owned by the dev-module's USB-UART bridge (UART0 RX0). Not reclaimable — the bridge IC drives this pin from the USB-C port of the DevKitC-1. |
+| 21 | TX | 43 | BLOCKED | - | Same as Pin 20 — UART0 TX0, owned by the dev-module USB-UART bridge. |
 | 22 | GND | - | GND | Power | Ground (top of right edge / RIGHT_HEADER pin 22) |
 | 23 | 3V3 | - | 3V3 | Power | 3.3V supply (generated by S3 module LDO from 5V input) — top of left edge / LEFT_HEADER row 1 |
 | 24 | 3V3 | - | 3V3 | Power | 3.3V supply |
@@ -174,11 +180,11 @@ before assuming this pinout works:
 | 29 | 7 | 7 | PRESSURE_2 | ADC1_CH6 | Pressure sensor 2 (input only) |
 | 30 | 15 | 15 | SELECT_THROTTLE | Digital Out | Drives the U14 MAX4660 SELECT pin (manual/autonomous throttle mux — single chip, brake is not muxed). Pulldown 10 kΩ to GND on this net so hardware default = manual. Was previously held as SPARE/SPI-CS; reassigned 2026-05-02. |
 | 31 | 16 | 16 | MOTOR_HALL_1 | Digital In | Motor hall sensor 1 (moved from GPIO 37 for N8R8 compatibility) |
-| 32 | 17 | 17 | SPARE | - | UART1 TX is free in this rev — the only UART link off the board uses UART0 via the dev-module's USB-C. Marked NC in schematic; available if a second UART is ever needed. |
-| 33 | 18 | 18 | SPARE | - | UART1 RX, same as Pin 32. NC. |
+| 32 | 17 | 17 | CMD_STEER_DIR__3V3 | Digital Out | Steering motor direction (Cytron H-bridge). Moved here from GPIO 0 on 2026-05-08 to remove the BOOT-strap risk; now sits on the left side of the ESP32 alongside SDC_NOT_EMERGENCY. (UART1 TX default — but UART pins are remappable on ESP32-S3.) |
+| 33 | 18 | 18 | SDC_NOT_EMERGENCY__3V3 | Digital Out | Drives the gate of Q3 (IRLZ44N) through R22 (100 Ω). When HIGH, Q3 conducts and pulls `SDC_IN_LOW_SIDE` to GND, completing the kart's SDC chain return path → no emergency. When LOW, Q3 is off and the SDC chain is broken → emergency. R23 (100 kΩ) gate-pulldown ensures Q3 is OFF (= emergency) at boot until firmware drives it HIGH. The signal name reads as the *intent* the ESP32 is asserting, not the chain's electrical state. Moved here from GPIO 38 on 2026-05-08 so the gate driver sits on the left side of the PCB next to the MOSFET. (UART1 RX default — remappable.) |
 | 34 | 8 | 8 | SDA | I2C | I²C data — AS5600 steering angle sensor + PCF8574 I/O expander share this bus |
 | 35 | 3 | 3 | BUZZER | Digital Out | Buzzer for debugging (strap pin: JTAG src select, default high — buzzer idle high at boot is acceptable; moved from GPIO 36 for N8R8 compatibility) |
-| 36 | 46 | 46 | RESERVED | - | STRAP pin (flash/boot risk) |
+| 36 | 46 | 46 | HOLD | - | Strap pin (ROM-print enable, flash/boot risk). Default LOW = no boot-message print, which is what we want. Reclaimable post-boot if signal's idle state is LOW at power-on. |
 | 37 | 9 | 9 | SCL | I2C | I²C clock — same bus as SDA |
 | 38 | 10 | 10 | HYDRAULIC_1 | ADC1_CH9 | Hydraulic pressure sensor 1 (input only) |
 | 39 | 11 | 11 | MOSI | SPI | SPI data out (→ MCP4922 SDI). Also referred to as `OUT_SDI` in some parts of the schematic. |
