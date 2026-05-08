@@ -4,6 +4,18 @@
 
 Mistakes made and the rules learned from them. Newest first. Grep before working in a related area.
 
+## 2026-05-08 — Used shortened net names ("SDA", "SCL") instead of the exact schematic names ("SDA__I2C", "SCL__I2C")
+
+**What happened:** While proposing CN swaps, I wrote `SDA` and `SCL` instead of the exact existing schematic net names `SDA__I2C` and `SCL__I2C`. User pushed back: shortening net names in chat is exactly how naming drifts into the schematic and creates duplicate / mismatched nets.
+
+**Prevention rule:** When discussing or proposing edits to *existing* nets, always quote the exact name as it appears in the schematic — including voltage/protocol suffixes (`__5V`, `__3V3`, `__0_5V`, `__I2C`, etc.). Never paraphrase a net name for brevity. If unsure of the exact form, grep the schematic before writing it. Cross-reference: 2026-05-08 "Bulk-renamed 30 CN labels" entry — same family of mistake (treating net naming as cosmetic instead of identity-bearing).
+
+## 2026-05-08 — Confidently named the wrong KiCad layer for a grey overlay hiding pad silk text
+
+**What happened:** User showed a PCB screenshot where grey rectangles on top of each pad were obscuring the silkscreen signal names. I told them it was `F.Fab` and to toggle that layer off. The actual layer was `User.Drawings`. I guessed based on "grey = F.Fab default" without verifying.
+
+**Prevention rule:** When the user shows a layer-visibility issue, don't pattern-match on default colors. The correct approach: ask which layer it is, or list the candidate layers (`F.Fab`, `User.Drawings`, `User.Comments`, `Margin`, `Eco1.User`, `Eco2.User`) and have the user click each off in turn. Default colors are user-customizable; the same grey could be any of these.
+
 ## 2026-05-08 — Bulk-renamed 30 CN labels without auditing what each signal was for (kart-medulla CN1–CN10 rewire)
 
 **What happened:** User asked to reassign CN1–CN10 pins so each connector pin sits next to its ESP32 GPIO (minimize jumper length). I produced a target table from the *intended* layout and rewired 30 nets in one Python pass over `kart-medulla_P1.kicad_sch`. Multiple compounding mistakes:

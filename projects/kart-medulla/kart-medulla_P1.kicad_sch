@@ -8279,7 +8279,7 @@
 		)
 		(uuid "18cd92b8-3a3e-4840-8239-840db057cb1b")
 	)
-	(label "SDA__I2C"
+	(label "SDC_IN_LOW_SIDE"
 		(at 163.83 62.23 0)
 		(effects
 			(font
@@ -8365,7 +8365,7 @@
 		)
 		(uuid "271fba70-f0a3-4bb8-bb23-5a00f03aeaaf")
 	)
-	(label "SCL__I2C"
+	(label "CMD_STEER__PWM_3V3"
 		(at 163.83 78.74 0)
 		(effects
 			(font
@@ -8602,7 +8602,7 @@
 		)
 		(uuid "5fa479a0-6594-4916-a440-ca00ed16e93d")
 	)
-	(label "CMD_STEER__PWM_3V3"
+	(label "SCL__I2C"
 		(at 100.33 52.07 0)
 		(effects
 			(font
@@ -8795,7 +8795,7 @@
 		)
 		(uuid "91d00794-df7c-4a2a-8a35-6c751c9e72d7")
 	)
-	(label "CMD_STEER_DIR__3V3"
+	(label "EXP_P3"
 		(at 45.72 80.01 0)
 		(effects
 			(font
@@ -8838,7 +8838,7 @@
 		)
 		(uuid "953c2c9e-8c31-4191-abfd-06848df12142")
 	)
-	(label "SDC_IN_LOW_SIDE"
+	(label "SDA__I2C"
 		(at 100.33 49.53 0)
 		(effects
 			(font
@@ -8946,7 +8946,7 @@
 		)
 		(uuid "b78eccd7-bf08-43b5-aa83-fd717b5d9aad")
 	)
-	(label "EXP_P3"
+	(label "CMD_STEER_DIR__3V3"
 		(at 163.83 67.31 0)
 		(effects
 			(font

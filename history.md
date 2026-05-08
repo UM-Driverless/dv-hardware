@@ -4,6 +4,21 @@
 
 Append-only log. Newest first.
 
+## 2026-05-08 (later) — CN cluster reshuffle: U25 moved to right side, all PCF8574-related signals re-clustered
+
+User decided to physically place U25 (PCF8574 GPIO expander) on the right side of the PCB near CN3, and asked to cluster all U25-related signals (I²C bus + expander outputs + reverse) on the right-side CNs to minimize routing length. Six labels swapped (none of the wire/footprint geometry changed; only the net names on the CN-side labels):
+
+  - CN3.1: `CMD_STEER_DIR__3V3` → `EXP_P3`
+  - CN4.2: `SDC_IN_LOW_SIDE` → `SDA__I2C`
+  - CN4.3: `CMD_STEER__PWM_3V3` → `SCL__I2C`
+  - CN8.1: `SDA__I2C` → `SDC_IN_LOW_SIDE`
+  - CN8.3: `EXP_P3` → `CMD_STEER_DIR__3V3`
+  - CN9.1: `SCL__I2C` → `CMD_STEER__PWM_3V3`
+
+After: CN3 = pure EXP cluster (P1/P2/P3); CN4 = REVERSE_WIRE + SDA + SCL (all U25-facing); displaced ESP32 signals (CMD_STEER_DIR, SDC_IN_LOW_SIDE, CMD_STEER_PWM) land on left-side CNs (CN8/CN9) — their ESP32 GPIOs span both sides of the module, so route length is similar; the AS5600 I²C cable now exits through CN4 closest to U25.
+
+Pre-existing naming inconsistency surfaced during this work: `CMD_STEER__PWM_3V3` uses double-underscore between `STEER` and `PWM` (parses as signal=`CMD_STEER`, level=`PWM_3V3`) while the matching `CMD_STEER_DIR__3V3` uses single underscore between signal-internal words and double before voltage. Should arguably be `CMD_STEER_PWM__3V3`. Not fixed in this pass to avoid net-rename churn before fab; tracked as a future cleanup.
+
 ## 2026-05-08 — kart-medulla CN1–CN10 pin assignments locked to ESP32 geometry
 
 User asked: with CN1–CN5 going up the right side of the PCB and CN6–CN10 going down the left side (mirroring the ESP32 module's "chip" pinout convention), what's the best signal-to-CN-pin assignment so jumper wires from each ESP32 pin to its CN pin stay short?
