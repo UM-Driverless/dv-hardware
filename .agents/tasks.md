@@ -7,6 +7,20 @@ Shared task board for `kart-medulla` schematic cleanup. Update status as you go:
 ## TODO
 flip CN3 and CN4
 
+### Tomorrow (2026-05-10): pre-fab finishing
+
+DRC reached **0 errors / 0 unconnected** on 2026-05-09 (commit `cfdf158`). Items still open before fab:
+
+1. **Schematic Parity (5 issues)** — DRC dialog shows 5 mismatches between PCB and schematic when "Test for parity between PCB and schematic" is enabled. Likely net-name renames or footprint changes that didn't push back. Open the Schematic Parity tab, screenshot/list each, fix in the appropriate file (schematic vs PCB), re-sync.
+2. **Run ERC** on the schematic (Inspect → Electrical Rules Checker) to confirm the schematic side is also clean.
+3. **3D viewer sanity check** (Alt+3) — verify nothing collides: connector heights, header sockets U23/U24, TO-220 Q3 orientation, USB if present.
+4. **AISLER DFM preview** — upload Gerbers to AISLER's online preview, or run their plugin if installed, for fab-side validation.
+5. **Drill / Gerber test export** to a temp dir to confirm KiCad doesn't barf during output (no zero-drill vias, no missing layers).
+6. **Easter eggs on silkscreen** — add personal/team easter eggs (e.g. UM Driverless logo, team initials, in-joke art, hidden text) to a free area on F.Silkscreen or B.Silkscreen. Avoid the AISLER logo placeholder area, mounting holes, antenna keepout, and the connector legend block. Decide whether to draw vector or use bitmap import (Image → Place Bitmap…).
+7. **Final commit + push** before fab submission.
+
+Ignored Tests in DRC are mostly fine to keep ignored (courtyard-related, tuning-profile, footprint-filter mismatches) — none critical for this prototype.
+
 
 
 ### PCB finishing pass (pre-fab)
