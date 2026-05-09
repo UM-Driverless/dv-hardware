@@ -55,7 +55,7 @@ AISLER does NOT provide a logo file — their fab pipeline auto-detects a placeh
 - **Line width:** 0.08382 mm (3.3 mil) — exact
 - **Aspect ratio:** 4:1 long:short
 - **Long side:** 30–60 mm (we'll use 30 × 7.5 mm)
-- **Layer:** silkscreen (F.Silkscreen or B.Silkscreen — designer's choice)
+- **Layer:** silkscreen. AISLER's doc says "Draw a rectangle placeholder on the desired silkscreen layer" and "Place as many placeholders as you want — each will be replaced with the logo." It does **not** say you have to pick only one side — placing one on F.Silkscreen *and* one on B.Silkscreen is allowed (or at worst the second one stays as a near-invisible 0.08 mm outline). Default plan: place on both.
 - **Orientation:** horizontal or vertical
 - **Placement:** any free spot, away from mounting holes/connectors
 

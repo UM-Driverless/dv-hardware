@@ -15,15 +15,15 @@ Pin numbering within each CN: pin 1 / 2 / 3 from top to bottom (1990012 footprin
 
 | CN | Side | Pin 1 | Pin 2 | Pin 3 | Function |
 |---|---|---|---|---|---|
-| **CN1**  | R, bottom | GND | +12V | GND | **Battery / power input.** +12V from kart battery; two GND pins for redundant return. |
+| **CN1**  | R, bottom | +3V3 | +12V | GND | **Power input + 3V3 export.** Pin 1 exports the ESP32-derived +3V3 rail (carries PWR_FLAG). Pin 2 = +12V from kart battery. Pin 3 = GND return. |
 | **CN2**  | R         | MOTOR_HALL_3 (5V) | MOTOR_HALL_2 (5V) | +5V_REG | Motor hall sensors 2 & 3. Pin 3 supplies +5V from the on-board rail to the hall sensor IC. |
-| **CN3**  | R         | EXP_P3 | EXP_P1 | EXP_P2 | Three PCF8574 expander GPIOs clustered next to U25 (PCF8574 placed on the right side of the PCB near CN3 — see `history.md` 2026-05-08 for the cluster decision). |
-| **CN4**  | R         | REVERSE_WIRE | SDA (I²C, 3V3) | SCL (I²C, 3V3) | All three U25-control signals: Pin 1 = REVERSE_WIRE (PCF8574 P0 open-drain output to kart's REVERSE line, wired-OR with manual reverse button on the motor-controller side). Pins 2 & 3 = I²C bus to the AS5600 steering encoder *and* to U25 (PCF8574); U25 is the only on-PCB I²C device, AS5600 lives off-board on the steering shaft. |
-| **CN5**  | R, top    | HYDRAULIC_2 (0–5V) | PRESSURE_3 (0–10V) | GND | Hydraulic-2 pressure sensor + Pressure-3 sensor; share GND. |
-| **CN6**  | L, top    | PEDAL_ACC (0–5V) | PEDAL_BRAKE (0–5V) | +3V3 | Both pedal-position signals + 3V3 power output to whichever sensor needs it. |
+| **CN3**  | R         | EXP_P1 | EXP_P2 | EXP_P3 | Three PCF8574 expander GPIOs clustered next to U25 (PCF8574 placed on the right side of the PCB near CN3 — see `history.md` 2026-05-08 for the cluster decision). |
+| **CN4**  | R         | SCL (I²C, 3V3) | SDA (I²C, 3V3) | REVERSE_WIRE | Pins 1 & 2 = I²C bus to the AS5600 steering encoder *and* to U25 (PCF8574); U25 is the only on-PCB I²C device, AS5600 lives off-board on the steering shaft. Pin 3 = REVERSE_WIRE (PCF8574 P0 open-drain output to kart's REVERSE line, wired-OR with manual reverse button on the motor-controller side). |
+| **CN5**  | R, top    | HYDRAULIC_2 (0–5V) | PRESSURE_3 (0–10V) | EXP_P4 | Hydraulic-2 pressure sensor + Pressure-3 sensor + spare PCF8574 expander GPIO P4. |
+| **CN6**  | L, top    | PEDAL_BRAKE (0–5V) | PEDAL_ACC (0–5V) | +3V3 | Both pedal-position signals + 3V3 power output to whichever sensor needs it. (Carries PWR_FLAG on +3V3.) |
 | **CN7**  | L         | PRESSURE_1 (0–10V) | PRESSURE_2 (0–10V) | MOTOR_HALL_1 (5V) | Pressure-1 & Pressure-2 sensors + Motor hall 1. (Halls span CN2 + CN7 because GPIO 16 sits on the left side of the ESP32; see `history.md` 2026-05-08 for why no swap.) |
 | **CN8**  | L         | SDC_IN_LOW_SIDE | BUZZER (3V3) | CMD_STEER_DIR (3V3) | Pin 1 = SDC chain return (Q3 drain). Pin 2 = buzzer. Pin 3 = Cytron H-bridge direction. |
-| **CN9**  | L         | CMD_STEER_PWM (3V3) | HYDRAULIC_1 (0–5V) | EXP_P4 | Pin 1 = Cytron H-bridge PWM. Pin 2 = Hydraulic-1 sensor. Pin 3 = spare expander GPIO (kept here because U25 has more EXP outputs than fit on the right-side cluster — could be marked NC if not needed). |
+| **CN9**  | L         | CMD_STEER_PWM (3V3) | HYDRAULIC_1 (0–5V) | GND | Pin 1 = Cytron H-bridge PWM. Pin 2 = Hydraulic-1 sensor. Pin 3 = GND return for the left-side analog/SDC group. |
 | **CN10** | L, bottom | CMD_ACC (0–5V) | CMD_BRAKE (0–5V) | GND | Throttle and brake analog commands from the MCP4922 DAC to the motor controller. |
 
 ## Voltage levels — quick reference

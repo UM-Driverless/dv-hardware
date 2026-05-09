@@ -4,6 +4,15 @@
 
 Mistakes made and the rules learned from them. Newest first. Grep before working in a related area.
 
+## 2026-05-09 — Invented a rule from a singular noun in third-party docs (AISLER logo layer)
+
+While documenting the AISLER sponsor-logo placeholder task, paraphrased the AISLER community doc's "the desired silkscreen layer" (singular) into "F.Silkscreen *or* B.Silkscreen — designer's choice", framing it as if AISLER required picking only one side. The doc never said that — it said "Place as many placeholders as you want", which strongly implies multiple are fine. User caught it: "why did you invent that rule?"
+
+**Prevention:**
+- When paraphrasing third-party docs into a task, **quote the exact phrasing** for any constraint, then add an interpretation only if clearly labeled as such ("interpreting this as…").
+- Singular nouns in English ("the desired layer") do not imply exclusivity. Don't translate them into restrictive disjunctions.
+- For any "you must / you can only" rule sourced from a webpage you read once, link the source URL right next to the rule, so future-you can re-check rather than trust the paraphrase.
+
 ## 2026-05-08 — Repeated common-sense lapses across the session
 
 Patterns the user kept having to correct in this session:
@@ -144,7 +153,7 @@ Peer had local pcb edits and couldn't pull. I led with stash + checkout-theirs +
 - **Match the explanation to the actual error text.** "Input pin not driven by any Output pins" ≠ "Pin not connected" ≠ "Floating pin." If my explanation contradicts the message the user is staring at, the user will (correctly) reject it.
 - **Confident wrong answers are worse than uncertain ones** — the user can audit my reasoning when I show uncertainty; they can't audit a fabricated detail.
 
-**Cross-reference:** `.agents/history.md` 2026-05-07 entry, "Why three-symbols-works..." section now flagged as unverified hypothesis.
+**Cross-reference:** `history.md` 2026-05-07 entry, "Why three-symbols-works..." section now flagged as unverified hypothesis.
 
 ## 2026-05-07 — Made user re-explain the same KiCad ERC issue 8+ times instead of inspecting the schematic via MCP
 
@@ -156,9 +165,9 @@ Peer had local pcb edits and couldn't pull. I led with stash + checkout-theirs +
 - **For any KiCad debugging session: read the schematic file or use the kicad MCP first.** `grep PWR_FLAG`, `mcp__kicad__run_erc`, and `mcp__kicad__sch_get_symbols` are one tool call each and answer most "what's actually on this net" questions definitively.
 - **The MCP reads disk. The user's GUI may be unsaved.** If MCP results disagree with what the user reports, the gap is unsaved GUI state — say so directly, don't loop on guesses.
 - **Stop iterating "try this, did that work?" past 2 rounds.** If two suggestions don't fix it, switch to inspecting the actual file. The user shouldn't be the debug loop.
-- **KiCad ERC drive rules (do not re-derive every time):** Power Input pins (GND/+3V3 power-symbol pins, IC power pins) do NOT drive a net. Need exactly one PWR_FLAG per power net across the whole design. Global labels named "GND" do not merge with the GND power-symbol net — only power symbols join the global power net. See `.agents/history.md` 2026-05-07 entry for full breakdown.
+- **KiCad ERC drive rules (do not re-derive every time):** Power Input pins (GND/+3V3 power-symbol pins, IC power pins) do NOT drive a net. Need exactly one PWR_FLAG per power net across the whole design. Global labels named "GND" do not merge with the GND power-symbol net — only power symbols join the global power net. See `history.md` 2026-05-07 entry for full breakdown.
 
-**Cross-reference:** `.agents/history.md` "KiCad ERC: Input pin not driven on GND net" 2026-05-07.
+**Cross-reference:** `history.md` "KiCad ERC: Input pin not driven on GND net" 2026-05-07.
 
 ## 2026-05-07 — Said "Preferences" instead of "Settings" for KiCad menus (recurring)
 
