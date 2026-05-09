@@ -1,6 +1,7 @@
 # KiCad
 *-backups/
 *.bak
+*.bak.*
 *.kicad_prl
 *.kicad_pcb-bak
 *-cache.lib
