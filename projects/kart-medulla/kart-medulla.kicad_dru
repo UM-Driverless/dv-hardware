@@ -1,0 +1,51 @@
+(version 1)
+
+# Custom DRC rules for kart-medulla — AISLER Beautiful Boards (2-layer) target.
+# These are belt-and-suspenders rules layered on top of Board Setup → Constraints.
+# Source: AISLER capability page (https://aisler.net/help/preparing-your-design/design-rules)
+# plus 30 % margin on absolute fab minimums. See projects/kart-medulla/docs/drc-aisler.md
+# for the rationale per number.
+
+# ----- Board edge keepout: copper must stay 0.30 mm from the board outline. -----
+# KiCad's built-in min_copper_edge_clearance covers this, but a custom rule is
+# checked even when copper is on a different layer than the outline edge, which
+# the built-in occasionally misses on V-cut / mouse-bite panelization.
+(rule "edge-clearance"
+    (constraint edge_clearance (min 0.3mm))
+    (layer outer)
+)
+
+# ----- Annular ring on plated through-holes: 0.125 mm minimum. -----
+# At AISLER Beautiful Boards' 0.30 mm mechanical drill min, this means a via or
+# pad outer diameter must be ≥ 0.30 + 2 × 0.125 = 0.55 mm.
+(rule "annular-min"
+    (constraint annular_width (min 0.125mm))
+    (condition "A.Type == 'Via' || A.Type == 'Pad'")
+)
+
+# ----- High-voltage creepage on 24 V pressure-sensor inputs. -----
+# IEC 60664-1 Pollution Degree 2, Material Group IIIa: 0.8 mm creepage at 50 V
+# working voltage is comfortable. We're at 24 V so 0.5 mm is plenty, but bump
+# to 0.6 mm for derating + dust margin since the kart is outdoors.
+(rule "hv-pressure-clearance"
+    (constraint clearance (min 0.6mm))
+    (condition "A.NetName == '/PRESSURE_1__24V' || A.NetName == '/PRESSURE_2__24V' || A.NetName == '/PRESSURE_3__24V'")
+)
+
+# ----- Power-rail track width minimum (Power class). -----
+# Backstop in case a track gets dropped on a power net without inheriting the
+# class. AISLER Beautiful Boards copper is 35 µm (1 oz) — IPC-2152 says 0.5 mm
+# at 1 oz handles ~1.5 A at +10 °C rise, comfortable for the medulla's
+# expected ~0.5 A peak per 5 V branch.
+(rule "power-track-width"
+    (constraint track_width (min 0.5mm))
+    (condition "A.NetClass == 'Power'")
+)
+
+# ----- Silkscreen-to-pad clearance. -----
+# AISLER strips silk that lands on pads anyway, but the warning catches missing
+# refdes that would have shifted onto a pad and gotten chopped.
+(rule "silk-pad-clearance"
+    (constraint silk_clearance (min 0.15mm))
+    (layer "?.SilkS")
+)

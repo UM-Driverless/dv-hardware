@@ -18,6 +18,18 @@ Projects originate in EasyEDA Pro and are being migrated to KiCad 9. Each `proje
 - `easyeda-source/` — original `.epro` exports for reference (do not edit)
 - `<board>.kicad_pro` (and friends) — the live KiCad project after import
 
+## First-time setup
+
+Install **KiCad 10.x** with the **3D shapes** package included (default in the official installer). The boards reference `${KICAD10_3DMODEL_DIR}` for standard parts (caps, resistors, SOIC, SOT, headers, …); without that variable set, the 3D viewer comes up empty.
+
+After installing, verify the path:
+
+- macOS: `KiCad → Settings… → Configure Paths…` → row `KICAD10_3DMODEL_DIR` should point to `/Applications/KiCad/KiCad.app/Contents/SharedSupport/3dmodels`
+- Linux: `/usr/share/kicad/3dmodels`
+- Windows: `C:\Program Files\KiCad\10.0\share\kicad\3dmodels`
+
+Project-specific 3D models (parts not in KiCad's standard library — connectors, the MAX4660, …) live next to the board under `projects/<board>/3dmodels/` and are referenced via `${KIPRJMOD}/3dmodels/...` so they travel with the repo.
+
 ## Workflow
 1. `git pull --rebase` before starting work.
 2. One person per board at a time — coordinate in chat. KiCad files are text but not line-mergeable.
