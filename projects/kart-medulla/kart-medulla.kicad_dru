@@ -34,11 +34,12 @@
 
 # ----- Power-rail track width minimum (Power class). -----
 # Backstop in case a track gets dropped on a power net without inheriting the
-# class. AISLER Beautiful Boards copper is 35 µm (1 oz) — IPC-2152 says 0.5 mm
-# at 1 oz handles ~1.5 A at +10 °C rise, comfortable for the medulla's
-# expected ~0.5 A peak per 5 V branch.
+# class. AISLER Beautiful Boards copper is 35 µm (1 oz). The Power-class rails
+# (+12V, +5V_USB, +5V_REG, +3V3) on medulla feed only logic ICs, op-amps, and
+# sensors — sub-1 A loads. IPC-2221 says 0.3 mm at 1 oz handles ~0.7 A at
+# +10 °C rise, comfortable margin. No motor/solenoid drive on Power class.
 (rule "power-track-width"
-    (constraint track_width (min 0.5mm))
+    (constraint track_width (min 0.3mm))
     (condition "A.NetClass == 'Power'")
 )
 

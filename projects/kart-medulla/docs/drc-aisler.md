@@ -39,19 +39,21 @@ Source: <https://aisler.net/help/preparing-your-design/design-rules> (Beautiful 
 | Class | Track width | Clearance | Via (Ø / drill) | Used by |
 |---|---|---|---|---|
 | **Default** | 0.25 mm | 0.20 mm | 0.6 / 0.3 mm | All signal nets, I²C, SPI, UART, hall sensors, button reads |
-| **Power** | 0.50 mm | 0.25 mm | 0.8 / 0.4 mm | `+5V`, `+12V`, `+5V_USB`, `+5V_REG`, `3V3`, `GND` and any net pattern matching `*+5V*`, `*+12V*` |
+| **Power** | 0.30 mm | 0.25 mm | 0.8 / 0.4 mm | `+5V`, `+12V`, `+5V_USB`, `+5V_REG`, `3V3`, `GND` and any net pattern matching `*+5V*`, `*+12V*` |
 
 Pattern-based net-class assignment is configured in `kart-medulla.kicad_pro` under `net_settings.netclass_patterns`. Adding a new power net auto-promotes it to the Power class without manual reassignment.
 
-### Why 0.5 mm for Power
+### Why 0.3 mm for Power
 
-AISLER Beautiful Boards 2-layer is 35 µm (1 oz) outer copper. Per IPC-2152 (modern, not the legacy IPC-2221 nomogram):
+AISLER Beautiful Boards 2-layer is 35 µm (1 oz) outer copper. Per IPC-2221:
 
-- 0.50 mm trace, 35 µm copper, +10 °C rise above ambient → ~1.5 A continuous.
-- Medulla peak per 5 V branch: ~0.5 A (ESP32-S3 active radio + MCP4922 + MAX4660 + LM2596 quiescent).
-- 3× headroom is comfortable for transients (USB enumeration, MCU boot, decoupling-cap inrush).
+- 0.30 mm trace, 35 µm copper, +10 °C rise above ambient → ~0.7 A continuous.
+- Medulla peak per 5 V branch: ~0.3 A (ESP32-S3 active radio + MCP4922 + MAX4660 + LM2596 quiescent are all logic/op-amp loads).
+- ~2× headroom is comfortable for transients.
 
-For the 12 V → Cytron path the medulla **does not route 12 V power** (decision 2026-05-01: Cytron is permanently powered from kart-side, only signals come through the PCB), so 0.5 mm is the worst case on the board.
+The medulla Power class only carries logic-level rails (+12V, +5V_USB, +5V_REG, +3V3) feeding ICs and sensors — no motor/solenoid current. The 12 V → Cytron path is **not routed through the medulla** (decision 2026-05-01: Cytron is permanently powered from kart-side, only signals come through the PCB).
+
+Earlier revisions used 0.50 mm here as a conservative belt-and-suspenders. Dropped to 0.30 mm on 2026-05-09 once it was clear the rails are sub-1 A.
 
 ## Custom rules (`kart-medulla.kicad_dru`)
 
@@ -60,7 +62,7 @@ Five rules, in evaluation order:
 1. **`edge-clearance`** — 0.30 mm copper-to-board-outline. Belt-and-suspenders for the built-in `min_copper_edge_clearance`, which can miss copper on layers other than the outline edge during V-cut panelization.
 2. **`annular-min`** — 0.125 mm annular ring on every via and plated through-hole pad. Equivalent to the built-in `min_via_annular_width` but extended to pads (not just vias).
 3. **`hv-pressure-clearance`** — 0.60 mm clearance on the three 24 V pressure-sensor input nets (`PRESSURE_1__24V`, `PRESSURE_2__24V`, `PRESSURE_3__24V`). Per IEC 60664-1 Pollution Degree 2 / Material Group IIIa, 0.50 mm is the minimum creepage at 50 V working voltage; we run at 24 V so 0.50 mm is plenty, but the kart is outdoors with road dust, so 0.60 mm gives derating margin.
-4. **`power-track-width`** — 0.50 mm minimum on any net assigned to the Power class. Backstop in case a Power-class track is hand-routed below the class default.
+4. **`power-track-width`** — 0.30 mm minimum on any net assigned to the Power class. Backstop in case a Power-class track is hand-routed below the class default.
 5. **`silk-pad-clearance`** — 0.15 mm silk-to-pad clearance on both silk layers. Catches refdes drift that would otherwise just disappear during AISLER's silk-strip step.
 
 The high-voltage rule will become more interesting if the team ever runs the Festo proportional valve's 24 V drive directly through the medulla (currently it doesn't — only the divided sensor-output signals are on the medulla). If that changes, **bump the rule's threshold to ~1.0 mm and add a creepage-only constraint for the high-side switch.**
