@@ -21,4 +21,9 @@
   (fp_line (start 3.75 7.2) (end -3.75 7.2) (layer "F.SilkS") (width 0.254))
   (fp_line (start 3.75 -4.8) (end 3.75 7.2) (layer "F.SilkS") (width 0.254))
   (fp_line (start -3.75 -4.8) (end 3.75 -4.8) (layer "F.SilkS") (width 0.254))
+  (model "${KIPRJMOD}/3dmodels/1990012_PTSA_3p_2.5mm.step"
+    (offset (xyz -0.75 -1.2 0))
+    (scale (xyz 1 1 1))
+    (rotate (xyz -90 0 0))
+  )
 )

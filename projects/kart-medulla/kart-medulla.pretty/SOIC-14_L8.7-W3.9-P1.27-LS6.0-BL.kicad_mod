@@ -79,4 +79,9 @@
   (fp_line (start 4.3815 -1.397) (end 4.3815 1.397) (layer "F.SilkS") (width 0.2))
   (fp_line (start 4.3815 1.397) (end -4.3815 1.397) (layer "F.SilkS") (width 0.2))
   (fp_line (start -4.3815 1.397) (end -4.3815 -1.397) (layer "F.SilkS") (width 0.2))
+  (model "${KICAD10_3DMODEL_DIR}/Package_SO.3dshapes/SOIC-14_3.9x8.7mm_P1.27mm.step"
+    (offset (xyz 0 0 0))
+    (scale (xyz 1 1 1))
+    (rotate (xyz 0 0 0))
+  )
 )

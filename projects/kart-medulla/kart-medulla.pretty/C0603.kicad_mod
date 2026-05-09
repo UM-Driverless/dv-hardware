@@ -26,4 +26,9 @@
   (fp_arc (start 1.39 0.4002) (mid 1.2993 0.6193) (end 1.0802 0.71) (layer "F.SilkS") (width 0.254))
   (fp_arc (start -1.0801 0.7096) (mid -1.2992 0.6188) (end -1.3899 0.3997) (layer "F.SilkS") (width 0.254))
   (fp_arc (start -1.3899 -0.4002) (mid -1.2992 -0.6193) (end -1.0801 -0.7101) (layer "F.SilkS") (width 0.254))
+  (model "${KICAD10_3DMODEL_DIR}/Capacitor_SMD.3dshapes/C_0603_1608Metric.step"
+    (offset (xyz 0 0 0))
+    (scale (xyz 1 1 1))
+    (rotate (xyz 0 0 0))
+  )
 )

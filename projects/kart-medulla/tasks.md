@@ -106,14 +106,6 @@ Existing RC on MCP4922 VREF (100 Ω + 10 µF) stays — overkill for the linear 
 - Mounting holes (M3 × 4) at corners, isolated from any nets.
 - Check footprint sizes against actual parts (DPAK for L7805, SOIC-16 for PCF8574, µMAX-8 for MAX4660, SOT-23 for BSS123, SOIC-14 for MCP4922).
 
-### Bind 3D models at library level (not instance level)
-
-Right now every footprint's 3D model (`${KICAD10_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0603_…`, the project-local PTSA / MAX4660 STEP files, etc.) is bound **per-instance inside `kart-medulla.kicad_pcb`** rather than inside the footprint definitions in `kart-medulla.pretty/`. This makes the bindings fragile: a re-import, a footprint replace, or a `git checkout` from a teammate's branch that didn't have them silently strips all the bindings → empty 3D view. Already happened twice in this session (recovered via a Python merge from `kart-medulla.kicad_pcb.bak.20260509f`, see commit `9596513`).
-
-**Action:** for each footprint in `kart-medulla.pretty/*.kicad_mod`, add the appropriate `(model …)` block (with `offset`, `scale`, `rotate` matching the values currently in the .kicad_pcb). Then any future "Update Footprints from Library" rebuilds the bindings automatically and the regression cannot happen again.
-
-Roughly 13 distinct footprints to edit (count of unique 3D model paths currently in use): `C0603`, `R0603`, `SOIC-{8, 14, 16W}`, `MSOP-8`, `SOT-23`, `TO-252-2`, `TO-220-3_Vertical`, `PinSocket_{1x22, 2x22}_P2.54mm_Vertical`, `CONN-TH_3P-P2.50-S5.00_1990012`, `MAX4660` footprint. Per-footprint `(offset / rotate)` values to copy live in `kart-medulla.kicad_pcb` (grep `(model ` near each footprint block).
-
 ### PCB checklist — pre-fab review and validation #ruben
 
 - Run **DRC** until 0 errors / 0 unexpected warnings. Suppress only the SPARE/NC pin warnings explicitly.
@@ -132,4 +124,4 @@ Roughly 13 distinct footprints to edit (count of unique 3D model paths currently
 
 ## Done
 
-(none yet on this list)
+- [2026-05-09] **Bind 3D models at library level (not instance level)**: edited 12 footprints in `kart-medulla.pretty/` (C0603, R0603, SOIC-{8,14,16}, SOP65P400X130-8N, SOT-23, TO-{220-3,252-2}, the two Samtec ESQ-122 headers, PTSA 3P) to carry `(model …)` blocks at library level, matching the existing pattern in `SOP65P490X110-9N` (which already had its MAX4660 binding). Per-footprint `offset` / `rotate` (e.g. PTSA's `xyz -90 0 0`) preserved exactly from the values in the `.kicad_pcb`. Future "Update Footprints from Library" or re-imports will now rebuild the 3D bindings automatically; the regression that needed `kart-medulla.kicad_pcb.bak.20260509f` recovery in commits `9596513` / surgical-merge cannot reoccur from the library side.

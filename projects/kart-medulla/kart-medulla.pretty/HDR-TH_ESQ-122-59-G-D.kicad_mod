@@ -56,4 +56,9 @@
   (fp_line (start -28.195 -2.475) (end 28.195 -2.475) (layer "F.SilkS") (width 0.2))
   (fp_line (start -28.195 2.4749) (end -28.195 -2.475) (layer "F.SilkS") (width 0.1999))
   (fp_line (start 28.195 -2.475) (end 28.195 2.4749) (layer "F.SilkS") (width 0.1999))
+  (model "${KICAD10_3DMODEL_DIR}/Connector_PinSocket_2.54mm.3dshapes/PinSocket_2x22_P2.54mm_Vertical.step"
+    (offset (xyz 26.6 -1.5 0))
+    (scale (xyz 1 1 1))
+    (rotate (xyz -0 -0 90))
+  )
 )

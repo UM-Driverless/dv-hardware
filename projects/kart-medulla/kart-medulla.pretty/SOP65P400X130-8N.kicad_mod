@@ -23,4 +23,9 @@
   (fp_line (start -1.4 1.495) (end 1.4 1.495) (layer "F.SilkS") (width 0.127))
   (fp_line (start -1.4 -1.475) (end -1.4 1.475) (layer "F.Fab") (width 0.127))
   (fp_line (start 1.4 -1.475) (end 1.4 1.475) (layer "F.Fab") (width 0.127))
+  (model "${KICAD10_3DMODEL_DIR}/Package_SO.3dshapes/MSOP-8_3x3mm_P0.65mm.step"
+    (offset (xyz 0 0 0))
+    (scale (xyz 1 1 1))
+    (rotate (xyz 0 0 0))
+  )
 )

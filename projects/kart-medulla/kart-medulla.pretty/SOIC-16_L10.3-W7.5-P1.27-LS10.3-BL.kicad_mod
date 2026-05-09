@@ -67,4 +67,9 @@
   (fp_line (start 5.2262 3.3214) (end -5.2262 3.3214) (layer "F.SilkS") (width 0.1524))
   (fp_circle (center -4.445 2.569) (end -4.2949 2.569) (layer "F.SilkS") (width 0.3) (fill none))
   (fp_circle (center -5.1844 4.7503) (end -5.0343 4.7503) (layer "F.SilkS") (width 0.3) (fill none))
+  (model "${KICAD10_3DMODEL_DIR}/Package_SO.3dshapes/SOIC-16W_7.5x10.3mm_P1.27mm.step"
+    (offset (xyz 0 0 0))
+    (scale (xyz 1 1 1))
+    (rotate (xyz 0 0 0))
+  )
 )
