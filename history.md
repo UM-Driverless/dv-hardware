@@ -4,6 +4,55 @@
 
 Append-only log. Newest first.
 
+## 2026-05-09 — 3D-model regression after peer merge → surgical recovery → library-level fix
+
+**Sequence of events** (all on 2026-05-09):
+
+1. Earlier session bulk-injected 3D model `(model …)` blocks into 58 footprint instances in `kart-medulla.kicad_pcb` (recorded at "Bulk-injecting 3D models into EasyEDA-imported footprints" entry below). Bindings lived per-instance only — not in the `kart-medulla.pretty/` library.
+2. Peer pushed two PCB-routing commits (`6b4914e`, `5f4ee9c`). When integrating, ran `git checkout origin/main -- kart-medulla.kicad_pcb` to take peer's layout. **This silently dropped 54 of 55 instance-level 3D bindings** — peer's local PCB had been re-imported / replaced at some point and didn't carry the per-instance `(model …)` blocks. Only `MAX4660EUA_T.step` survived because that one was already library-bound in `SOP65P490X110-9N.kicad_mod`.
+3. Diagnosed via `grep '(model' kart-medulla.kicad_pcb | sort -u`: 1 ref where there had been 13. 3D viewer empty for everything except the MAX4660.
+4. **Recovery:** found `kart-medulla.kicad_pcb.bak.20260509f` (KiCad auto-save from earlier in the session, pre-regression) with 55 intact bindings. Wrote a Python S-expression-walker that built `refdes → (model …) block` map from the .bak, then walked the current `.kicad_pcb` and injected the matching block into each footprint that lacked one. Layout/routing/silk untouched. 54 footprints restored, 4 unmatched (`PAD1–PAD4` corner mounting holes — correctly skipped). Committed as `9596513`.
+5. Peer pushed *another* PCB commit (`5f4ee9c "logo and connections"`). Same regression: 3D bindings down to 1 again. Re-ran the surgical merge — same script, same `.bak` source — recovered all 55 again. Pushed atop peer's tip.
+6. **Long-term fix:** edited 12 footprints in `kart-medulla.pretty/` to carry library-level `(model …)` blocks matching the format of the existing `SOP65P490X110-9N.kicad_mod`. Path / offset / scale / rotate values lifted verbatim from the `.kicad_pcb` (PTSA's `xyz -90 0 0` rotation + `-0.75 -1.2 0` offset preserved; ESQ-122 headers' `xyz -0 -0 90`; TO-220's `xyz 0 0 90`). Committed as `a0f7a5c`.
+
+**Lessons / rules established:**
+
+- **Per-instance 3D bindings are fragile.** Any operation that swaps the `.kicad_pcb` (re-import from EasyEDA, library footprint replace, `git checkout` from a peer branch lacking them) silently strips them. **Always bind 3D models at the `*.kicad_mod` library level** for parts intended to live on this board.
+- **Instance-level still wins over library-level** in KiCad. Adding library bindings is non-destructive — if the live PCB already has a per-instance value, that wins. Used this property to land the library-level fix without coordinating around peer's in-flight layout work.
+- **KiCad auto-saves saved us.** `kart-medulla.kicad_pcb.bak.20260509b/c/d/e/f` carried successive snapshots of the pre-regression state. Without them the surgery would have required re-deriving every per-instance offset/rotation by eye. **Don't gitignore the `.bak.*` files until after they've served their recovery purpose.** (Today the team's `.gitignore` was extended to `*.bak.*` — that's fine for the *future*, not for today's recovery, since the .bak files were already on disk.)
+- **The Python S-expression walker** (parens-balanced footprint extraction + refdes-keyed model-block lookup) is reusable for any future "files diverged, want to merge specific subtrees" scenario in KiCad. Keep the snippet handy.
+
+## 2026-05-09 — AISLER Beautiful Boards DRC config + Power net class
+
+Configured Board Setup constraints + a custom `kart-medulla.kicad_dru` file targeting **AISLER's "Beautiful Boards" 2-layer service** (the team's PCB-fab sponsor) with ~30 % margin over published minimums. Full rationale per number in `projects/kart-medulla/docs/drc-aisler.md`.
+
+Headline numbers: track 0.20 mm, clearance 0.20 mm, drill 0.30 mm, via 0.55 mm Ø with 0.30 mm hole, copper-to-edge 0.30 mm, hole-to-hole 0.30 mm, silk 1.0 mm × 0.15 mm, silk-clearance 0.15 mm, microvias / blind-buried disabled.
+
+**Net classes:** `Default` (track 0.25, clearance 0.20, via 0.6/0.3) and `Power` (track 0.50, clearance 0.25, via 0.8/0.4). Pattern-based assignment of `+12V`, `+5V_USB`, `+5V_REG`, `+3V3` to the Power class via `net_settings.netclass_patterns` in `.kicad_pro`. **`GND` deliberately stays in Default** — it's a poured zone, not a routed track, so a 0.5 mm minimum-track-width rule would be noise. **`3V3` is borderline** (low-current rail, ~200 mA peak); kept in Power for visual consistency, demote to Default if routing gets tight.
+
+**Custom DRC rules** (`kart-medulla.kicad_dru`): `edge-clearance` (0.30 mm belt-and-suspenders), `annular-min` (0.125 mm extended to pads, not just vias), `hv-pressure-clearance` (0.60 mm on the three 24 V Festo pressure-sensor input nets — IEC 60664-1 Pollution Degree 2 / Material Group IIIa says 0.50 mm at 50 V working voltage; we're at 24 V outdoors so 0.6 mm gives derating + dust margin), `power-track-width` (0.50 mm Power-class backstop), `silk-pad-clearance`.
+
+**Implementation gotcha (worth remembering):** edited `.kicad_pro` JSON behind a running KiCad — KiCad re-saved on close and silently clobbered the edits, reverting `min_clearance`, `min_track_width`, and the entire Power class. Lesson: **never edit `.kicad_pro` from outside while KiCad has the project open.** Either close KiCad first, or do all changes through Board Setup → Net Classes (which writes the schema KiCad expects, not whatever JSON shape an external tool guessed at).
+
+**Net pattern syntax:** KiCad 10 patterns match against the **bare net name with leading `+`** (e.g. `+5V_USB`, `+3V3`, `+12V`) — **no leading slash**. The "Nets matching" preview pane in the Netclass Assignments dialog is the fastest way to confirm the pattern actually hits anything; an empty match means the pattern is wrong. Initially tried `/3V3`, `/+5V`, etc. — none matched (the medulla's actual nets are `+3V3`, `+5V_USB`, `+5V_REG`, `+12V`, with no bare `+5V`).
+
+## 2026-05-09 — Silkscreen text font: DejaVu Sans Mono (chosen by peer)
+
+Peer working on the PCB layout used **DejaVu Sans Mono** for the CN1–CN10 silkscreen pin-label blocks. Tab-aligned columns rendered acceptably (not perfect — peer's words). Note for future cross-OS work: DejaVu Sans Mono ships by default on Ubuntu but **is not installed on macOS** (verified `fc-list` on Rubén's Mac 2026-05-09 — only Menlo, no DejaVu). There is no monospace font shared by default between macOS and Ubuntu. Options to keep the project cross-platform:
+
+- Install DejaVu on Mac: `brew install --cask font-dejavu` (matches what the peer has).
+- Use KiCad's **Embed Fonts** option (`File → Board Setup → Embedded Files` in KiCad 9+) — bakes the .ttf into the .kicad_pcb so the font travels with the project, regardless of who opens it.
+
+Recommend turning on Embed Fonts before fab so the gerber export is deterministic across both machines.
+
+## 2026-05-09 — AISLER sponsor logo placeholder size decision
+
+Decided on the **smallest AISLER-spec size: 30 × 7.5 mm** (4:1 ratio, AISLER's stated minimum). Rationale: the only constraint that mattered was the 22.86 mm gap between the 0.9″ ESP32 headers, but the long axis goes parallel to the headers, not across the gap, so it wasn't actually binding. The biggest size we could have used (60 × 15 mm) and any intermediate (40×10, 50×12.5) would have fit too — went small because it looks better on this board.
+
+Source for the 30 × 7.5 mm number: Rubén in #Driverless on 2026-05-06 ("la idea es que pongáis el recuadro de 30 × 7,5 mm donde os de la gana en la pcb") + the linked AISLER community thread (https://community.aisler.net/t/adding-our-logo-to-your-pcb/5382).
+
+Drawing rules (from the AISLER doc, quoted verbatim where it matters): rectangle must be drawn as **4 individual lines** (the rectangle tool fails AISLER's auto-detect because it groups), line width **0.08382 mm (3.3 mil) exactly**, on silkscreen. AISLER doc says "Place as many placeholders as you want — each will be replaced with the logo," so placing one on F.Silkscreen *and* one on B.Silkscreen is allowed (default plan: do both).
+
 ## 2026-05-09 — U19 (L7805) PCB-vs-AI-Inventory cross-check
 
 PCB U19 uses footprint `kart-medulla:TO-252-2_L6.6-W6.1-P4.57-LS9.9-BR-CW`, value `L7805CDT_C20611927` (LCSC C20611927) — DPAK / TO-252-2, ST.
