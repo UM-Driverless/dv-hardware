@@ -85,7 +85,6 @@
 		)
 		(capping no)
 		(filling no)
-		(zone_defaults)
 		(grid_origin 61 30)
 		(pcbplotparams
 			(layerselection 0x00000000_00000000_55555555_5755f5ff)
@@ -387,6 +386,17 @@
 			(uuid "fdfd65d9-d7e8-4560-a7ad-3778be22cad7")
 		)
 		(embedded_fonts no)
+		(model "${KIPRJMOD}/3dmodels/1990012_PTSA_3p_2.5mm.step"
+			(offset
+				(xyz -0.75 -1.2 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz -90 0 0)
+			)
+		)
 	)
 	(footprint "kart-medulla:CONN-TH_3P-P2.50-S5.00_1990012"
 		(layer "F.Cu")
@@ -651,6 +661,17 @@
 			(uuid "dcba2b69-9f7c-45c1-b6e4-097328d992d5")
 		)
 		(embedded_fonts no)
+		(model "${KIPRJMOD}/3dmodels/1990012_PTSA_3p_2.5mm.step"
+			(offset
+				(xyz -0.75 -1.2 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz -90 0 0)
+			)
+		)
 	)
 	(footprint "kart-medulla:TO-220-3_L10.0-W4.5-P2.54-T"
 		(layer "F.Cu")
@@ -974,6 +995,17 @@
 			(uuid "a359ec57-5359-48ea-a323-2620f47fce3c")
 		)
 		(embedded_fonts no)
+		(model "${KICAD10_3DMODEL_DIR}/Package_TO_SOT_THT.3dshapes/TO-220-3_Vertical.step"
+			(offset
+				(xyz 0 2.54 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 90)
+			)
+		)
 	)
 	(footprint "kart-medulla:CONN-TH_3P-P2.50-S5.00_1990012"
 		(layer "F.Cu")
@@ -1238,6 +1270,17 @@
 			(uuid "e01906ab-68e1-44a9-8c40-15040d1a0a6f")
 		)
 		(embedded_fonts no)
+		(model "${KIPRJMOD}/3dmodels/1990012_PTSA_3p_2.5mm.step"
+			(offset
+				(xyz -0.75 -1.2 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz -90 0 0)
+			)
+		)
 	)
 	(footprint "kart-medulla:standalone_pad_0003"
 		(layer "F.Cu")
@@ -1560,6 +1603,17 @@
 			(uuid "41e8737f-f279-493f-901a-cf16386b47a1")
 		)
 		(embedded_fonts no)
+		(model "${KIPRJMOD}/3dmodels/1990012_PTSA_3p_2.5mm.step"
+			(offset
+				(xyz -0.75 -1.2 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz -90 0 0)
+			)
+		)
 	)
 	(footprint "kart-medulla:HDR-TH_ESQ-122-59-G-D"
 		(layer "F.Cu")
@@ -2220,6 +2274,17 @@
 			(uuid "ded7bdbc-7eaf-4469-8f82-54727ef26cd5")
 		)
 		(embedded_fonts no)
+		(model "${KICAD10_3DMODEL_DIR}/Connector_PinSocket_2.54mm.3dshapes/PinSocket_2x22_P2.54mm_Vertical.step"
+			(offset
+				(xyz 26.6 -1.5 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz -0 -0 90)
+			)
+		)
 	)
 	(footprint "kart-medulla:standalone_pad_0001"
 		(layer "F.Cu")
@@ -2600,6 +2665,17 @@
 			(uuid "a1f6729c-aaf8-4030-8ae5-d0bb44ea9055")
 		)
 		(embedded_fonts no)
+		(model "${KIPRJMOD}/3dmodels/1990012_PTSA_3p_2.5mm.step"
+			(offset
+				(xyz -0.75 -1.2 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz -90 0 0)
+			)
+		)
 	)
 	(footprint "kart-medulla:standalone_pad_0004"
 		(layer "F.Cu")
@@ -2922,6 +2998,17 @@
 			(uuid "15e475d5-d155-4850-9d46-2723891614eb")
 		)
 		(embedded_fonts no)
+		(model "${KIPRJMOD}/3dmodels/1990012_PTSA_3p_2.5mm.step"
+			(offset
+				(xyz -0.75 -1.2 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz -90 0 0)
+			)
+		)
 	)
 	(footprint "kart-medulla:CONN-TH_3P-P2.50-S5.00_1990012"
 		(layer "F.Cu")
@@ -3186,6 +3273,17 @@
 			(uuid "f5461b0d-8929-42fa-b84a-9aae7062e4f5")
 		)
 		(embedded_fonts no)
+		(model "${KIPRJMOD}/3dmodels/1990012_PTSA_3p_2.5mm.step"
+			(offset
+				(xyz -0.75 -1.2 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz -90 0 0)
+			)
+		)
 	)
 	(footprint "kart-medulla:CONN-TH_3P-P2.50-S5.00_1990012"
 		(layer "F.Cu")
@@ -3450,6 +3548,17 @@
 			(uuid "9b8e2872-74d7-4347-8560-caff45b44b61")
 		)
 		(embedded_fonts no)
+		(model "${KIPRJMOD}/3dmodels/1990012_PTSA_3p_2.5mm.step"
+			(offset
+				(xyz -0.75 -1.2 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz -90 0 0)
+			)
+		)
 	)
 	(footprint "kart-medulla:HDR-TH_ESQ-122-23-G-S"
 		(layer "F.Cu")
@@ -3894,6 +4003,17 @@
 			(uuid "8c7e4114-3184-4dfd-a6e9-f54fed92acc8")
 		)
 		(embedded_fonts no)
+		(model "${KICAD10_3DMODEL_DIR}/Connector_PinSocket_2.54mm.3dshapes/PinSocket_1x22_P2.54mm_Vertical.step"
+			(offset
+				(xyz 26.6 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz -0 -0 90)
+			)
+		)
 	)
 	(footprint "kart-medulla:CONN-TH_3P-P2.50-S5.00_1990012"
 		(layer "F.Cu")
@@ -4158,6 +4278,17 @@
 			(uuid "36f7e2ec-1c85-48a2-93db-688d70a0bb41")
 		)
 		(embedded_fonts no)
+		(model "${KIPRJMOD}/3dmodels/1990012_PTSA_3p_2.5mm.step"
+			(offset
+				(xyz -0.75 -1.2 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz -90 0 0)
+			)
+		)
 	)
 	(footprint "kart-medulla:CONN-TH_3P-P2.50-S5.00_1990012"
 		(layer "F.Cu")
@@ -4422,6 +4553,17 @@
 			(uuid "3a364017-76e9-405b-a05d-b22148dd18e6")
 		)
 		(embedded_fonts no)
+		(model "${KIPRJMOD}/3dmodels/1990012_PTSA_3p_2.5mm.step"
+			(offset
+				(xyz -0.75 -1.2 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz -90 0 0)
+			)
+		)
 	)
 	(footprint "kart-medulla:C0603"
 		(layer "B.Cu")
@@ -4747,6 +4889,17 @@
 			(uuid "c945d8a7-b516-46e1-bd7f-543620ca054f")
 		)
 		(embedded_fonts no)
+		(model "${KICAD10_3DMODEL_DIR}/Capacitor_SMD.3dshapes/C_0603_1608Metric.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
 	)
 	(footprint "kart-medulla:SOP65P400X130-8N"
 		(layer "B.Cu")
@@ -5045,6 +5198,17 @@
 			(uuid "d5561dce-9aca-4f4c-9bdb-7edaed5108ce")
 		)
 		(embedded_fonts no)
+		(model "${KICAD10_3DMODEL_DIR}/Package_SO.3dshapes/MSOP-8_3x3mm_P0.65mm.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
 	)
 	(footprint "kart-medulla:R0603"
 		(layer "B.Cu")
@@ -5343,6 +5507,17 @@
 			(uuid "4ce0c37a-3aa5-4ae8-bb84-8ec6972ebaf8")
 		)
 		(embedded_fonts no)
+		(model "${KICAD10_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0603_1608Metric.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
 	)
 	(footprint "kart-medulla:R0603"
 		(layer "B.Cu")
@@ -5640,6 +5815,17 @@
 			(uuid "2a794cc7-3e91-464d-a885-514575162e7b")
 		)
 		(embedded_fonts no)
+		(model "${KICAD10_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0603_1608Metric.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
 	)
 	(footprint "kart-medulla:R0603"
 		(layer "B.Cu")
@@ -5937,6 +6123,17 @@
 			(uuid "5213ff40-c79f-44df-940e-bf0aacad238d")
 		)
 		(embedded_fonts no)
+		(model "${KICAD10_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0603_1608Metric.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
 	)
 	(footprint "kart-medulla:R0603"
 		(layer "B.Cu")
@@ -6234,6 +6431,17 @@
 			(uuid "cc479b5d-e549-43a2-84f0-33d325f5a6b2")
 		)
 		(embedded_fonts no)
+		(model "${KICAD10_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0603_1608Metric.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
 	)
 	(footprint "kart-medulla:R0603"
 		(layer "B.Cu")
@@ -6545,6 +6753,17 @@
 			(uuid "83afa4e0-be9d-44d6-95dc-a82885eecf47")
 		)
 		(embedded_fonts no)
+		(model "${KICAD10_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0603_1608Metric.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
 	)
 	(footprint "kart-medulla:R0603"
 		(layer "B.Cu")
@@ -6842,6 +7061,17 @@
 			(uuid "6d218069-54c5-42a6-b1b9-d0324210425f")
 		)
 		(embedded_fonts no)
+		(model "${KICAD10_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0603_1608Metric.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
 	)
 	(footprint "kart-medulla:SOP65P490X110-9N"
 		(layer "B.Cu")
@@ -7511,6 +7741,17 @@
 			(uuid "868920bf-ccb9-44ca-a48f-6587a83c70b5")
 		)
 		(embedded_fonts no)
+		(model "${KICAD10_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0603_1608Metric.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
 	)
 	(footprint "kart-medulla:SOIC-16_L10.3-W7.5-P1.27-LS10.3-BL"
 		(layer "B.Cu")
@@ -8291,6 +8532,17 @@
 			(uuid "c1a1bcc8-b97a-42c6-8f6a-f3162e509ba8")
 		)
 		(embedded_fonts no)
+		(model "${KICAD10_3DMODEL_DIR}/Package_SO.3dshapes/SOIC-16W_7.5x10.3mm_P1.27mm.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
 	)
 	(footprint "kart-medulla:R0603"
 		(layer "B.Cu")
@@ -8588,6 +8840,17 @@
 			(uuid "a51498b3-0d2f-4a15-badb-f166c4c641ed")
 		)
 		(embedded_fonts no)
+		(model "${KICAD10_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0603_1608Metric.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
 	)
 	(footprint "kart-medulla:C0603"
 		(layer "B.Cu")
@@ -8913,6 +9176,17 @@
 			(uuid "cba63842-a7de-42a2-abf5-c6001e3b711f")
 		)
 		(embedded_fonts no)
+		(model "${KICAD10_3DMODEL_DIR}/Capacitor_SMD.3dshapes/C_0603_1608Metric.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
 	)
 	(footprint "kart-medulla:R0603"
 		(layer "B.Cu")
@@ -9210,6 +9484,17 @@
 			(uuid "08b373c5-2054-4791-b416-b682771a7cbd")
 		)
 		(embedded_fonts no)
+		(model "${KICAD10_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0603_1608Metric.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
 	)
 	(footprint "kart-medulla:TO-252-2_L6.6-W6.1-P4.57-LS9.9-BR-CW"
 		(layer "B.Cu")
@@ -9518,6 +9803,17 @@
 			(uuid "52ffacac-66ac-40e8-8e68-a08c9d8cb891")
 		)
 		(embedded_fonts no)
+		(model "${KICAD10_3DMODEL_DIR}/Package_TO_SOT_SMD.3dshapes/TO-252-2.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
 	)
 	(footprint "kart-medulla:R0603"
 		(layer "B.Cu")
@@ -9815,6 +10111,17 @@
 			(uuid "f63ff024-f06f-4caa-ae26-eea37f21797b")
 		)
 		(embedded_fonts no)
+		(model "${KICAD10_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0603_1608Metric.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
 	)
 	(footprint "kart-medulla:R0603"
 		(layer "B.Cu")
@@ -10112,6 +10419,17 @@
 			(uuid "7cd147bd-55bb-4249-a7a5-217e9ea3e6da")
 		)
 		(embedded_fonts no)
+		(model "${KICAD10_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0603_1608Metric.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
 	)
 	(footprint "kart-medulla:C0603"
 		(layer "B.Cu")
@@ -10437,6 +10755,17 @@
 			(uuid "1d32b001-ae14-4daa-869b-10d0b0bc5b55")
 		)
 		(embedded_fonts no)
+		(model "${KICAD10_3DMODEL_DIR}/Capacitor_SMD.3dshapes/C_0603_1608Metric.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
 	)
 	(footprint "kart-medulla:R0603"
 		(layer "B.Cu")
@@ -10734,6 +11063,17 @@
 			(uuid "1fa6ebb7-3ae5-4380-9963-72a35df7387e")
 		)
 		(embedded_fonts no)
+		(model "${KICAD10_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0603_1608Metric.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
 	)
 	(footprint "kart-medulla:R0603"
 		(layer "B.Cu")
@@ -11031,6 +11371,17 @@
 			(uuid "2a0ccec7-f543-4e1b-b280-ff04b4701180")
 		)
 		(embedded_fonts no)
+		(model "${KICAD10_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0603_1608Metric.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
 	)
 	(footprint "kart-medulla:R0603"
 		(layer "B.Cu")
@@ -11328,6 +11679,17 @@
 			(uuid "63aba7e9-f7a8-418b-b03d-96d56a8e0009")
 		)
 		(embedded_fonts no)
+		(model "${KICAD10_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0603_1608Metric.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
 	)
 	(footprint "kart-medulla:R0603"
 		(layer "B.Cu")
@@ -11625,6 +11987,17 @@
 			(uuid "b17fd43a-f5d1-4d1b-b942-f3449759a67e")
 		)
 		(embedded_fonts no)
+		(model "${KICAD10_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0603_1608Metric.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
 	)
 	(footprint "kart-medulla:C0603"
 		(layer "B.Cu")
@@ -11950,6 +12323,17 @@
 			(uuid "9f93ec1a-a4ac-4b9f-b74b-d887157eb1af")
 		)
 		(embedded_fonts no)
+		(model "${KICAD10_3DMODEL_DIR}/Capacitor_SMD.3dshapes/C_0603_1608Metric.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
 	)
 	(footprint "kart-medulla:C0603"
 		(layer "B.Cu")
@@ -12275,6 +12659,17 @@
 			(uuid "77c02b6b-e93c-4ac3-bcae-7734dd5596e7")
 		)
 		(embedded_fonts no)
+		(model "${KICAD10_3DMODEL_DIR}/Capacitor_SMD.3dshapes/C_0603_1608Metric.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
 	)
 	(footprint "kart-medulla:C0603"
 		(layer "B.Cu")
@@ -12600,6 +12995,17 @@
 			(uuid "95484c7d-b525-4126-8651-dda47201c1b7")
 		)
 		(embedded_fonts no)
+		(model "${KICAD10_3DMODEL_DIR}/Capacitor_SMD.3dshapes/C_0603_1608Metric.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
 	)
 	(footprint "kart-medulla:R0603"
 		(layer "B.Cu")
@@ -12897,6 +13303,17 @@
 			(uuid "728739fe-306a-44f1-8b51-35f730816646")
 		)
 		(embedded_fonts no)
+		(model "${KICAD10_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0603_1608Metric.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
 	)
 	(footprint "kart-medulla:R0603"
 		(layer "B.Cu")
@@ -13194,6 +13611,17 @@
 			(uuid "fa874cab-75b0-4ee9-8065-2429569515dc")
 		)
 		(embedded_fonts no)
+		(model "${KICAD10_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0603_1608Metric.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
 	)
 	(footprint "kart-medulla:R0603"
 		(layer "B.Cu")
@@ -13505,6 +13933,17 @@
 			(uuid "719e407a-7f74-4b54-a341-0ec9c4e3effd")
 		)
 		(embedded_fonts no)
+		(model "${KICAD10_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0603_1608Metric.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
 	)
 	(footprint "kart-medulla:R0603"
 		(layer "B.Cu")
@@ -13802,6 +14241,17 @@
 			(uuid "3226bdb9-6201-4603-a329-76838b554197")
 		)
 		(embedded_fonts no)
+		(model "${KICAD10_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0603_1608Metric.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
 	)
 	(footprint "kart-medulla:R0603"
 		(layer "B.Cu")
@@ -14099,6 +14549,17 @@
 			(uuid "38fa871d-4953-4977-aca2-b5e6d3a04373")
 		)
 		(embedded_fonts no)
+		(model "${KICAD10_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0603_1608Metric.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
 	)
 	(footprint "kart-medulla:R0603"
 		(layer "B.Cu")
@@ -14396,6 +14857,17 @@
 			(uuid "c0717cdd-64a3-49db-bb27-27bae45fe98c")
 		)
 		(embedded_fonts no)
+		(model "${KICAD10_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0603_1608Metric.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
 	)
 	(footprint "kart-medulla:SOT-23_L2.9-W1.3-P1.90-LS2.4-BR"
 		(layer "B.Cu")
@@ -14735,6 +15207,17 @@
 			(uuid "fbe64079-eb11-49b2-8ccf-d4364740be87")
 		)
 		(embedded_fonts no)
+		(model "${KICAD10_3DMODEL_DIR}/Package_TO_SOT_SMD.3dshapes/SOT-23.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
 	)
 	(footprint "kart-medulla:R0603"
 		(layer "B.Cu")
@@ -15046,6 +15529,17 @@
 			(uuid "cf7814c2-bd7d-4e84-9f65-980672e40384")
 		)
 		(embedded_fonts no)
+		(model "${KICAD10_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0603_1608Metric.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
 	)
 	(footprint "kart-medulla:SOIC-8_L5.0-W4.0-P1.27-LS6.0-BL"
 		(layer "B.Cu")
@@ -15571,6 +16065,17 @@
 			(uuid "c885a783-5064-4c15-8a7c-297741be119c")
 		)
 		(embedded_fonts no)
+		(model "${KICAD10_3DMODEL_DIR}/Package_SO.3dshapes/SOIC-8_3.9x4.9mm_P1.27mm.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
 	)
 	(footprint "kart-medulla:SOIC-14_L8.7-W3.9-P1.27-LS6.0-BL"
 		(layer "B.Cu")
@@ -16567,6 +17072,17 @@
 			(uuid "827dddde-7af8-43ad-8b4c-391845159675")
 		)
 		(embedded_fonts no)
+		(model "${KICAD10_3DMODEL_DIR}/Package_SO.3dshapes/SOIC-14_3.9x8.7mm_P1.27mm.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
 	)
 	(footprint "kart-medulla:R0603"
 		(layer "B.Cu")
@@ -16864,6 +17380,17 @@
 			(uuid "e6f367ef-4bee-4533-99e1-ef55b9e7f101")
 		)
 		(embedded_fonts no)
+		(model "${KICAD10_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0603_1608Metric.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
 	)
 	(footprint "kart-medulla:R0603"
 		(layer "B.Cu")
@@ -17161,6 +17688,17 @@
 			(uuid "9b8219f5-7796-411d-92ba-9ca56d5a37b8")
 		)
 		(embedded_fonts no)
+		(model "${KICAD10_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0603_1608Metric.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
 	)
 	(footprint "kart-medulla:R0603"
 		(layer "B.Cu")
@@ -17458,6 +17996,17 @@
 			(uuid "a6588f16-2350-4a23-97de-4f84cadb7e65")
 		)
 		(embedded_fonts no)
+		(model "${KICAD10_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0603_1608Metric.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
 	)
 	(footprint "kart-medulla:R0603"
 		(layer "B.Cu")
@@ -17755,6 +18304,17 @@
 			(uuid "c4638cf6-b1ba-4838-97cd-e75bc101fca9")
 		)
 		(embedded_fonts no)
+		(model "${KICAD10_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0603_1608Metric.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
 	)
 	(footprint "kart-medulla:R0603"
 		(layer "B.Cu")
@@ -18053,6 +18613,17 @@
 			(uuid "8dd085e4-8ae1-4124-bf32-bb8ddf3ccd68")
 		)
 		(embedded_fonts no)
+		(model "${KICAD10_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0603_1608Metric.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
 	)
 	(footprint "kart-medulla:R0603"
 		(layer "B.Cu")
@@ -18350,6 +18921,17 @@
 			(uuid "ee590df2-d6d6-4d45-b14f-d9796b446144")
 		)
 		(embedded_fonts no)
+		(model "${KICAD10_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0603_1608Metric.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
 	)
 	(footprint "kart-medulla:R0603"
 		(layer "B.Cu")
@@ -18647,6 +19229,17 @@
 			(uuid "4063ed3d-e45a-453c-9cba-63f58f53ef82")
 		)
 		(embedded_fonts no)
+		(model "${KICAD10_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0603_1608Metric.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
 	)
 	(gr_line
 		(start 102.5 50.5)
@@ -21910,30 +22503,6 @@
 					(xy 63.050841 82.905111) (xy 63.068511 82.867419) (xy 63.097679 82.837519)
 				)
 			)
-		)
-	)
-	(gr_text "Width  : 100,00 mm"
-		(at 82 25 0)
-		(layer "Edge.Cuts")
-		(uuid "19d8040a-bc03-414e-8c07-15a8581d7708")
-		(effects
-			(font
-				(size 4 4)
-				(thickness 0.15)
-			)
-			(justify left bottom)
-		)
-	)
-	(gr_text "Length : 77,00 mm"
-		(at 54.75 93.5 90)
-		(layer "Edge.Cuts")
-		(uuid "30daae6e-b8a8-4d9c-b858-34f4c3d49681")
-		(effects
-			(font
-				(size 4 4)
-				(thickness 0.15)
-			)
-			(justify left bottom)
 		)
 	)
 	(segment
