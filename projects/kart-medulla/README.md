@@ -14,3 +14,12 @@ Renamed all internal references from `Kart_Medulla_(expander_for_ESP_32)` to `ka
 - 165 DRC violations + 31 unconnected items: expected until footprint library is registered and net ties verified.
 
 Cleanup work tracked separately. The current commit is the as-converted baseline so future cleanup commits show a clean diff.
+
+## Fonts
+
+Silkscreen text on the PCB uses **DejaVu Sans Mono**. There is no monospace font shared by default between macOS and Ubuntu, so contributors must install it locally:
+
+- **Ubuntu:** ships by default — no action needed.
+- **macOS:** `brew install --cask font-dejavu` then restart KiCad.
+
+Alternatively, `File → Board Setup → Embedded Files` lets KiCad embed the font into the .kicad_pcb so it travels with the project. See `history.md` 2026-05-09 entry for details.

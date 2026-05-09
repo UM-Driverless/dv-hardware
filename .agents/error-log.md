@@ -4,6 +4,21 @@
 
 Mistakes made and the rules learned from them. Newest first. Grep before working in a related area.
 
+## 2026-05-09 — Repeatedly misread the user's silkscreen-layout request (Claude Opus 4.7)
+
+User asked for silkscreen text listing CN1–CN10 pin signals, then iterated on layout: "single long line", "not vertical, horizontal", "in 1 row not 2", "the example pattern continuing". I kept misinterpreting:
+- "single long line" → I gave one line *per CN* instead of one block.
+- "horizontal" → I lectured about pin-pitch alignment instead of just continuing the example layout the user had pasted.
+- "1 row" → I delivered two rows of 5 CNs (because I'd just done 5+5 the previous turn).
+
+Each correction took another full turn. User: "why do you have so many understanding issues lately?"
+
+**Prevention:**
+- When the user pastes an **example layout** and says "this pattern, continuing", treat the example as a literal template. Match column count, separator style, spacing. Do not re-invent the format.
+- When the user says "single", "one", "1" about a structural property (one row, one line, one column), that is a *count*, not a vibe — count the output before sending.
+- Don't editorialize ("text is stroke-font, alignment is fiddly…") when the user has asked for a layout. Deliver the layout; mention caveats only if asked.
+- Read the user's latest message twice before responding when they've just corrected the same artifact more than once.
+
 ## 2026-05-09 — Invented a rule from a singular noun in third-party docs (AISLER logo layer)
 
 While documenting the AISLER sponsor-logo placeholder task, paraphrased the AISLER community doc's "the desired silkscreen layer" (singular) into "F.Silkscreen *or* B.Silkscreen — designer's choice", framing it as if AISLER required picking only one side. The doc never said that — it said "Place as many placeholders as you want", which strongly implies multiple are fine. User caught it: "why did you invent that rule?"

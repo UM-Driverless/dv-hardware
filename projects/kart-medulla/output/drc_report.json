@@ -1,0 +1,63 @@
+{
+    "$schema": "https://schemas.kicad.org/drc.v1.json",
+    "coordinate_units": "mm",
+    "date": "2026-05-09T05:12:40",
+    "ignored_checks": [
+        {
+            "description": "Footprint has no courtyard defined",
+            "key": "missing_courtyard"
+        },
+        {
+            "description": "Track endpoint not centered on via",
+            "key": "track_not_centered_on_via"
+        },
+        {
+            "description": "Tuning profile track geometries",
+            "key": "tuning_profile_track_geometries"
+        },
+        {
+            "description": "Footprint doesn't match symbol's footprint filters",
+            "key": "footprint_filters_mismatch"
+        },
+        {
+            "description": "PTH inside courtyard",
+            "key": "pth_inside_courtyard"
+        },
+        {
+            "description": "NPTH inside courtyard",
+            "key": "npth_inside_courtyard"
+        },
+        {
+            "description": "Footprint component type doesn't match footprint pads",
+            "key": "footprint_type_mismatch"
+        }
+    ],
+    "included_severities": [
+        "error",
+        "warning",
+        "exclusion"
+    ],
+    "kicad_version": "10.0.1",
+    "schematic_parity": [],
+    "source": "kart-medulla.kicad_pcb",
+    "unconnected_items": [],
+    "violations": [
+        {
+            "comment": "",
+            "description": "Text thickness out of range (TrueType font characters with insufficient stroke weight)",
+            "excluded": true,
+            "items": [
+                {
+                    "description": "PCB text 'CN1     CN2      CN3       CN4    CN5       CN6        CN7      CN8          CN9          CN10\n1 +3V3  1 HALL3  1 EXP_P1  1 SCL  1 HYD2    1 PED_BRK  1 PRES1  1 SDC        1 STEER_PWM  1 CMD_ACC\n2 +12V  2 HALL2  2 EXP_P2  2 SDA  2 PRES3   2 PED_ACC  2 PRES2  2 BUZZ       2 HYD1       2 CMD_BRK\n3 GND   3 +5V    3 EXP_P3  3 REV  3 EXP_P4  3 +3V3     3 HALL1  3 STEER_DIR  3 GND        3 GND' on F.Silkscreen",
+                    "pos": {
+                        "x": 68.75,
+                        "y": 40.25
+                    },
+                    "uuid": "3b239a67-2b6e-4729-ba22-bfb42239a676"
+                }
+            ],
+            "severity": "warning",
+            "type": "text_thickness"
+        }
+    ]
+}
