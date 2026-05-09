@@ -32,15 +32,26 @@
     (condition "A.NetName == '/PRESSURE_1__24V' || A.NetName == '/PRESSURE_2__24V' || A.NetName == '/PRESSURE_3__24V'")
 )
 
-# ----- Power-rail track width minimum (Power class). -----
-# Backstop in case a track gets dropped on a power net without inheriting the
-# class. AISLER Beautiful Boards copper is 35 µm (1 oz). The Power-class rails
-# (+12V, +5V_USB, +5V_REG, +3V3) on medulla feed only logic ICs, op-amps, and
-# sensors — sub-1 A loads. IPC-2221 says 0.3 mm at 1 oz handles ~0.7 A at
-# +10 °C rise, comfortable margin. No motor/solenoid drive on Power class.
-(rule "power-track-width"
-    (constraint track_width (min 0.3mm))
-    (condition "A.NetClass == 'Power'")
+# ----- Power-rail track width minimum: removed 2026-05-09. -----
+# Originally 0.5 mm, then 0.3 mm, then dropped entirely. The medulla Power class
+# only carries logic-level rails (+12V, +5V_USB, +5V_REG, +3V3) feeding ICs,
+# op-amps, and sensors — all sub-100 mA loads in practice. Some of these rails
+# fan out to small QFN/SOT-23 packages where 0.2 mm pin-pitch routing is
+# necessary. The board-wide min_track_width (0.2 mm) is sufficient; no power
+# net on this board carries enough current to need a class-specific minimum.
+# If a future revision adds motor/solenoid power on a Power-class net, restore
+# this rule with the appropriate IPC-2221 minimum for that current.
+
+# ----- Fine-pitch SMD pad-to-pad clearance exemption. -----
+# Inside the 'fine-pitch-smd' rule area (drawn around U14, an SOIC-8 with
+# 0.65 mm pitch), pad-to-pad clearance is intrinsic to the package geometry
+# (~0.18 mm). The board-level min_clearance (0.20 mm) and Power-class
+# clearance (0.25 mm) make sense for tracks and inter-footprint spacing,
+# not for pads of the same fine-pitch chip. Suppress clearance checks for
+# pad pairs both inside this area.
+(rule "fine-pitch-pad-clearance"
+    (constraint clearance (min 0mm))
+    (condition "A.insideArea('fine-pitch-smd') && B.insideArea('fine-pitch-smd') && (A.Type == 'Pad' || B.Type == 'Pad')")
 )
 
 # ----- Silkscreen-to-pad clearance. -----

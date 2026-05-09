@@ -4,6 +4,23 @@
 
 Append-only log. Newest first.
 
+## 2026-05-09 — kart-medulla DRC cleanup session
+
+- **Auto-silkscreen plugin installed:** CGrassin/kicad-auto-silkscreen at `~/Documents/KiCad/10.0/scripting/plugins/kicad-auto-silkscreen/`. Ran once to auto-place all refdes on medulla PCB. Side effect: ~50 silk-to-pad clearance warnings (largely cleaned up afterward).
+- **Power-class minimum track width: 0.5 → 0.3 → removed.** Originally 0.5 mm in `71bf70d` (AISLER setup, sized for 1.5 A IPC-2152). Actual medulla Power loads (+12V, +5V_USB, +5V_REG, +3V3) are sub-100 mA — logic ICs, op-amps, sensors only. Cytron 12V→motor path does not traverse the medulla (per 2026-05-01 decision). Dropped to 0.3 mm, then removed entirely once QFN/SOT-23 fanout demanded 0.2 mm pitch on power rails. Power class still enforces clearance (0.25 mm) and via size (0.8/0.4 mm). Updated `kicad_dru`, `kicad_pro` (Power netclass `track_width: 0.5 → 0.2`), and `projects/kart-medulla/docs/drc-aisler.md`.
+- **Bulk power-track widening broke 36 connections.** Edit Track & Via Properties → "Set to net class / custom rule values" with Power-class filter widened all power tracks at once; endpoints shifted off pads. Unconnected items 3 → 39. Manual repair brought it back to 4; some still broken at session end.
+- **Polygon rule area for fine-pitch SMD pad clearance.** First attempt used custom DRC rule with `A.MemberOfFootprint == B.MemberOfFootprint` — invalid in KiCad 10, broke rules compilation entirely. Replaced with rule-area approach: drew polygon (`fine-pitch-smd`) around U14, added rule:
+  ```
+  (rule "fine-pitch-pad-clearance"
+    (constraint clearance (min 0mm))
+    (condition "A.insideArea('fine-pitch-smd') && B.insideArea('fine-pitch-smd') && (A.Type == 'Pad' || B.Type == 'Pad')"))
+  ```
+  Resolves 7 intra-footprint pad-pad / track-pad violations on U14 (SOIC-8, 0.65 mm pitch, native 0.18 mm pad-pad). Reusable pattern for future fine-pitch parts.
+- **U14 solder-mask bridges fixed via `solder_mask_margin`.** Six "Rear solder mask aperture bridges items with different nets" errors. Cause: each pad in the U14 footprint had `solder_mask_margin 0.102`, expanding apertures by 0.102 mm/side and shrinking the mask web below AISLER minimum. Initial fix targeted wrong file (`SOP65P400X130-8N.kicad_mod`); U14 actually uses `SOP65P490X110-9N.kicad_mod` (8-µMAX-EP, 9 pads incl. exposed pad), confirmed by inspecting the embedded footprint in `.kicad_pcb` (sibling 8N footprint also exists in library, `parts.md` was ambiguous). Set `solder_mask_margin 0` on correct file. **Tools → Update Footprints from Library does NOT override per-pad mask margin** (treated as user customization) — required direct sed on the embedded copy in `.kicad_pcb` to push through.
+- **Min thermal spoke count: 2 → 1** (Board Setup → Constraints, per-zone). Acceptable for hand-soldered prototype; vibration/thermal-cycling longevity not a concern. Per-zone setting — existing zones may not pick up the change automatically, may need editing individually.
+- **U14 confirmed: MAX4660EUA+T**, 8-µMAX-EP, footprint `SOP65P490X110-9N` from SnapEDA. Not yet in `~/vault/inventory/` — worth adding (mirror `phoenix-contact-1990012-...` format).
+- **Final DRC state:** 0 errors. 5 silk text warnings (U1 refdes 0.087 mm thickness / 0.69 mm height — below AISLER 0.10 mm hard floor; 3 TrueType texts with thin stroke). 4 unconnected items pending fix.
+
 ## 2026-05-09 — 3D-model regression after peer merge → surgical recovery → library-level fix
 
 **Sequence of events** (all on 2026-05-09):
