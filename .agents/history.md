@@ -4,6 +4,43 @@
 
 Append-only log of investigations, decisions, surprising findings, and gotchas. Newest first.
 
+## 2026-05-09 — Bulk-injecting 3D models into EasyEDA-imported footprints (kart-medulla)
+
+**Trigger:** kart-medulla PCB had 58 of 59 footprints with no 3D model attached because the EasyEDA import doesn't ship `(model ...)` clauses for cached footprints. 3D viewer was nearly empty.
+
+**Approach that worked:** scripted regex injection of `(model "${KICAD10_3DMODEL_DIR}/<lib>.3dshapes/<name>.step" (offset/scale/rotate ...))` blocks into each `(footprint ...)` block in `kart-medulla.kicad_pcb`, keyed on footprint name. **44 of 58 succeeded** on first pass (R0603, C0603, SOIC-8/14/16W, MSOP-8, SOT-23, TO-220-3, TO-252, PinSocket 1×22 + 2×22). Parens balanced afterward — no syntax damage.
+
+**KiCad 10 env-var name:** `${KICAD10_3DMODEL_DIR}` (verified by grepping a stock `Resistor_SMD.pretty/R_0603_1608Metric.kicad_mod`). Earlier KiCad versions used `KICAD9_3DMODEL_DIR`, `KICAD8_3DMODEL_DIR`, etc. — the version number tracks the major release. Default base path on macOS: `/Applications/KiCad/KiCad.app/Contents/SharedSupport/3dmodels/`.
+
+**Phoenix PTSA series not bundled.** KiCad ships `Connector_Phoenix_MC*`, `MSTB`, `GMSTB`, `SPT` 3dshapes — but **not** PTSA. For the 10× CN1–CN10 (`1990012`, PTSA 0,5/3-2,5-Z), downloaded STEP from SnapMagic (snapeda.com/parts/1990012/) and dropped at `projects/kart-medulla/3dmodels/1990012_PTSA_3p_2.5mm.step`. Referenced via `${KIPRJMOD}/3dmodels/...` so the project stays portable.
+
+**Surprising finding — KiCad rotation sign convention differs between dialog and file.** The Footprint Properties → 3D Models dialog displays rotation values with **opposite sign** from what's stored in the .kicad_pcb. Verified empirically:
+- File `(rotate (xyz -90 0 0))` → dialog shows `(90, 0, 0)`.
+- Setting file to `(xyz 90 0 0)` (matching what dialog showed) flipped all 10 connectors upside down. Reverting to `(xyz -90 0 0)` restored correct upright orientation.
+- Same pattern on Z: dialog `(0, 0, -90)` ↔ file `(xyz 0 0 90)`.
+- Offsets and scale do **not** sign-flip — those are direct.
+
+**Implication:** when a user reports values from the GUI, negate the rotation entries before writing to the file (or vice versa when reading the file to discuss with the user). Document both forms in any reference table.
+
+**Failed iterations (good to remember so we don't redo them):**
+- Asked user to nudge in Footprint Editor — wrong tool. Footprint Editor edits the *library* footprint, not the per-instance model offset. Per-instance offset only lives in pcbnew → click footprint → press `E` (Properties) → 3D Models tab. From the 3D Viewer (Alt+3) you can't edit anything; double-click does nothing.
+- Tried inferring connector offset by guessing world-space displacement direction (`-1.41, 1.41, 0` then flipped X to `+1.41, 1.13, 0`). Both wrong, because the model offset is in the model's own (post-rotation, pre-yaw) frame and we don't know SnapEDA's authoring origin a priori. **Lesson: always ask the user to nudge ONE instance in the GUI and report exact numbers — then batch the rest. Don't guess offsets through coordinate-frame algebra; SnapEDA STEPs have arbitrary internal origins.**
+
+**Final empirically-tuned values (verified visually in 3D viewer 2026-05-09):**
+
+| Component | Footprint | 3D model | File rotation | File offset (mm) |
+|---|---|---|---|---|
+| CN1–CN10 (Phoenix PTSA 3p, 1990012) | `kart-medulla:CONN-TH_3P-P2.50-S5.00_1990012` | `${KIPRJMOD}/3dmodels/1990012_PTSA_3p_2.5mm.step` | `(xyz -90 0 0)` | `(-0.75, -1.2, 0)` |
+| Q3 (IRLZ44N TO-220) | `kart-medulla:TO-220-3_L10.0-W4.5-P2.54-T` | `Package_TO_SOT_THT/TO-220-3_Vertical.step` | `(xyz 0 0 90)` | `(0, 2.54, 0)` |
+| U24 (1×22 socket) | `kart-medulla:HDR-TH_ESQ-122-23-G-S` | `Connector_PinSocket_2.54mm/PinSocket_1x22_P2.54mm_Vertical.step` | `(xyz 0 0 90)` | `(26.6, 0, 0)` |
+| U23 (2×22 socket) | `kart-medulla:HDR-TH_ESQ-122-59-G-D` | `Connector_PinSocket_2.54mm/PinSocket_2x22_P2.54mm_Vertical.step` | `(xyz 0 0 90)` | `(26.6, -1.5, 0)` |
+
+Also re-recorded in `tasks.md` "3D-model placement values" section so peers' PCB edits don't silently regress them.
+
+**Footprint name = body dimensions, not pin pitch alone.** EasyEDA's footprint names encode body L×W (e.g. `SOIC-8_L5.0-W4.0-P1.27-LS6.0-BL`), which doesn't always match KiCad's stock body (`SOIC-8_3.9x4.9mm_P1.27mm`). The 3D model still looks right because pin pitch matches; the body's a few tenths of a mm off but visually fine. Don't waste time hunting for an exact-body-size match unless the visual error is obvious.
+
+**Phoenix Contact 1990012 logged to vault inventory:** `~/vault/inventory/phoenix-contact-1990012-ptsa-0_5-3-2_5-z-3pin-25mm-push-in-terminal-block.md`. Status `Noted`, `units_to_buy: 10`, source Mouser.
+
 ## 2026-05-08 — Stacked-symbol confusion: Reference field vs parent symbol in KiCad GUI
 
 While cleaning up a stray `U02` reference, the user found the symbol via Cmd+F (with hidden-fields search) but couldn't select-and-delete it. Two compounding causes:

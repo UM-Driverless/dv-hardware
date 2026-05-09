@@ -68,6 +68,16 @@ When editing `.kicad_sch`, `.kicad_pcb`, or `.kicad_sym` from a script/agent (Ed
 5. **For symbol fixes that affect ERC behavior** (electrical type changes on pins like `passive`/`no_connect`/`power_in`), re-run ERC after the change. A "cosmetic" symbol fix can surface real wiring bugs the broken symbol was masking — investigate any new violations rather than dismissing them.
 6. **Two-copy rule for symbols.** Each symbol exists twice: the master in `<project>.kicad_sym` and a snapshot in the schematic's `lib_symbols` block. KiCad renders from the snapshot. When fixing a symbol bug, edit both copies, or fix the master and tell the user to run `Schematic → Tools → Update Symbols from Library`. Verify with `grep -A30 '(symbol "<lib>:<name>"' <board>_<sheet>.kicad_sch` to see the cached version.
 
+## Logging empirical findings — do this without being asked
+
+When you discover **non-obvious config values, gotchas, sign conventions, or workflow lessons** through trial and error (e.g. 3D-model offsets/rotations, undocumented KiCad behavior, dialog-vs-file mismatches, footprint-import quirks), log them **automatically**, no prompting needed:
+
+1. **`history.md`** — append a dated section covering: what triggered the work, what was tried (including failed attempts so they're not repeated), what worked, surprising findings, and the **final empirically-validated values in a table**. Newest entries first. Failed iterations belong here too — they're future-you's most valuable signal.
+2. **`tasks.md`** — if the values are *re-applicable config* (e.g. per-component 3D-model offsets that peers' edits could clobber), drop a reference table in a clearly-labeled section ("3D-model placement values", "DRC overrides", etc.) so they can be re-applied as a one-shot. `history.md` is the narrative; `tasks.md` is the cookbook.
+3. **`error-log.md`** — if the lesson is "don't do X again", add a one-line prevention rule with a back-link to the history.md entry.
+
+Apply this even mid-task — pause, write the log, continue. The user shouldn't have to remember to ask. If you're unsure whether something qualifies, err on logging it: a duplicated note is cheaper than a re-discovered gotcha.
+
 ## Knowledge files
 - `.agents/tasks.md` — shared kanban (TODO / In Progress / Done). Read before starting work.
 - `.agents/kicad10-ui.md` — verified KiCad 10 UI cheat-sheet (menus, panels, hotkeys). Grep before describing any KiCad UI element.
