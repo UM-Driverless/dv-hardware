@@ -2,200 +2,339 @@
 
 # History
 
-Append-only log. Newest first.
+Append-only log. Chronological (oldest first), append at the end.
 
-## 2026-05-09 — kart-medulla DRC cleanup session
+## 2026-05-03 — EasyEDA Pro → KiCad migration (kart-medulla)
 
-- **Auto-silkscreen plugin installed:** CGrassin/kicad-auto-silkscreen at `~/Documents/KiCad/10.0/scripting/plugins/kicad-auto-silkscreen/`. Ran once to auto-place all refdes on medulla PCB. Side effect: ~50 silk-to-pad clearance warnings (largely cleaned up afterward).
-- **Power-class minimum track width: 0.5 → 0.3 → removed.** Originally 0.5 mm in `71bf70d` (AISLER setup, sized for 1.5 A IPC-2152). Actual medulla Power loads (+12V, +5V_USB, +5V_REG, +3V3) are sub-100 mA — logic ICs, op-amps, sensors only. Cytron 12V→motor path does not traverse the medulla (per 2026-05-01 decision). Dropped to 0.3 mm, then removed entirely once QFN/SOT-23 fanout demanded 0.2 mm pitch on power rails. Power class still enforces clearance (0.25 mm) and via size (0.8/0.4 mm). Updated `kicad_dru`, `kicad_pro` (Power netclass `track_width: 0.5 → 0.2`), and `projects/kart-medulla/docs/drc-aisler.md`.
-- **Bulk power-track widening broke 36 connections.** Edit Track & Via Properties → "Set to net class / custom rule values" with Power-class filter widened all power tracks at once; endpoints shifted off pads. Unconnected items 3 → 39. Manual repair brought it back to 4; some still broken at session end.
-- **Polygon rule area for fine-pitch SMD pad clearance.** First attempt used custom DRC rule with `A.MemberOfFootprint == B.MemberOfFootprint` — invalid in KiCad 10, broke rules compilation entirely. Replaced with rule-area approach: drew polygon (`fine-pitch-smd`) around U14, added rule:
-  ```
-  (rule "fine-pitch-pad-clearance"
-    (constraint clearance (min 0mm))
-    (condition "A.insideArea('fine-pitch-smd') && B.insideArea('fine-pitch-smd') && (A.Type == 'Pad' || B.Type == 'Pad')"))
-  ```
-  Resolves 7 intra-footprint pad-pad / track-pad violations on U14 (SOIC-8, 0.65 mm pitch, native 0.18 mm pad-pad). Reusable pattern for future fine-pitch parts.
-- **U14 solder-mask bridges fixed via `solder_mask_margin`.** Six "Rear solder mask aperture bridges items with different nets" errors. Cause: each pad in the U14 footprint had `solder_mask_margin 0.102`, expanding apertures by 0.102 mm/side and shrinking the mask web below AISLER minimum. Initial fix targeted wrong file (`SOP65P400X130-8N.kicad_mod`); U14 actually uses `SOP65P490X110-9N.kicad_mod` (8-µMAX-EP, 9 pads incl. exposed pad), confirmed by inspecting the embedded footprint in `.kicad_pcb` (sibling 8N footprint also exists in library, `parts.md` was ambiguous). Set `solder_mask_margin 0` on correct file. **Tools → Update Footprints from Library does NOT override per-pad mask margin** (treated as user customization) — required direct sed on the embedded copy in `.kicad_pcb` to push through.
-- **Min thermal spoke count: 2 → 1** (Board Setup → Constraints, per-zone). Acceptable for hand-soldered prototype; vibration/thermal-cycling longevity not a concern. Per-zone setting — existing zones may not pick up the change automatically, may need editing individually.
-- **U14 confirmed: MAX4660EUA+T**, 8-µMAX-EP, footprint `SOP65P490X110-9N` from SnapEDA. Not yet in `~/vault/inventory/` — worth adding (mirror `phoenix-contact-1990012-...` format).
-- **Final DRC state:** 0 errors. 5 silk text warnings (U1 refdes 0.087 mm thickness / 0.69 mm height — below AISLER 0.10 mm hard floor; 3 TrueType texts with thin stroke). 4 unconnected items pending fix.
+**What worked:** [ConvertEDA](https://converteda.com) (free beta web service, drag-and-drop the `.epro`). Produced full KiCad 9-format project: 175KB `.kicad_pcb`, 251KB `.kicad_sch` (hierarchical, root + `_P1` sheet), 36 footprints in `kart-medulla.pretty/`. Validated openable by KiCad 10.0.1.
 
-## 2026-05-09 — 3D-model regression after peer merge → surgical recovery → library-level fix
+**What didn't work:**
+- **KiCad 10.0.1 native importer** (`File → Import Non-KiCad Project → EasyEDA Pro`): silently produced empty stubs — 79-byte `.kicad_pcb`, 230-byte `.kicad_sch`. No error shown. Likely a format-version lag — the source `.epro` was exported by EasyEDA Pro **2.2.47.7** (per `editorVersion` in the unzipped `.epcb`) and the KiCad importer probably hasn't been updated for that version yet. The `.epro` itself is a valid zip with full content (verified manually).
+- **`easyeda2kicad6`** (yaybee/easyeda2kicad6, npm): wrong tool entirely — converts EasyEDA **Standard** (old JSON format) → KiCad **6**. We need Pro → KiCad 10.
+- **`easyeda2kicad.py`** (uPesy/easyeda2kicad.py, pypi): only fetches individual LCSC components by ID. Not a project converter despite the name.
+- **KiCad per-file import path** doesn't exist for EasyEDA Pro `.esch`/`.epcb` files. `Import → Graphics` only takes DXF/SVG; the schematic editor has no per-file Pro importer. Project-level only.
 
-**Sequence of events** (all on 2026-05-09):
+**`.epro` internal format** (useful for future debugging):
+- Zip archive containing `project.json` + 8 directories: `SHEET/`, `PCB/`, `SYMBOL/`, `FOOTPRINT/`, `INSTANCE/`, `POUR/`, `PANEL/`, `BLOB/`, `FONT/`.
+- Schematic data in `SHEET/<uuid>/<n>.esch`, JSON-Lines (`["DOCTYPE","SCH","1.1"]\n["HEAD",...]`).
+- PCB data in `PCB/<uuid>.epcb`, same JSON-Lines style.
+- For single-sheet projects, `INSTANCE/` is empty — instances are inline in the `.esch`/`.epcb`.
 
-1. Earlier session bulk-injected 3D model `(model …)` blocks into 58 footprint instances in `kart-medulla.kicad_pcb` (recorded at "Bulk-injecting 3D models into EasyEDA-imported footprints" entry below). Bindings lived per-instance only — not in the `kart-medulla.pretty/` library.
-2. Peer pushed two PCB-routing commits (`6b4914e`, `5f4ee9c`). When integrating, ran `git checkout origin/main -- kart-medulla.kicad_pcb` to take peer's layout. **This silently dropped 54 of 55 instance-level 3D bindings** — peer's local PCB had been re-imported / replaced at some point and didn't carry the per-instance `(model …)` blocks. Only `MAX4660EUA_T.step` survived because that one was already library-bound in `SOP65P490X110-9N.kicad_mod`.
-3. Diagnosed via `grep '(model' kart-medulla.kicad_pcb | sort -u`: 1 ref where there had been 13. 3D viewer empty for everything except the MAX4660.
-4. **Recovery:** found `kart-medulla.kicad_pcb.bak.20260509f` (KiCad auto-save from earlier in the session, pre-regression) with 55 intact bindings. Wrote a Python S-expression-walker that built `refdes → (model …) block` map from the .bak, then walked the current `.kicad_pcb` and injected the matching block into each footprint that lacked one. Layout/routing/silk untouched. 54 footprints restored, 4 unmatched (`PAD1–PAD4` corner mounting holes — correctly skipped). Committed as `9596513`.
-5. Peer pushed *another* PCB commit (`5f4ee9c "logo and connections"`). Same regression: 3D bindings down to 1 again. Re-ran the surgical merge — same script, same `.bak` source — recovered all 55 again. Pushed atop peer's tip.
-6. **Long-term fix:** edited 12 footprints in `kart-medulla.pretty/` to carry library-level `(model …)` blocks matching the format of the existing `SOP65P490X110-9N.kicad_mod`. Path / offset / scale / rotate values lifted verbatim from the `.kicad_pcb` (PTSA's `xyz -90 0 0` rotation + `-0.75 -1.2 0` offset preserved; ESQ-122 headers' `xyz -0 -0 90`; TO-220's `xyz 0 0 90`). Committed as `a0f7a5c`.
+**Naming + repo decisions:**
+- Project folder named `kart-medulla` (matches `kart-medulla` firmware repo modulo case, and team verbal usage — `kart-brain` / `kart-medulla`).
+- Single monorepo (`dv-hardware`) for all KiCad projects rather than per-project repos. Reasons: shared `lib/`, single onboarding clone, atomic cross-board changes, repo size is small (KiCad files are KB/MB).
+- Visibility: **public** (matches existing UM-Driverless `kart_*` and `driverless` repos).
+- Naming case: **kebab-case** chosen as team standard. Searched org for documented snake_case rule — none exists (the `kart_*` snake_case is just de facto from older repos).
+- Original "ESP32 Expander" project (Jan 2026, EasyEDA) was renamed to "Kart Medulla (expander for ESP 32)" in May 2026 — same board. Old export kept in `easyeda-source/kart-medulla_2026-01-10_pre-rename.epro` as historical baseline.
 
-**Lessons / rules established:**
+**Post-conversion state (raw, not yet cleaned up):**
+- ERC: 347 violations. Mostly `lib_symbol_issues` for absent `gen` lib (converter emits `lib_id "gen:CAP"` / `gen:Res` but doesn't ship the `gen` library), `power` lib mismatches (`12V`, `+5V_REG` not in KiCad's stdlib), and `footprint_link_issues` from missing `fp-lib-table`.
+- DRC: 165 violations + 31 unconnected items. Will mostly resolve once footprint library is registered.
+- **Cleanup deferred** — design is still in active flux (more green push-in connectors being added for expander chip GPIOs). No point cleaning ERC against a moving target. Revisit when schematic stabilizes.
 
-- **Per-instance 3D bindings are fragile.** Any operation that swaps the `.kicad_pcb` (re-import from EasyEDA, library footprint replace, `git checkout` from a peer branch lacking them) silently strips them. **Always bind 3D models at the `*.kicad_mod` library level** for parts intended to live on this board.
-- **Instance-level still wins over library-level** in KiCad. Adding library bindings is non-destructive — if the live PCB already has a per-instance value, that wins. Used this property to land the library-level fix without coordinating around peer's in-flight layout work.
-- **KiCad auto-saves saved us.** `kart-medulla.kicad_pcb.bak.20260509b/c/d/e/f` carried successive snapshots of the pre-regression state. Without them the surgery would have required re-deriving every per-instance offset/rotation by eye. **Don't gitignore the `.bak.*` files until after they've served their recovery purpose.** (Today the team's `.gitignore` was extended to `*.bak.*` — that's fine for the *future*, not for today's recovery, since the .bak files were already on disk.)
-- **The Python S-expression walker** (parens-balanced footprint extraction + refdes-keyed model-block lookup) is reusable for any future "files diverged, want to merge specific subtrees" scenario in KiCad. Keep the snippet handy.
+**Gotchas hit:**
+- KiCad 10's project-local `.history/` dir contains its own internal `.git/`. When committed naively, git treats it as a submodule pointer and the `.history/` gitignore rule does NOT apply. Fix: `git rm --cached projects/<x>/easyeda-source/.history`. Gitignore alone is insufficient once the embedded repo has been seen by git.
+- **Gitignore trailing comments are NOT supported.** A line like `.history/  # KiCad local history` is interpreted as a literal pattern (the spaces and `#` become part of the pattern), so the rule silently does nothing. Comments must be on their own line. Verify any rule with `git check-ignore -v <path>`.
+- Opening an `.epro` directly in KiCad creates sibling stub `.kicad_pcb` / `.kicad_pro` / `.kicad_sch` files in the same directory (sized 79 / 2 / 230 bytes — clear marker of failed conversion). Added blanket gitignore for `projects/*/easyeda-source/*.kicad_*` to prevent future contamination of source archives.
+- `kicad-cli sch erc <file>` writes the report to **CWD by default**, not next to the input. Always pass `-o /path/to/report.rpt` explicitly to avoid littering the working directory.
+- `kicad-cli` has no `import` subcommand — only `erc`, `drc`, `export`, `upgrade`. Headless EasyEDA conversion is not possible via KiCad CLI.
 
-## 2026-05-09 — AISLER Beautiful Boards DRC config + Power net class
+**Internal renames applied to ConvertEDA output** (it preserved the EasyEDA project name verbatim):
+- Filenames: `Kart_Medulla_(expander_for_ESP_32).kicad_*` → `kart-medulla.kicad_*`, same for `_P1.kicad_sch` and `.pretty/` folder.
+- Internal refs in `.kicad_sch` (`Sheetfile`, `project` blocks in instances), `.kicad_pcb` (title_block), `.kicad_pro` (`meta.filename`): same global string replace `Kart_Medulla_(expander_for_ESP_32)` → `kart-medulla`. Verified no stale refs remain (except the gitignored `.kicad_prl`).
 
-Configured Board Setup constraints + a custom `kart-medulla.kicad_dru` file targeting **AISLER's "Beautiful Boards" 2-layer service** (the team's PCB-fab sponsor) with ~30 % margin over published minimums. Full rationale per number in `projects/kart-medulla/docs/drc-aisler.md`.
+---
 
-Headline numbers: track 0.20 mm, clearance 0.20 mm, drill 0.30 mm, via 0.55 mm Ø with 0.30 mm hole, copper-to-edge 0.30 mm, hole-to-hole 0.30 mm, silk 1.0 mm × 0.15 mm, silk-clearance 0.15 mm, microvias / blind-buried disabled.
+## 2026-05-03 — Scripted schematic edits on kart-medulla (text-level, no KiCad GUI)
 
-**Net classes:** `Default` (track 0.25, clearance 0.20, via 0.6/0.3) and `Power` (track 0.50, clearance 0.25, via 0.8/0.4). Pattern-based assignment of `+12V`, `+5V_USB`, `+5V_REG`, `+3V3` to the Power class via `net_settings.netclass_patterns` in `.kicad_pro`. **`GND` deliberately stays in Default** — it's a poured zone, not a routed track, so a 0.5 mm minimum-track-width rule would be noise. **`3V3` is borderline** (low-current rail, ~200 mA peak); kept in Power for visual consistency, demote to Default if routing gets tight.
+**What worked: pattern replication via direct s-expression edits.**
 
-**Custom DRC rules** (`kart-medulla.kicad_dru`): `edge-clearance` (0.30 mm belt-and-suspenders), `annular-min` (0.125 mm extended to pads, not just vias), `hv-pressure-clearance` (0.60 mm on the three 24 V Festo pressure-sensor input nets — IEC 60664-1 Pollution Degree 2 / Material Group IIIa says 0.50 mm at 50 V working voltage; we're at 24 V outdoors so 0.6 mm gives derating + dust margin), `power-track-width` (0.50 mm Power-class backstop), `silk-pad-clearance`.
+Tasks completed by writing s-expression blocks straight into the schematic file:
+1. **Connector pin stubs** — added 8 wire+label pairs to empty pins on CN8/CN9/CN10 (push-in connectors with no wires from EasyEDA conversion). Wire length 36.83 mm leftward, matching the existing CN4-CN7 pattern. Labels named `<REF>_<PIN>_TODO` so user can grep for unrenamed ones.
+2. **Sheet page resize** — A3 → A2 (one-line `(paper "A2")` change in both root and child `.kicad_sch`). Zero risk, no content moved.
+3. **GPIO expander stub replication** — user added one stub on PCF8574 (U25) pin 13 INT#; we replicated the 21.59 mm pattern to other free pins.
+4. **Connector column alignment** — moved CN8 by (-1.27, 0) and CN9 by (-2.54, 0) so all of CN7/CN8/CN9 share x=205.74. For each move, the connector + its 3 wires + 3 labels move as a unit (geometric coupling preserved).
 
-**Implementation gotcha (worth remembering):** edited `.kicad_pro` JSON behind a running KiCad — KiCad re-saved on close and silently clobbered the edits, reverting `min_clearance`, `min_track_width`, and the entire Power class. Lesson: **never edit `.kicad_pro` from outside while KiCad has the project open.** Either close KiCad first, or do all changes through Board Setup → Net Classes (which writes the schema KiCad expects, not whatever JSON shape an external tool guessed at).
+**What did NOT work: free-form schematic design.** Adding new components, routing wires for new sub-circuits, deciding where connectors should live on the page — all GUI work. Programmatic placement produces overlap, ugly routing, broken visual conventions. KiCad IPC API (`kicad-python`) is for *modifying existing* schematic content, not creating new design layout.
 
-**Net pattern syntax:** KiCad 10 patterns match against the **bare net name with leading `+`** (e.g. `+5V_USB`, `+3V3`, `+12V`) — **no leading slash**. The "Nets matching" preview pane in the Netclass Assignments dialog is the fastest way to confirm the pattern actually hits anything; an empty match means the pattern is wrong. Initially tried `/3V3`, `/+5V`, etc. — none matched (the medulla's actual nets are `+3V3`, `+5V_USB`, `+5V_REG`, `+12V`, with no bare `+5V`).
+**Lessons / gotchas:**
+- **Pin "empty" detection requires checking ALL connection types**, not just wires:
+  - regular `(label ...)` blocks
+  - `(global_label ...)` and `(hierarchical_label ...)` blocks (different from regular labels — separate regex)
+  - `(no_connect ...)` markers (pin intentionally unused — adding a wire there causes ERC errors)
+  - Labels can be placed *directly on a pin attach point* with no intermediate wire (KiCad treats placement-on-pin as a connection)
+  - Initial naive pass missed CMD_REVERSE (a hierarchical label sitting on U25 pin 5) and a `no_connect` marker on U25 pin 12. Resulting wires had to be removed in a follow-up edit. Always audit all four marker types before declaring a pin "empty".
+- **Floating-point precision:** moving coordinates by deltas can introduce artifacts like `205.73999999999998` instead of `205.74`. KiCad tolerates these but they're ugly in diffs. Always round to 4 decimal places after coordinate arithmetic, then `:g`-format to drop trailing zeros.
+- **KiCad rewrites file format on first open** after an external import: `generator` field changes (`easyeda_pro_to_kicad` → `eeschema`), whitespace/element ordering normalizes, version field bumps to KiCad's current. First post-conversion git diff is huge (thousands of lines, mostly cosmetic); subsequent diffs are small and meaningful. Don't be alarmed by the first big diff.
+- **KiCad has no auto-reload of files modified externally**, and no `File → Reload from Disk`. If KiCad has the schematic editor open and the file is edited underneath, the next Ctrl+S in KiCad silently overwrites the external changes. Check for `~<projectname>.kicad_pro.lck` (project lock — held while launcher is open) AND `lsof` on the specific `.kicad_sch` (held only while the schematic editor window is open). Project lock alone doesn't mean the schematic is held — verify per-file.
+- **Wire termination shortcut:** in KiCad eeschema, wire mode (`W`) is finished by **double-click** at the endpoint, NOT by Esc (Esc cancels the in-progress wire) and NOT by Enter (does nothing). Single-click on a pin/wire/junction also terminates cleanly.
+- **`(at X Y)` in symbol blocks** has the rotation angle as a separate trailing integer for symbol instances (3 numbers), but for some other elements it's just X Y (2 numbers). Need separate regex patterns for both forms.
+- **PCB footprint references** in `.kicad_pcb` use bare names (`"C0603"`) without library prefix when the project has a local `<projectname>.pretty/` folder — KiCad auto-discovers it if the folder name matches the project name.
 
-## 2026-05-09 — Silkscreen text font: DejaVu Sans Mono (chosen by peer)
+**Pattern that's safe to script:** geometric translation/replication where you have:
+1. Existing data to copy (length, direction, format)
+2. Known target coordinates that are grid-aligned
+3. No spatial design judgment required (placement decisions inherited from existing elements)
 
-Peer working on the PCB layout used **DejaVu Sans Mono** for the CN1–CN10 silkscreen pin-label blocks. Tab-aligned columns rendered acceptably (not perfect — peer's words). Note for future cross-OS work: DejaVu Sans Mono ships by default on Ubuntu but **is not installed on macOS** (verified `fc-list` on Rubén's Mac 2026-05-09 — only Menlo, no DejaVu). There is no monospace font shared by default between macOS and Ubuntu. Options to keep the project cross-platform:
+**Pattern that's NOT safe to script:** anything that requires deciding "where should this go visually" — symbol placement on an empty area, wire routing around existing elements, label placement that doesn't follow from a clear pattern.
 
-- Install DejaVu on Mac: `brew install --cask font-dejavu` (matches what the peer has).
-- Use KiCad's **Embed Fonts** option (`File → Board Setup → Embedded Files` in KiCad 9+) — bakes the .ttf into the .kicad_pcb so the font travels with the project, regardless of who opens it.
+**Two more bugs hit on day 2:**
 
-Recommend turning on Embed Fonts before fab so the gerber export is deterministic across both machines.
+1. **Y-flip between symbol library and schematic instance coordinates.** KiCad's `lib_symbols` use Y-up convention (paper-schematic legacy: positive Y = up the page). When a symbol is INSTANTIATED in a schematic, KiCad applies an automatic Y-flip — schematic coords are Y-down. Initial pin-position calculations did NOT apply the flip, so PCF8574T pin numbering was inverted vertically: my "P0" stub landed on P1, my "P7" stub landed on INT#, etc. The symptom: the user opens the file and sees `EXP_P0_TODO` sitting next to "P1" on the chip. Fix: world_y = symbol_y - lib_pin_y (NOT +). Verify by cross-referencing one known wire (e.g., the user-added stub's known coordinates) against your computed pin positions BEFORE doing pattern replication based on those coords.
 
-## 2026-05-09 — AISLER sponsor logo placeholder size decision
+2. **Labels are NOT always exactly at wire endpoints.** EasyEDA-converted schematics have label positions that are sometimes 1.27 mm offset from the wire's geometric endpoint (probably because EasyEDA stores label-anchor differently from KiCad). When moving a connector + wires + labels as a unit, a tight tolerance (0.05 mm) won't catch labels that are positioned slightly inside the wire. Symptom: connector and wires move, labels stay, wires now visually disconnected from labels (functionally still fine if the label connects-by-name elsewhere, but ugly and easy to misread as a broken net). Fix attempts: (a) use bigger tolerance (~2 mm) when looking for labels at wire endpoints; (b) for moves that include real-signal labels (not TODO placeholders), revert and do the move in eeschema GUI instead. Detected by ERC violation count jumping by ~3 per affected wire (single-endpoint warnings appear).
 
-Decided on the **smallest AISLER-spec size: 30 × 7.5 mm** (4:1 ratio, AISLER's stated minimum). Rationale: the only constraint that mattered was the 22.86 mm gap between the 0.9″ ESP32 headers, but the long axis goes parallel to the headers, not across the gap, so it wasn't actually binding. The biggest size we could have used (60 × 15 mm) and any intermediate (40×10, 50×12.5) would have fit too — went small because it looks better on this board.
+**On Y-alignment of converted connectors:** the right-side connectors (CN7-CN10) are 1.27 mm above the left-side row positions. Aligning them programmatically tripped the label-offset bug above (CN1-CN4 labels are EasyEDA-style offset from their wires). Reverted; left as a GUI task. Safe scriptable alignment was limited to X-column alignment of CN7/CN8/CN9 where all the labels were freshly-added TODO labels at exact wire endpoints.
 
-Source for the 30 × 7.5 mm number: Rubén in #Driverless on 2026-05-06 ("la idea es que pongáis el recuadro de 30 × 7,5 mm donde os de la gana en la pcb") + the linked AISLER community thread (https://community.aisler.net/t/adding-our-logo-to-your-pcb/5382).
+**The Y-flip applies to connector symbols too, not just chips.** Reflex was to think the lib-vs-schematic Y-flip was a chip-pin-specific gotcha, but it's universal — every symbol's pin coords need it. For the 1990012 push-in connector: lib has pin 1 at y=+2.54 (top in lib coords), pin 3 at y=-2.54 (bottom). After the flip, world pin 1 is at center_y - 2.54 (smaller y, top of screen), pin 3 at center_y + 2.54 (bottom). Earlier connector code used `y + 2.54` for pin 1, which was wrong — the wires/labels still attached correctly because pin attach POINTS were computed for all 3 pins and the symmetry hid the bug, but pin number reporting in commit messages was inverted. Always sanity-check pin numbering against a known reference (e.g., open the schematic, see which pin number the top-most wire belongs to).
 
-Drawing rules (from the AISLER doc, quoted verbatim where it matters): rectangle must be drawn as **4 individual lines** (the rectangle tool fails AISLER's auto-detect because it groups), line width **0.08382 mm (3.3 mil) exactly**, on silkscreen. AISLER doc says "Place as many placeholders as you want — each will be replaced with the logo," so placing one on F.Silkscreen *and* one on B.Silkscreen is allowed (default plan: do both).
+**Adding a power symbol via text edit requires THREE places to update:**
+1. The symbol-instance `(at X Y angle)` in the symbol header
+2. The `(property "Reference" "#PWRnn")` block (the *property* reference)
+3. The `(instances ... (path "..." (reference "#PWRnn")))` sub-block (the *instance-path* reference)
 
-## 2026-05-09 — U19 (L7805) PCB-vs-AI-Inventory cross-check
+Items 2 and 3 must match. KiCad uses the instance-path reference (item 3) for display; if you only update item 2, ERC and the GUI both still show the template's old reference number. Symptom: a fresh `#PWR36` symbol appears in ERC reports as `#PWR08` (the number from whatever symbol you copied as a template). Always grep for any leftover stale ref numbers after copying a symbol block.
 
-PCB U19 uses footprint `kart-medulla:TO-252-2_L6.6-W6.1-P4.57-LS9.9-BR-CW`, value `L7805CDT_C20611927` (LCSC C20611927) — DPAK / TO-252-2, ST.
+---
 
-Notion AI Inventory (data_source `34a78747-3143-81da-85fb-000b14e5f8d8`) holds three rows for `L7805CDT-TR` (ST, Mouser 511-L7805CDT-TR), qty 10 + 5 + 15 = 30 in the Milwaukee components box. PCB part **matches** stock. Also one row of `LM7805CT/NOPB` (TI, qty 3) — TO-220 through-hole, **not** a footprint substitute.
+## 2026-05-04 — KiCad no_connect marker semantics (corrected)
 
-Two cleanups worth doing in Notion (not yet done):
-- All four 7805 rows have an empty `Package` field — should be `TO-252-2` for the STs and `TO-220` for the TI.
-- The three ST rows look like schema-merge duplicates (same MPN, same Mouser PN, same location); consider consolidating into one row with qty 30.
+The `(no_connect)` flag (the small "X" placed on a pin in the schematic editor) means **"the designer intentionally chose not to wire this pin to anything external on this board"**. It silences ERC's `pin_not_connected` warning by declaring the omission deliberate.
 
-## 2026-05-09 — Bulk-injecting 3D models into EasyEDA-imported footprints (kart-medulla)
+It does **not** mean:
+- The pin doesn't physically exist on the package
+- The pin is internally disconnected on the silicon
+- The pin is a manufacturer-designated NC pad
 
-**Trigger:** kart-medulla PCB had 58 of 59 footprints with no 3D model attached because the EasyEDA import doesn't ship `(model ...)` clauses for cached footprints. 3D viewer was nearly empty.
+Source: KiCad eeschema docs (master) — "No-connection flags are used to indicate that a pin is intentionally unconnected. These flags prevent 'unconnected pin' ERC warnings for pins that are intentionally unconnected." (https://docs.kicad.org/master/en/eeschema/eeschema.html)
 
-**Approach that worked:** scripted regex injection of `(model "${KICAD10_3DMODEL_DIR}/<lib>.3dshapes/<name>.step" (offset/scale/rotate ...))` blocks into each `(footprint ...)` block in `kart-medulla.kicad_pcb`, keyed on footprint name. **44 of 58 succeeded** on first pass (R0603, C0603, SOIC-8/14/16W, MSOP-8, SOT-23, TO-220-3, TO-252, PinSocket 1×22 + 2×22). Parens balanced afterward — no syntax damage.
+Practical implication: any unused pin can carry a `no_connect` marker, including real-but-unused pins like the second op-amp on a dual op-amp (LM358 pins 5/6/7 when only op-amp A is used). For digital chips, NC markers are fine. For op-amps specifically, tie-back wiring (unity-gain follower with input held at a fixed voltage) is the better engineering practice — prevents the floating amplifier from oscillating or coupling noise — but NC markers are valid and ERC-clean.
 
-**KiCad 10 env-var name:** `${KICAD10_3DMODEL_DIR}` (verified by grepping a stock `Resistor_SMD.pretty/R_0603_1608Metric.kicad_mod`). Earlier KiCad versions used `KICAD9_3DMODEL_DIR`, `KICAD8_3DMODEL_DIR`, etc. — the version number tracks the major release. Default base path on macOS: `/Applications/KiCad/KiCad.app/Contents/SharedSupport/3dmodels/`.
+Don't conflate the schematic-level `(no_connect)` marker (board-specific intent, common) with a symbol pin's `no_connect` electrical type (part-designer's intent that the pin should never be wired, used in symbol definitions for reserved/NC pads). Both silence ERC; the schematic marker is the more frequent tool.
 
-**Phoenix PTSA series not bundled.** KiCad ships `Connector_Phoenix_MC*`, `MSTB`, `GMSTB`, `SPT` 3dshapes — but **not** PTSA. For the 10× CN1–CN10 (`1990012`, PTSA 0,5/3-2,5-Z), downloaded STEP from SnapMagic (snapeda.com/parts/1990012/) and dropped at `projects/kart-medulla/3dmodels/1990012_PTSA_3p_2.5mm.step`. Referenced via `${KIPRJMOD}/3dmodels/...` so the project stays portable.
+---
 
-**Surprising finding — KiCad rotation sign convention differs between dialog and file.** The Footprint Properties → 3D Models dialog displays rotation values with **opposite sign** from what's stored in the .kicad_pcb. Verified empirically:
-- File `(rotate (xyz -90 0 0))` → dialog shows `(90, 0, 0)`.
-- Setting file to `(xyz 90 0 0)` (matching what dialog showed) flipped all 10 connectors upside down. Reverting to `(xyz -90 0 0)` restored correct upright orientation.
-- Same pattern on Z: dialog `(0, 0, -90)` ↔ file `(xyz 0 0 90)`.
-- Offsets and scale do **not** sign-flip — those are direct.
+## 2026-05-04 — `unconnected_wire_endpoint` requires terminating the wire's geometric endpoint, not just the net
 
-**Implication:** when a user reports values from the GUI, negate the rotation entries before writing to the file (or vice versa when reading the file to discuss with the user). Document both forms in any reference table.
+A label sitting *mid-wire* still connects the label's net to the wire (KiCad uses the label's `(at)` point, not the wire's ends, for net assignment). But the wire's geometric endpoints are a separate ERC concern: if a wire endpoint sits in empty space — not on a pin, not at a label's `(at)` point, not at another wire/junction — ERC fires `unconnected_wire_endpoint` even though the net is logically named. Place labels at the wire endpoint (or shorten the wire to end at the label) so the geometry and the electrical termination coincide.
 
-**Failed iterations (good to remember so we don't redo them):**
-- Asked user to nudge in Footprint Editor — wrong tool. Footprint Editor edits the *library* footprint, not the per-instance model offset. Per-instance offset only lives in pcbnew → click footprint → press `E` (Properties) → 3D Models tab. From the 3D Viewer (Alt+3) you can't edit anything; double-click does nothing.
-- Tried inferring connector offset by guessing world-space displacement direction (`-1.41, 1.41, 0` then flipped X to `+1.41, 1.13, 0`). Both wrong, because the model offset is in the model's own (post-rotation, pre-yaw) frame and we don't know SnapEDA's authoring origin a priori. **Lesson: always ask the user to nudge ONE instance in the GUI and report exact numbers — then batch the rest. Don't guess offsets through coordinate-frame algebra; SnapEDA STEPs have arbitrary internal origins.**
+Mental model: ERC checks two things separately. (1) Does the *net* have at least the right kind of pins on it? (2) Does each *wire* have its endpoints terminated by something that "anchors" it (pin, label, junction, other wire)? Mid-wire labels satisfy (1) but not (2).
 
-**Final empirically-tuned values (verified visually in 3D viewer 2026-05-09):**
+---
 
-| Component | Footprint | 3D model | File rotation | File offset (mm) |
-|---|---|---|---|---|
-| CN1–CN10 (Phoenix PTSA 3p, 1990012) | `kart-medulla:CONN-TH_3P-P2.50-S5.00_1990012` | `${KIPRJMOD}/3dmodels/1990012_PTSA_3p_2.5mm.step` | `(xyz -90 0 0)` | `(-0.75, -1.2, 0)` |
-| Q3 (IRLZ44N TO-220) | `kart-medulla:TO-220-3_L10.0-W4.5-P2.54-T` | `Package_TO_SOT_THT/TO-220-3_Vertical.step` | `(xyz 0 0 90)` | `(0, 2.54, 0)` |
-| U24 (1×22 socket) | `kart-medulla:HDR-TH_ESQ-122-23-G-S` | `Connector_PinSocket_2.54mm/PinSocket_1x22_P2.54mm_Vertical.step` | `(xyz 0 0 90)` | `(26.6, 0, 0)` |
-| U23 (2×22 socket) | `kart-medulla:HDR-TH_ESQ-122-59-G-D` | `Connector_PinSocket_2.54mm/PinSocket_2x22_P2.54mm_Vertical.step` | `(xyz 0 0 90)` | `(26.6, -1.5, 0)` |
+## 2026-05-07 — MAX4660 (U14) symbol audit: false alarm on pin numbers, real bug on electrical types
 
-Also re-recorded in `tasks.md` "3D-model placement values" section so peers' PCB edits don't silently regress them.
+**Trigger:** User noticed two pins on U14 (MAX4660 SPDT throttle mux) both labeled "NC" with red X markers in the symbol drawing. Asked which one is the actual no-connect.
 
-**Footprint name = body dimensions, not pin pitch alone.** EasyEDA's footprint names encode body L×W (e.g. `SOIC-8_L5.0-W4.0-P1.27-LS6.0-BL`), which doesn't always match KiCad's stock body (`SOIC-8_3.9x4.9mm_P1.27mm`). The 3D model still looks right because pin pitch matches; the body's a few tenths of a mm off but visually fine. Don't waste time hunting for an exact-body-size match unless the visual error is obvious.
+**Initial finding (correct):** The symbol has two `NC` labels — pin 2 is "Normally Closed" (the SPDT default-throw signal terminal, wired to `PEDAL_ACC__0_5V`) and pin 5 is the package's "No Connect" (no internal die connection). The schematic itself correctly places a no-connect flag on pin 5. The red X on pin 2 in the symbol drawing comes from the pin's *electrical type* being set to "Unconnected" — which is wrong, it should be Passive. Same issue may apply to pin 7 (V−) which also drew with an X in the symbol editor.
 
-**Phoenix Contact 1990012 logged to vault inventory:** `~/vault/inventory/phoenix-contact-1990012-ptsa-0_5-3-2_5-z-3pin-25mm-push-in-terminal-block.md`. Status `Noted`, `units_to_buy: 10`, source Mouser.
+**Wrong escalation (then corrected):** I claimed the symbol's pin *numbers* were also shuffled vs. datasheet — basing this on a WebSearch snippet that decoded the Maxim datasheet pinout caption as `1=IN 2=N.C. 3=GND 4=COM 5=NC 6=V- 7=NO 8=V+`. I pre­sented a scary table showing the schematic would put +5V on COM, signal on V+, etc. Catastrophic-sounding but **not verified against the actual datasheet**.
 
-## 2026-05-09 — EasyEDA footprint name "9N" includes exposed pad (false alarm on U14)
+**Disconfirmation:** User asked for a proper downloaded symbol. SnapEDA `MAX4660EUA+T` (SnapEDA-verified) has pin numbering: `1=COM 2=NC 3=GND 4=V+ 5=NC 6=IN 7=V- 8=NO 9=EPAD` — **identical to the original EasyEDA-converted symbol**. SnapEDA validates parts, so the correct pinout is the SnapEDA/original one, not my WebSearch interpretation. My pin-shuffling claim was wrong.
 
-While auditing 3D-model coverage on kart-medulla, flagged U14 (MAX4660EUA+T) as having a "wrong" footprint: schematic and chip suggest 10 pins (μMAX-10), but EasyEDA-cached footprint `kart-medulla:SOP65P490X110-9N` has 9 pads. Initially diagnosed as a real footprint bug.
+**Real status of original symbol:** Pin numbers correct. Electrical types wrong on pins 2 and 7 (drawn with X). No physical wiring danger; just an ERC and clarity issue.
 
-**It wasn't.** The footprint is 8 SMD leads + 1 exposed thermal pad (EPAD) underneath. EasyEDA's naming convention treats the EP as a numbered pad — hence "9N" = 8 leads + 1 EP, **not** 9 leads. The schematic agrees: pins 1–8 are real leads (with pin 5 marked NC), pin 9 is `EP` tied to GND. The 3D model rendering "only 8 pins" is correct because that's exactly what the chip looks like; the 9th pad is invisible from above.
+**Lesson:** WebSearch snippets that "decode" a pinout caption from a position-list string are unreliable; do not present them as verified facts. SnapEDA-verified symbols and the existing project symbol agreeing with each other is much stronger evidence than a single search snippet. When two independent sources agree against my reading, retract before escalating.
 
-**Lesson:** before claiming an EasyEDA footprint name like `<package>-<N>N` is wrong, count the SMD perimeter pads vs the body-center pad. Bottom EPAD doesn't appear in the chip's pin count but does appear in the footprint's pad count — almost universally for thermal-pad packages (DPAK, QFN, μMAX-EP, SOIC-EP). Don't assume `Nn` in the footprint name = chip pin count.
+**Migration context:** This symbol came in via the EasyEDA-Pro → KiCad migration (ConvertEDA, May 2026). The conversion preserved pin numbers and labels but mis-set electrical types, which is the actual EasyEDA-conversion artifact here — not pin shuffling.
 
-**Time cost:** ~10 minutes of misdirected investigation + a script run trying to re-attach a model that was already attached. Cheap, but worth not repeating on the next thermal-pad part.
+**Download workflow note:** SnapEDA, Component Search Engine (Samacsys), Ultra Librarian all gate KiCad downloads behind login walls. Programmatic curl/WebFetch fails. User pointed out I could have driven their logged-in Chrome with `osascript` — viable next time, since global rules confirm Chrome has "Allow JavaScript from Apple Events" enabled. SnapEDA download did not actually require an account in this instance per the user.
 
-## 2026-05-08 (later) — CN cluster reshuffle: U25 moved to right side, all PCF8574-related signals re-clustered
+**Verified MAX4660 8-pin µMAX pinout (from SnapEDA-verified symbol; matches original project symbol):**
+```
+1: COM    8: NO
+2: NC     7: V-
+3: GND    6: IN
+4: V+     5: NC (no internal connection)
+9: EPAD (thermal pad)
+```
 
-User decided to physically place U25 (PCF8574 GPIO expander) on the right side of the PCB near CN3, and asked to cluster all U25-related signals (I²C bus + expander outputs + reverse) on the right-side CNs to minimize routing length. Six labels swapped (none of the wire/footprint geometry changed; only the net names on the CN-side labels):
+---
 
-  - CN3.1: `CMD_STEER_DIR__3V3` → `EXP_P3`
-  - CN4.2: `SDC_IN_LOW_SIDE` → `SDA__I2C`
-  - CN4.3: `CMD_STEER__PWM_3V3` → `SCL__I2C`
-  - CN8.1: `SDA__I2C` → `SDC_IN_LOW_SIDE`
-  - CN8.3: `EXP_P3` → `CMD_STEER_DIR__3V3`
-  - CN9.1: `SCL__I2C` → `CMD_STEER__PWM_3V3`
+## 2026-05-07 — MAX4660 (U14) integration: SnapEDA footprint+3D adopted, hidden wire-disconnect bug found and fixed
 
-After: CN3 = pure EXP cluster (P1/P2/P3); CN4 = REVERSE_WIRE + SDA + SCL (all U25-facing); displaced ESP32 signals (CMD_STEER_DIR, SDC_IN_LOW_SIDE, CMD_STEER_PWM) land on left-side CNs (CN8/CN9) — their ESP32 GPIOs span both sides of the module, so route length is similar; the AS5600 I²C cable now exits through CN4 closest to U25.
+**Symbol correctness summary (the part that confused things):**
+- SnapEDA-downloaded symbol (`MAX4660EUA_T.kicad_sym` from the zip): **correct**.
+- Project library symbol (entry inside `projects/kart-medulla/kart-medulla.kicad_sym`): **also already correct** (pin 2 = passive, pin 5 = no_connect).
+- Cached copy inside the schematic file (`lib_symbols` block in `kart-medulla_P1.kicad_sch`): **wrong** — pin 2 = no_connect (a stale snapshot from an earlier broken symbol version).
 
-Pre-existing naming inconsistency surfaced during this work: `CMD_STEER__PWM_3V3` uses double-underscore between `STEER` and `PWM` (parses as signal=`CMD_STEER`, level=`PWM_3V3`) while the matching `CMD_STEER_DIR__3V3` uses single underscore between signal-internal words and double before voltage. Should arguably be `CMD_STEER_PWM__3V3`. Not fixed in this pass to avoid net-rename churn before fab; tracked as a future cleanup.
+KiCad renders symbols from the schematic's cached copy, not the library — so the symbol editor showed the broken cache, even though the library was fine. Running `Tools → Update Symbols from Library` would have fixed it. **SnapEDA was not needed to fix the symbol** — the library already had the right one. SnapEDA's actual contribution to this integration was the verified **footprint** (`SOP65P490X110-9N.kicad_mod`) and **3D model** (`MAX4660EUA_T.step`), plus confirmation that the existing pin map was correct.
 
-## 2026-05-08 — Stacked-symbol confusion: Reference field vs parent symbol in KiCad GUI
+After confirming the original symbol's pin numbers were correct (matched SnapEDA), did a full SnapEDA integration for U14 (MAX4660 throttle mux). Workflow:
 
-While cleaning up a stray `U02` reference, the user found the symbol via Cmd+F (with hidden-fields search) but couldn't select-and-delete it. Two compounding causes:
+1. User downloaded `MAX4660EUA_T.zip` from SnapEDA without needing an account (so the SnapEDA login wall reported earlier wasn't actually blocking — should have tried first).
+2. Extracted: symbol `MAX4660EUA_T.kicad_sym`, footprint `SOP65P490X110-9N.kicad_mod`, 3D model `MAX4660EUA_T.step`.
+3. Copied footprint into `projects/kart-medulla/kart-medulla.pretty/`.
+4. Created `projects/kart-medulla/3dmodels/` and put `MAX4660EUA_T.step` there. (First 3D model in the project — no prior convention; chose `${KIPRJMOD}/3dmodels/` as the standard location.)
+5. Added `(model "${KIPRJMOD}/3dmodels/MAX4660EUA_T.step" ...)` to the new footprint.
+6. Updated `kart-medulla.kicad_sym` U14 symbol's default Footprint property → `kart-medulla:SOP65P490X110-9N`, Datasheet → analog.com.
+7. Updated U14 instance in `kart-medulla_P1.kicad_sch` (Footprint + Datasheet override).
+8. **Critical fix:** the cached `lib_symbols` copy of `MAX4660EUA_T` in `kart-medulla_P1.kicad_sch` had pin 2 (NC) marked as electrical type `no_connect` — wrong; the library copy in `kart-medulla.kicad_sym` correctly had `passive`. The cache had drifted from the library, and KiCad uses the cache, so the schematic editor was rendering pin 2 with the no-connect-X marker. Patched the cache to `passive`.
+9. **Real bug uncovered:** with pin 2 fixed, ERC immediately fired `pin_not_connected` on U14 pin 2. Investigation showed the `PEDAL_ACC__0_5V` wire ended at x=375.92 but pin 2's connection point is at x=384.81 — an 8.89 mm gap. The wire **never actually reached pin 2**. The broken `no_connect` pin type had been silencing this ERC violation by making the pin a legal "no connect" terminal. So the throttle mux's default-throw input (sensor pedal value passing through to the motor) was not wired at all in the schematic. Extended the wire's endpoint to (384.81, 217.17) to close the gap. ERC now reports 0 errors.
 
-1. **Two GND symbols stacked at exactly the same coordinate** `(125.73, 311.15)` — a legacy `kart-medulla:GND` (rotated 270°, with the bogus `Reference: U02`) buried under a standard `power:GND` (rotated 90°). Clicking the GND triangle selects only the top one. Grep for the coordinate (`grep "at <x> <y>" *.kicad_sch`) reveals stacks instantly.
-2. **Cmd+F selects the matched property/field, not the parent symbol.** When the match is on a hidden Reference field, the side Properties panel shows `Field` with `Text = U02` and a `Visible` checkbox — that's the reference text, not the symbol. Pressing Delete from there would (try to) delete a reference field, not the symbol. The user's intuition "I thought it was part of the symbol" is right — references *are* parts of symbols — but in the GUI they're a separately-selectable child of the symbol, and selecting the field doesn't promote selection to the parent.
+**Lesson:** When ERC suddenly flags a violation after a "cosmetic" symbol fix, **the symbol bug was likely concealing a real schematic bug**. `no_connect` and similar permissive pin types act as ERC-silencers; using them inappropriately hides genuine wiring errors. Cache-vs-library drift is a known KiCad failure mode — `Tools → Update Symbols from Library...` would have surfaced this earlier.
 
-**How to actually delete a buried symbol via its hidden field in KiCad 10:**
-- Trick that worked: in the Properties panel, tick **Visible** on the field. The reference text now shows on the canvas, anchored to the parent symbol's origin. You can see *where* the symbol lives (even if its body is overlapped by another symbol's body). Then click the symbol body at that location and Tab-cycle through stacked items, or just delete the now-visible reference's parent.
-- Alternative when GUI fights you: close KiCad, surgically delete the symbol block from the .kicad_sch (Mode B per `kicad-workflow.md`).
+**Files changed:**
+- `kart-medulla.kicad_sym`: U14 entry — Footprint and Datasheet properties populated.
+- `kart-medulla_P1.kicad_sch`: cached `MAX4660EUA_T` symbol pin 2 type `no_connect → passive`; U14 instance Footprint and Datasheet updated; `PEDAL_ACC__0_5V` wire extended from 375.92 → 384.81 to actually reach pin 2.
+- `kart-medulla.pretty/SOP65P490X110-9N.kicad_mod`: new footprint with 3D model reference.
+- `3dmodels/MAX4660EUA_T.step`: new (folder created).
 
-**Confirmed safe-to-delete signal for stacked GNDs:** if `grep "at <x> <y>"` shows two power symbols + a junction at the same point, deleting one is a no-op for connectivity — the remaining symbol + junction keep the net intact. Verify with `kicad-cli sch erc` after deletion (no new violations at that coordinate).
+**Verification:** `kicad-cli sch erc --severity-error` → `Found 0 violations`. Paren-balance check on all edited files passes.
 
-In this case the deletion landed cleanly on disk: U02 gone, coord-occurrence count at (125.73, 311.15) dropped 9 → 4 (one full symbol's worth of property positions removed), ERC has 0 new violations at that point.
+---
 
-## 2026-05-08 — kart-medulla CN1–CN10 pin assignments locked to ESP32 geometry
+## 2026-05-07 — kicad-mcp-pro installed; pins 20/21 (UART0 TX0/RX0) NC'd on kart-medulla
 
-User asked: with CN1–CN5 going up the right side of the PCB and CN6–CN10 going down the left side (mirroring the ESP32 module's "chip" pinout convention), what's the best signal-to-CN-pin assignment so jumper wires from each ESP32 pin to its CN pin stay short?
+**Tooling change:**
+- `kicad-cli` symlinked to `/opt/homebrew/bin/kicad-cli` (was buried inside `/Applications/KiCad/KiCad.app/Contents/MacOS/`). Reports KiCad 10.0.1.
+- `kicad-mcp-pro` v3.1.8 installed via `pipx --python /opt/homebrew/bin/python3.14` (the package needs Python ≥3.12; the user's default `python3` is 3.11 from a platformio venv). Registered in Claude Code at user scope: `claude mcp add kicad -s user -- /Users/rubenayla/.local/bin/kicad-mcp-pro --transport stdio --profile agent_full`. MIT-licensed despite the "Pro" name. Other contenders considered: `lamaalrajih/kicad-mcp` (lighter, KiCad 7+), `Seeed-Studio/kicad-mcp-server` (39 tools, targets KiCad 9), `mixelpixx/KiCAD-MCP-Server`. Picked the Pro one because it's the only one that explicitly supports KiCad 10.
 
-**Result — agreed assignment (CN pin 1 / 2 / 3):**
+**Design change applied:**
+- Header pins 20/21 of the ESP32-S3-DevKitC-1 footprint on `kart-medulla_P1.kicad_sch` are GPIO 44/43 = RX0/TX0 = UART0. Previously rendered as global labels `TX0` / `RX0` with single-pin wires going nowhere. Confirmed via grep that nothing on the medulla PCB or in `~/dv/kart/kart-medulla` firmware references these nets. They are nonetheless reserved by the dev board's on-board CP210x USB-UART bridge (which physically drives those module pins whenever the UART USB-C is plugged in) — so they must not be reassigned on the medulla side either. Fix: removed the global labels + their wires, added `(no_connect)` markers at the pin endpoints (389.89, 48.26 / 50.8), and added `(text)` annotations explaining the reservation. Commit `b07c56f`.
 
-Right side (bottom→top):
-- CN1: GND / +12V_IN / GND  — battery input
-- CN2: MOTOR_HALL_3 (5V) / MOTOR_HALL_2 (5V) / +5V  — halls (2 of 3)
-- CN3: CMD_STEER_DIR (3V3) / EXP_P1 / EXP_P2
-- CN4: REVERSE_WIRE / SDC_IN_LOW_SIDE / CMD_STEER_PWM (3V3) — final, after two corrections during the session: (a) `SDC_NOT_EMERGENCY` removed from CN4.1 (it's an internal ESP32→Q3-gate net, must not be on a CN), and (b) the `MANUAL_THR`/`PEDAL_THR` placeholder I briefly proposed for the freed pin was wrong — the manual-throttle source is the same net as `PEDAL_ACC__0_5V` (CN6.1), branched internally to the MAX4660 NC pin; no second external pedal wire exists. CN4.1 ended up as `REVERSE_WIRE` (the genuinely missing external output that I had clobbered when renaming CN8.1).
-- CN5: HYDRAULIC_2 (0–5V) / PRESSURE_3 (0–10V) / GND
+**Gotchas hit (now also rules in AGENTS.md):**
+- **kicad-mcp-pro caches the schematic in memory** between calls. After `kicad_set_project`, the next MCP write call (`sch_add_no_connect`, etc.) flushes the cached copy to disk, silently overwriting any direct-file edits made between MCP calls. Symptom: `git status` shows zero changes after multiple "successful" Edit calls. Fix: pick one workflow per session — pure-MCP or pure-file-edit, never interleave. KiCad open in the GUI is *fine* if you only reload (File → Revert) and never save before the agent commits; KiCad itself only writes on explicit save.
+- **`agent_full` MCP profile** is missing `sch_delete_label` and `sch_add_text`. So "replace a global label with a text annotation" must be done by direct file edit. Filed mentally as a feature gap.
+- **`sch_add_no_connect` snaps to 2.54 mm by default.** Header pins on the official ESP32-S3-DevKitC-1 sit on 1.27 mm offsets (x=389.89). Marker landed 1.27 mm off; fix: pass `snap_to_grid=False`.
 
-Left side (top→bottom):
-- CN6: PEDAL_ACC (0–5V) / PEDAL_BRAKE (0–5V) / +3V3
-- CN7: PRESSURE_1 (0–10V) / PRESSURE_2 (0–10V) / MOTOR_HALL_1 (5V)
-- CN8: SDA (I²C) / BUZZER / EXP_P3
-- CN9: SCL (I²C) / HYDRAULIC_1 (0–5V) / EXP_P4
-- CN10: CMD_ACC (DAC, 0–5V) / CMD_BRAKE (DAC, 0–5V) / GND
+---
 
-**Rejected: swap MH1 ↔ CMD_STEER_DIR on the ESP32 to cluster all three halls on one side.** Tempting because halls then live on CN2 alone, but GPIO 0 is a strap pin (must be HIGH at boot for normal boot mode). The hall level shifter U5 (SN74LVC3G17) is push-pull, so:
-1. A pull-up to 3V3 on the MH1 net can't override U5 actively driving LOW at boot — if the rotor leaves the hall LOW at power-on, ESP32 enters ROM bootloader and the kart won't run until manually rolled and reset.
-2. If firmware ever mis-configures the GPIO as output, two push-pull drivers fight, risking damage to U5 or the ESP32 pad.
+## 2026-05-07 — Idea: agent works in a separate git worktree so user can keep KiCad open
 
-Keeping CMD_STEER_DIR on GPIO 0 is safe because firmware actively drives it HIGH and the SDC keeps the Cytron disabled at boot regardless. So the swap stays NOT done; MH1 stays on GPIO 16 and rides on the left-side CN7 alongside the pressure sensors. Cable layout is fine because wires terminate in independent Wago slots — per-CN cable grouping doesn't have to match standard sensor pinouts.
+**Problem context:** Twice today the agent's edits to `kart-medulla_P1.kicad_sch` were silently clobbered — once by KiCad's stale-buffer save, once by interleaving direct file edits with kicad-mcp-pro writes. Root cause is that the agent and the user's KiCad are racing for the same on-disk file.
 
-**Aside on GPIO 45 / Pin 8:** user spotted "VSPI" on a third-party pinout image and asked if the pin is reclaimable. The label is misleading — on ESP32-S3 it's the **VDD_SPI voltage select strap** (not the classic ESP32 "VSPI" peripheral). Internal pulldown at boot selects 3.3V flash (correct for our N8R2). The pin is usable as a regular GPIO after boot, provided nothing externally pulls it HIGH at boot. Same rule applies to GPIO 46 (Pin 36). Both still listed as RESERVED in `pinout-esp32-s3.md` out of caution; can be promoted to SPARE-usable if a future need arises. Not needed for this assignment.
+**Idea (not yet implemented; user said note it, don't set up):** add a sibling worktree just for agent work.
 
-## 2026-05-08 — Open question: tasks.md is getting long for human peers, three options on the table
+```
+~/repos/dv-hardware/         user's main worktree, KiCad stays open
+~/repos/dv-hardware-agent/   agent's worktree, on branch agent/<topic>
+```
 
-**Problem:** `.agents/tasks.md` was written agent-first per `AGENTS.md` ("shared kanban for agents to read and update"). Long-form rationale per task is good for AI continuity but bad for human peers skimming the file. User flagged this and asked for alternatives. No decision yet — leaving the file as-is until we pick.
+Setup is `git worktree add ../dv-hardware-agent agent-work`. Agent points the MCP at the worktree's project path with `kicad_set_project /Users/rubenayla/repos/dv-hardware-agent/projects/<board>` and edits there. KiCad's `${KIPRJMOD}` resolves relative to the worktree's `.kicad_pro`, so symbol libs (`*.kicad_sym`), footprint pretties (`*.pretty/*.kicad_mod`), and 3D models (`3dmodels/*.step`) all work without re-pathing. Agent commits + pushes on its branch; user pulls into their worktree when ready and runs `File → Revert` in KiCad to pick up the changes.
 
-**Options considered:**
+**Trade-offs to remember if/when this gets set up:**
+- KiCad files are text but not line-mergeable. Concurrent edits to the *same* `.kicad_sch` or `.kicad_pcb` in both worktrees → ugly manual merge (KiCad re-formats huge sections on save, so even small logical changes can collide on hundreds of lines). Coordinate by topic — agent on one feature branch per task, user avoids touching the same file.
+- The MCP is a single process. `kicad_set_project` per session is enough; no reconfig of the MCP itself.
+- Could be wrapped in `~/.claude/skills/dv-worktree/SKILL.md` so the agent can spin one up on demand.
 
-1. **Folder-per-task (`.agents/tasks/<slug>.md`, with `tasks.md` as a one-line-per-task index).** Best fit if individual tasks start growing real discussion threads — each gets its own git history, can be assigned by filename prefix, and humans only see the index. Cost: a tiny bit of indirection for agents (extra file open per task).
-2. **GitHub Issues for humans, lean `tasks.md` for agents.** If the team is already on GitHub, peers look at issues anyway. `tasks.md` becomes a short list of refs (`#42 — SDC_ENABLE wiring`). Cost: requires the project to be on GitHub with issues enabled, and adds a sync responsibility (close-issue ↔ move-to-Done).
-3. **Just compress.** Keep one file, each entry becomes one short line ("SDC_ENABLE missing — wire GPIO 39 to a connector, see history.md 2026-05-08"). Rationale lives in `history.md` (which is what `history.md` was designed for). Cheapest to do, matches the existing "history.md as the explainer, tasks.md as the to-do" split.
+---
 
-**My recommendation if/when this is picked up:** option 3 first (one-pass cleanup, no structural change). Move to option 1 later if individual tasks start sprouting discussion. Option 2 only if the team is already living in GitHub Issues.
+## 2026-05-07 — KiCad ERC: "Input pin not driven" on GND net (kart-medulla GPIO expander U25 A0)
+
+### Problem
+ERC error: `Symbol U25 Pin 1 [A0, Input, Line] — Input pin not driven by any Output pins`. A0 of the PCF8574T (I2C address pin) was tied to GND for address 0, but ERC kept failing. Took many iterations to diagnose because of multiple overlapping KiCad concepts that all *look* the same to a human.
+
+### Root causes (compound)
+1. The "GND" on A0 was a **global label** (the arrow shape, `Ctrl+L`), not a **GND power symbol** (the triangle, `P`). They share the name "GND" but live on **separate nets**. ERC does not auto-merge them.
+2. Even after using the correct GND **power symbol**, ERC still complained because the **GND power symbol's pin is type Power Input**, not Power Output. A net with only Power Input pins has no driver → ERC error.
+3. Fix for #2 is **PWR_FLAG** — a special symbol whose pin is type Power Output, exists exclusively to tell ERC "this rail is actually driven." Need exactly **one** PWR_FLAG per power net **across the entire design** (one for GND, one for +3V3, etc.). Two PWR_FLAGs on the same net = "Power output and Power output connected" error.
+
+### Key facts to never re-derive
+- **Global label "GND" ≠ GND power net.** Labels are just net names. Power symbols carry power-net semantics.
+- **Power symbols all named "GND"** (the triangles) **share one global net** across all sheets, regardless of where placed. So one PWR_FLAG drives every GND triangle in the project.
+- **Global Label "Shape" property** (Input/Output/Bidirectional/Tri-state/Passive) is **purely cosmetic** — only changes the arrow shape. Does not affect ERC electrical type. ERC drive checks look at *symbol pin types* and PWR_FLAG, never at label shapes.
+- **Pin types that DRIVE a net for ERC purposes:** Power Output, Output, PWR_FLAG. Power Input does not drive (this is why GND/+3V3 power symbols alone don't satisfy ERC).
+- KiCad shortcuts: `L` = local label (sheet-scoped), `H` = hierarchical label, `Ctrl+L` = global label (the arrow), `P` = power symbol (the triangles, GND/+3V3/etc.).
+
+### Recipe to make a power net pass ERC
+1. Place GND power symbol (`P` → GND) on every GND-bound wire. Make sure the pin tip lands on the wire endpoint with a green junction dot.
+2. Place exactly **one** PWR_FLAG (`P` → PWR_FLAG) somewhere on the GND net. Conceptually next to the actual power source (e.g., ESP32's GND pin) is fine, but electrically it doesn't matter.
+3. Repeat (#2 only) for +3V3, +5V, etc.
+
+### Confusion to avoid next time
+- Do not suggest "the wire is floating" or "no junction" without verifying — the user can see the schematic and that gaslights them. The error is almost always a **net semantics** issue (label vs. power symbol vs. missing PWR_FLAG), not a literal disconnection.
+- Trust the user when they say "I already placed the power symbol" — verify by checking PWR_FLAG count and pin-to-wire snap, not by re-explaining the difference between symbols.
+- The KiCad GND power symbol can appear rotated (pointing left, right, down) — it is still the same symbol. Don't mistake a rotated GND triangle for an arrow-shaped global label.
+
+### Resolution
+User fixed it by placing **three separate GND power symbols, one per pin (A0, A1, A2)**, instead of wiring all three pins together to a single shared GND symbol. ERC then passed (0 violations).
+
+### Why three-symbols-works when one-symbol-wired-to-all-three didn't (NOT FULLY EXPLAINED)
+Electrically these should be identical: all three pins on the global GND net via the PWR_FLAG elsewhere. Power symbols with the same name (`GND`) merge into one global net regardless of how many copies are placed. **No confirmed root cause** for why the single-symbol version failed ERC on A0 specifically.
+
+Most likely candidate (unverified): a hidden wire-connectivity issue where A0's pin or one wire segment was off-grid / not actually joined to the rest. ERC's "Input pin not driven" fires when a net has only Input-type pins and no driver — *including* the case where the "net" is just one pin with nothing else on it (a one-node net counts as undriven). That would explain why A0 alone failed while A1/A2 passed. But the user did not visually confirm a misalignment, so this remains a hypothesis.
+
+### Lesson for future ERC drive errors
+If ERC says "Input not driven" on **one specific pin** when adjacent pins on what looks like the same wire are fine: try dropping a power symbol directly on the offending pin (bypass the wire). If that fixes ERC, the wire connectivity was the issue. If not, there's something else going on — inspect the .kicad_sch file via MCP rather than guessing.
+
+### Final final
+- One PWR_FLAG per power net across the whole design (not per sheet, not per symbol). On disk this project has `#FLG01` (GND), `#FLG_+3V3`, `#FLG_+5V_USB01`, `#FLG_+12V01`. Don't add more.
+- The kicad MCP (`mcp__kicad__run_erc`, `grep PWR_FLAG <sch>`) reads disk and is far faster than iterating from screenshots.
+
+---
+
+## 2026-05-07 — Decision: stay on KiCad long-term (vs EasyEDA)
+
+Revisited tool choice after MCP-related friction. Decision: **KiCad**, long-term.
+
+Reasoning:
+- Open format, local files, git-tracked — work is owned, not hosted on a vendor's servers.
+- No vendor lock-in; portable across fabs (not tied to JLCPCB pipeline).
+- Scriptable; MCP tooling is improving and recent ERC issues were all resolved within KiCad.
+- EasyEDA is fine for quick JLC-bound boards but wrong foundation for hardware meant to live for years.
+
+---
+
+## 2026-05-07 — Git workflow: rebase-on-pull when both sides made identical changes to the same file
+
+Situation: peer pushed commit `d0f64d1 "pcb update"` (touched `.kicad_pcb` + 1 line of `.kicad_pro`). Local had uncommitted edits including the **same 1-line change** to `.kicad_pro` (KiCad GUI clears `used_designators` automatically) plus schematic + agent-doc edits.
+
+**Resolution path that worked cleanly:**
+1. Commit local work first (split into logical commits) — gives a checkpoint to return to if anything goes wrong.
+2. `git pull --rebase` — replays local commits on top of peer's. Identical `.kicad_pro` change auto-resolved with no prompt.
+3. Push.
+
+**Why `--rebase` over plain `git pull`:** plain pull creates a merge commit for trivial 1-commit divergences (noisy). Rebase produces linear history `peer → you`. Local commits get new SHAs (parent changed) — safe because they weren't pushed yet. Never rebase already-pushed commits.
+
+**Recovery levers if rebase goes wrong:** `git rebase --abort`, `git reflog` + `git reset --hard <sha>`. Commits are nearly impossible to lose once made.
+
+---
+
+## 2026-05-07 — Parallel work on a single KiCad PCB: not really viable
+
+Question: can two+ people work on different regions of the same `.kicad_pcb` in parallel without merge conflicts?
+
+**Short answer: no, not on a shared `.kicad_pcb`.** Reasons:
+- `.kicad_pcb` is one monolithic S-expression file. Footprints, tracks, vias, zones are flat lists.
+- KiCad's save serialization is **not order-deterministic** between sessions, so even non-overlapping spatial edits can produce diff hunks git can't auto-merge cleanly.
+- Global state (net classes, design rules, stackup, board outline) is shared — any edit there forces a manual merge.
+
+**What works:**
+- **Schematic ↔ PCB split** (different files). What we're doing now — Rubén on schematic + docs, peer on PCB. Trivially parallel.
+- **Multi-board projects** — split logically into separate KiCad projects (e.g. main board + sensor adapter). Each is its own file set.
+- **Time-sliced single-writer** via the `tasks.md` claim pattern. Boring but reliable.
+
+**What sort-of works:** spatial division + serialized merges (A: top quadrant, B: bottom). Second person rebases and copies changes manually. Painful at >2 people.
+
+**What doesn't exist in stock KiCad:** real-time multi-user editing or per-region locking. (Altium 365 / OrCAD X have it; KiCad doesn't.)
+
+**Recommendation for this team:** keep the schematic/PCB split. Third person → give them a separate sub-board as its own project, not a chunk of medulla.
+
+---
+
+## 2026-05-07 — Investigated KiCad-AI workflow problems; added workflow doc + guard; tested kicad-sch-api
+
+**Trigger:** Recurring failures in error log (MCP cache clobbering edits, KiCad GUI auto-saving over agent commits, hand-rolled netlist parsers, screenshots-instead-of-MCP loops). User asked for a real fix.
+
+**Root structural finding:** KiCad has no official IPC API for the **schematic editor** as of KiCad 10. PCB has `kicad-python` (works with running KiCad), schematic does not. Every schematic-editing MCP server (kicad-mcp-pro, Seeed-Studio, lamaalrajih, circuit-synth) is doing raw S-expression manipulation. That is the source of all our caching/conflict pain — these are not bugs in any one server, they're a structural limit until KiCad ships schematic IPC (KiCad 11+).
+
+Seeed-Studio docs put it explicitly: *"KiCad must be closed and reopened to see file changes (no hot-reload). Use KiCad GUI for design work. Use this MCP server for analysis, validation, and code generation."* Adopted as our default.
+
+**What was added:**
+- `kicad-workflow.md` — codifies two modes: (A) read-only MCP, KiCad GUI may be open, default 90% of the time; (B) direct-edit, KiCad closed, no MCP writes that session. With tool-selection cheat-sheet.
+- `scripts/guard-kicad-write.sh` — `pgrep -i kicad` and `pgrep -fl kicad-mcp-pro` preflight. Exits non-zero if unsafe. Dry-run confirmed.
+- AGENTS.md "Editing KiCad files outside KiCad" updated with pointer to the workflow doc.
+
+**kicad-sch-api evaluation (`circuit-synth/kicad-sch-api` v0.5.6):**
+- **Read works.** `load_schematic('kart-medulla_P1.kicad_sch')` → 105 components, 141 wires, parses cleanly. Useful as a Python read API.
+- **Write does NOT preserve format.** Round-trip test (`/tmp/kicad-sch-api-test/roundtrip.py`) produced large diff: drops `(thickness 0.1524)` from text effects, reorders properties, fills empty `Description ""` fields with library text, etc. Despite claims of "exact format preservation".
+- **Reference validator is wrong.** Rejects KiCad-valid power-flag references containing `+` and `_` (`#FLG_+12V01`, `#FLG_+5V_USB01`, `#FLG_+3V3`) as "Invalid reference format". Need to call internal `_file_io_manager.save_schematic(sch._data, path)` to bypass — but the format-preservation issue is separate and worse.
+- **Verdict: skip the library entirely.** Writes are broken (format reformat + buggy validator). Reads work, but reads are already covered by `kicad-mcp-pro` (`sch_get_symbols`, `sch_trace_net`, `sch_get_connectivity_graph`, `run_erc`, `export_netlist`) and `kicad-cli sch export netlist` — both already in our toolbox, neither has the MCP-write cache problem since we'd only call read tools. `kicad-sch-api` adds zero value to us. Edit-tool surgical regex remains the only direct-write path (preserves format exactly when changes are tiny). Re-evaluate when KiCad 11 ships schematic IPC.
+
+**PCB side, when we get there:** use `kicad-python` (the official KiCad IPC API). Works with running KiCad GUI, no cache war. Enable in `KiCad → Settings… → Plugins → API server`. https://dev-docs.kicad.org/en/apis-and-binding/ipc-api/
+
+---
 
 ## 2026-05-08 — Source-of-truth flip + design clarifications (manual/auto mux, connector audit)
 
@@ -263,312 +402,222 @@ Crossed every signal on the 10× green push-in connectors (CN1–CN10) against t
 
 Also flagged for verification (not necessarily wrong, just worth confirming before fab): CN4 has no GND for the AS5600 (3 pins: SDA/SCL/+3V3 only); `SDC_IN_LOW_SIDE` (CN5) vs `SDC_NOT_EMERGENCY__3V3` (internal) need to be confirmed as bridged via a divider; the manual-throttle passthrough relies on `PEDAL_ACC__0_5V` branching internally to both the ADC divider and U14 NC pin.
 
-## 2026-05-07 — Investigated KiCad-AI workflow problems; added workflow doc + guard; tested kicad-sch-api
+---
 
-**Trigger:** Recurring failures in error log (MCP cache clobbering edits, KiCad GUI auto-saving over agent commits, hand-rolled netlist parsers, screenshots-instead-of-MCP loops). User asked for a real fix.
+## 2026-05-08 — Open question: tasks.md is getting long for human peers, three options on the table
 
-**Root structural finding:** KiCad has no official IPC API for the **schematic editor** as of KiCad 10. PCB has `kicad-python` (works with running KiCad), schematic does not. Every schematic-editing MCP server (kicad-mcp-pro, Seeed-Studio, lamaalrajih, circuit-synth) is doing raw S-expression manipulation. That is the source of all our caching/conflict pain — these are not bugs in any one server, they're a structural limit until KiCad ships schematic IPC (KiCad 11+).
+**Problem:** `.agents/tasks.md` was written agent-first per `AGENTS.md` ("shared kanban for agents to read and update"). Long-form rationale per task is good for AI continuity but bad for human peers skimming the file. User flagged this and asked for alternatives. No decision yet — leaving the file as-is until we pick.
 
-Seeed-Studio docs put it explicitly: *"KiCad must be closed and reopened to see file changes (no hot-reload). Use KiCad GUI for design work. Use this MCP server for analysis, validation, and code generation."* Adopted as our default.
+**Options considered:**
 
-**What was added:**
-- `kicad-workflow.md` — codifies two modes: (A) read-only MCP, KiCad GUI may be open, default 90% of the time; (B) direct-edit, KiCad closed, no MCP writes that session. With tool-selection cheat-sheet.
-- `scripts/guard-kicad-write.sh` — `pgrep -i kicad` and `pgrep -fl kicad-mcp-pro` preflight. Exits non-zero if unsafe. Dry-run confirmed.
-- AGENTS.md "Editing KiCad files outside KiCad" updated with pointer to the workflow doc.
+1. **Folder-per-task (`.agents/tasks/<slug>.md`, with `tasks.md` as a one-line-per-task index).** Best fit if individual tasks start growing real discussion threads — each gets its own git history, can be assigned by filename prefix, and humans only see the index. Cost: a tiny bit of indirection for agents (extra file open per task).
+2. **GitHub Issues for humans, lean `tasks.md` for agents.** If the team is already on GitHub, peers look at issues anyway. `tasks.md` becomes a short list of refs (`#42 — SDC_ENABLE wiring`). Cost: requires the project to be on GitHub with issues enabled, and adds a sync responsibility (close-issue ↔ move-to-Done).
+3. **Just compress.** Keep one file, each entry becomes one short line ("SDC_ENABLE missing — wire GPIO 39 to a connector, see history.md 2026-05-08"). Rationale lives in `history.md` (which is what `history.md` was designed for). Cheapest to do, matches the existing "history.md as the explainer, tasks.md as the to-do" split.
 
-**kicad-sch-api evaluation (`circuit-synth/kicad-sch-api` v0.5.6):**
-- **Read works.** `load_schematic('kart-medulla_P1.kicad_sch')` → 105 components, 141 wires, parses cleanly. Useful as a Python read API.
-- **Write does NOT preserve format.** Round-trip test (`/tmp/kicad-sch-api-test/roundtrip.py`) produced large diff: drops `(thickness 0.1524)` from text effects, reorders properties, fills empty `Description ""` fields with library text, etc. Despite claims of "exact format preservation".
-- **Reference validator is wrong.** Rejects KiCad-valid power-flag references containing `+` and `_` (`#FLG_+12V01`, `#FLG_+5V_USB01`, `#FLG_+3V3`) as "Invalid reference format". Need to call internal `_file_io_manager.save_schematic(sch._data, path)` to bypass — but the format-preservation issue is separate and worse.
-- **Verdict: skip the library entirely.** Writes are broken (format reformat + buggy validator). Reads work, but reads are already covered by `kicad-mcp-pro` (`sch_get_symbols`, `sch_trace_net`, `sch_get_connectivity_graph`, `run_erc`, `export_netlist`) and `kicad-cli sch export netlist` — both already in our toolbox, neither has the MCP-write cache problem since we'd only call read tools. `kicad-sch-api` adds zero value to us. Edit-tool surgical regex remains the only direct-write path (preserves format exactly when changes are tiny). Re-evaluate when KiCad 11 ships schematic IPC.
+**My recommendation if/when this is picked up:** option 3 first (one-pass cleanup, no structural change). Move to option 1 later if individual tasks start sprouting discussion. Option 2 only if the team is already living in GitHub Issues.
 
-**PCB side, when we get there:** use `kicad-python` (the official KiCad IPC API). Works with running KiCad GUI, no cache war. Enable in `KiCad → Settings… → Plugins → API server`. https://dev-docs.kicad.org/en/apis-and-binding/ipc-api/
+---
 
-## 2026-05-07 — Parallel work on a single KiCad PCB: not really viable
+## 2026-05-08 — kart-medulla CN1–CN10 pin assignments locked to ESP32 geometry
 
-Question: can two+ people work on different regions of the same `.kicad_pcb` in parallel without merge conflicts?
+User asked: with CN1–CN5 going up the right side of the PCB and CN6–CN10 going down the left side (mirroring the ESP32 module's "chip" pinout convention), what's the best signal-to-CN-pin assignment so jumper wires from each ESP32 pin to its CN pin stay short?
 
-**Short answer: no, not on a shared `.kicad_pcb`.** Reasons:
-- `.kicad_pcb` is one monolithic S-expression file. Footprints, tracks, vias, zones are flat lists.
-- KiCad's save serialization is **not order-deterministic** between sessions, so even non-overlapping spatial edits can produce diff hunks git can't auto-merge cleanly.
-- Global state (net classes, design rules, stackup, board outline) is shared — any edit there forces a manual merge.
+**Result — agreed assignment (CN pin 1 / 2 / 3):**
 
-**What works:**
-- **Schematic ↔ PCB split** (different files). What we're doing now — Rubén on schematic + docs, peer on PCB. Trivially parallel.
-- **Multi-board projects** — split logically into separate KiCad projects (e.g. main board + sensor adapter). Each is its own file set.
-- **Time-sliced single-writer** via the `tasks.md` claim pattern. Boring but reliable.
+Right side (bottom→top):
+- CN1: GND / +12V_IN / GND  — battery input
+- CN2: MOTOR_HALL_3 (5V) / MOTOR_HALL_2 (5V) / +5V  — halls (2 of 3)
+- CN3: CMD_STEER_DIR (3V3) / EXP_P1 / EXP_P2
+- CN4: REVERSE_WIRE / SDC_IN_LOW_SIDE / CMD_STEER_PWM (3V3) — final, after two corrections during the session: (a) `SDC_NOT_EMERGENCY` removed from CN4.1 (it's an internal ESP32→Q3-gate net, must not be on a CN), and (b) the `MANUAL_THR`/`PEDAL_THR` placeholder I briefly proposed for the freed pin was wrong — the manual-throttle source is the same net as `PEDAL_ACC__0_5V` (CN6.1), branched internally to the MAX4660 NC pin; no second external pedal wire exists. CN4.1 ended up as `REVERSE_WIRE` (the genuinely missing external output that I had clobbered when renaming CN8.1).
+- CN5: HYDRAULIC_2 (0–5V) / PRESSURE_3 (0–10V) / GND
 
-**What sort-of works:** spatial division + serialized merges (A: top quadrant, B: bottom). Second person rebases and copies changes manually. Painful at >2 people.
+Left side (top→bottom):
+- CN6: PEDAL_ACC (0–5V) / PEDAL_BRAKE (0–5V) / +3V3
+- CN7: PRESSURE_1 (0–10V) / PRESSURE_2 (0–10V) / MOTOR_HALL_1 (5V)
+- CN8: SDA (I²C) / BUZZER / EXP_P3
+- CN9: SCL (I²C) / HYDRAULIC_1 (0–5V) / EXP_P4
+- CN10: CMD_ACC (DAC, 0–5V) / CMD_BRAKE (DAC, 0–5V) / GND
 
-**What doesn't exist in stock KiCad:** real-time multi-user editing or per-region locking. (Altium 365 / OrCAD X have it; KiCad doesn't.)
+**Rejected: swap MH1 ↔ CMD_STEER_DIR on the ESP32 to cluster all three halls on one side.** Tempting because halls then live on CN2 alone, but GPIO 0 is a strap pin (must be HIGH at boot for normal boot mode). The hall level shifter U5 (SN74LVC3G17) is push-pull, so:
+1. A pull-up to 3V3 on the MH1 net can't override U5 actively driving LOW at boot — if the rotor leaves the hall LOW at power-on, ESP32 enters ROM bootloader and the kart won't run until manually rolled and reset.
+2. If firmware ever mis-configures the GPIO as output, two push-pull drivers fight, risking damage to U5 or the ESP32 pad.
 
-**Recommendation for this team:** keep the schematic/PCB split. Third person → give them a separate sub-board as its own project, not a chunk of medulla.
+Keeping CMD_STEER_DIR on GPIO 0 is safe because firmware actively drives it HIGH and the SDC keeps the Cytron disabled at boot regardless. So the swap stays NOT done; MH1 stays on GPIO 16 and rides on the left-side CN7 alongside the pressure sensors. Cable layout is fine because wires terminate in independent Wago slots — per-CN cable grouping doesn't have to match standard sensor pinouts.
 
-## 2026-05-07 — Git workflow: rebase-on-pull when both sides made identical changes to the same file
+**Aside on GPIO 45 / Pin 8:** user spotted "VSPI" on a third-party pinout image and asked if the pin is reclaimable. The label is misleading — on ESP32-S3 it's the **VDD_SPI voltage select strap** (not the classic ESP32 "VSPI" peripheral). Internal pulldown at boot selects 3.3V flash (correct for our N8R2). The pin is usable as a regular GPIO after boot, provided nothing externally pulls it HIGH at boot. Same rule applies to GPIO 46 (Pin 36). Both still listed as RESERVED in `pinout-esp32-s3.md` out of caution; can be promoted to SPARE-usable if a future need arises. Not needed for this assignment.
 
-Situation: peer pushed commit `d0f64d1 "pcb update"` (touched `.kicad_pcb` + 1 line of `.kicad_pro`). Local had uncommitted edits including the **same 1-line change** to `.kicad_pro` (KiCad GUI clears `used_designators` automatically) plus schematic + agent-doc edits.
+---
 
-**Resolution path that worked cleanly:**
-1. Commit local work first (split into logical commits) — gives a checkpoint to return to if anything goes wrong.
-2. `git pull --rebase` — replays local commits on top of peer's. Identical `.kicad_pro` change auto-resolved with no prompt.
-3. Push.
+## 2026-05-08 — Stacked-symbol confusion: Reference field vs parent symbol in KiCad GUI
 
-**Why `--rebase` over plain `git pull`:** plain pull creates a merge commit for trivial 1-commit divergences (noisy). Rebase produces linear history `peer → you`. Local commits get new SHAs (parent changed) — safe because they weren't pushed yet. Never rebase already-pushed commits.
+While cleaning up a stray `U02` reference, the user found the symbol via Cmd+F (with hidden-fields search) but couldn't select-and-delete it. Two compounding causes:
 
-**Recovery levers if rebase goes wrong:** `git rebase --abort`, `git reflog` + `git reset --hard <sha>`. Commits are nearly impossible to lose once made.
+1. **Two GND symbols stacked at exactly the same coordinate** `(125.73, 311.15)` — a legacy `kart-medulla:GND` (rotated 270°, with the bogus `Reference: U02`) buried under a standard `power:GND` (rotated 90°). Clicking the GND triangle selects only the top one. Grep for the coordinate (`grep "at <x> <y>" *.kicad_sch`) reveals stacks instantly.
+2. **Cmd+F selects the matched property/field, not the parent symbol.** When the match is on a hidden Reference field, the side Properties panel shows `Field` with `Text = U02` and a `Visible` checkbox — that's the reference text, not the symbol. Pressing Delete from there would (try to) delete a reference field, not the symbol. The user's intuition "I thought it was part of the symbol" is right — references *are* parts of symbols — but in the GUI they're a separately-selectable child of the symbol, and selecting the field doesn't promote selection to the parent.
 
-## 2026-05-07 — Decision: stay on KiCad long-term (vs EasyEDA)
+**How to actually delete a buried symbol via its hidden field in KiCad 10:**
+- Trick that worked: in the Properties panel, tick **Visible** on the field. The reference text now shows on the canvas, anchored to the parent symbol's origin. You can see *where* the symbol lives (even if its body is overlapped by another symbol's body). Then click the symbol body at that location and Tab-cycle through stacked items, or just delete the now-visible reference's parent.
+- Alternative when GUI fights you: close KiCad, surgically delete the symbol block from the .kicad_sch (Mode B per `kicad-workflow.md`).
 
-Revisited tool choice after MCP-related friction. Decision: **KiCad**, long-term.
+**Confirmed safe-to-delete signal for stacked GNDs:** if `grep "at <x> <y>"` shows two power symbols + a junction at the same point, deleting one is a no-op for connectivity — the remaining symbol + junction keep the net intact. Verify with `kicad-cli sch erc` after deletion (no new violations at that coordinate).
 
-Reasoning:
-- Open format, local files, git-tracked — work is owned, not hosted on a vendor's servers.
-- No vendor lock-in; portable across fabs (not tied to JLCPCB pipeline).
-- Scriptable; MCP tooling is improving and recent ERC issues were all resolved within KiCad.
-- EasyEDA is fine for quick JLC-bound boards but wrong foundation for hardware meant to live for years.
+In this case the deletion landed cleanly on disk: U02 gone, coord-occurrence count at (125.73, 311.15) dropped 9 → 4 (one full symbol's worth of property positions removed), ERC has 0 new violations at that point.
 
-## 2026-05-07 — KiCad ERC: "Input pin not driven" on GND net (kart-medulla GPIO expander U25 A0)
+---
 
-### Problem
-ERC error: `Symbol U25 Pin 1 [A0, Input, Line] — Input pin not driven by any Output pins`. A0 of the PCF8574T (I2C address pin) was tied to GND for address 0, but ERC kept failing. Took many iterations to diagnose because of multiple overlapping KiCad concepts that all *look* the same to a human.
+## 2026-05-08 (later) — CN cluster reshuffle: U25 moved to right side, all PCF8574-related signals re-clustered
 
-### Root causes (compound)
-1. The "GND" on A0 was a **global label** (the arrow shape, `Ctrl+L`), not a **GND power symbol** (the triangle, `P`). They share the name "GND" but live on **separate nets**. ERC does not auto-merge them.
-2. Even after using the correct GND **power symbol**, ERC still complained because the **GND power symbol's pin is type Power Input**, not Power Output. A net with only Power Input pins has no driver → ERC error.
-3. Fix for #2 is **PWR_FLAG** — a special symbol whose pin is type Power Output, exists exclusively to tell ERC "this rail is actually driven." Need exactly **one** PWR_FLAG per power net **across the entire design** (one for GND, one for +3V3, etc.). Two PWR_FLAGs on the same net = "Power output and Power output connected" error.
+User decided to physically place U25 (PCF8574 GPIO expander) on the right side of the PCB near CN3, and asked to cluster all U25-related signals (I²C bus + expander outputs + reverse) on the right-side CNs to minimize routing length. Six labels swapped (none of the wire/footprint geometry changed; only the net names on the CN-side labels):
 
-### Key facts to never re-derive
-- **Global label "GND" ≠ GND power net.** Labels are just net names. Power symbols carry power-net semantics.
-- **Power symbols all named "GND"** (the triangles) **share one global net** across all sheets, regardless of where placed. So one PWR_FLAG drives every GND triangle in the project.
-- **Global Label "Shape" property** (Input/Output/Bidirectional/Tri-state/Passive) is **purely cosmetic** — only changes the arrow shape. Does not affect ERC electrical type. ERC drive checks look at *symbol pin types* and PWR_FLAG, never at label shapes.
-- **Pin types that DRIVE a net for ERC purposes:** Power Output, Output, PWR_FLAG. Power Input does not drive (this is why GND/+3V3 power symbols alone don't satisfy ERC).
-- KiCad shortcuts: `L` = local label (sheet-scoped), `H` = hierarchical label, `Ctrl+L` = global label (the arrow), `P` = power symbol (the triangles, GND/+3V3/etc.).
+  - CN3.1: `CMD_STEER_DIR__3V3` → `EXP_P3`
+  - CN4.2: `SDC_IN_LOW_SIDE` → `SDA__I2C`
+  - CN4.3: `CMD_STEER__PWM_3V3` → `SCL__I2C`
+  - CN8.1: `SDA__I2C` → `SDC_IN_LOW_SIDE`
+  - CN8.3: `EXP_P3` → `CMD_STEER_DIR__3V3`
+  - CN9.1: `SCL__I2C` → `CMD_STEER__PWM_3V3`
 
-### Recipe to make a power net pass ERC
-1. Place GND power symbol (`P` → GND) on every GND-bound wire. Make sure the pin tip lands on the wire endpoint with a green junction dot.
-2. Place exactly **one** PWR_FLAG (`P` → PWR_FLAG) somewhere on the GND net. Conceptually next to the actual power source (e.g., ESP32's GND pin) is fine, but electrically it doesn't matter.
-3. Repeat (#2 only) for +3V3, +5V, etc.
+After: CN3 = pure EXP cluster (P1/P2/P3); CN4 = REVERSE_WIRE + SDA + SCL (all U25-facing); displaced ESP32 signals (CMD_STEER_DIR, SDC_IN_LOW_SIDE, CMD_STEER_PWM) land on left-side CNs (CN8/CN9) — their ESP32 GPIOs span both sides of the module, so route length is similar; the AS5600 I²C cable now exits through CN4 closest to U25.
 
-### Confusion to avoid next time
-- Do not suggest "the wire is floating" or "no junction" without verifying — the user can see the schematic and that gaslights them. The error is almost always a **net semantics** issue (label vs. power symbol vs. missing PWR_FLAG), not a literal disconnection.
-- Trust the user when they say "I already placed the power symbol" — verify by checking PWR_FLAG count and pin-to-wire snap, not by re-explaining the difference between symbols.
-- The KiCad GND power symbol can appear rotated (pointing left, right, down) — it is still the same symbol. Don't mistake a rotated GND triangle for an arrow-shaped global label.
+Pre-existing naming inconsistency surfaced during this work: `CMD_STEER__PWM_3V3` uses double-underscore between `STEER` and `PWM` (parses as signal=`CMD_STEER`, level=`PWM_3V3`) while the matching `CMD_STEER_DIR__3V3` uses single underscore between signal-internal words and double before voltage. Should arguably be `CMD_STEER_PWM__3V3`. Not fixed in this pass to avoid net-rename churn before fab; tracked as a future cleanup.
 
-### Resolution
-User fixed it by placing **three separate GND power symbols, one per pin (A0, A1, A2)**, instead of wiring all three pins together to a single shared GND symbol. ERC then passed (0 violations).
+---
 
-### Why three-symbols-works when one-symbol-wired-to-all-three didn't (NOT FULLY EXPLAINED)
-Electrically these should be identical: all three pins on the global GND net via the PWR_FLAG elsewhere. Power symbols with the same name (`GND`) merge into one global net regardless of how many copies are placed. **No confirmed root cause** for why the single-symbol version failed ERC on A0 specifically.
+## 2026-05-09 — EasyEDA footprint name "9N" includes exposed pad (false alarm on U14)
 
-Most likely candidate (unverified): a hidden wire-connectivity issue where A0's pin or one wire segment was off-grid / not actually joined to the rest. ERC's "Input pin not driven" fires when a net has only Input-type pins and no driver — *including* the case where the "net" is just one pin with nothing else on it (a one-node net counts as undriven). That would explain why A0 alone failed while A1/A2 passed. But the user did not visually confirm a misalignment, so this remains a hypothesis.
+While auditing 3D-model coverage on kart-medulla, flagged U14 (MAX4660EUA+T) as having a "wrong" footprint: schematic and chip suggest 10 pins (μMAX-10), but EasyEDA-cached footprint `kart-medulla:SOP65P490X110-9N` has 9 pads. Initially diagnosed as a real footprint bug.
 
-### Lesson for future ERC drive errors
-If ERC says "Input not driven" on **one specific pin** when adjacent pins on what looks like the same wire are fine: try dropping a power symbol directly on the offending pin (bypass the wire). If that fixes ERC, the wire connectivity was the issue. If not, there's something else going on — inspect the .kicad_sch file via MCP rather than guessing.
+**It wasn't.** The footprint is 8 SMD leads + 1 exposed thermal pad (EPAD) underneath. EasyEDA's naming convention treats the EP as a numbered pad — hence "9N" = 8 leads + 1 EP, **not** 9 leads. The schematic agrees: pins 1–8 are real leads (with pin 5 marked NC), pin 9 is `EP` tied to GND. The 3D model rendering "only 8 pins" is correct because that's exactly what the chip looks like; the 9th pad is invisible from above.
 
-### Final final
-- One PWR_FLAG per power net across the whole design (not per sheet, not per symbol). On disk this project has `#FLG01` (GND), `#FLG_+3V3`, `#FLG_+5V_USB01`, `#FLG_+12V01`. Don't add more.
-- The kicad MCP (`mcp__kicad__run_erc`, `grep PWR_FLAG <sch>`) reads disk and is far faster than iterating from screenshots.
+**Lesson:** before claiming an EasyEDA footprint name like `<package>-<N>N` is wrong, count the SMD perimeter pads vs the body-center pad. Bottom EPAD doesn't appear in the chip's pin count but does appear in the footprint's pad count — almost universally for thermal-pad packages (DPAK, QFN, μMAX-EP, SOIC-EP). Don't assume `Nn` in the footprint name = chip pin count.
 
-## 2026-05-07 — Idea: agent works in a separate git worktree so user can keep KiCad open
+**Time cost:** ~10 minutes of misdirected investigation + a script run trying to re-attach a model that was already attached. Cheap, but worth not repeating on the next thermal-pad part.
 
-**Problem context:** Twice today the agent's edits to `kart-medulla_P1.kicad_sch` were silently clobbered — once by KiCad's stale-buffer save, once by interleaving direct file edits with kicad-mcp-pro writes. Root cause is that the agent and the user's KiCad are racing for the same on-disk file.
+---
 
-**Idea (not yet implemented; user said note it, don't set up):** add a sibling worktree just for agent work.
+## 2026-05-09 — Bulk-injecting 3D models into EasyEDA-imported footprints (kart-medulla)
 
-```
-~/repos/dv-hardware/         user's main worktree, KiCad stays open
-~/repos/dv-hardware-agent/   agent's worktree, on branch agent/<topic>
-```
+**Trigger:** kart-medulla PCB had 58 of 59 footprints with no 3D model attached because the EasyEDA import doesn't ship `(model ...)` clauses for cached footprints. 3D viewer was nearly empty.
 
-Setup is `git worktree add ../dv-hardware-agent agent-work`. Agent points the MCP at the worktree's project path with `kicad_set_project /Users/rubenayla/repos/dv-hardware-agent/projects/<board>` and edits there. KiCad's `${KIPRJMOD}` resolves relative to the worktree's `.kicad_pro`, so symbol libs (`*.kicad_sym`), footprint pretties (`*.pretty/*.kicad_mod`), and 3D models (`3dmodels/*.step`) all work without re-pathing. Agent commits + pushes on its branch; user pulls into their worktree when ready and runs `File → Revert` in KiCad to pick up the changes.
+**Approach that worked:** scripted regex injection of `(model "${KICAD10_3DMODEL_DIR}/<lib>.3dshapes/<name>.step" (offset/scale/rotate ...))` blocks into each `(footprint ...)` block in `kart-medulla.kicad_pcb`, keyed on footprint name. **44 of 58 succeeded** on first pass (R0603, C0603, SOIC-8/14/16W, MSOP-8, SOT-23, TO-220-3, TO-252, PinSocket 1×22 + 2×22). Parens balanced afterward — no syntax damage.
 
-**Trade-offs to remember if/when this gets set up:**
-- KiCad files are text but not line-mergeable. Concurrent edits to the *same* `.kicad_sch` or `.kicad_pcb` in both worktrees → ugly manual merge (KiCad re-formats huge sections on save, so even small logical changes can collide on hundreds of lines). Coordinate by topic — agent on one feature branch per task, user avoids touching the same file.
-- The MCP is a single process. `kicad_set_project` per session is enough; no reconfig of the MCP itself.
-- Could be wrapped in `~/.claude/skills/dv-worktree/SKILL.md` so the agent can spin one up on demand.
+**KiCad 10 env-var name:** `${KICAD10_3DMODEL_DIR}` (verified by grepping a stock `Resistor_SMD.pretty/R_0603_1608Metric.kicad_mod`). Earlier KiCad versions used `KICAD9_3DMODEL_DIR`, `KICAD8_3DMODEL_DIR`, etc. — the version number tracks the major release. Default base path on macOS: `/Applications/KiCad/KiCad.app/Contents/SharedSupport/3dmodels/`.
 
-## 2026-05-07 — kicad-mcp-pro installed; pins 20/21 (UART0 TX0/RX0) NC'd on kart-medulla
+**Phoenix PTSA series not bundled.** KiCad ships `Connector_Phoenix_MC*`, `MSTB`, `GMSTB`, `SPT` 3dshapes — but **not** PTSA. For the 10× CN1–CN10 (`1990012`, PTSA 0,5/3-2,5-Z), downloaded STEP from SnapMagic (snapeda.com/parts/1990012/) and dropped at `projects/kart-medulla/3dmodels/1990012_PTSA_3p_2.5mm.step`. Referenced via `${KIPRJMOD}/3dmodels/...` so the project stays portable.
 
-**Tooling change:**
-- `kicad-cli` symlinked to `/opt/homebrew/bin/kicad-cli` (was buried inside `/Applications/KiCad/KiCad.app/Contents/MacOS/`). Reports KiCad 10.0.1.
-- `kicad-mcp-pro` v3.1.8 installed via `pipx --python /opt/homebrew/bin/python3.14` (the package needs Python ≥3.12; the user's default `python3` is 3.11 from a platformio venv). Registered in Claude Code at user scope: `claude mcp add kicad -s user -- /Users/rubenayla/.local/bin/kicad-mcp-pro --transport stdio --profile agent_full`. MIT-licensed despite the "Pro" name. Other contenders considered: `lamaalrajih/kicad-mcp` (lighter, KiCad 7+), `Seeed-Studio/kicad-mcp-server` (39 tools, targets KiCad 9), `mixelpixx/KiCAD-MCP-Server`. Picked the Pro one because it's the only one that explicitly supports KiCad 10.
+**Surprising finding — KiCad rotation sign convention differs between dialog and file.** The Footprint Properties → 3D Models dialog displays rotation values with **opposite sign** from what's stored in the .kicad_pcb. Verified empirically:
+- File `(rotate (xyz -90 0 0))` → dialog shows `(90, 0, 0)`.
+- Setting file to `(xyz 90 0 0)` (matching what dialog showed) flipped all 10 connectors upside down. Reverting to `(xyz -90 0 0)` restored correct upright orientation.
+- Same pattern on Z: dialog `(0, 0, -90)` ↔ file `(xyz 0 0 90)`.
+- Offsets and scale do **not** sign-flip — those are direct.
 
-**Design change applied:**
-- Header pins 20/21 of the ESP32-S3-DevKitC-1 footprint on `kart-medulla_P1.kicad_sch` are GPIO 44/43 = RX0/TX0 = UART0. Previously rendered as global labels `TX0` / `RX0` with single-pin wires going nowhere. Confirmed via grep that nothing on the medulla PCB or in `~/dv/kart/kart-medulla` firmware references these nets. They are nonetheless reserved by the dev board's on-board CP210x USB-UART bridge (which physically drives those module pins whenever the UART USB-C is plugged in) — so they must not be reassigned on the medulla side either. Fix: removed the global labels + their wires, added `(no_connect)` markers at the pin endpoints (389.89, 48.26 / 50.8), and added `(text)` annotations explaining the reservation. Commit `b07c56f`.
+**Implication:** when a user reports values from the GUI, negate the rotation entries before writing to the file (or vice versa when reading the file to discuss with the user). Document both forms in any reference table.
 
-**Gotchas hit (now also rules in AGENTS.md):**
-- **kicad-mcp-pro caches the schematic in memory** between calls. After `kicad_set_project`, the next MCP write call (`sch_add_no_connect`, etc.) flushes the cached copy to disk, silently overwriting any direct-file edits made between MCP calls. Symptom: `git status` shows zero changes after multiple "successful" Edit calls. Fix: pick one workflow per session — pure-MCP or pure-file-edit, never interleave. KiCad open in the GUI is *fine* if you only reload (File → Revert) and never save before the agent commits; KiCad itself only writes on explicit save.
-- **`agent_full` MCP profile** is missing `sch_delete_label` and `sch_add_text`. So "replace a global label with a text annotation" must be done by direct file edit. Filed mentally as a feature gap.
-- **`sch_add_no_connect` snaps to 2.54 mm by default.** Header pins on the official ESP32-S3-DevKitC-1 sit on 1.27 mm offsets (x=389.89). Marker landed 1.27 mm off; fix: pass `snap_to_grid=False`.
+**Failed iterations (good to remember so we don't redo them):**
+- Asked user to nudge in Footprint Editor — wrong tool. Footprint Editor edits the *library* footprint, not the per-instance model offset. Per-instance offset only lives in pcbnew → click footprint → press `E` (Properties) → 3D Models tab. From the 3D Viewer (Alt+3) you can't edit anything; double-click does nothing.
+- Tried inferring connector offset by guessing world-space displacement direction (`-1.41, 1.41, 0` then flipped X to `+1.41, 1.13, 0`). Both wrong, because the model offset is in the model's own (post-rotation, pre-yaw) frame and we don't know SnapEDA's authoring origin a priori. **Lesson: always ask the user to nudge ONE instance in the GUI and report exact numbers — then batch the rest. Don't guess offsets through coordinate-frame algebra; SnapEDA STEPs have arbitrary internal origins.**
 
-## 2026-05-07 — MAX4660 (U14) integration: SnapEDA footprint+3D adopted, hidden wire-disconnect bug found and fixed
+**Final empirically-tuned values (verified visually in 3D viewer 2026-05-09):**
 
-**Symbol correctness summary (the part that confused things):**
-- SnapEDA-downloaded symbol (`MAX4660EUA_T.kicad_sym` from the zip): **correct**.
-- Project library symbol (entry inside `projects/kart-medulla/kart-medulla.kicad_sym`): **also already correct** (pin 2 = passive, pin 5 = no_connect).
-- Cached copy inside the schematic file (`lib_symbols` block in `kart-medulla_P1.kicad_sch`): **wrong** — pin 2 = no_connect (a stale snapshot from an earlier broken symbol version).
+| Component | Footprint | 3D model | File rotation | File offset (mm) |
+|---|---|---|---|---|
+| CN1–CN10 (Phoenix PTSA 3p, 1990012) | `kart-medulla:CONN-TH_3P-P2.50-S5.00_1990012` | `${KIPRJMOD}/3dmodels/1990012_PTSA_3p_2.5mm.step` | `(xyz -90 0 0)` | `(-0.75, -1.2, 0)` |
+| Q3 (IRLZ44N TO-220) | `kart-medulla:TO-220-3_L10.0-W4.5-P2.54-T` | `Package_TO_SOT_THT/TO-220-3_Vertical.step` | `(xyz 0 0 90)` | `(0, 2.54, 0)` |
+| U24 (1×22 socket) | `kart-medulla:HDR-TH_ESQ-122-23-G-S` | `Connector_PinSocket_2.54mm/PinSocket_1x22_P2.54mm_Vertical.step` | `(xyz 0 0 90)` | `(26.6, 0, 0)` |
+| U23 (2×22 socket) | `kart-medulla:HDR-TH_ESQ-122-59-G-D` | `Connector_PinSocket_2.54mm/PinSocket_2x22_P2.54mm_Vertical.step` | `(xyz 0 0 90)` | `(26.6, -1.5, 0)` |
 
-KiCad renders symbols from the schematic's cached copy, not the library — so the symbol editor showed the broken cache, even though the library was fine. Running `Tools → Update Symbols from Library` would have fixed it. **SnapEDA was not needed to fix the symbol** — the library already had the right one. SnapEDA's actual contribution to this integration was the verified **footprint** (`SOP65P490X110-9N.kicad_mod`) and **3D model** (`MAX4660EUA_T.step`), plus confirmation that the existing pin map was correct.
+Also re-recorded in `tasks.md` "3D-model placement values" section so peers' PCB edits don't silently regress them.
 
-After confirming the original symbol's pin numbers were correct (matched SnapEDA), did a full SnapEDA integration for U14 (MAX4660 throttle mux). Workflow:
+**Footprint name = body dimensions, not pin pitch alone.** EasyEDA's footprint names encode body L×W (e.g. `SOIC-8_L5.0-W4.0-P1.27-LS6.0-BL`), which doesn't always match KiCad's stock body (`SOIC-8_3.9x4.9mm_P1.27mm`). The 3D model still looks right because pin pitch matches; the body's a few tenths of a mm off but visually fine. Don't waste time hunting for an exact-body-size match unless the visual error is obvious.
 
-1. User downloaded `MAX4660EUA_T.zip` from SnapEDA without needing an account (so the SnapEDA login wall reported earlier wasn't actually blocking — should have tried first).
-2. Extracted: symbol `MAX4660EUA_T.kicad_sym`, footprint `SOP65P490X110-9N.kicad_mod`, 3D model `MAX4660EUA_T.step`.
-3. Copied footprint into `projects/kart-medulla/kart-medulla.pretty/`.
-4. Created `projects/kart-medulla/3dmodels/` and put `MAX4660EUA_T.step` there. (First 3D model in the project — no prior convention; chose `${KIPRJMOD}/3dmodels/` as the standard location.)
-5. Added `(model "${KIPRJMOD}/3dmodels/MAX4660EUA_T.step" ...)` to the new footprint.
-6. Updated `kart-medulla.kicad_sym` U14 symbol's default Footprint property → `kart-medulla:SOP65P490X110-9N`, Datasheet → analog.com.
-7. Updated U14 instance in `kart-medulla_P1.kicad_sch` (Footprint + Datasheet override).
-8. **Critical fix:** the cached `lib_symbols` copy of `MAX4660EUA_T` in `kart-medulla_P1.kicad_sch` had pin 2 (NC) marked as electrical type `no_connect` — wrong; the library copy in `kart-medulla.kicad_sym` correctly had `passive`. The cache had drifted from the library, and KiCad uses the cache, so the schematic editor was rendering pin 2 with the no-connect-X marker. Patched the cache to `passive`.
-9. **Real bug uncovered:** with pin 2 fixed, ERC immediately fired `pin_not_connected` on U14 pin 2. Investigation showed the `PEDAL_ACC__0_5V` wire ended at x=375.92 but pin 2's connection point is at x=384.81 — an 8.89 mm gap. The wire **never actually reached pin 2**. The broken `no_connect` pin type had been silencing this ERC violation by making the pin a legal "no connect" terminal. So the throttle mux's default-throw input (sensor pedal value passing through to the motor) was not wired at all in the schematic. Extended the wire's endpoint to (384.81, 217.17) to close the gap. ERC now reports 0 errors.
+**Phoenix Contact 1990012 logged to vault inventory:** `~/vault/inventory/phoenix-contact-1990012-ptsa-0_5-3-2_5-z-3pin-25mm-push-in-terminal-block.md`. Status `Noted`, `units_to_buy: 10`, source Mouser.
 
-**Lesson:** When ERC suddenly flags a violation after a "cosmetic" symbol fix, **the symbol bug was likely concealing a real schematic bug**. `no_connect` and similar permissive pin types act as ERC-silencers; using them inappropriately hides genuine wiring errors. Cache-vs-library drift is a known KiCad failure mode — `Tools → Update Symbols from Library...` would have surfaced this earlier.
+---
 
-**Files changed:**
-- `kart-medulla.kicad_sym`: U14 entry — Footprint and Datasheet properties populated.
-- `kart-medulla_P1.kicad_sch`: cached `MAX4660EUA_T` symbol pin 2 type `no_connect → passive`; U14 instance Footprint and Datasheet updated; `PEDAL_ACC__0_5V` wire extended from 375.92 → 384.81 to actually reach pin 2.
-- `kart-medulla.pretty/SOP65P490X110-9N.kicad_mod`: new footprint with 3D model reference.
-- `3dmodels/MAX4660EUA_T.step`: new (folder created).
+## 2026-05-09 — U19 (L7805) PCB-vs-AI-Inventory cross-check
 
-**Verification:** `kicad-cli sch erc --severity-error` → `Found 0 violations`. Paren-balance check on all edited files passes.
+PCB U19 uses footprint `kart-medulla:TO-252-2_L6.6-W6.1-P4.57-LS9.9-BR-CW`, value `L7805CDT_C20611927` (LCSC C20611927) — DPAK / TO-252-2, ST.
 
-## 2026-05-07 — MAX4660 (U14) symbol audit: false alarm on pin numbers, real bug on electrical types
+Notion AI Inventory (data_source `34a78747-3143-81da-85fb-000b14e5f8d8`) holds three rows for `L7805CDT-TR` (ST, Mouser 511-L7805CDT-TR), qty 10 + 5 + 15 = 30 in the Milwaukee components box. PCB part **matches** stock. Also one row of `LM7805CT/NOPB` (TI, qty 3) — TO-220 through-hole, **not** a footprint substitute.
 
-**Trigger:** User noticed two pins on U14 (MAX4660 SPDT throttle mux) both labeled "NC" with red X markers in the symbol drawing. Asked which one is the actual no-connect.
+Two cleanups worth doing in Notion (not yet done):
+- All four 7805 rows have an empty `Package` field — should be `TO-252-2` for the STs and `TO-220` for the TI.
+- The three ST rows look like schema-merge duplicates (same MPN, same Mouser PN, same location); consider consolidating into one row with qty 30.
 
-**Initial finding (correct):** The symbol has two `NC` labels — pin 2 is "Normally Closed" (the SPDT default-throw signal terminal, wired to `PEDAL_ACC__0_5V`) and pin 5 is the package's "No Connect" (no internal die connection). The schematic itself correctly places a no-connect flag on pin 5. The red X on pin 2 in the symbol drawing comes from the pin's *electrical type* being set to "Unconnected" — which is wrong, it should be Passive. Same issue may apply to pin 7 (V−) which also drew with an X in the symbol editor.
+---
 
-**Wrong escalation (then corrected):** I claimed the symbol's pin *numbers* were also shuffled vs. datasheet — basing this on a WebSearch snippet that decoded the Maxim datasheet pinout caption as `1=IN 2=N.C. 3=GND 4=COM 5=NC 6=V- 7=NO 8=V+`. I pre­sented a scary table showing the schematic would put +5V on COM, signal on V+, etc. Catastrophic-sounding but **not verified against the actual datasheet**.
+## 2026-05-09 — AISLER sponsor logo placeholder size decision
 
-**Disconfirmation:** User asked for a proper downloaded symbol. SnapEDA `MAX4660EUA+T` (SnapEDA-verified) has pin numbering: `1=COM 2=NC 3=GND 4=V+ 5=NC 6=IN 7=V- 8=NO 9=EPAD` — **identical to the original EasyEDA-converted symbol**. SnapEDA validates parts, so the correct pinout is the SnapEDA/original one, not my WebSearch interpretation. My pin-shuffling claim was wrong.
+Decided on the **smallest AISLER-spec size: 30 × 7.5 mm** (4:1 ratio, AISLER's stated minimum). Rationale: the only constraint that mattered was the 22.86 mm gap between the 0.9″ ESP32 headers, but the long axis goes parallel to the headers, not across the gap, so it wasn't actually binding. The biggest size we could have used (60 × 15 mm) and any intermediate (40×10, 50×12.5) would have fit too — went small because it looks better on this board.
 
-**Real status of original symbol:** Pin numbers correct. Electrical types wrong on pins 2 and 7 (drawn with X). No physical wiring danger; just an ERC and clarity issue.
+Source for the 30 × 7.5 mm number: Rubén in #Driverless on 2026-05-06 ("la idea es que pongáis el recuadro de 30 × 7,5 mm donde os de la gana en la pcb") + the linked AISLER community thread (https://community.aisler.net/t/adding-our-logo-to-your-pcb/5382).
 
-**Lesson:** WebSearch snippets that "decode" a pinout caption from a position-list string are unreliable; do not present them as verified facts. SnapEDA-verified symbols and the existing project symbol agreeing with each other is much stronger evidence than a single search snippet. When two independent sources agree against my reading, retract before escalating.
+Drawing rules (from the AISLER doc, quoted verbatim where it matters): rectangle must be drawn as **4 individual lines** (the rectangle tool fails AISLER's auto-detect because it groups), line width **0.08382 mm (3.3 mil) exactly**, on silkscreen. AISLER doc says "Place as many placeholders as you want — each will be replaced with the logo," so placing one on F.Silkscreen *and* one on B.Silkscreen is allowed (default plan: do both).
 
-**Migration context:** This symbol came in via the EasyEDA-Pro → KiCad migration (ConvertEDA, May 2026). The conversion preserved pin numbers and labels but mis-set electrical types, which is the actual EasyEDA-conversion artifact here — not pin shuffling.
+---
 
-**Download workflow note:** SnapEDA, Component Search Engine (Samacsys), Ultra Librarian all gate KiCad downloads behind login walls. Programmatic curl/WebFetch fails. User pointed out I could have driven their logged-in Chrome with `osascript` — viable next time, since global rules confirm Chrome has "Allow JavaScript from Apple Events" enabled. SnapEDA download did not actually require an account in this instance per the user.
+## 2026-05-09 — Silkscreen text font: DejaVu Sans Mono (chosen by peer)
 
-**Verified MAX4660 8-pin µMAX pinout (from SnapEDA-verified symbol; matches original project symbol):**
-```
-1: COM    8: NO
-2: NC     7: V-
-3: GND    6: IN
-4: V+     5: NC (no internal connection)
-9: EPAD (thermal pad)
-```
+Peer working on the PCB layout used **DejaVu Sans Mono** for the CN1–CN10 silkscreen pin-label blocks. Tab-aligned columns rendered acceptably (not perfect — peer's words). Note for future cross-OS work: DejaVu Sans Mono ships by default on Ubuntu but **is not installed on macOS** (verified `fc-list` on Rubén's Mac 2026-05-09 — only Menlo, no DejaVu). There is no monospace font shared by default between macOS and Ubuntu. Options to keep the project cross-platform:
 
-## 2026-05-04 — `unconnected_wire_endpoint` requires terminating the wire's geometric endpoint, not just the net
+- Install DejaVu on Mac: `brew install --cask font-dejavu` (matches what the peer has).
+- Use KiCad's **Embed Fonts** option (`File → Board Setup → Embedded Files` in KiCad 9+) — bakes the .ttf into the .kicad_pcb so the font travels with the project, regardless of who opens it.
 
-A label sitting *mid-wire* still connects the label's net to the wire (KiCad uses the label's `(at)` point, not the wire's ends, for net assignment). But the wire's geometric endpoints are a separate ERC concern: if a wire endpoint sits in empty space — not on a pin, not at a label's `(at)` point, not at another wire/junction — ERC fires `unconnected_wire_endpoint` even though the net is logically named. Place labels at the wire endpoint (or shorten the wire to end at the label) so the geometry and the electrical termination coincide.
+Recommend turning on Embed Fonts before fab so the gerber export is deterministic across both machines.
 
-Mental model: ERC checks two things separately. (1) Does the *net* have at least the right kind of pins on it? (2) Does each *wire* have its endpoints terminated by something that "anchors" it (pin, label, junction, other wire)? Mid-wire labels satisfy (1) but not (2).
+---
 
-## 2026-05-04 — KiCad no_connect marker semantics (corrected)
+## 2026-05-09 — AISLER Beautiful Boards DRC config + Power net class
 
-The `(no_connect)` flag (the small "X" placed on a pin in the schematic editor) means **"the designer intentionally chose not to wire this pin to anything external on this board"**. It silences ERC's `pin_not_connected` warning by declaring the omission deliberate.
+Configured Board Setup constraints + a custom `kart-medulla.kicad_dru` file targeting **AISLER's "Beautiful Boards" 2-layer service** (the team's PCB-fab sponsor) with ~30 % margin over published minimums. Full rationale per number in `projects/kart-medulla/docs/drc-aisler.md`.
 
-It does **not** mean:
-- The pin doesn't physically exist on the package
-- The pin is internally disconnected on the silicon
-- The pin is a manufacturer-designated NC pad
+Headline numbers: track 0.20 mm, clearance 0.20 mm, drill 0.30 mm, via 0.55 mm Ø with 0.30 mm hole, copper-to-edge 0.30 mm, hole-to-hole 0.30 mm, silk 1.0 mm × 0.15 mm, silk-clearance 0.15 mm, microvias / blind-buried disabled.
 
-Source: KiCad eeschema docs (master) — "No-connection flags are used to indicate that a pin is intentionally unconnected. These flags prevent 'unconnected pin' ERC warnings for pins that are intentionally unconnected." (https://docs.kicad.org/master/en/eeschema/eeschema.html)
+**Net classes:** `Default` (track 0.25, clearance 0.20, via 0.6/0.3) and `Power` (track 0.50, clearance 0.25, via 0.8/0.4). Pattern-based assignment of `+12V`, `+5V_USB`, `+5V_REG`, `+3V3` to the Power class via `net_settings.netclass_patterns` in `.kicad_pro`. **`GND` deliberately stays in Default** — it's a poured zone, not a routed track, so a 0.5 mm minimum-track-width rule would be noise. **`3V3` is borderline** (low-current rail, ~200 mA peak); kept in Power for visual consistency, demote to Default if routing gets tight.
 
-Practical implication: any unused pin can carry a `no_connect` marker, including real-but-unused pins like the second op-amp on a dual op-amp (LM358 pins 5/6/7 when only op-amp A is used). For digital chips, NC markers are fine. For op-amps specifically, tie-back wiring (unity-gain follower with input held at a fixed voltage) is the better engineering practice — prevents the floating amplifier from oscillating or coupling noise — but NC markers are valid and ERC-clean.
+**Custom DRC rules** (`kart-medulla.kicad_dru`): `edge-clearance` (0.30 mm belt-and-suspenders), `annular-min` (0.125 mm extended to pads, not just vias), `hv-pressure-clearance` (0.60 mm on the three 24 V Festo pressure-sensor input nets — IEC 60664-1 Pollution Degree 2 / Material Group IIIa says 0.50 mm at 50 V working voltage; we're at 24 V outdoors so 0.6 mm gives derating + dust margin), `power-track-width` (0.50 mm Power-class backstop), `silk-pad-clearance`.
 
-Don't conflate the schematic-level `(no_connect)` marker (board-specific intent, common) with a symbol pin's `no_connect` electrical type (part-designer's intent that the pin should never be wired, used in symbol definitions for reserved/NC pads). Both silence ERC; the schematic marker is the more frequent tool.
+**Implementation gotcha (worth remembering):** edited `.kicad_pro` JSON behind a running KiCad — KiCad re-saved on close and silently clobbered the edits, reverting `min_clearance`, `min_track_width`, and the entire Power class. Lesson: **never edit `.kicad_pro` from outside while KiCad has the project open.** Either close KiCad first, or do all changes through Board Setup → Net Classes (which writes the schema KiCad expects, not whatever JSON shape an external tool guessed at).
 
+**Net pattern syntax:** KiCad 10 patterns match against the **bare net name with leading `+`** (e.g. `+5V_USB`, `+3V3`, `+12V`) — **no leading slash**. The "Nets matching" preview pane in the Netclass Assignments dialog is the fastest way to confirm the pattern actually hits anything; an empty match means the pattern is wrong. Initially tried `/3V3`, `/+5V`, etc. — none matched (the medulla's actual nets are `+3V3`, `+5V_USB`, `+5V_REG`, `+12V`, with no bare `+5V`).
 
-## 2026-05-03 — Scripted schematic edits on kart-medulla (text-level, no KiCad GUI)
+---
 
-**What worked: pattern replication via direct s-expression edits.**
+## 2026-05-09 — 3D-model regression after peer merge → surgical recovery → library-level fix
 
-Tasks completed by writing s-expression blocks straight into the schematic file:
-1. **Connector pin stubs** — added 8 wire+label pairs to empty pins on CN8/CN9/CN10 (push-in connectors with no wires from EasyEDA conversion). Wire length 36.83 mm leftward, matching the existing CN4-CN7 pattern. Labels named `<REF>_<PIN>_TODO` so user can grep for unrenamed ones.
-2. **Sheet page resize** — A3 → A2 (one-line `(paper "A2")` change in both root and child `.kicad_sch`). Zero risk, no content moved.
-3. **GPIO expander stub replication** — user added one stub on PCF8574 (U25) pin 13 INT#; we replicated the 21.59 mm pattern to other free pins.
-4. **Connector column alignment** — moved CN8 by (-1.27, 0) and CN9 by (-2.54, 0) so all of CN7/CN8/CN9 share x=205.74. For each move, the connector + its 3 wires + 3 labels move as a unit (geometric coupling preserved).
+**Sequence of events** (all on 2026-05-09):
 
-**What did NOT work: free-form schematic design.** Adding new components, routing wires for new sub-circuits, deciding where connectors should live on the page — all GUI work. Programmatic placement produces overlap, ugly routing, broken visual conventions. KiCad IPC API (`kicad-python`) is for *modifying existing* schematic content, not creating new design layout.
+1. Earlier session bulk-injected 3D model `(model …)` blocks into 58 footprint instances in `kart-medulla.kicad_pcb` (recorded at "Bulk-injecting 3D models into EasyEDA-imported footprints" entry below). Bindings lived per-instance only — not in the `kart-medulla.pretty/` library.
+2. Peer pushed two PCB-routing commits (`6b4914e`, `5f4ee9c`). When integrating, ran `git checkout origin/main -- kart-medulla.kicad_pcb` to take peer's layout. **This silently dropped 54 of 55 instance-level 3D bindings** — peer's local PCB had been re-imported / replaced at some point and didn't carry the per-instance `(model …)` blocks. Only `MAX4660EUA_T.step` survived because that one was already library-bound in `SOP65P490X110-9N.kicad_mod`.
+3. Diagnosed via `grep '(model' kart-medulla.kicad_pcb | sort -u`: 1 ref where there had been 13. 3D viewer empty for everything except the MAX4660.
+4. **Recovery:** found `kart-medulla.kicad_pcb.bak.20260509f` (KiCad auto-save from earlier in the session, pre-regression) with 55 intact bindings. Wrote a Python S-expression-walker that built `refdes → (model …) block` map from the .bak, then walked the current `.kicad_pcb` and injected the matching block into each footprint that lacked one. Layout/routing/silk untouched. 54 footprints restored, 4 unmatched (`PAD1–PAD4` corner mounting holes — correctly skipped). Committed as `9596513`.
+5. Peer pushed *another* PCB commit (`5f4ee9c "logo and connections"`). Same regression: 3D bindings down to 1 again. Re-ran the surgical merge — same script, same `.bak` source — recovered all 55 again. Pushed atop peer's tip.
+6. **Long-term fix:** edited 12 footprints in `kart-medulla.pretty/` to carry library-level `(model …)` blocks matching the format of the existing `SOP65P490X110-9N.kicad_mod`. Path / offset / scale / rotate values lifted verbatim from the `.kicad_pcb` (PTSA's `xyz -90 0 0` rotation + `-0.75 -1.2 0` offset preserved; ESQ-122 headers' `xyz -0 -0 90`; TO-220's `xyz 0 0 90`). Committed as `a0f7a5c`.
 
-**Lessons / gotchas:**
-- **Pin "empty" detection requires checking ALL connection types**, not just wires:
-  - regular `(label ...)` blocks
-  - `(global_label ...)` and `(hierarchical_label ...)` blocks (different from regular labels — separate regex)
-  - `(no_connect ...)` markers (pin intentionally unused — adding a wire there causes ERC errors)
-  - Labels can be placed *directly on a pin attach point* with no intermediate wire (KiCad treats placement-on-pin as a connection)
-  - Initial naive pass missed CMD_REVERSE (a hierarchical label sitting on U25 pin 5) and a `no_connect` marker on U25 pin 12. Resulting wires had to be removed in a follow-up edit. Always audit all four marker types before declaring a pin "empty".
-- **Floating-point precision:** moving coordinates by deltas can introduce artifacts like `205.73999999999998` instead of `205.74`. KiCad tolerates these but they're ugly in diffs. Always round to 4 decimal places after coordinate arithmetic, then `:g`-format to drop trailing zeros.
-- **KiCad rewrites file format on first open** after an external import: `generator` field changes (`easyeda_pro_to_kicad` → `eeschema`), whitespace/element ordering normalizes, version field bumps to KiCad's current. First post-conversion git diff is huge (thousands of lines, mostly cosmetic); subsequent diffs are small and meaningful. Don't be alarmed by the first big diff.
-- **KiCad has no auto-reload of files modified externally**, and no `File → Reload from Disk`. If KiCad has the schematic editor open and the file is edited underneath, the next Ctrl+S in KiCad silently overwrites the external changes. Check for `~<projectname>.kicad_pro.lck` (project lock — held while launcher is open) AND `lsof` on the specific `.kicad_sch` (held only while the schematic editor window is open). Project lock alone doesn't mean the schematic is held — verify per-file.
-- **Wire termination shortcut:** in KiCad eeschema, wire mode (`W`) is finished by **double-click** at the endpoint, NOT by Esc (Esc cancels the in-progress wire) and NOT by Enter (does nothing). Single-click on a pin/wire/junction also terminates cleanly.
-- **`(at X Y)` in symbol blocks** has the rotation angle as a separate trailing integer for symbol instances (3 numbers), but for some other elements it's just X Y (2 numbers). Need separate regex patterns for both forms.
-- **PCB footprint references** in `.kicad_pcb` use bare names (`"C0603"`) without library prefix when the project has a local `<projectname>.pretty/` folder — KiCad auto-discovers it if the folder name matches the project name.
+**Lessons / rules established:**
 
-**Pattern that's safe to script:** geometric translation/replication where you have:
-1. Existing data to copy (length, direction, format)
-2. Known target coordinates that are grid-aligned
-3. No spatial design judgment required (placement decisions inherited from existing elements)
+- **Per-instance 3D bindings are fragile.** Any operation that swaps the `.kicad_pcb` (re-import from EasyEDA, library footprint replace, `git checkout` from a peer branch lacking them) silently strips them. **Always bind 3D models at the `*.kicad_mod` library level** for parts intended to live on this board.
+- **Instance-level still wins over library-level** in KiCad. Adding library bindings is non-destructive — if the live PCB already has a per-instance value, that wins. Used this property to land the library-level fix without coordinating around peer's in-flight layout work.
+- **KiCad auto-saves saved us.** `kart-medulla.kicad_pcb.bak.20260509b/c/d/e/f` carried successive snapshots of the pre-regression state. Without them the surgery would have required re-deriving every per-instance offset/rotation by eye. **Don't gitignore the `.bak.*` files until after they've served their recovery purpose.** (Today the team's `.gitignore` was extended to `*.bak.*` — that's fine for the *future*, not for today's recovery, since the .bak files were already on disk.)
+- **The Python S-expression walker** (parens-balanced footprint extraction + refdes-keyed model-block lookup) is reusable for any future "files diverged, want to merge specific subtrees" scenario in KiCad. Keep the snippet handy.
 
-**Pattern that's NOT safe to script:** anything that requires deciding "where should this go visually" — symbol placement on an empty area, wire routing around existing elements, label placement that doesn't follow from a clear pattern.
+---
 
-**Two more bugs hit on day 2:**
+## 2026-05-09 — kart-medulla DRC cleanup session
 
-1. **Y-flip between symbol library and schematic instance coordinates.** KiCad's `lib_symbols` use Y-up convention (paper-schematic legacy: positive Y = up the page). When a symbol is INSTANTIATED in a schematic, KiCad applies an automatic Y-flip — schematic coords are Y-down. Initial pin-position calculations did NOT apply the flip, so PCF8574T pin numbering was inverted vertically: my "P0" stub landed on P1, my "P7" stub landed on INT#, etc. The symptom: the user opens the file and sees `EXP_P0_TODO` sitting next to "P1" on the chip. Fix: world_y = symbol_y - lib_pin_y (NOT +). Verify by cross-referencing one known wire (e.g., the user-added stub's known coordinates) against your computed pin positions BEFORE doing pattern replication based on those coords.
-
-2. **Labels are NOT always exactly at wire endpoints.** EasyEDA-converted schematics have label positions that are sometimes 1.27 mm offset from the wire's geometric endpoint (probably because EasyEDA stores label-anchor differently from KiCad). When moving a connector + wires + labels as a unit, a tight tolerance (0.05 mm) won't catch labels that are positioned slightly inside the wire. Symptom: connector and wires move, labels stay, wires now visually disconnected from labels (functionally still fine if the label connects-by-name elsewhere, but ugly and easy to misread as a broken net). Fix attempts: (a) use bigger tolerance (~2 mm) when looking for labels at wire endpoints; (b) for moves that include real-signal labels (not TODO placeholders), revert and do the move in eeschema GUI instead. Detected by ERC violation count jumping by ~3 per affected wire (single-endpoint warnings appear).
-
-**On Y-alignment of converted connectors:** the right-side connectors (CN7-CN10) are 1.27 mm above the left-side row positions. Aligning them programmatically tripped the label-offset bug above (CN1-CN4 labels are EasyEDA-style offset from their wires). Reverted; left as a GUI task. Safe scriptable alignment was limited to X-column alignment of CN7/CN8/CN9 where all the labels were freshly-added TODO labels at exact wire endpoints.
-
-**The Y-flip applies to connector symbols too, not just chips.** Reflex was to think the lib-vs-schematic Y-flip was a chip-pin-specific gotcha, but it's universal — every symbol's pin coords need it. For the 1990012 push-in connector: lib has pin 1 at y=+2.54 (top in lib coords), pin 3 at y=-2.54 (bottom). After the flip, world pin 1 is at center_y - 2.54 (smaller y, top of screen), pin 3 at center_y + 2.54 (bottom). Earlier connector code used `y + 2.54` for pin 1, which was wrong — the wires/labels still attached correctly because pin attach POINTS were computed for all 3 pins and the symmetry hid the bug, but pin number reporting in commit messages was inverted. Always sanity-check pin numbering against a known reference (e.g., open the schematic, see which pin number the top-most wire belongs to).
-
-**Adding a power symbol via text edit requires THREE places to update:**
-1. The symbol-instance `(at X Y angle)` in the symbol header
-2. The `(property "Reference" "#PWRnn")` block (the *property* reference)
-3. The `(instances ... (path "..." (reference "#PWRnn")))` sub-block (the *instance-path* reference)
-
-Items 2 and 3 must match. KiCad uses the instance-path reference (item 3) for display; if you only update item 2, ERC and the GUI both still show the template's old reference number. Symptom: a fresh `#PWR36` symbol appears in ERC reports as `#PWR08` (the number from whatever symbol you copied as a template). Always grep for any leftover stale ref numbers after copying a symbol block.
-
-## 2026-05-03 — EasyEDA Pro → KiCad migration (kart-medulla)
-
-**What worked:** [ConvertEDA](https://converteda.com) (free beta web service, drag-and-drop the `.epro`). Produced full KiCad 9-format project: 175KB `.kicad_pcb`, 251KB `.kicad_sch` (hierarchical, root + `_P1` sheet), 36 footprints in `kart-medulla.pretty/`. Validated openable by KiCad 10.0.1.
-
-**What didn't work:**
-- **KiCad 10.0.1 native importer** (`File → Import Non-KiCad Project → EasyEDA Pro`): silently produced empty stubs — 79-byte `.kicad_pcb`, 230-byte `.kicad_sch`. No error shown. Likely a format-version lag — the source `.epro` was exported by EasyEDA Pro **2.2.47.7** (per `editorVersion` in the unzipped `.epcb`) and the KiCad importer probably hasn't been updated for that version yet. The `.epro` itself is a valid zip with full content (verified manually).
-- **`easyeda2kicad6`** (yaybee/easyeda2kicad6, npm): wrong tool entirely — converts EasyEDA **Standard** (old JSON format) → KiCad **6**. We need Pro → KiCad 10.
-- **`easyeda2kicad.py`** (uPesy/easyeda2kicad.py, pypi): only fetches individual LCSC components by ID. Not a project converter despite the name.
-- **KiCad per-file import path** doesn't exist for EasyEDA Pro `.esch`/`.epcb` files. `Import → Graphics` only takes DXF/SVG; the schematic editor has no per-file Pro importer. Project-level only.
-
-**`.epro` internal format** (useful for future debugging):
-- Zip archive containing `project.json` + 8 directories: `SHEET/`, `PCB/`, `SYMBOL/`, `FOOTPRINT/`, `INSTANCE/`, `POUR/`, `PANEL/`, `BLOB/`, `FONT/`.
-- Schematic data in `SHEET/<uuid>/<n>.esch`, JSON-Lines (`["DOCTYPE","SCH","1.1"]\n["HEAD",...]`).
-- PCB data in `PCB/<uuid>.epcb`, same JSON-Lines style.
-- For single-sheet projects, `INSTANCE/` is empty — instances are inline in the `.esch`/`.epcb`.
-
-**Naming + repo decisions:**
-- Project folder named `kart-medulla` (matches `kart-medulla` firmware repo modulo case, and team verbal usage — `kart-brain` / `kart-medulla`).
-- Single monorepo (`dv-hardware`) for all KiCad projects rather than per-project repos. Reasons: shared `lib/`, single onboarding clone, atomic cross-board changes, repo size is small (KiCad files are KB/MB).
-- Visibility: **public** (matches existing UM-Driverless `kart_*` and `driverless` repos).
-- Naming case: **kebab-case** chosen as team standard. Searched org for documented snake_case rule — none exists (the `kart_*` snake_case is just de facto from older repos).
-- Original "ESP32 Expander" project (Jan 2026, EasyEDA) was renamed to "Kart Medulla (expander for ESP 32)" in May 2026 — same board. Old export kept in `easyeda-source/kart-medulla_2026-01-10_pre-rename.epro` as historical baseline.
-
-**Post-conversion state (raw, not yet cleaned up):**
-- ERC: 347 violations. Mostly `lib_symbol_issues` for absent `gen` lib (converter emits `lib_id "gen:CAP"` / `gen:Res` but doesn't ship the `gen` library), `power` lib mismatches (`12V`, `+5V_REG` not in KiCad's stdlib), and `footprint_link_issues` from missing `fp-lib-table`.
-- DRC: 165 violations + 31 unconnected items. Will mostly resolve once footprint library is registered.
-- **Cleanup deferred** — design is still in active flux (more green push-in connectors being added for expander chip GPIOs). No point cleaning ERC against a moving target. Revisit when schematic stabilizes.
-
-**Gotchas hit:**
-- KiCad 10's project-local `.history/` dir contains its own internal `.git/`. When committed naively, git treats it as a submodule pointer and the `.history/` gitignore rule does NOT apply. Fix: `git rm --cached projects/<x>/easyeda-source/.history`. Gitignore alone is insufficient once the embedded repo has been seen by git.
-- **Gitignore trailing comments are NOT supported.** A line like `.history/  # KiCad local history` is interpreted as a literal pattern (the spaces and `#` become part of the pattern), so the rule silently does nothing. Comments must be on their own line. Verify any rule with `git check-ignore -v <path>`.
-- Opening an `.epro` directly in KiCad creates sibling stub `.kicad_pcb` / `.kicad_pro` / `.kicad_sch` files in the same directory (sized 79 / 2 / 230 bytes — clear marker of failed conversion). Added blanket gitignore for `projects/*/easyeda-source/*.kicad_*` to prevent future contamination of source archives.
-- `kicad-cli sch erc <file>` writes the report to **CWD by default**, not next to the input. Always pass `-o /path/to/report.rpt` explicitly to avoid littering the working directory.
-- `kicad-cli` has no `import` subcommand — only `erc`, `drc`, `export`, `upgrade`. Headless EasyEDA conversion is not possible via KiCad CLI.
-
-**Internal renames applied to ConvertEDA output** (it preserved the EasyEDA project name verbatim):
-- Filenames: `Kart_Medulla_(expander_for_ESP_32).kicad_*` → `kart-medulla.kicad_*`, same for `_P1.kicad_sch` and `.pretty/` folder.
-- Internal refs in `.kicad_sch` (`Sheetfile`, `project` blocks in instances), `.kicad_pcb` (title_block), `.kicad_pro` (`meta.filename`): same global string replace `Kart_Medulla_(expander_for_ESP_32)` → `kart-medulla`. Verified no stale refs remain (except the gitignored `.kicad_prl`).
+- **Auto-silkscreen plugin installed:** CGrassin/kicad-auto-silkscreen at `~/Documents/KiCad/10.0/scripting/plugins/kicad-auto-silkscreen/`. Ran once to auto-place all refdes on medulla PCB. Side effect: ~50 silk-to-pad clearance warnings (largely cleaned up afterward).
+- **Power-class minimum track width: 0.5 → 0.3 → removed.** Originally 0.5 mm in `71bf70d` (AISLER setup, sized for 1.5 A IPC-2152). Actual medulla Power loads (+12V, +5V_USB, +5V_REG, +3V3) are sub-100 mA — logic ICs, op-amps, sensors only. Cytron 12V→motor path does not traverse the medulla (per 2026-05-01 decision). Dropped to 0.3 mm, then removed entirely once QFN/SOT-23 fanout demanded 0.2 mm pitch on power rails. Power class still enforces clearance (0.25 mm) and via size (0.8/0.4 mm). Updated `kicad_dru`, `kicad_pro` (Power netclass `track_width: 0.5 → 0.2`), and `projects/kart-medulla/docs/drc-aisler.md`.
+- **Bulk power-track widening broke 36 connections.** Edit Track & Via Properties → "Set to net class / custom rule values" with Power-class filter widened all power tracks at once; endpoints shifted off pads. Unconnected items 3 → 39. Manual repair brought it back to 4; some still broken at session end.
+- **Polygon rule area for fine-pitch SMD pad clearance.** First attempt used custom DRC rule with `A.MemberOfFootprint == B.MemberOfFootprint` — invalid in KiCad 10, broke rules compilation entirely. Replaced with rule-area approach: drew polygon (`fine-pitch-smd`) around U14, added rule:
+  ```
+  (rule "fine-pitch-pad-clearance"
+    (constraint clearance (min 0mm))
+    (condition "A.insideArea('fine-pitch-smd') && B.insideArea('fine-pitch-smd') && (A.Type == 'Pad' || B.Type == 'Pad')"))
+  ```
+  Resolves 7 intra-footprint pad-pad / track-pad violations on U14 (SOIC-8, 0.65 mm pitch, native 0.18 mm pad-pad). Reusable pattern for future fine-pitch parts.
+- **U14 solder-mask bridges fixed via `solder_mask_margin`.** Six "Rear solder mask aperture bridges items with different nets" errors. Cause: each pad in the U14 footprint had `solder_mask_margin 0.102`, expanding apertures by 0.102 mm/side and shrinking the mask web below AISLER minimum. Initial fix targeted wrong file (`SOP65P400X130-8N.kicad_mod`); U14 actually uses `SOP65P490X110-9N.kicad_mod` (8-µMAX-EP, 9 pads incl. exposed pad), confirmed by inspecting the embedded footprint in `.kicad_pcb` (sibling 8N footprint also exists in library, `parts.md` was ambiguous). Set `solder_mask_margin 0` on correct file. **Tools → Update Footprints from Library does NOT override per-pad mask margin** (treated as user customization) — required direct sed on the embedded copy in `.kicad_pcb` to push through.
+- **Min thermal spoke count: 2 → 1** (Board Setup → Constraints, per-zone). Acceptable for hand-soldered prototype; vibration/thermal-cycling longevity not a concern. Per-zone setting — existing zones may not pick up the change automatically, may need editing individually.
+- **U14 confirmed: MAX4660EUA+T**, 8-µMAX-EP, footprint `SOP65P490X110-9N` from SnapEDA. Not yet in `~/vault/inventory/` — worth adding (mirror `phoenix-contact-1990012-...` format).
+- **Final DRC state:** 0 errors. 5 silk text warnings (U1 refdes 0.087 mm thickness / 0.69 mm height — below AISLER 0.10 mm hard floor; 3 TrueType texts with thin stroke). 4 unconnected items pending fix.
 
 ## Reference
 
@@ -576,3 +625,30 @@ Items 2 and 3 must match. KiCad uses the instance-path reference (item 3) for di
 - ConvertEDA (worked): https://converteda.com
 - KiCad IPC API (for future automation): https://dev-docs.kicad.org/en/apis-and-binding/ipc-api/for-addon-developers/index.html
 - `kicad-python` (official Python bindings for IPC API): https://pypi.org/project/kicad-python/
+
+## 2026-05-12 — WAGO push-in terminal block sourcing (2624 vs 2601)
+
+**Trigger:** Spotted WAGO 2624 series in an Instagram reel (wagouk), wanted a 3.5 mm pitch variant compatible with team standard 18 AWG / 0.75 mm² wire (`~/vault/standards.md:236-239`).
+
+**Finding:** The **2624 series has no 3.5 mm pitch.** Only 5 mm (2624-11xx top entry, 2624-31xx side entry) and 7.5 mm (2624-15xx, 2624-33xx). The 3.5 mm pitch sibling with same push-in-CAGE-CLAMP + lever style is the **2601 series** (e.g. 2601-3104 = 4-pole, 3.5 mm pitch, top entry). Conductor range 0.2–1.5 mm² (AWG 26–14). Don't assume pitch options carry across WAGO series numbers — verify on wago.com before quoting.
+
+**Pitch / current cheat-sheet for push-in cage-clamp lever PCB terminals:**
+
+| Pitch | Series | Conductor range | Rated current | Use case |
+|---|---|---|---|---|
+| 3.5 mm | **2601** | 0.2–1.5 mm² (AWG 26–14) | ~10 A | Signal + low-power (CAN, I²C, 0.75 mm² standard wire) |
+| 5 mm | **2624** | 0.2–1.5 mm² (AWG 24–12) | ~17 A | General purpose |
+| 7.5 mm | **2624-3xxx** | 0.5–6 mm² (AWG 20–10) | ~41 A | Power (4 mm² / 12 AWG, 30 A loads) |
+
+**Modularity (Arduino-header-like behavior):** at the same pitch, N×1-pole bodies abut to span the same hole pattern as one N-pole body. PCB footprint with 4 holes at 3.5 mm pitch accepts 1× 2601-3104 OR 2× 2601-3102. Body height/depth ≈13×17 mm — leave clearance.
+
+**Datasheet retrieval:** WAGO's own product pages don't expose static PDF URLs (priintcloud signatures are dynamic, return HTTP 400 without a session). **Bürklin mirrors clean PDFs** at `https://www.buerklin.com/Buerklin-Webshop-Site/rest;loc=de_DE/attachments/Buerklin-Webshop%253A%252FFiles_<hash>%252F<PN>-EN.pdf` — grep the product page HTML (`/en/p/wago/pcb-terminal-blocks/<PN>/<bürklin-id>/`) for the file hash. Bürklin product IDs found via search: 2601-3102 → 09H828, 2601-3103 → 09H830, 2601-3104 → 09H832.
+
+**Final sourcing decision — stock 2-pole + 3-pole only.** Per-pin pricing is flat across pole counts (DigiKey 1-off, 2026-05): 2601-3102 $1.21/pin, 2601-3103 $1.12/pin, 2601-3104 $1.13/pin. No per-pin saving from buying higher pole counts. With {2-pole, 3-pole} you can compose every integer pole count ≥ 2 with zero gaps (2 and 3 are coprime → Frobenius = 1). 4-pole adds nothing the 2+3 set can't.
+
+**Inventory (Notion, all "To order", 10 units each):**
+- 2601-3102 (2-pole): https://www.notion.so/WAGO-2601-3102-2-pole-PCB-terminal-block-3-5-mm-pitch-push-in-lever-35e7874731438115b893eacecfce7026
+- 2601-3103 (3-pole): https://www.notion.so/WAGO-2601-3103-3-pole-PCB-terminal-block-3-5-mm-pitch-push-in-lever-35e787473143816c80bdf020e0de2d64
+- 2601-3104 (4-pole): created then archived after the per-pin pricing check.
+
+Datasheets at `~/dv/datasheets/2601-310{2,3}_wago_datasheet.pdf` (4-pole removed). Standards entry added at `~/vault/standards.md` under the connectors section.
