@@ -119,7 +119,7 @@ Existing RC on MCP4922 VREF (100 Ω + 10 µF) stays — overkill for the linear 
 
 ## In Progress
 
-- [ ] **New kart_medulla PCB version for ESP32-S3-N16R8** #gabriel #eduardo — overall board revision tracking the schematic + layout work above
+- [ ] **New kart-medulla PCB version for ESP32-S3-N16R8** #gabriel #eduardo — overall board revision tracking the schematic + layout work above
 - [ ] **Wire reverse gear to ESP32 + remote joystick control** #eduardo #gabriel — hardware side (BSS123 + REVERSE_WIRE connector pin); firmware side tracked in `~/repos/kart-medulla` (firmware repo)
 
 ## Done
