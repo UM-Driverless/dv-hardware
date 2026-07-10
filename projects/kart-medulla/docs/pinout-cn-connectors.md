@@ -9,7 +9,22 @@ Connectors are placed in a "chip-pinout" layout to minimize jumper-wire length t
   - CN1–CN5 sit on the **right** side of the PCB, **bottom→top** (CN1 closest to USB, CN5 closest to the top edge). They map onto ESP32 pins 1–22 (right edge, RIGHT_HEADER).
   - CN6–CN10 sit on the **left** side, **top→bottom** (CN6 closest to the top edge, CN10 closest to USB). They map onto ESP32 pins 23–44 (left edge, LEFT_HEADER).
 
-Pin numbering within each CN: pin 1 / 2 / 3 from top to bottom (1990012 footprint).
+Pin numbering within each CN (verified against `kart-medulla.kicad_pcb`, 2026-07-10 — this
+used to read "pin 1/2/3 from top to bottom", which is only true of the right-hand side):
+
+  - **CN1–CN5** (right, footprint rotation −90°): pin **1 at top**, pin 3 at bottom.
+  - **CN6–CN10** (left, footprint rotation +90°): pin **1 at bottom**, pin 3 at top.
+
+Note the consequence: on the right the CNs advance bottom→top while their pins advance
+top→bottom; on the left the CNs advance top→bottom while their pins advance bottom→top. So on
+**both** sides the pin numbering runs *counter* to the CN numbering, and on both sides the wire
+entry faces **inward**, toward the middle of the board. See the "flip the connectors" task in
+`../tasks.md`.
+
+Footprint is `CONN-TH_3P-P2.50-S5.00_1990012`: 2.50 mm pitch, and the pads are **staggered** —
+pins 1 and 3 in one row, pin 2 in a row 5.00 mm across. A 180° rotation therefore moves pin 2's
+pad row to the opposite side and is not a free change; the copper under each connector must be
+re-routed.
 
 ## Assignment table
 

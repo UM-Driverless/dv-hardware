@@ -1,4 +1,4 @@
-# ESP32-S3 (WROOM-1-N8R2) — current PCB
+# ESP32-S3 (WROOM-1-N16R8) — current PCB
 
 > **Authoritative source: the schematic in this same project folder (`../kart-medulla.kicad_sch`).** This document mirrors the pin assignments for human reading and adds rationale/strap-pin/firmware-mode notes that the schematic doesn't carry. **PCB layout is in progress — pin assignments may shift as routing constraints surface.** When this doc and the schematic disagree, the schematic wins; fix this file. Re-verify before each fab release.
 
@@ -66,11 +66,17 @@ The medulla schematic uses two connector symbols:
 (The PCB-header numbering H1.x / H2.x existed in earlier revisions of this
 doc but was removed on 2026-05-02 — see `history.md`.)
 
-Note on octal PSRAM pins (GPIO 33-37): the N8R2 module uses quad PSRAM so
-these pins are available externally. The N8R8 module uses octal PSRAM and
-GPIO 33-37 are internally reserved. The board is laid out so it accepts
-either module — GPIO 35-37 are kept as SPARE on the headers, no signal is
-routed to them. See history.md (2026-04-29) for rationale.
+Note on octal PSRAM pins (GPIO 33-37): a quad-PSRAM module (N8R2) leaves
+these pins available externally. An octal-PSRAM module (N8R8 / N16R8) wires
+them to the in-package PSRAM die, so they are internally reserved. The board
+is laid out so it accepts either module — GPIO 35-37 are kept as SPARE on the
+headers, no signal is routed to them. See history.md (2026-04-29) for rationale.
+
+**The module actually fitted is an N16R8 (octal PSRAM)** — the supplier shipped
+it instead of the ordered N8R2; verified on hardware 2026-07-10 (see
+`history.md`). So on this board GPIO 33-37 are *not* reclaimable in practice:
+treat them as BLOCKED, not HOLD, unless the module is swapped for a quad-PSRAM
+part. The variant-agnostic layout means no signal has to move.
 
 ## Dev-board compatibility checklist (when buying a non-Espressif S3 board)
 
@@ -158,7 +164,7 @@ before assuming this pinout works:
 | 7 | 48 | 48 | BLOCKED | - | Dev-module's on-board RGB LED. No external LED on the medulla PCB. NC in schematic, BLOCKED label. |
 | 8 | 45 | 45 | HOLD | - | Strap pin (VDD_SPI voltage select, flash/boot risk). Reclaimable post-boot if signal's idle state matches the strap default (LOW for 3.3V flash). |
 | 9 | 0 | 0 | HOLD | - | BOOT-mode strap pin (must be HIGH at boot for normal boot). Was previously assigned to `CMD_STEER_DIR` (signal moved to GPIO 17 on 2026-05-08 to remove the strap-pin risk from real signals). Reclaimable for any signal that is HIGH or high-Z at power-on. |
-| 10 | 35 | 35 | HOLD | - | Octal-PSRAM pin on N8R8 — keep free so the design works with either N8R2 (current module) or N8R8. |
+| 10 | 35 | 35 | HOLD | - | Octal-PSRAM pin. Internally reserved on the fitted N16R8 — unusable in practice. Kept as HOLD (not BLOCKED) because the layout also accepts a quad-PSRAM N8R2, where it would be free. |
 | 11 | 36 | 36 | HOLD | - | Octal-PSRAM pin on N8R8 — same as Pin 10. (Was briefly assigned to CMD_REVERSE on 2026-05-02; moved to PCF8574 P0 on 2026-05-03 to restore N8R8 compatibility.) |
 | 12 | 37 | 37 | HOLD | - | Octal-PSRAM pin on N8R8 — same as Pin 10. |
 | 13 | 38 | 38 | HOLD | - | Unconstrained GPIO. Was `SDC_NOT_EMERGENCY` until 2026-05-08; signal moved to GPIO 18 (Pin 33) so Q3's gate driver could sit on the left side of the PCB next to the MOSFET. Currently free. |
@@ -183,7 +189,7 @@ before assuming this pinout works:
 | 32 | 17 | 17 | CMD_STEER_DIR__3V3 | Digital Out | Steering motor direction (Cytron H-bridge). Moved here from GPIO 0 on 2026-05-08 to remove the BOOT-strap risk; now sits on the left side of the ESP32 alongside SDC_NOT_EMERGENCY. (UART1 TX default — but UART pins are remappable on ESP32-S3.) |
 | 33 | 18 | 18 | SDC_NOT_EMERGENCY__3V3 | Digital Out | Drives the gate of Q3 (IRLZ44N) through R22 (100 Ω). When HIGH, Q3 conducts and pulls `SDC_IN_LOW_SIDE` to GND, completing the kart's SDC chain return path → no emergency. When LOW, Q3 is off and the SDC chain is broken → emergency. R23 (100 kΩ) gate-pulldown ensures Q3 is OFF (= emergency) at boot until firmware drives it HIGH. The signal name reads as the *intent* the ESP32 is asserting, not the chain's electrical state. Moved here from GPIO 38 on 2026-05-08 so the gate driver sits on the left side of the PCB next to the MOSFET. (UART1 RX default — remappable.) |
 | 34 | 8 | 8 | SDA | I2C | I²C data — AS5600 steering angle sensor + PCF8574 I/O expander share this bus |
-| 35 | 3 | 3 | BUZZER | Digital Out | Buzzer for debugging (strap pin: JTAG src select, default high — buzzer idle high at boot is acceptable; moved from GPIO 36 for N8R8 compatibility) |
+| 35 | 3 | 3 | BUZZER | Digital Out | Buzzer for debugging. Moved from GPIO 36 for octal-PSRAM compatibility. **Correction 2026-07-10:** this row used to claim "strap pin: JTAG src select, default high". Both halves are wrong on our hardware. (a) `STRAP_JTAG_SEL` eFuse is **not burned** (read from the chip), so GPIO 3 is never sampled as a strap. (b) GPIO 3 has **no internal pull at reset** — measured `IO_MUX_GPIO3 = 0x0a02` (neither FUN_WPU bit 8 nor FUN_WPD bit 7), against controls GPIO 0 = `0x0b02` (pull-up) and GPIO 45/46 = `0x0a82` (pull-down). It floats, so an external pulldown wins at boot. That makes GPIO 3 safe to drive a MOSFET gate — see the compressor reassignment in `history.md` 2026-07-10. |
 | 36 | 46 | 46 | HOLD | - | Strap pin (ROM-print enable, flash/boot risk). Default LOW = no boot-message print, which is what we want. Reclaimable post-boot if signal's idle state is LOW at power-on. |
 | 37 | 9 | 9 | SCL | I2C | I²C clock — same bus as SDA |
 | 38 | 10 | 10 | HYDRAULIC_1 | ADC1_CH9 | Hydraulic pressure sensor 1 (input only) |
@@ -289,7 +295,8 @@ GPIO-mode constraint for CMD_REVERSE.
 
 ### GPIO assignments (current schematic)
 
-Module variant in use: **WROOM-1-N8R2** (quad PSRAM). The mux-related ESP32 GPIOs:
+Module variant in use: **WROOM-1-N16R8** (16 MB flash, 8 MB octal PSRAM) —
+verified on hardware 2026-07-10. The mux-related ESP32 GPIOs:
 
 | Signal | GPIO | Notes |
 |---|---|---|

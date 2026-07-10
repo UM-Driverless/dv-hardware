@@ -6,6 +6,61 @@ Per-board task list. Higher-level/cross-board work lives in `dv-hardware/.agents
 
 ## TODO
 
+### Route GPIO 38 + GPIO 39 out to CN terminals (no spare ESP32 GPIO is reachable today)
+
+Found 2026-07-10 while trying to add the EBS compressor PWM driver without a soldering iron.
+
+**The board has no spare ESP32 GPIO on any CN terminal.** Verified on a fresh netlist export:
+
+  - CN pins that reach the ESP32 are all assigned: `SCL` (CN4.1), `SDA` (CN4.2), `BUZZER` (CN8.2),
+    `CMD_STEER_DIR` (CN8.3), `CMD_STEER_PWM` (CN9.1).
+  - The free CN pins — `EXP_P1`/`P2`/`P3` (CN3.1–3) and `EXP_P4` (CN5.3) — reach **U25, the PCF8574
+    expander**, not the ESP32. They cannot generate PWM: I²C-rate edges, ~100 µA source current
+    (cannot charge a MOSFET gate), and all ports released high at power-up.
+  - The genuinely free GPIOs, **38 and 39**, exist only as pads under the dev module (U24 pads 13/14).
+
+So any new PWM peripheral currently requires soldering a wire from under the module to a terminal.
+That is the wrong trade for a team that wants to bolt something on at the bench.
+
+**Do:** route **GPIO 38 → CN3 pin 1** and **GPIO 39 → CN3 pin 2**, relocating or dropping `EXP_P1`
+and `EXP_P2`. Keep at least one `EXP_Px` on a terminal for slow on/off use. Suggested net name for
+the first: `CMD_COMPRESSOR_PWM`. Coordinate with the connector-flip task below — both touch CN3.
+
+**Principle worth writing into the board README:** a spare pin you cannot reach with a screwdriver is
+not a spare pin. Bring at least two unassigned, PWM-capable, non-strap GPIOs to terminals on every
+revision.
+
+### Flip all ten CN connectors 180° (wires outward, pin order in sequence)
+
+Raised by Rubén 2026-07-10 after handling the assembled board. Two complaints, one root cause:
+the wire entry of every CN faces **inward**, toward the middle of the PCB, and within each
+connector the pin numbers run *against* the direction the CNs advance.
+
+Verified against `kart-medulla.kicad_pcb`:
+
+| | Footprint rotation | Pin order top→bottom | CN order |
+|---|---|---|---|
+| CN1–CN5 (right) | −90° | 1, 2, 3 | ascends bottom→top |
+| CN6–CN10 (left) | +90° | 3, 2, 1 | ascends top→bottom |
+
+Rotating every CN by 180° fixes both at once: wires exit outward, away from the board, and the
+pin numbering becomes co-directional with the CN numbering on each side, so you can read
+`CN1.1, CN1.2, CN1.3, CN2.1, …` straight down (or up) the edge.
+
+**Not a free rotation.** The footprint is `CONN-TH_3P-P2.50-S5.00_1990012` — staggered pads,
+pins 1 and 3 in one row and pin 2 in a row 5.00 mm across. A 180° flip swaps which side pin 2's
+row sits on, so all copper under the connectors must be re-routed, and board-outline clearance
+on the outward side must be re-checked (wires now need room to leave).
+
+**Steps:**
+1. Rotate each CN footprint 180° in the PCB (right side −90° → +90°, left side +90° → −90°).
+2. Re-route; expect the pin-2 nets to change side under every connector.
+3. Re-check edge clearance and any mounting-hole / standoff conflicts on the outward side.
+4. Update the silkscreen legend and `docs/pinout-cn-connectors.md` (the pin-order table there).
+5. Confirm the signal↔pin-number assignment table is unchanged — we rotate footprints, we do
+   **not** renumber pads. Any harness already crimped keeps its signal mapping; only the
+   physical position of pin 1 moves.
+
 ### Investigate routing the on-board ESP32-S3-DevKitC-1 RGB LED
 
 The DevKitC-1 has an on-board WS2812 RGB LED tied to **GPIO38** (or GPIO48 on some revisions — confirm against the exact module rev used). It is **disconnected by default**: a solder-bridge jumper on the module needs to be closed to wire the LED data line to the GPIO. If we close that bridge, that GPIO becomes unavailable for anything else on the medulla side.
@@ -23,7 +78,16 @@ Outcome to commit: a 1-line note in `docs/pinout` (or wherever pinout lives) say
 Current verified state (per netlist generated 2026-05-07): pin 1 COM=`CMD_ACC__0_5V`, pin 2 NC=`PEDAL_ACC__0_5V`, pin 3 GND=GND, pin 4 V+=`+5V_REG`, pin 5 NC=no-connect, pin 6 IN=`SELECT_THROTTLE`, pin 7 V−=GND, pin 8 NO=`CMD_ACC_ESP32__0_5V`, pin 9 EP=GND. ERC clean.
 
 Outstanding doubts to resolve:
-- **`SELECT_THROTTLE` driver — most important.** Audit (2026-05-07) of `~/repos/kart-medulla` firmware found **no GPIO drives this line**: manual/autonomous safety is currently done by zeroing the DAC output when `mission == MISSION_MANUAL` (`main/main.c:106`). User's intent is that `SELECT_THROTTLE` should come from one of the ESP32 GPIOs OR an output of the PCF8574 GPIO expander (U25). **Action:** trace `SELECT_THROTTLE` net on the schematic — find what other pin/connector currently terminates the net. If it's a dangling stub at U23/U24 (the ESP32 header) or U25 (PCF8574), that's the intended driver and firmware needs to drive that GPIO. If it's not connected to anything at all, decide which GPIO to assign and wire it.
+- **`SELECT_THROTTLE` driver — RESOLVED on the schematic side 2026-07-10; firmware side still open.**
+  Traced on a fresh netlist export (`kicad-cli sch export netlist`). The net terminates at exactly
+  three places: **U23 pins 15/16 → ESP32 module Pin 30 → GPIO 15**, `U14` (MAX4660) pin 6, and `R32`
+  (10 kΩ pulldown). So the intended driver is **ESP32 GPIO 15**, already wired — no PCF8574 involved,
+  nothing to assign. The 10 kΩ pulldown means the power-on default is LOW = COM→NC = pedal
+  pass-through, the safe state.
+  **Remaining action is firmware only:** nothing in `~/repos/kart-medulla` drives GPIO 15 (confirmed
+  by grep, 2026-07-10). Manual/autonomous safety is still done by zeroing the DAC output when
+  `mission == MISSION_MANUAL` (`main/main.c:106`). Firmware must drive GPIO 15 HIGH to hand throttle
+  to the DAC, LOW otherwise. Verify polarity against the MAX4660 datasheet once implemented.
 - **Functional cross-check vs firmware:** once a driver is assigned, verify polarity — schematic intent: LOW = COM→NC = pedal sensor pass-through (default safe state), HIGH = COM→NO = ESP32 DAC takes over. Firmware should drive LOW for manual/autonomous-disabled, HIGH for autonomous-enabled. Confirm in `main.c` once the GPIO is wired.
 - **Pin 9 EP overlap (cosmetic):** earlier the `GND` text label on the EP power symbol overlapped with the chip's "EP" pin name. Resolved 2026-05-07 by moving the GND symbol up.
 

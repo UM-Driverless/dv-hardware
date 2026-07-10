@@ -652,3 +652,90 @@ Headline numbers: track 0.20 mm, clearance 0.20 mm, drill 0.30 mm, via 0.55 mm �
 - 2601-3104 (4-pole): created then archived after the per-pin pricing check.
 
 Datasheets at `~/dv/datasheets/2601-310{2,3}_wago_datasheet.pdf` (4-pole removed). Standards entry added at `~/vault/standards.md` under the connectors section.
+
+## 2026-07-10 — kart-medulla ESP32 module identified on hardware: N16R8, not N8R2
+
+Read the fitted dev board over its COM (USB-UART) port with `esptool 5.2.0`. Measured, not recalled:
+
+| Property | Value |
+|---|---|
+| Chip | ESP32-S3, QFN56, revision v0.2 |
+| Base MAC | `14:c1:9f:2a:a6:18` |
+| Flash | 16 MB, external, quad line (`FLASH_TYPE` eFuse = 4 data lines; `FLASH_CAP` = none, i.e. no in-package flash) |
+| PSRAM | 8 MB, AP Memory, 3.3 V (`PSRAM_CAP` = 8M, `PSRAM_VENDOR` = AP_3v3) |
+| USB-UART bridge | WCH CH343/CH9102, VID `0x1A86` PID `0x55D3`, product string "USB Single Serial" |
+
+**Module is an N16R8, not the N8R2 the docs claimed.** The supplier shipped the wrong
+variant. 8 MB in-package PSRAM on the ESP32-S3 only exists on the R8 die, which uses an
+**octal** interface — Espressif ships no 8 MB quad variant. So GPIO 33-37 are wired to the
+PSRAM die and are unusable on this board.
+
+**No signal has to move.** The 2026-05-03 decision to push `CMD_REVERSE` onto PCF8574 P0 and
+the 2026-05-08 moves (BUZZER 36→3, MOTOR_HALL_1 37→16, CMD_STEER_DIR 35→0) already made the
+pinout octal-safe. Verified: in the live S3 pin table GPIO 35/36/37 are `HOLD` and 33/34 are
+unassigned. The variant-agnostic layout paid for itself. `pinout-esp32-s3.md` updated
+(title, octal-PSRAM note, pin-10 row, "module variant in use").
+
+**The board is a DevKitC-1-compatible clone, not an Espressif board.** Espressif's own
+ESP32-S3-DevKitC-1 bridges UART through a CP2102N (VID `0x10C4`, Silicon Labs) and silkscreens
+its ports `UART`/`USB`; this one uses a WCH bridge and silkscreens `COM`/`USB`. Functionally
+equivalent for our purposes. It does have two USB-C ports, so checklist item 2 in
+`pinout-esp32-s3.md` ("verify native USB reaches GPIO 19/20") can be settled without a
+multimeter: plug a cable into the free `USB` port and see whether it enumerates as VID `0x303A`
+(the S3's built-in USB-Serial-JTAG, which needs no firmware). **Not yet done.**
+
+Open contradiction inside `pinout-esp32-s3.md`, noticed but not resolved: the status legend says
+"USB_D+/- pins not wired on this PCB", while the dev-board checklist (item 2) describes GPIO
+19/20 carrying USB D-/D+ to the Orin. Someone should reconcile these against the schematic.
+
+## 2026-07-10 — kart-medulla bench bring-up: SDC MOSFET (Q3) verified working
+
+Board on the bench, CN8 unplugged, nothing connected to the kart. Driven from the MicroPython
+REPL over the `COM` (USB-UART) port.
+
+**Q3 (IRLZ44N, SDC low-side switch) works.** Toggled `SDC_NOT_EMERGENCY__3V3` (GPIO 18) as a
+2.5 Hz square wave and measured with a multimeter. Gate follows the GPIO; drain
+(`SDC_IN_LOW_SIDE`, CN8 pin 1) alternates between open and ~0 Ω to GND in step with it.
+Neither failure mode is present: not stuck open (dead FET) and — more importantly — not stuck
+closed (drain-source short, which would assert "no emergency" permanently regardless of firmware).
+
+**Fail-safe default confirmed.** With GPIO 18 left as a high-impedance input, the gate reads 0:
+R23's 100 kΩ pulldown holds Q3 off, so the kart powers up in the *emergency* state before
+firmware drives anything. This is the behaviour the SDC design depends on.
+
+**The chip is running MicroPython v1.19.1 (2022-06-18, IDF v4.4.1), not our ESP-IDF firmware.**
+Found by reading the partition table out of flash (`nvs` / `phy_init` / `factory` 0x10000+0x1f0000
+/ `vfs` FAT at 0x200000 — MicroPython's standard ESP32 layout) and grepping the app image. Nobody
+recorded this anywhere. Nothing was flashed or erased during this session. Note the ESP-IDF
+firmware in `~/repos/kart-medulla` cannot currently build for the S3 at all — see that repo's
+`.agents/error-log.md` (2026-07-10) for the GPIO 18 / steering-PWM collision that a naive port
+would introduce.
+
+**Serial reliability: use 115200 for anything long.** `esptool read-flash` of the 16 MB image
+failed at 921600 ("Serial data stream stopped") and again at 460800 ("Invalid head of packet") at
+only 1.5%. 115200 was flawless. This matches the warning already in the firmware repo's AGENTS.md,
+which was written about a CP2102 but holds for the CH343 too.
+
+**U25 (PCF8574) is populated and alive on I²C.** Scanned SDA=GPIO 8 / SCL=GPIO 9. One device at
+`0x20`, stable across repeated scans, returning `0xFE` (P0 low, P1–P7 high). P0 is `CMD_REVERSE`.
+No AS5600 at 0x36, expected since the steering encoder is off-board and unattached. Read-only
+probing was used; nothing was written to the expander, so `CMD_REVERSE` was never asserted.
+
+**The part not yet soldered is U5, the 5 V→3V3 level shifter for the motor hall sensors** (waiting
+on Mouser). So `MOTOR_HALL_1/2/3` cannot be read until U5 is fitted. (Earlier in this session the
+missing part was mis-recorded as U25; corrected by Rubén.)
+
+## 2026-07-10 — kart-medulla CN connectors face inward; pin order runs against CN order
+
+Rubén, handling the assembled board: the wire entry of all ten CNs points **inward** toward the
+middle of the PCB, and the pins within each connector count *backwards* relative to the CN
+sequence. Verified against `kart-medulla.kicad_pcb`: CN1–CN5 (right) sit at rotation −90° with
+pin 1 at top while the CNs ascend bottom→top; CN6–CN10 (left) sit at +90° with pin 1 at bottom
+while the CNs ascend top→bottom. Both sides are counter-directional.
+
+Proposed fix: rotate every CN 180°, which makes wires exit outward *and* puts the pin numbering
+in sequence with the CN numbering on both sides. Caveat: the footprint
+`CONN-TH_3P-P2.50-S5.00_1990012` has staggered pads (pins 1+3 one row, pin 2 a row 5.00 mm
+across), so the flip relocates pin 2's row and forces a re-route under every connector. Task
+written up in `projects/kart-medulla/tasks.md`; `docs/pinout-cn-connectors.md` corrected — it had
+claimed "pin 1/2/3 from top to bottom" for all ten, which is only true of CN1–CN5.
