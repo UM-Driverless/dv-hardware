@@ -7,6 +7,10 @@ Shared task board for `kart-medulla` schematic cleanup. Update status as you go:
 ## TODO
 flip CN3 and CN4
 
+### Buy WAGO 2601 PCB terminal blocks (2-pole + 3-pole)
+
+Stock only **`2601-3102` (2-pole)** and **`2601-3103` (3-pole)** — with {2, 3} you can compose every pole count ≥ 2 (2 and 3 are coprime, so no gaps from 2 upward). 1-pole isn't needed: power runs are always ≥ 2-wire. Per-pin price is flat across pole counts on DigiKey (1-off, 2026-05), so no saving from 4-pole+. Full sourcing rationale + datasheet/Bürklin mirror hashes in `history.md:629`. Standards entry: `~/repos/ruben/docs/writing/standards.md` under Electric > Electric connectors.
+
 ### Tomorrow (2026-05-10): pre-fab finishing
 
 DRC reached **0 errors / 0 unconnected** on 2026-05-09 (commit `cfdf158`). Items still open before fab:
