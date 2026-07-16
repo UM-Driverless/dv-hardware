@@ -29,7 +29,7 @@ docs/                           cross-board notes (fab process, KiCad setup, lib
 - Don't symlink `~/dv/datasheets` → repo as a team policy (works on macOS+Drive only, breaks on Linux dev boxes). Personal symlinks are fine, gitignored.
 
 **Docs**
-- `dv-hardware/docs/` (shared) = applies to every board: fab vendor process (JLCPCB checklist), naming conventions, KiCad setup/onboarding, library standards.
+- `dv-hardware/docs/` (shared) = applies to every board: **`pcb-checklist.md`** (the standing bar every revision must clear, plus the `<board>-v<N>` revision-naming rule), fab vendor process (JLCPCB checklist), naming conventions, KiCad setup/onboarding, library standards. Never copy checklist items into a task list — a board's task list carries one task, "pass the checklist for `<board>-vN`", linking it.
 - `projects/<board>/docs/` (per-board) = pinout, mechanical drawings, design-decision notes, board-revision changelog, app notes specific to this design's use of a part.
 - Rule of thumb: *would another board's designer read this?* → shared. *Only meaningful for this PCB?* → project folder.
 

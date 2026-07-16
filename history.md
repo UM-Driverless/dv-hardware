@@ -795,3 +795,33 @@ closed. Contradiction 3 in `tasks.md` is resolved by this.
 **Left alone deliberately:** `.agents/tasks.md` and `projects/kart-medulla/tasks.md` mentions inside
 earlier `history.md` and `.agents/error-log.md` entries. Dated append-only records, accurate when
 written; rewriting them would falsify the log. This entry is the forwarding pointer.
+
+## 2026-07-16 — PCB checklist extracted to `docs/pcb-checklist.md`; revisions get names
+
+**Trigger:** Rubén, reading the board list: "i'm seeing lots of tasks in tasks.md which are actually
+just the pcb checklist. we should create a finishable task like 'pass the pcb checklist (linking it)
+for the new revision of the pcb' and make sure we call each pcb with a different name."
+
+**The problem:** the checklist existed in **four** places, all diverging — "PCB checklist — pre-fab
+review and validation" and "Tomorrow (2026-05-10): pre-fab finishing" and "PCB finishing pass
+(pre-fab)" as task sections, plus a copy in the team Google Drive (`el/pcb-checklist.md`, last
+touched 2024-12-04, heading still "formula 23-24"). Checklist items make bad tasks: they are never
+"done", they recur every revision, and copying them is what produced the four copies.
+
+**Done:**
+- `docs/pcb-checklist.md` — one checklist for every board: Design, Pre-fab validation, Revision
+  naming. Merged from all in-repo copies plus the Drive one. Includes the track-width rule that came
+  out of the compressor-power-path discussion the same day: a net's copper is its job description.
+- `tasks/kart-medulla.md` now carries **one** finishable task — "Pass the PCB checklist for
+  `medulla-v2`" — linking the doc instead of restating it. Done = every box ticked, board tagged,
+  fab package under `fab/kart-medulla/v2/`.
+- The two pre-fab sections were moved off the root board (they were kart-medulla-specific, so they
+  never belonged on a cross-board list) into the board's file, wrapped in a `<details>` and marked
+  superseded rather than pruned — the "Tomorrow (2026-05-10)" section is two months stale and Rubén
+  should decide what survives.
+- Revision naming written down: `<board>-v<N>`, on the silkscreen, in the title block, on the git
+  tag, and on the `fab/<board>/<rev>/` folder. Numbers are never reused.
+
+**Assumption flagged, not resolved** (`tasks.md` contradictions 7–8): the v1/v2 mapping treats the
+assembled EasyEDA-origin board as `medulla-v1`, following the "V2 Hardware Improvements" heading.
+Nothing on disk confirms it — `fab/` is empty and the only tag is `medulla-v0.1-converted`.

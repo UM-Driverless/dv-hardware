@@ -178,16 +178,69 @@ Existing RC on MCP4922 VREF (100 Ω + 10 µF) stays — overkill for the linear 
 - Mounting holes (M3 × 4) at corners, isolated from any nets.
 - Check footprint sizes against actual parts (DPAK for L7805, SOIC-16 for PCF8574, µMAX-8 for MAX4660, SOT-23 for BSS123, SOIC-14 for MCP4922).
 
-### PCB checklist — pre-fab review and validation #ruben
+### Pass the PCB checklist for `medulla-v2` #ruben
 
-- Run **DRC** until 0 errors / 0 unexpected warnings. Suppress only the SPARE/NC pin warnings explicitly.
-- Run **ERC** on the schematic. 0 errors. Investigate every warning.
-- Visually inspect: every net label has a counterpart on the other end (no dangling labels). Every component has a value and a footprint. Every connector pin has a net or NC flag.
-- Export the **BOM** and verify DNP parts (4k7 I²C pull-ups, optional bulk caps) are excluded. Verify quantities match what's actually in stock — no surprise purchases.
-- Export **gerbers** and view in a separate gerber viewer (e.g. JLCPCB previewer). Check copper layers, silkscreen readability, drill alignment.
-- Print a 1:1 paper copy of the PCB outline + footprints. Place the actual ESP32 dev board on top — confirm every pin lands on its pad. Same for the connectors and the MOSFET / regulator footprints.
-- Final manual review: walk through `docs/pinout-esp32-s3.md` row by row and confirm every Pin's listed signal is correctly wired in the schematic.
-- Tag the EasyEDA project with a version number before fabrication, and commit a snapshot to `~/dv/kart/kart-medulla/project-backups/`.
+One finishable task: walk [`docs/pcb-checklist.md`](../docs/pcb-checklist.md) end to end against
+`medulla-v2` and tick every box. Done = every item passes, the board is tagged `medulla-v2`, and the
+fab package is committed under `fab/kart-medulla/v2/`.
+
+The checklist items are deliberately **not** copied here — copying is what produced four divergent
+copies of it (`history.md` 2026-07-16). Fix the checklist in `docs/` if an item is wrong; don't fork it.
+
+Board-specific additions for this revision, on top of the generic checklist:
+- Walk `projects/kart-medulla/docs/pinout-esp32-s3.md` row by row against the schematic
+- Commit a project snapshot to `~/dv/kart/kart-medulla/project-backups/`
+- Confirm `projects/kart-medulla/requirements.md` is satisfied — including the ASSI buzzer, which is
+  a rules requirement (FS-Rules DV 4.5), not a nice-to-have
+
+### Pre-fab finishing — board-specific remainder
+
+Moved here from the root board 2026-07-16: these are kart-medulla items, not cross-board work. Most
+of what was here has been folded into [`docs/pcb-checklist.md`](../docs/pcb-checklist.md) — the
+generic parts (DRC/ERC, parity, 3D check, DFM preview, gerber export, easter eggs, GND pour, outline
+rounding, antenna keepout, DRC constraints) are now checklist items, ticked once via "Pass the PCB
+checklist for `medulla-v2`" above rather than tracked as separate tasks.
+
+**Stale:** the section below is dated *"Tomorrow (2026-05-10)"* and was written two months before this
+move. Kept verbatim rather than pruned — Rubén should delete what the checklist now covers and keep
+only what's genuinely board-specific (the AISLER logo spec, the CN legend note). Flagged, not guessed.
+
+<details>
+<summary>Original text as moved (2026-05-10 / pre-fab finishing pass)</summary>
+
+### Tomorrow (2026-05-10): pre-fab finishing
+
+DRC reached **0 errors / 0 unconnected** on 2026-05-09 (commit `cfdf158`). Items still open before fab:
+
+1. **Schematic Parity (5 issues)** — DRC dialog shows 5 mismatches between PCB and schematic when "Test for parity between PCB and schematic" is enabled. Likely net-name renames or footprint changes that didn't push back. Open the Schematic Parity tab, screenshot/list each, fix in the appropriate file (schematic vs PCB), re-sync.
+2. **Run ERC** on the schematic (Inspect → Electrical Rules Checker) to confirm the schematic side is also clean.
+3. **3D viewer sanity check** (Alt+3) — verify nothing collides: connector heights, header sockets U23/U24, TO-220 Q3 orientation, USB if present.
+4. **AISLER DFM preview** — upload Gerbers to AISLER's online preview, or run their plugin if installed, for fab-side validation.
+5. **Drill / Gerber test export** to a temp dir to confirm KiCad doesn't barf during output (no zero-drill vias, no missing layers).
+6. **Easter eggs on silkscreen** — add personal/team easter eggs (e.g. UM Driverless logo, team initials, in-joke art, hidden text) to a free area on F.Silkscreen or B.Silkscreen. Avoid the AISLER logo placeholder area, mounting holes, antenna keepout, and the connector legend block. Decide whether to draw vector or use bitmap import (Image → Place Bitmap…).
+7. **Final commit + push** before fab submission.
+
+Ignored Tests in DRC are mostly fine to keep ignored (courtyard-related, tuning-profile, footprint-filter mismatches) — none critical for this prototype.
+
+
+
+### PCB finishing pass (pre-fab)
+
+Remaining PCB work before running DRC and exporting fab files. Order matters — do roughly top-to-bottom:
+
+1. **Round the board outline + reposition mounting holes.** Snap the PCB edge to round mm values (e.g. 100.000 × 80.000, not 99.7 × 80.3). Place the 4 mounting holes at round, symmetric coordinates relative to the outline. Set a 1 mm grid and re-snap before measuring.
+2. **Reserve the ESP32-S3 antenna keepout.** The on-module PCB antenna (ceramic chip / trace antenna on the ESP32-S3 WROOM module) needs clear board area underneath and around it: **no copper (no zone fill, no ground pour, no traces) and no metal (no components) within the keepout zone published in the WROOM datasheet — typically ~15 mm of clearance off the antenna end of the module, extending past the board edge if possible**. Add an explicit keepout zone (F.Cu + B.Cu + inner layers, "no copper pour") covering that area so the GND pour in step 3 doesn't fill into it. Also keep the antenna end overhanging the board edge if the module orientation allows.
+3. **Create the GND polygon pours and refill.** Add a GND zone on F.Cu and another on B.Cu covering the full board outline (minus the antenna keepout from step 2). Set the zones to net `GND`, set thermal relief on connector pads, refill all zones (`B` in pcbnew). Verify visually that islands aren't isolated and that stitching vias tie top/bottom GND together near high-current paths (motor, 12V input, buck converter).
+4. **Add AISLER sponsor logo placeholder** — see "Add AISLER sponsor logo placeholder to PCB" task below for the exact spec (4 individual lines, 0.08382 mm width, 4:1 ratio).
+5. ~~**Label signals on silkscreen.**~~ **Done 2026-05-09** — per-pin labels added next to all 10 CN connectors using DejaVu Sans Mono (tab-aligned blocks). Pinout doc updated to match the latest schematic (CN5↔CN9 EXP_P4/GND swap + intra-CN reorderings). Per-pin labels supersede the old numbered legend; the "Update PCB silkscreen legend" task below is now obsolete and can be deleted along with the legend itself.
+6. **Run DRC** (`Inspect → Design Rules Checker` in pcbnew — KiCad calls it DRC for the PCB; ERC is the schematic equivalent and was already run). Fix all errors. Triage warnings (courtyard overlaps, silk-on-pad) — fix or explicitly accept.
+   - **Subtask: configure DRC constraints for the chosen fab.** Before running DRC, set the board constraints in `File → Board Setup → Design Rules → Constraints` and `Net Classes` to match the fab's process capability. Even though we'll fab at AISLER, configuring to **JLCPCB's standard 2-layer process** (more conservative) gives a safe baseline that AISLER will also accept. Key values for JLCPCB standard 2-layer 1 oz: min track/clearance 0.127 mm (5 mil) — use 0.2 mm for margin; min via 0.45 mm with 0.2 mm drill; min hole-to-hole 0.5 mm; min annular ring 0.13 mm; silkscreen min width 0.153 mm, min text height 1 mm. Save these into the project's DRC config so the check is meaningful.
+7. **Re-verify after DRC fixes.** Refill zones again (DRC fixes may have moved tracks), re-run DRC until 0 errors. Then check: no unconnected nets in the ratsnest, all footprints have 3D models for the render, board edge is closed (no gaps), drill file matches mounting hole sizes.
+8. **Export fab package.** Gerbers + drill + pick-and-place + BOM, per AISLER's submission spec. Generate the 3D render / STEP for a final visual check before uploading.
+9. **Pass the personal PCB design-review checklist.** Rubén has a markdown checklist of things to verify before fab (location TBD — qmd-search and repo grep on 2026-05-09 didn't surface a dedicated PCB-checklist file; only `vault/other/sax-concert-checklist.md` turned up). Locate that file, link it here, and walk through every item before submitting fab files. Items typically include: silkscreen readability, decoupling cap placement, test points, fiducials, polarity marks, fab-house specific quirks, etc.
+
+
+</details>
 
 ## In Progress
 
