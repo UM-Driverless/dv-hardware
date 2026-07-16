@@ -79,7 +79,7 @@ When you discover **non-obvious config values, gotchas, sign conventions, or wor
 Apply this even mid-task — pause, write the log, continue. The user shouldn't have to remember to ask. If you're unsure whether something qualifies, err on logging it: a duplicated note is cheaper than a re-discovered gotcha.
 
 ## Knowledge files
-- `.agents/tasks.md` — shared kanban (TODO / In Progress / Done). Read before starting work.
+- `tasks.md` (repo root) — shared kanban (TODO / In Progress / Done) for cross-board work. Read before starting work. Per-board work lives in `projects/<board>/tasks.md`. There is no `.agents/tasks.md` — one `tasks.md` per scope, never two boards competing.
 - `.agents/kicad10-ui.md` — verified KiCad 10 UI cheat-sheet (menus, panels, hotkeys). Grep before describing any KiCad UI element.
 - `.agents/kicad-workflow.md` — the two modes for KiCad work (read-only MCP vs direct-edit), tool cheat-sheet. Read when touching `.kicad_*` files.
 - `history.md` — append-only log: what was tried, what worked, what didn't, gotchas, references. Grep — don't read in full.

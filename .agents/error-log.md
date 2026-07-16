@@ -306,3 +306,27 @@ I treated (1) as if it implied (2), which led me to advise the user that NC was 
 - When the answer IS a literal punctuation/symbol character (especially backtick, asterisk, underscore, tilde), render it inside an inline code span with double backticks: `` `` ` `` `` — not bolded, not bare.
 - Never wrap a backtick in `**...**`. Same for `*` inside `*...*`, `_` inside `_..._`, etc.
 - For non-US-keyboard users, also give the alternative input (e.g. `Option+Ñ` on Spanish Mac) — the literal character on its own isn't enough if the key isn't directly typeable.
+
+## 2026-07-16 — Left a repo contradictory and reported it only in chat
+
+**What happened:** Consolidating `.agents/tasks.md` → root `tasks.md`, I made repo-wide changes that
+knowingly left contradictions behind: `AGENTS.md` still claiming "newest entries first" for an
+oldest-first `history.md`, stale `.agents/tasks.md` paths in two logs, per-board vs root `tasks.md`
+unresolved, and (from the same session) L7805-vs-LM2596 and the compressor-power-path conflicts. I
+listed every one of them — in a long chat message, and nowhere else. Nothing went into `tasks.md`.
+The repo was left in a state where two files disagreed and only the chat transcript knew why.
+
+**Root cause:** I treated *telling the user* as equivalent to *recording it*. It isn't. Chat is
+transient, unsearchable by the next session, and long answers get skimmed — reasonably so. The user's
+words: "relying on me reading all the 2 page answer you just gave me without skipping anything."
+A contradiction that lives only in a chat message is an undocumented bug with a witness.
+
+**Prevention rule:**
+- **A change that leaves a contradiction or an open decision does not ship until it's written into
+  `tasks.md` as an actionable item.** Do this in the same turn as the change, before reporting.
+  Chat mentions do not count.
+- If a change makes any doc wrong (even a doc you didn't touch), that's a `tasks.md` entry naming
+  both files and which one is suspect — not a footnote.
+- The chat summary is a pointer to the record, never the record itself.
+- Cross-reference: `history.md` 2026-07-16; the open list lives in `tasks.md` under "Resolve
+  contradictions left open on 2026-07-16".

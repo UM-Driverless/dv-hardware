@@ -739,3 +739,35 @@ in sequence with the CN numbering on both sides. Caveat: the footprint
 across), so the flip relocates pin 2's row and forces a re-route under every connector. Task
 written up in `projects/kart-medulla/tasks.md`; `docs/pinout-cn-connectors.md` corrected — it had
 claimed "pin 1/2/3 from top to bottom" for all ten, which is only true of CN1–CN5.
+
+## 2026-07-16 — tasks.md consolidated to the repo root; `.agents/tasks.md` retired
+
+**Trigger:** Rubén's call — "tasks.md are tasks no matter if I do them or you do them. They're the
+tasks of the project, and mixing two tasks.md files can only create confusion and duplicate or
+outdated files."
+
+**Background:** the split came from a rule in global `~/.claude/CLAUDE.md` that reserved a repo's
+root `tasks.md` for Rubén's personal to-do list and put the agent board in `.agents/tasks.md`. The
+2026-05-12 entry above already recorded the tension (agent-first long-form rationale being bad for
+human peers skimming the file) and closed with "no decision yet". This is that decision.
+
+**Done:**
+- `git mv .agents/tasks.md tasks.md` (history preserved; the 4 then-uncommitted lines were
+  committed first so the move is revertible).
+- `AGENTS.md` knowledge-files list now points at root `tasks.md` and states there is no
+  `.agents/tasks.md`.
+- `projects/kart-medulla/tasks.md` header now points cross-board work at `dv-hardware/tasks.md`.
+- Global `~/.claude/CLAUDE.md`: the personal-vs-agent split is replaced with "one `tasks.md` per
+  project, at the repo root"; `tasks.md` removed from the `.agents/` read-mode list.
+
+**Not done, deliberately:** earlier `history.md` and `.agents/error-log.md` entries still say
+`.agents/tasks.md`. Those are dated append-only records and were accurate when written — rewriting
+them would falsify the log. This entry is the forwarding pointer.
+
+**Scope that survives:** per-board lists stay at `projects/<board>/tasks.md`. That is scoping by
+board, not a competing board — root `tasks.md` is cross-board only.
+
+**Doc bug spotted while doing this:** `AGENTS.md` tells contributors "Newest entries first" for this
+file, but the file is and always has been oldest-first (2026-05-03 at the top, newest appended at the
+bottom), which is what global CLAUDE.md specifies. The instruction is wrong, not the file. Left as-is
+pending Rubén's call on which way to fix it.

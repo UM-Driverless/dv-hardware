@@ -2,9 +2,17 @@
 
 # kart-medulla — board-specific tasks
 
-Per-board task list. Higher-level/cross-board work lives in `dv-hardware/.agents/tasks.md`. Update status: `TODO → In Progress → Done`. Claim by adding `[YYYY-MM-DD <name>]`.
+Per-board task list. Higher-level/cross-board work lives in `dv-hardware/tasks.md` (repo root). Update status: `TODO → In Progress → Done`. Claim by adding `[YYYY-MM-DD <name>]`.
 
 ## TODO
+
+### V2 Hardware Improvements (Kart Medulla PCB)
+
+Moved to [`requirements.md`](requirements.md) on 2026-07-16 — requirements are durable, this list gets pruned as tasks complete. Scope a revision from that file; track the work here.
+
+Two moved items **contradict** other requirements and are flagged there rather than actioned — do not implement either as written: "repurpose BUZZER for compressor PWM" (conflicts with the rules-mandated ASSI buzzer on GPIO 3, and looks superseded by the GPIO 38/39 routing task below) and "repurpose PRESSURE_3 for steering PWM" (conflicts with the 3× pressure-sensor requirement and with the ADC dividers called for in the schematic task).
+
+The connector-rotation item also restates the "Flip all ten CN connectors 180°" task below — same change, two entries. Kept the task, moved the requirement.
 
 ### Route GPIO 38 + GPIO 39 out to CN terminals (no spare ESP32 GPIO is reachable today)
 

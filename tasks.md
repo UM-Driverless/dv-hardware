@@ -7,6 +7,31 @@ Shared task board for `kart-medulla` schematic cleanup. Update status as you go:
 ## TODO
 flip CN3 and CN4
 
+### Resolve contradictions left open on 2026-07-16 — read before trusting any doc below
+
+Six known contradictions, opened or found during the tasks.md consolidation (`history.md`
+2026-07-16). Each needs a decision from Rubén. **Until one is closed, the files listed disagree
+with each other — don't treat either side as authoritative.**
+
+1. **`AGENTS.md` says "Newest entries first" for `history.md`; the file is oldest-first** (entries
+   run 2026-05-03 → newest appended at the bottom, which is what global `~/.claude/CLAUDE.md`
+   specifies). The instruction is wrong, not the file. Fix the instruction, or reverse the file.
+2. **`.agents/tasks.md` no longer exists but is still named** in two `history.md` entries and one
+   `.agents/error-log.md` entry. Left deliberately — dated append-only records that were accurate
+   when written. Decide whether that's the standing policy for stale paths in logs; if so, write it
+   into `AGENTS.md` so nobody "fixes" them later.
+3. **Per-board `projects/<board>/tasks.md` vs this root `tasks.md`** — kept as scoping (per-board
+   vs cross-board). It's the same two-file shape just consolidated, so confirm it's intended or
+   fold the per-board lists in here.
+4. **L7805 linear vs LM2596SX-ADJ buck** — `projects/kart-medulla/tasks.md` specifies an L7805
+   (decision 2026-05-02); `projects/kart-medulla/docs/pinout-esp32-s3.md` power architecture shows
+   an LM2596SX-ADJ. One is stale.
+5. **Compressor power path** — three V2 items assume the board carries motor power; it doesn't
+   (`+12V` is a ~1 mA logic feed and the tracks are sized for that). See
+   `projects/kart-medulla/requirements.md`.
+6. **BUZZER / PRESSURE_3 repurpose items contradict live requirements** (the rules-mandated ASSI
+   buzzer; the 3× pressure-sensor requirement). Also in `projects/kart-medulla/requirements.md`.
+
 ### Buy WAGO 2601 PCB terminal blocks (2-pole + 3-pole)
 
 Stock only **`2601-3102` (2-pole)** and **`2601-3103` (3-pole)** — with {2, 3} you can compose every pole count ≥ 2 (2 and 3 are coprime, so no gaps from 2 upward). 1-pole isn't needed: power runs are always ≥ 2-wire. Per-pin price is flat across pole counts on DigiKey (1-off, 2026-05), so no saving from 4-pole+. Full sourcing rationale + datasheet/Bürklin mirror hashes in `history.md:629`. Standards entry: `~/repos/ruben/docs/writing/standards.md` under Electric > Electric connectors.
