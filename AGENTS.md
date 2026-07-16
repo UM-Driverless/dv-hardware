@@ -12,7 +12,10 @@ projects/<board>/               one folder per board
   ├── datasheets/               PDFs for chips on this board (subset of vault catalog)
   ├── 3dmodels/                 .step files referenced by footprints (${KIPRJMOD}/3dmodels/)
   ├── parts.md                  per-part sourcing (where symbol/footprint/3D came from)
+  ├── requirements.md           what the board must do (durable; outlives the task list)
   └── docs/                     board-specific notes (pinout, mechanical, app notes)
+tasks.md                        the repo's only task board
+tasks/<name>.md                 big task clusters, each linked from tasks.md
 fab/<board>/<rev>/              released Gerbers, BOM, pick-and-place, JLC zip
 docs/                           cross-board notes (fab process, KiCad setup, library standards)
 .agents/                        agent-readable knowledge base
@@ -79,7 +82,7 @@ When you discover **non-obvious config values, gotchas, sign conventions, or wor
 Apply this even mid-task — pause, write the log, continue. The user shouldn't have to remember to ask. If you're unsure whether something qualifies, err on logging it: a duplicated note is cheaper than a re-discovered gotcha.
 
 ## Knowledge files
-- `tasks.md` (repo root) — shared kanban (TODO / In Progress / Done) for cross-board work. Read before starting work. Per-board work lives in `projects/<board>/tasks.md`. There is no `.agents/tasks.md` — one `tasks.md` per scope, never two boards competing.
+- `tasks.md` (repo root) — the repo's only task board (TODO / In Progress / Done). Read before starting work. Big clusters live in `tasks/<name>.md` (e.g. `tasks/kart-medulla.md`) and **must** be linked from the root board — an unlinked file under `tasks/` is invisible. There is no `.agents/tasks.md` and no `projects/<board>/tasks.md`: exactly one `tasks.md` per repo, at the root, no exceptions.
 - `.agents/kicad10-ui.md` — verified KiCad 10 UI cheat-sheet (menus, panels, hotkeys). Grep before describing any KiCad UI element.
 - `.agents/kicad-workflow.md` — the two modes for KiCad work (read-only MCP vs direct-edit), tool cheat-sheet. Read when touching `.kicad_*` files.
 - `history.md` — append-only log: what was tried, what worked, what didn't, gotchas, references. Grep — don't read in full.

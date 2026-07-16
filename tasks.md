@@ -2,7 +2,16 @@
 
 # Tasks
 
-Shared task board for `kart-medulla` schematic cleanup. Update status as you go: `TODO → In Progress → Done`. Read before editing; claim by adding `[YYYY-MM-DD <name>]` and the section change.
+The repo's task board — the only one. Update status as you go: `TODO → In Progress → Done`. Read before editing; claim by adding `[YYYY-MM-DD <name>]` and the section change. Big clusters get a `tasks/<name>.md`, always linked from the index below.
+
+## Task files
+
+Big task clusters live in `tasks/`, indexed here. This root board is the only index — a file under
+`tasks/` that isn't linked from here doesn't exist as far as anyone is concerned.
+
+- [`tasks/kart-medulla.md`](tasks/kart-medulla.md) — the kart-medulla board: schematic finish, PCB
+  layout, buzzer circuit, pre-fab checklist, connector audit. Its durable requirements (what the
+  board must do, as opposed to the work) are in `projects/kart-medulla/requirements.md`.
 
 ## TODO
 flip CN3 and CN4
@@ -20,10 +29,10 @@ with each other — don't treat either side as authoritative.**
    `.agents/error-log.md` entry. Left deliberately — dated append-only records that were accurate
    when written. Decide whether that's the standing policy for stale paths in logs; if so, write it
    into `AGENTS.md` so nobody "fixes" them later.
-3. **Per-board `projects/<board>/tasks.md` vs this root `tasks.md`** — kept as scoping (per-board
-   vs cross-board). It's the same two-file shape just consolidated, so confirm it's intended or
-   fold the per-board lists in here.
-4. **L7805 linear vs LM2596SX-ADJ buck** — `projects/kart-medulla/tasks.md` specifies an L7805
+3. ~~**Per-board `projects/<board>/tasks.md` vs this root `tasks.md`**~~ **RESOLVED 2026-07-16** —
+   Rubén's call: exactly one `tasks.md` per repo, at the root, no exceptions; big clusters get a
+   `tasks/<name>.md` linked from it. `projects/kart-medulla/tasks.md` → `tasks/kart-medulla.md`.
+4. **L7805 linear vs LM2596SX-ADJ buck** — `tasks/kart-medulla.md` specifies an L7805
    (decision 2026-05-02); `projects/kart-medulla/docs/pinout-esp32-s3.md` power architecture shows
    an LM2596SX-ADJ. One is stale.
 5. **Compressor power path** — three V2 items assume the board carries motor power; it doesn't
@@ -106,7 +115,7 @@ Reference: https://community.aisler.net/t/adding-our-logo-to-your-pcb/5382
 
 ### Design the buzzer circuit
 
-Moved to `projects/kart-medulla/tasks.md` → "Wire ASSI/AS-emergency buzzer on the BUZZER GPIO" — has the concrete inventory parts (CPT-407-105-L60 ×5, RE46C100S8F ×10) and the FS-Rules SPL constraint worked out.
+Moved to `tasks/kart-medulla.md` → "Wire ASSI/AS-emergency buzzer on the BUZZER GPIO" — has the concrete inventory parts (CPT-407-105-L60 ×5, RE46C100S8F ×10) and the FS-Rules SPL constraint worked out.
 
 ### External-connector audit (CN1–CN10) — missing / suspect signals
 

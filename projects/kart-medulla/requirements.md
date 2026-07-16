@@ -5,7 +5,8 @@
 What the board must do. Durable: survives revisions and task pruning.
 
 - **This file** = the target (what the board must do, what the next revision must add).
-- **`../tasks.md`** = the work (how we get there, pruned as items are done).
+- **`../../../tasks/kart-medulla.md`** = the work for this board (pruned as items are done).
+  The repo-wide board is the root `tasks.md`, which indexes it.
 - **`pinout-esp32-s3.md` / `pinout-cn-connectors.md`** = the as-built pin-by-pin reality.
 
 Signals are named here, never pin-mapped — pin assignments live in the pinout docs only.
@@ -29,12 +30,12 @@ and is not independently confirmed. The board built from this brief exists and i
 
 - **ASSI / AS-emergency buzzer** — FS-Rules **DV 4.5**: 80–90 dB(A) @ 2 m. Not optional; a
   fab without it fails scrutineering. GPIO 3 is reserved as `BUZZER` but no transducer or
-  driver is wired yet. See `../tasks.md` for the candidate parts and the SPL bench-measurement
+  driver is wired yet. See `tasks/kart-medulla.md` (repo root) for the candidate parts and the SPL bench-measurement
   the CPT-407 needs (it projects to ~79 dB @ 2 m — at or just under the minimum).
 
 ## V2 target — next revision
 
-Moved here from `../tasks.md` on 2026-07-16 so it outlives the task list.
+Moved here from the board's task list on 2026-07-16 so it outlives it.
 
 - **Rotate the push-in connectors** — wires exit outward, away from the board, and pin
   numbering runs co-directional with the CN numbering on each side
@@ -92,7 +93,7 @@ Rubén decides.
      the motor return, a heatsinked MOSFET, then the flyback and bulk caps make sense. This is
      a power-section redesign and should be scoped as one, not as improvement bullets.
 
-   Unrelated discrepancy found while checking this: `tasks.md` specifies an **L7805 linear**
+   Unrelated discrepancy found while checking this: `tasks/kart-medulla.md` specifies an **L7805 linear**
    regulator (decision 2026-05-02) while `docs/pinout-esp32-s3.md` power architecture shows an
    **LM2596SX-ADJ buck**. One of the two is stale — worth settling while the power section is
    open.

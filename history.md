@@ -771,3 +771,27 @@ board, not a competing board — root `tasks.md` is cross-board only.
 file, but the file is and always has been oldest-first (2026-05-03 at the top, newest appended at the
 bottom), which is what global CLAUDE.md specifies. The instruction is wrong, not the file. Left as-is
 pending Rubén's call on which way to fix it.
+
+## 2026-07-16 — kart-medulla board list moved to `tasks/kart-medulla.md`; one tasks.md per repo, no exceptions
+
+**Trigger:** Rubén tightened the rule the same day it was written: "just 1 tasks.md file at the root.
+no exceptions. only possible tasks/ folder for more complex tasks, but still those are referenced
+from tasks.md at the root."
+
+The earlier entry today consolidated `.agents/tasks.md` into the root but kept
+`projects/kart-medulla/tasks.md` as "per-board scoping". That was the same two-boards shape the
+consolidation existed to kill — 199 lines in the board folder against 149 at the root — and it is now
+closed. Contradiction 3 in `tasks.md` is resolved by this.
+
+**Done:**
+- `git mv projects/kart-medulla/tasks.md tasks/kart-medulla.md` (history preserved).
+- Root `tasks.md` gained a "Task files" index. The rule is that the root board is the only index: a
+  file under `tasks/` that isn't linked from it doesn't exist as far as anyone is concerned.
+- `AGENTS.md`: layout now shows `tasks.md`, `tasks/<name>.md` and `projects/<board>/requirements.md`;
+  the knowledge-files entry states one `tasks.md` per repo at the root, no `.agents/tasks.md` and no
+  `projects/<board>/tasks.md`.
+- References repointed in `projects/kart-medulla/requirements.md` and the root board.
+
+**Left alone deliberately:** `.agents/tasks.md` and `projects/kart-medulla/tasks.md` mentions inside
+earlier `history.md` and `.agents/error-log.md` entries. Dated append-only records, accurate when
+written; rewriting them would falsify the log. This entry is the forwarding pointer.
