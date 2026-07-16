@@ -825,3 +825,22 @@ touched 2024-12-04, heading still "formula 23-24"). Checklist items make bad tas
 **Assumption flagged, not resolved** (`tasks.md` contradictions 7–8): the v1/v2 mapping treats the
 assembled EasyEDA-origin board as `medulla-v1`, following the "V2 Hardware Improvements" heading.
 Nothing on disk confirms it — `fab/` is empty and the only tag is `medulla-v0.1-converted`.
+
+## 2026-07-16 — root board reduced to cross-board work; kart-medulla items consolidated
+
+Checking that the checklist task linked correctly exposed that the root `tasks.md` was still almost
+entirely kart-medulla work — silkscreen legend, AISLER logo, 3D-model values, connector audit, the
+"In Progress: PCB layout" and "Done: LM358" entries, and the whole "Notes for the next person"
+section. The root/board split announced this morning was therefore fiction: the root board *was* the
+old kart-medulla cleanup board under a new name, and the same board's work lived in two files —
+exactly the shape the consolidation existed to remove.
+
+**Done:** everything kart-medulla moved verbatim (statuses preserved) into `tasks/kart-medulla.md`
+under a "Moved from the root board" heading. Root keeps only genuinely cross-board work — the WAGO
+2601 terminal-block standard — plus the `tasks/` index and the open-contradictions list. The
+redundant "Design the buzzer circuit" pointer stub was dropped; the real task with the inventory
+parts and the FS-Rules SPL constraint is in the board file.
+
+**Lesson:** renaming a file does not change what's in it. The morning's move made the root board
+*named* cross-board while its contents stayed board-specific, and nothing caught that until a link
+check forced a read of the actual sections.
