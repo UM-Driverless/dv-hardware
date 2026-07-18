@@ -203,9 +203,16 @@ User renamed `#PWR25ce01` → `#PWR042` and `#PWRdf4d01` → `#PWR043` via KiCad
 
 This is worth turning into a 5-line note in `docs/kicad-conventions.md` (or wherever board-level KiCad docs live) so future board work doesn't repeat the confusion.
 
-### Wire ASSI/AS-emergency buzzer on the BUZZER GPIO (old name)
+### NOT APPLICABLE TO THE KART — ASSI/AS-emergency buzzer (kept for the formula vehicle)
 
-The schematic reserves GPIO 3 as `BUZZER` (old name — now `CMD_COMPRESSOR_PWM`, the EBS compressor MOSFET gate) but no actual transducer or driver is wired. Resolve before fab.
+**Closed 2026-07-18.** Rubén: *the kart will not carry a buzzer or ASSI; those are for the formula
+vehicle only.* So there is nothing to resolve before fab on this board, and **GPIO 3 / CN8.2 is the
+compressor's permanently** — the `BUZZER` name on that net is historical only.
+
+Kept rather than deleted because the parts survey and the SPL arithmetic below are real work that
+the formula vehicle will need. Move this section to that vehicle's board when one exists.
+
+*(Superseded text follows.)* The schematic reserves GPIO 3 as `BUZZER` (old name — now `CMD_COMPRESSOR_PWM`, the EBS compressor MOSFET gate) but no actual transducer or driver is wired.
 
 **Inventory we already have** (Milwaukee components box, see Notion AI Inventory):
 - **CPT-407-105-L60** (Same Sky, qty 5) — self-driving piezo, 14 VDC, **105 dB @ 10 cm**, wire-leaded with connector, continuous tone. No external driver IC needed; just gate kart 12 V through a low-side N-channel MOSFET (e.g. the BSS123 footprint already used elsewhere) controlled from GPIO 3.

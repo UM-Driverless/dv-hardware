@@ -28,10 +28,17 @@ and is not independently confirmed. The board built from this brief exists and i
 
 ## Mandatory (rules)
 
-- **ASSI / AS-emergency buzzer** — FS-Rules **DV 4.5**: 80–90 dB(A) @ 2 m. Not optional; a
-  fab without it fails scrutineering. GPIO 3 is reserved as `BUZZER` (old name — now `CMD_COMPRESSOR_PWM`,
-  the EBS compressor MOSFET gate) but no transducer or driver is wired yet. See `tasks/kart-medulla.md` (repo root) for the candidate parts and the SPL bench-measurement
-  the CPT-407 needs (it projects to ~79 dB @ 2 m — at or just under the minimum).
+- ~~**ASSI / AS-emergency buzzer** — FS-Rules DV 4.5~~ — **NOT A REQUIREMENT FOR THIS BOARD.**
+  Rubén, 2026-07-18: *the kart will not carry a buzzer or ASSI; those are for the formula vehicle
+  only.* So this section has no mandatory items for kart-medulla.
+
+  Two consequences, both of which unblock things that were previously flagged as conflicts:
+  - **GPIO 3 / CN8.2 belongs to the compressor permanently**, not on loan. The `BUZZER` name on
+    that net is purely historical, and nothing needs to be found a new home before fab.
+  - The buzzer parts already in inventory (CPT-407-105-L60 x5, RE46C100S8F x10) and the SPL
+    bench-measurement work belong to the **formula vehicle**, not here. Kept in
+    `tasks/kart-medulla.md` marked not-applicable rather than deleted, so the research is not lost
+    if that vehicle needs it.
 
 ## V2 target — next revision
 
