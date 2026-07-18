@@ -81,11 +81,27 @@ are drawn today for the milliamp logic feed. Bringing the switch on-board needs:
   one star point. This is not cosmetic — see the pressure-sensor item below.
 - Reference for sizing: the HUABAN carrier this replaces is rated **25 A** on a 60 x 50 mm board.
 
-**Related: give the pressure sensor a clean supply and reference.** On the same bench run the tank
-pressure reading sagged **~64%** while the compressor was running and recovered when it stopped.
-Most likely a ratiometric sensor on a sagging rail, or ground bounce from the motor return — the
-same mechanism behind the USB brownouts recorded in the `kart-medulla` repo. Whatever the cause, the
-sensor's supply and reference must not share the motor's return path.
+**Related, and now root-caused: the motor return must leave the signal ground alone.** On the same
+bench run the tank pressure reading sagged **~64%** while the compressor ran, recovering the instant
+it stopped. Initially suspected as a ratiometric sensor on a sagging rail — **that is ruled out**:
+Rubén confirmed the pressure sensors run from a 24 V regulator that feeds nothing else. It is ground
+IR drop, and the arithmetic closes:
+
+| | |
+|---|---|
+| Observed shift | 1041 ADC counts = **0.84 V** |
+| Resistance needed at 8 A | **~105 mOhm** |
+| A 0.25 mm x 50 mm 1 oz trace | **96 mOhm → 0.77 V at 8 A** |
+
+The compressor MOSFET switches low-side **on this board**, so the full ~8 A return crosses ground
+copper drawn for a ~1 mA logic feed (see [`requirements.md`](../projects/kart-medulla/requirements.md)).
+That lifts the ESP32's ground relative to the sensor's reference, and since the ADC reads
+`sensor_out − esp32_gnd`, the reading falls. Same mechanism as the USB brownouts.
+
+**This makes the star-ground item a functional requirement, not housekeeping.** A working
+pressure reading during pump-up depends on it, and so does the EBS logic that uses that reading.
+Confirmable before any redesign: measure DC volts between the 24 V regulator GND and the ESP32 GND
+while the compressor runs — expect 0.5-1 V where a shared ground should read ~0 mV.
 
 **Open, blocks nothing but worth settling:** whether the HUABAN module's control input accepts 3.3 V.
 Believed yes by inference, unverified — see `history.md` 2026-07-18. If the module does boost the
