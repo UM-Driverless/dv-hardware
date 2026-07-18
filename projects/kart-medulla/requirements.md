@@ -22,6 +22,9 @@ and is not independently confirmed. The board built from this brief exists and i
   arduino-style dupont
 - Read 3× 5 V digital from the motor hall sensors, level-translated to 3.3 V
 - Read 3× 0–10 V analog from the Festo pressure sensors (voltage divider may suffice)
+  — **amended 2026-07-18: only 2 remain.** The third input (`PRESSURE_3`, GPIO 1, CN5.2) was
+  repurposed on the built board to read the steering sensor's PWM angle output. See the V2 item
+  below; this line is left as the original brief for the record.
 - Write 5 V analog for the kart accelerator
 - Write the signal for the Festo actuators / servo braking
 - Hold a normally-open relay able to cut the shutdown circuit on condition
@@ -60,19 +63,36 @@ Moved here from the board's task list on 2026-07-16 so it outlives it.
   screwdriver is not a spare pin.* Concretely, route GPIO 38 → CN3.1 and GPIO 39 → CN3.2; the
   first is the intended `CMD_COMPRESSOR_PWM`
 
+### V2 — make the steering-sensor input a first-class signal, not a repurposed one
+
+Decided 2026-07-18. On the built board the steering sensor's PWM angle output is read on GPIO 1,
+the pin silkscreened `PRES3` on CN5.2. That works, but every name still says "pressure sensor 3",
+so the schematic, the netlist, the silkscreen and the firmware all describe something the board
+does not do. For V2:
+
+- **Rename the net and the silkscreen** to what it is — e.g. `STEER_SENS_PWM` — across the
+  schematic, `pinout-esp32-s3.md`, `pinout-cn-connectors.md` and the firmware pin map.
+- **Drop the ADC divider** on that input. It was drawn for an 0–10 V analog sensor; the steering
+  sensor is a 3.3 V logic PWM output and does not want a divider in front of it.
+- **Provision a proper PWM-capable input for the steering sensor**, chosen deliberately rather
+  than inherited from a pressure channel. Note the sensor itself is not settled — AS5600, MT6701
+  and MA732 are all under evaluation (datasheets in the `kart-medulla` repo), and MT6701/MA732
+  offer SSI/SPI as well as PWM, so the pin choice should not foreclose that.
+- **Confirm two pressure channels is genuinely enough** before the ADC dividers are finalised. If
+  a third is wanted later it needs a new pin, because this one is not coming back.
+
 ### Contradictions to resolve before V2 — do not action either item as written
 
 Both were written 2025-12/2026-07 and conflict with requirements above. Flagged 2026-07-16;
 Rubén decides.
 
-1. **"Repurpose BUZZER (old name) for compressor PWM (skip GPIO 3)"** conflicts with the rules-mandated
-   buzzer. It also appears obsolete: routing GPIO 38/39 to terminals (2026-07-10, above) gives
-   a PWM pin without stealing GPIO 3, and names `CMD_COMPRESSOR_PWM` for it. Likely just
-   delete the repurpose idea — but confirm the compressor PWM lands on GPIO 38 first.
-2. **"Repurpose PRESSURE_3 for steering PWM (skip GPIO 1)"** conflicts with the V1 requirement
-   to read 3× Festo pressure sensors, and with the schematic task that still calls for ADC
-   dividers on PRESSURE_1/2/3. Decide whether the third pressure sensor is actually dropped —
-   if so, amend the V1 requirement above rather than leaving both to contradict each other.
+1. ~~**"Repurpose BUZZER for compressor PWM"**~~ — **RESOLVED 2026-07-18.** Not a conflict: the
+   kart carries no buzzer or ASSI (formula vehicle only), so nothing was displaced. GPIO 3 /
+   CN8.2 is the compressor's permanently and the `BUZZER` name on that net is historical.
+2. ~~**"Repurpose PRESSURE_3 for steering PWM"**~~ — **RESOLVED 2026-07-18.** Also not a conflict:
+   the repurpose is *already done on the built board*, deliberately. GPIO 1 / CN5.2 reads the
+   steering sensor's PWM angle output. The third pressure sensor is dropped; the V1 line above is
+   amended accordingly. What remains is not a decision but tidy-up work — see the V2 item below.
 
 3. **The three compressor items (MOSFET, flyback diode, bulk caps) assume the board carries
    motor power. It does not.** Raised by Rubén 2026-07-16. `+12V` enters at CN1 pin 2 and only
