@@ -911,8 +911,17 @@ the 3.3 V printer boards these modules are sold for — therefore it almost cert
 The Amazon listing gives no control-voltage specification, and `U2` has not been identified.
 
 **The measurement that settles it:** 12 V on DC IN, 3.3 V on Control In, then read **gate-to-source**
-at the MOSFET pads. ~10-12 V means a boost stage is present and the module is both usable as-is and
-copyable. ~3.3 V means there is none, and no MOSFET choice helps without adding a driver.
+at the MOSFET pads. Three outcomes, not two:
+- **~10-12 V** — a level-shift stage is present and reaches the rail. The module is usable as-is and
+  its `U2` circuit is worth copying onto v2.
+- **~5 V** — a stage exists but only reaches a 5 V rail. Still inadequate: that is 1 V of overdrive
+  against a 4 V worst-case threshold, with Rds(on) unspecified there.
+- **~3.3 V** — pass-through, no stage at all, and no MOSFET choice helps without adding a driver.
+
+(Terminology: "level shifter", not "boost". Nothing steps the voltage up — the small transistor
+simply switches the big gate between GND and the 12 V rail that is already present on DC IN. A
+single-transistor version of this inverts, so a non-inverting module needs two stages or a driver
+IC, which is why `U2` being a SOIC-8 rather than a SOT-23 is a useful clue.)
 
 *(Recorded because it was stated with more confidence than it deserved during the session: the
 earlier advice "do not drive it from 5 V" was about the MOSFET **gate**, whereas the module's
