@@ -844,3 +844,77 @@ parts and the FS-Rules SPL constraint is in the board file.
 **Lesson:** renaming a file does not change what's in it. The morning's move made the root board
 *named* cross-board while its contents stayed board-specific, and nothing caught that until a link
 check forced a read of the actual sections.
+
+## 2026-07-18 — Compressor gate drive: why 3.3 V is not enough, and what the HUABAN module gives us
+
+The EBS compressor was bench-run for the first time today (firmware detail in the `kart-medulla`
+repo, `history.md` 2026-07-18). It works, but it exposed a hardware problem that belongs to this
+repo, and it changes what `medulla-v2` has to carry. Task written up in
+[`tasks/kart-medulla.md`](tasks/kart-medulla.md).
+
+### The concern: a 3.3 V gate cannot drive a power MOSFET properly
+
+The compressor is switched by an **IRLZ44N** with its gate wired straight to a 3.3 V ESP32 pin.
+Measured: **6 A running at 60% duty**, and the MOSFET reached **~100 C even after the duty was cut to
+20%** — hot enough on the first run at 60% to bake the adhesive around the part (the die survived).
+
+The cause is arithmetic, not bad luck. The IRLZ44N datasheet specifies Rds(on) at Vgs = 10 V
+(0.022 Ohm), 5 V (0.025) and 4 V (0.035), **and stops there**. 3.3 V is below the last specified
+point, with Vgs(th) max = 2.0 V, so the device never fully enhances — roughly 0.05-0.07 Ohm cold and
+~1.6x that hot. Against Rth(j-a) = 62 C/W in a bare TO-220 that is over 100 C of rise. Conduction
+loss dominates switching loss by roughly 50x at 500 Hz, so **PWM frequency cannot fix it** and
+neither can lowering the duty much further (the 60% -> 20% step gave far less than expected, because
+motor current does not fall with duty when the pump is working against tank pressure).
+
+Two findings worth carrying into any future board:
+
+1. **"Logic level" on a datasheet front page means it works at 5 V, not 3.3 V.** A survey of ~150
+   datasheets across Infineon, Vishay, Nexperia, Toshiba, ST, onsemi, Diodes and AOS found the
+   industry floor for a *specified* Rds(on) is **Vgs = 4.5 V**. Vgs(th) max on power dice runs
+   2.0-2.5 V, so a worst-case part is at threshold with a 2.5 V gate and no vendor guarantees
+   anything below. Only two parts qualified at all and both had a catch (IRF3708, TO-220, specified
+   at 2.8 V but obsolete; CSD17307Q5A, in production but SON surface-mount). **Assume 3.3 V direct
+   gate drive is never acceptable for a power MOSFET, and budget a driver.**
+2. **Beware the plot-label false positive.** Nearly every one of those datasheets contains the
+   strings "VGS = 2.5 V" and "VGS = 3 V" — as *curve labels on the Rds(on)-vs-Vgs graph*, never as
+   table rows. A parametric search hit claiming a 2.5 V spec is usually reading a plot annotation.
+3. **The pin does not even deliver a clean 3.3 V.** The ESP32-S3 datasheet specifies IOH = 28 mA
+   only at VOH >= 0.8 x VDD = **2.64 V**, so during the Miller plateau — exactly when the die is
+   dissipating — the pin sags toward 2.64 V.
+
+### What the HUABAN module gives us
+
+In inventory: **HUABAN 4 x 25A MOSFET HA210N06 3D Printer Heated Bed Power Extension Module**,
+Amazon ASIN `B089YD5XP6`, rated **25 A**, board **60 x 50 mm**, M3 mounting holes, currently listed
+as unavailable. It carries an HA210N06 in TO-3P with a clip-on finned heatsink (~3 x 2 x 1 cm),
+a 2-pin JST "Control In", and screw terminals marked "HOT BED" and "+ DC IN -". Datasheet for the
+transistor is filed at `kart-medulla/datasheets/HA210N06_datasheet.pdf`.
+
+It is useful to this repo in two ways:
+
+- **As a parts donor.** The MOSFET plus heatsink can be moved onto the medulla board. But the
+  HA210N06 is **not** a logic-level part — Vgs(th) is 2/3/4 V min/typ/max and Rds(on) is specified at
+  exactly one point, Vgs = 10 V. Harvested on its own and wired to a 3.3 V GPIO it would be *worse*
+  than the IRLZ44N fitted today, which at least specifies down to 4.0 V. Its gate is also large
+  (Qg = 135 nC, Ciss = 5800 pF, about 3x the IRLZ44N), so even ignoring voltage an ESP32 pin at
+  ~20 mA needs ~7 us to move the charge. **If the transistor is harvested, the driver must be
+  designed in alongside it.**
+- **As a reference design.** The carrier has a `U2` stage with a small resistor network that appears
+  to level-shift the control input up to the DC-IN rail. If so, that is exactly the circuit v2 needs,
+  already proven at 25 A, and worth copying rather than inventing.
+
+### Open question, to test next session
+
+**Does the module's control input actually accept 3.3 V?** Believed yes, but by *inference only*:
+3.3 V is below the HA210N06's worst-case 4 V threshold, so a pass-through carrier could not work with
+the 3.3 V printer boards these modules are sold for — therefore it almost certainly boosts the gate.
+The Amazon listing gives no control-voltage specification, and `U2` has not been identified.
+
+**The measurement that settles it:** 12 V on DC IN, 3.3 V on Control In, then read **gate-to-source**
+at the MOSFET pads. ~10-12 V means a boost stage is present and the module is both usable as-is and
+copyable. ~3.3 V means there is none, and no MOSFET choice helps without adding a driver.
+
+*(Recorded because it was stated with more confidence than it deserved during the session: the
+earlier advice "do not drive it from 5 V" was about the MOSFET **gate**, whereas the module's
+**control input** is a different node. Both statements are compatible, but only the first is
+verified.)*

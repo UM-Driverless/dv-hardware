@@ -14,6 +14,66 @@ Two moved items **contradict** other requirements and are flagged there rather t
 
 The connector-rotation item also restates the "Flip all ten CN connectors 180°" task below — same change, two entries. Kept the task, moved the requirement.
 
+### Design the compressor MOSFET drive on-board for medulla-v2 #ruben
+
+Raised 2026-07-18 after the EBS compressor was bench-run for the first time. Rubén's directive for
+this revision: **integrate it — fewer wires running between boxes and bolted-on PCBs.** So the
+switching stage comes onto the medulla board rather than staying an external module.
+
+**Why the current arrangement fails.** The compressor is switched by an **IRLZ44N** whose gate is
+driven straight from a 3.3 V ESP32 pin. Measured on the bench (see `kart-medulla` repo `history.md`
+2026-07-18): **6 A running at 60% duty, and the MOSFET reached ~100 C even after the duty was cut to
+20%.** The IRLZ44N datasheet specifies Rds(on) at Vgs = 10 V / 5 V / 4 V and stops there, so at
+3.3 V it never fully enhances. This is conduction loss, not switching loss — at 500 Hz conduction
+dominates roughly 50x, so changing the PWM frequency cannot fix it.
+
+**The fix is gate drive, not a different MOSFET.** Driven at 10 V the IRLZ44N is already a good part
+(22 mOhm, ~0.5 W). A survey of ~150 datasheets found the industry floor for a *specified* Rds(on) is
+Vgs = 4.5 V, because Vgs(th) max on power dice is 2.0-2.5 V and nothing can be guaranteed at 3.3 V.
+There is no drop-in part that solves this; a driver stage does.
+
+**Design for v2 — five parts plus the MOSFET:**
+
+| Item | Choice | Why |
+|---|---|---|
+| Gate driver | **UCC27517A** (SOT-23-5), or TC4420 / MCP1407 (PDIP-8) | Fixed TTL input, VIH <= 2.4 V across VDD 4.5-18 V, so 3.3 V logic drives it with ~0.9 V margin. Non-inverting, so no firmware change. |
+| Driver supply | 12 V rail + 100 nF decoupler | Low-side switching, so no bootstrap needed |
+| Input pulldown | 10 kOhm to GND | Holds the compressor OFF through ESP32 boot and reset |
+| Series gate resistor | 10-47 Ohm | |
+| Flyback diode | across the compressor terminals | The load is an inductive motor |
+| MOSFET | see below | |
+
+**Do NOT use UCC27518 or UCC27519** — their inputs are CMOS and scale with VDD (VIN_H = 70% of VDD),
+so at 12 V the threshold is 8.4 V and a 3.3 V signal never registers. **Do NOT use a discrete
+inverting level shifter** (small FET with a pull-up to 12 V): it inverts, so while the GPIO floats at
+boot and reset the pull-up drags the gate high and the compressor runs full-on.
+
+**MOSFET choice.** Once a driver is present the part is no longer constrained by what a GPIO can
+swing, so prefer something in production: **IRLB8743, IPP034N03L or PSMN2R7-30PL**, all 3-4 mOhm.
+The **HA210N06** harvested from the HUABAN module in inventory also works *provided the driver comes
+with it* — that part is emphatically not logic-level (Vgs(th) 2/3/4 V min/typ/max, and Rds(on)
+specified at exactly one point, Vgs = 10 V), so on its own it would be worse than what is fitted
+today. Its Qg is 135 nC and Ciss 5800 pF, about 3x the IRLZ44N, which is a second reason a GPIO
+cannot drive it directly.
+
+**Current path — the part that is actually a board change.** `+12V` at CN1.2 and the motor return
+are drawn today for the milliamp logic feed. Bringing the switch on-board needs:
+- terminals and copper rated for **8 A continuous** (~3.5 mm on 1 oz external, or a pour) with via
+  count to match, and the design current stated on the drawing;
+- the **motor return taken straight back to the 12 V regulator**, meeting signal ground at exactly
+  one star point. This is not cosmetic — see the pressure-sensor item below.
+- Reference for sizing: the HUABAN carrier this replaces is rated **25 A** on a 60 x 50 mm board.
+
+**Related: give the pressure sensor a clean supply and reference.** On the same bench run the tank
+pressure reading sagged **~64%** while the compressor was running and recovered when it stopped.
+Most likely a ratiometric sensor on a sagging rail, or ground bounce from the motor return — the
+same mechanism behind the USB brownouts recorded in the `kart-medulla` repo. Whatever the cause, the
+sensor's supply and reference must not share the motor's return path.
+
+**Open, blocks nothing but worth settling:** whether the HUABAN module's control input accepts 3.3 V.
+Believed yes by inference, unverified — see `history.md` 2026-07-18. If the module does boost the
+gate from its own DC-IN rail, its `U2` stage is a working reference design to copy here.
+
 ### Route GPIO 38 + GPIO 39 out to CN terminals (no spare ESP32 GPIO is reachable today)
 
 Found 2026-07-10 while trying to add the EBS compressor PWM driver without a soldering iron.
