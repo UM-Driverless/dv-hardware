@@ -26,6 +26,30 @@ pins 1 and 3 in one row, pin 2 in a row 5.00 mm across. A 180° rotation therefo
 pad row to the opposite side and is not a free change; the copper under each connector must be
 re-routed.
 
+## Silkscreen is the authority (v1, the only board that exists)
+
+The table below is transcribed from the **v1 PCB silkscreen** — v1 is the only revision built, so
+this is what is physically in front of you:
+
+```
+CN1        CN2        CN3        CN4       CN5        CN6        CN7        CN8         CN9          CN10
+1 +3V3     1 HALL3    1 EXP_P1   1 SCL     1 HYD2     1 PED_BRK  1 PRES1    1 SDC       1 STEER_PWM  1 CMD_ACC
+2 +12V     2 HALL2    2 EXP_P2   2 SDA     2 PRES3    2 PED_ACC  2 PRES2    2 BUZZ      2 HYD1       2 CMD_BRK
+3 GND      3 +5V      3 EXP_P3   3 REV     3 EXP_P4   3 +3V3     3 HALL1    3 STEER_DIR 3 GND        3 GND
+```
+
+**Two naming traps, both of which have already caused confusion:**
+
+1. **`BUZZ` on CN8.2 is an OLD name.** There is no buzzer on it. The net was repurposed to
+   `CMD_COMPRESSOR_PWM` — GPIO 3 driving the EBS compressor MOSFET gate. Wherever `BUZZER` appears
+   in this repo it should be read as *(old name)*. Note this collides with the rules-mandated ASSI
+   buzzer, which still needs a home — see `tasks/kart-medulla.md`.
+2. **`EXP_P2` is CN3.2, and always has been.** The exported netlist
+   (`projects/kart-medulla/output/netlist.net`, dated 7 May) lists `CN8.2 → /EXP_P2`, which is
+   **wrong** — that file is the known-stale export flagged in `tasks.md`, and it also shows Q3's and
+   Q4's gates on no net at all. Trust the silkscreen and this table over that netlist for any
+   connectivity question until it is re-exported.
+
 ## Assignment table
 
 | CN | Side | Pin 1 | Pin 2 | Pin 3 | Function |
@@ -37,7 +61,7 @@ re-routed.
 | **CN5**  | R, top    | HYDRAULIC_2 (0–5V) | PRESSURE_3 (0–10V) | EXP_P4 | Hydraulic-2 pressure sensor + Pressure-3 sensor + spare PCF8574 expander GPIO P4. |
 | **CN6**  | L, top    | PEDAL_BRAKE (0–5V) | PEDAL_ACC (0–5V) | +3V3 | Both pedal-position signals + 3V3 power output to whichever sensor needs it. (Carries PWR_FLAG on +3V3.) |
 | **CN7**  | L         | PRESSURE_1 (0–10V) | PRESSURE_2 (0–10V) | MOTOR_HALL_1 (5V) | Pressure-1 & Pressure-2 sensors + Motor hall 1. (Halls span CN2 + CN7 because GPIO 16 sits on the left side of the ESP32; see `history.md` 2026-05-08 for why no swap.) |
-| **CN8**  | L         | SDC_IN_LOW_SIDE | BUZZER (3V3) | CMD_STEER_DIR (3V3) | Pin 1 = SDC chain return (Q3 drain). Pin 2 = buzzer. Pin 3 = Cytron H-bridge direction. |
+| **CN8**  | L         | SDC_IN_LOW_SIDE | `BUZZ` **(old name)** = CMD_COMPRESSOR_PWM (3V3) | CMD_STEER_DIR (3V3) | Pin 1 = SDC chain return (Q3 drain). **Pin 2 is silkscreened `BUZZ` but is NOT a buzzer** — the net was repurposed to drive the EBS compressor MOSFET's gate (GPIO 3). It carries a 3.3 V logic signal, not power: the compressor MOSFET is external, added after the board was built, and this pin feeds its gate resistor. Pin 3 = Cytron H-bridge direction. |
 | **CN9**  | L         | CMD_STEER_PWM (3V3) | HYDRAULIC_1 (0–5V) | GND | Pin 1 = Cytron H-bridge PWM. Pin 2 = Hydraulic-1 sensor. Pin 3 = GND return for the left-side analog/SDC group. |
 | **CN10** | L, bottom | CMD_ACC (0–5V) | CMD_BRAKE (0–5V) | GND | Throttle and brake analog commands from the MCP4922 DAC to the motor controller. |
 
