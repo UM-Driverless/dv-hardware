@@ -89,7 +89,7 @@ before assuming this pinout works:
    PSRAM, GPIO 33-37 free) or an N*R8 like N8R8 / N16R8 (octal PSRAM, GPIO
    33-37 reserved internally). The pinout is laid out to be safe with
    either — GPIO 35-37 are SPARE, GPIO 33-34 are unused, and signals that
-   used to live on octal-PSRAM pins were moved (BUZZER 36→3, MOTOR_HALL_1
+   used to live on octal-PSRAM pins were moved (BUZZER (old name) 36→3, MOTOR_HALL_1
    37→16, CMD_STEER_DIR 35→0). So **either variant works**, but if you
    end up with an octal-PSRAM module **do not assign anything to GPIO
    33-37 in firmware**, ever.
@@ -189,7 +189,7 @@ before assuming this pinout works:
 | 32 | 17 | 17 | CMD_STEER_DIR__3V3 | Digital Out | Steering motor direction (Cytron H-bridge). Moved here from GPIO 0 on 2026-05-08 to remove the BOOT-strap risk; now sits on the left side of the ESP32 alongside SDC_NOT_EMERGENCY. (UART1 TX default — but UART pins are remappable on ESP32-S3.) |
 | 33 | 18 | 18 | SDC_NOT_EMERGENCY__3V3 | Digital Out | Drives the gate of Q3 (IRLZ44N) through R22 (100 Ω). When HIGH, Q3 conducts and pulls `SDC_IN_LOW_SIDE` to GND, completing the kart's SDC chain return path → no emergency. When LOW, Q3 is off and the SDC chain is broken → emergency. R23 (100 kΩ) gate-pulldown ensures Q3 is OFF (= emergency) at boot until firmware drives it HIGH. The signal name reads as the *intent* the ESP32 is asserting, not the chain's electrical state. Moved here from GPIO 38 on 2026-05-08 so the gate driver sits on the left side of the PCB next to the MOSFET. (UART1 RX default — remappable.) |
 | 34 | 8 | 8 | SDA | I2C | I²C data — AS5600 steering angle sensor + PCF8574 I/O expander share this bus |
-| 35 | 3 | 3 | BUZZER | Digital Out | Buzzer for debugging. Moved from GPIO 36 for octal-PSRAM compatibility. **Correction 2026-07-10:** this row used to claim "strap pin: JTAG src select, default high". Both halves are wrong on our hardware. (a) `STRAP_JTAG_SEL` eFuse is **not burned** (read from the chip), so GPIO 3 is never sampled as a strap. (b) GPIO 3 has **no internal pull at reset** — measured `IO_MUX_GPIO3 = 0x0a02` (neither FUN_WPU bit 8 nor FUN_WPD bit 7), against controls GPIO 0 = `0x0b02` (pull-up) and GPIO 45/46 = `0x0a82` (pull-down). It floats, so an external pulldown wins at boot. That makes GPIO 3 safe to drive a MOSFET gate — see the compressor reassignment in `history.md` 2026-07-10. |
+| 35 | 3 | 3 | BUZZER (old name) | Digital Out | Buzzer for debugging. Moved from GPIO 36 for octal-PSRAM compatibility. **Correction 2026-07-10:** this row used to claim "strap pin: JTAG src select, default high". Both halves are wrong on our hardware. (a) `STRAP_JTAG_SEL` eFuse is **not burned** (read from the chip), so GPIO 3 is never sampled as a strap. (b) GPIO 3 has **no internal pull at reset** — measured `IO_MUX_GPIO3 = 0x0a02` (neither FUN_WPU bit 8 nor FUN_WPD bit 7), against controls GPIO 0 = `0x0b02` (pull-up) and GPIO 45/46 = `0x0a82` (pull-down). It floats, so an external pulldown wins at boot. That makes GPIO 3 safe to drive a MOSFET gate — see the compressor reassignment in `history.md` 2026-07-10. |
 | 36 | 46 | 46 | HOLD | - | Strap pin (ROM-print enable, flash/boot risk). Default LOW = no boot-message print, which is what we want. Reclaimable post-boot if signal's idle state is LOW at power-on. |
 | 37 | 9 | 9 | SCL | I2C | I²C clock — same bus as SDA |
 | 38 | 10 | 10 | HYDRAULIC_1 | ADC1_CH9 | Hydraulic pressure sensor 1 (input only) |

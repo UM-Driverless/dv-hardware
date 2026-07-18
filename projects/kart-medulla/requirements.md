@@ -29,8 +29,8 @@ and is not independently confirmed. The board built from this brief exists and i
 ## Mandatory (rules)
 
 - **ASSI / AS-emergency buzzer** — FS-Rules **DV 4.5**: 80–90 dB(A) @ 2 m. Not optional; a
-  fab without it fails scrutineering. GPIO 3 is reserved as `BUZZER` but no transducer or
-  driver is wired yet. See `tasks/kart-medulla.md` (repo root) for the candidate parts and the SPL bench-measurement
+  fab without it fails scrutineering. GPIO 3 is reserved as `BUZZER` (old name — now `CMD_COMPRESSOR_PWM`,
+  the EBS compressor MOSFET gate) but no transducer or driver is wired yet. See `tasks/kart-medulla.md` (repo root) for the candidate parts and the SPL bench-measurement
   the CPT-407 needs (it projects to ~79 dB @ 2 m — at or just under the minimum).
 
 ## V2 target — next revision
@@ -58,7 +58,7 @@ Moved here from the board's task list on 2026-07-16 so it outlives it.
 Both were written 2025-12/2026-07 and conflict with requirements above. Flagged 2026-07-16;
 Rubén decides.
 
-1. **"Repurpose BUZZER for compressor PWM (skip GPIO 3)"** conflicts with the rules-mandated
+1. **"Repurpose BUZZER (old name) for compressor PWM (skip GPIO 3)"** conflicts with the rules-mandated
    buzzer. It also appears obsolete: routing GPIO 38/39 to terminals (2026-07-10, above) gives
    a PWM pin without stealing GPIO 3, and names `CMD_COMPRESSOR_PWM` for it. Likely just
    delete the repurpose idea — but confirm the compressor PWM lands on GPIO 38 first.

@@ -10,7 +10,7 @@ Per-board task list. Higher-level/cross-board work lives in `dv-hardware/tasks.m
 
 Moved to [`requirements.md`](requirements.md) on 2026-07-16 — requirements are durable, this list gets pruned as tasks complete. Scope a revision from that file; track the work here.
 
-Two moved items **contradict** other requirements and are flagged there rather than actioned — do not implement either as written: "repurpose BUZZER for compressor PWM" (conflicts with the rules-mandated ASSI buzzer on GPIO 3, and looks superseded by the GPIO 38/39 routing task below) and "repurpose PRESSURE_3 for steering PWM" (conflicts with the 3× pressure-sensor requirement and with the ADC dividers called for in the schematic task).
+Two moved items **contradict** other requirements and are flagged there rather than actioned — do not implement either as written: "repurpose BUZZER (old name) for compressor PWM" (conflicts with the rules-mandated ASSI buzzer on GPIO 3, and looks superseded by the GPIO 38/39 routing task below) and "repurpose PRESSURE_3 for steering PWM" (conflicts with the 3× pressure-sensor requirement and with the ADC dividers called for in the schematic task).
 
 The connector-rotation item also restates the "Flip all ten CN connectors 180°" task below — same change, two entries. Kept the task, moved the requirement.
 
@@ -113,7 +113,7 @@ Found 2026-07-10 while trying to add the EBS compressor PWM driver without a sol
 
 **The board has no spare ESP32 GPIO on any CN terminal.** Verified on a fresh netlist export:
 
-  - CN pins that reach the ESP32 are all assigned: `SCL` (CN4.1), `SDA` (CN4.2), `BUZZER` (CN8.2),
+  - CN pins that reach the ESP32 are all assigned: `SCL` (CN4.1), `SDA` (CN4.2), `BUZZER` (CN8.2, old name),
     `CMD_STEER_DIR` (CN8.3), `CMD_STEER_PWM` (CN9.1).
   - The free CN pins — `EXP_P1`/`P2`/`P3` (CN3.1–3) and `EXP_P4` (CN5.3) — reach **U25, the PCF8574
     expander**, not the ESP32. They cannot generate PWM: I²C-rate edges, ~100 µA source current
@@ -203,9 +203,9 @@ User renamed `#PWR25ce01` → `#PWR042` and `#PWRdf4d01` → `#PWR043` via KiCad
 
 This is worth turning into a 5-line note in `docs/kicad-conventions.md` (or wherever board-level KiCad docs live) so future board work doesn't repeat the confusion.
 
-### Wire ASSI/AS-emergency buzzer on the BUZZER GPIO
+### Wire ASSI/AS-emergency buzzer on the BUZZER GPIO (old name)
 
-The schematic reserves GPIO 3 as `BUZZER` (digital out, debug-only) but no actual transducer or driver is wired. Resolve before fab.
+The schematic reserves GPIO 3 as `BUZZER` (old name — now `CMD_COMPRESSOR_PWM`, the EBS compressor MOSFET gate) but no actual transducer or driver is wired. Resolve before fab.
 
 **Inventory we already have** (Milwaukee components box, see Notion AI Inventory):
 - **CPT-407-105-L60** (Same Sky, qty 5) — self-driving piezo, 14 VDC, **105 dB @ 10 cm**, wire-leaded with connector, continuous tone. No external driver IC needed; just gate kart 12 V through a low-side N-channel MOSFET (e.g. the BSS123 footprint already used elsewhere) controlled from GPIO 3.
@@ -389,7 +389,7 @@ Reference: https://community.aisler.net/t/adding-our-logo-to-your-pcb/5382
 
 ### Design the buzzer circuit
 
-Moved to `tasks/kart-medulla.md` → "Wire ASSI/AS-emergency buzzer on the BUZZER GPIO" — has the concrete inventory parts (CPT-407-105-L60 ×5, RE46C100S8F ×10) and the FS-Rules SPL constraint worked out.
+Moved to `tasks/kart-medulla.md` → "Wire ASSI/AS-emergency buzzer on the BUZZER GPIO (old name)" — has the concrete inventory parts (CPT-407-105-L60 ×5, RE46C100S8F ×10) and the FS-Rules SPL constraint worked out.
 
 ### External-connector audit (CN1–CN10) — missing / suspect signals
 

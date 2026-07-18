@@ -38,7 +38,7 @@ with each other — don't treat either side as authoritative.**
 5. **Compressor power path** — three V2 items assume the board carries motor power; it doesn't
    (`+12V` is a ~1 mA logic feed and the tracks are sized for that). See
    `projects/kart-medulla/requirements.md`.
-6. **BUZZER / PRESSURE_3 repurpose items contradict live requirements** (the rules-mandated ASSI
+6. **BUZZER (old name) / PRESSURE_3 repurpose items contradict live requirements** (the rules-mandated ASSI
    buzzer; the 3× pressure-sensor requirement). Also in `projects/kart-medulla/requirements.md`.
 7. **A 4th copy of the PCB checklist lives outside this repo**, in the team Google Drive at
    `formula/formula_24-25-26/el/pcb-checklist.md` — stale (last modified 2024-12-04, heading still
