@@ -37,11 +37,28 @@ There is no drop-in part that solves this; a driver stage does.
 | Item | Choice | Why |
 |---|---|---|
 | Gate driver | **UCC27517A** (SOT-23-5), or TC4420 / MCP1407 (PDIP-8) | Fixed TTL input, VIH <= 2.4 V across VDD 4.5-18 V, so 3.3 V logic drives it with ~0.9 V margin. Non-inverting, so no firmware change. |
-| Driver supply | 12 V rail + 100 nF decoupler | Low-side switching, so no bootstrap needed |
+| Driver supply | **12 V rail** + 100 nF decoupler | Low-side switching, so no bootstrap needed. See the rail note below before choosing 5 V instead. |
 | Input pulldown | 10 kOhm to GND | Holds the compressor OFF through ESP32 boot and reset |
 | Series gate resistor | 10-47 Ohm | |
 | Flyback diode | across the compressor terminals | The load is an inductive motor |
 | MOSFET | see below | |
+
+**Which rail feeds the driver — 5 V or 12 V?** All three drivers accept VDD = 4.5-18 V, so either
+works electrically. The catch is that VDD *is* the gate voltage, so the rail choice and the MOSFET
+choice are one decision, not two:
+
+| | Gate at 5 V | Gate at 12 V |
+|---|---|---|
+| IRLZ44N | **0.025 Ohm — specified in the datasheet.** Acceptable. | 0.022 Ohm |
+| HA210N06 | **Unspecified.** 1 V of overdrive against a 4 V worst-case threshold. Not acceptable. | 4 mOhm |
+
+So **5 V is only safe if the MOSFET is specified at 5 V**. The IRLZ44N is; the HA210N06 harvested
+from the HUABAN module is not, and neither is any part chosen for low Rds(on) at 10 V. Since the
+point of adding a driver is to stop being constrained by gate voltage, **default to the 12 V rail** —
+it costs nothing extra, keeps every MOSFET option open, and removes the failure mode where the
+circuit looks correct and still runs hot. Only drop to 5 V if the 12 V rail is genuinely
+unavailable at that point on the board, and then pin the MOSFET choice to a 5 V-specified part and
+say so on the schematic.
 
 **Do NOT use UCC27518 or UCC27519** — their inputs are CMOS and scale with VDD (VIN_H = 70% of VDD),
 so at 12 V the threshold is 8.4 V and a 3.3 V signal never registers. **Do NOT use a discrete
