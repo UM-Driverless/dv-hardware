@@ -107,6 +107,82 @@ while the compressor runs — expect 0.5-1 V where a shared ground should read ~
 Believed yes by inference, unverified — see `history.md` 2026-07-18. If the module does boost the
 gate from its own DC-IN rail, its `U2` stage is a working reference design to copy here.
 
+### Two ground terminals, not one — give the switched loads their own `PWR_GND` pin #ruben
+
+Rubén's directive for medulla-v2 (2026-07-19). The board currently exposes only one kind of ground
+(CN1.3 / CN9.3 / CN10.3), so every return leaves on the same conductor and the switched current is
+forced through copper the ADC uses as its 0 V reference. That is the mechanism behind the 0.84 V
+shift documented in the compressor item above. No amount of copper fixes it: at 8 A, holding the
+error under one ADC count (0.8 mV at 12-bit over 3.3 V) needs the shared resistance below 0.1 mΩ,
+which no board trace or pour achieves. The current has to not be there at all.
+
+**The change is a pinout change.** Add a `PWR_GND` terminal alongside the existing signal ground.
+Internally it is its own pour, tied to signal ground at one point (or not at all on-board — see the
+open question below). Externally it lands on the rear ground Wago block, which is the kart's ground
+star point; the harness side of this is documented in the kart-docs wiring page under
+"Why two grounds", where the two returns are the nets `GND` and `GND_SIG`.
+
+**Both low-side switches go on it — there are two, not one:**
+
+| Switch | Drives | Why it belongs on `PWR_GND` |
+|---|---|---|
+| `compressor_fet` (gate on CN8.2) | EBS air compressor, ~8 A PWM | The measured offender |
+| `Q3` (pulls `SDC_5` / CN8.1 low) | SDC relay coil | Coil current, inductive kickback; nothing on this path is measured, so it has no reason to share the clean reference |
+
+They can share `PWR_GND` with each other freely — neither is a measurement, so noise between them
+costs nothing. The separation that matters is between this pair and the ADC reference.
+
+**What stays on signal ground:** ESP32, the ADC dividers and clamps, the pressure-sensor terminals,
+the MCP4922 / LM358 / MAX4660 analog chain, and the I²C bus.
+
+**Decided 2026-07-19 (Rubén): the two grounds do NOT connect on the board.** They stay separate all
+the way to the rear Wago and meet only there — no on-board tie, so no second path and no loop.
+Place a `0 Ω` jumper footprint between them anyway and **leave it unpopulated**: behaviour is
+identical to no link at all, and it turns a possible future need (ESD, a floating input found at
+bring-up) into a resistor rather than a respin.
+
+**Consequence — where the gate driver's ground goes.** Vgs is gate minus *source*, and the source
+sits on `PWR_GND`, so the driver's reference is now a real choice:
+
+- Referenced to **signal ground**: the logic input is clean, but the gate-drive current (amps, into
+  5800 pF, in tens of ns) must return from the driver to the source — and with no on-board tie that
+  loop leaves the board, crosses the kart and comes back. Largest loop area on the fastest edges in
+  the design. Do not do this.
+- Referenced to **`PWR_GND` at the MOSFET source (Kelvin connection)**: gate loop stays a few
+  millimetres, which is the requirement. Cost is that the driver's logic threshold floats with
+  `PWR_GND`, so the ESP32's 3.3 V input arrives offset by the ground difference.
+
+**Take the Kelvin option.** UCC27517A VIH <= 2.4 V against 3.3 V logic leaves ~0.9 V margin, and the
+residual offset is tens of mV. **This margin depends on `PWR_GND` being properly sized** — state the
+8 A rating on the drawing next to the driver, because thinning that copper later re-creates the
+original fault through a different route.
+
+**Expected residual offset, and why the 0.84 V figure does not apply after the fix.** The measured
+0.84 V comes from ~105 mOhm of return path, i.e. a 0.25 mm trace drawn for a 1 mA logic feed. With
+`PWR_GND` copper sized for 8 A the resistance is a few mOhm, so expect **tens of mV** between the
+grounds under load. Quote 0.84 V only when describing the present fault, never as the post-redesign
+expectation.
+
+**Failure mode to guard.** With no on-board tie, if the `PWR_GND` wire is left off the Wago the
+compressor return does not stop — it finds the signal-ground wire, and the board is back to today's
+0.84 V shift. It keeps working, which is why nobody notices. Make the terminal mechanically obvious
+or key the connector; the one-meter check below catches it either way.
+
+**Worth adding on top, once the terminal exists:** measure the pressure sensors differentially. The
+SDE5's 0–10 V output is referenced to its own 0 V at the 24 V regulator, so bringing that 0 V back
+as a sense line and taking the difference (four matched 0.1% resistors around the existing LM358, or
+an MCP3421 on the I²C bus) turns any residual ground offset into a common-mode signal the ADC
+rejects. Belt-and-braces on top of the terminal split, not a substitute for it.
+
+**Cheap firmware mitigation, independent of hardware:** at 500 Hz PWM there is a compressor-off
+window every 2 ms with genuinely zero current. Sampling the ADC inside it reads a clean ground.
+Costs a timer alignment; shrinks as duty rises, so it does not replace the layout work.
+
+**Verify before redesigning:** DC volts between the 24 V regulator GND and the ESP32 GND while the
+compressor runs. On the present board expect 0.5–1 V; a healthy ground reads a few mV. If it reads
+clean, the diagnosis above is wrong and this task is aimed at the wrong target. Repeat the same
+measurement on v2 as the acceptance check — it should then read a few tens of mV at worst.
+
 ### Route GPIO 38 + GPIO 39 out to CN terminals (no spare ESP32 GPIO is reachable today)
 
 Found 2026-07-10 while trying to add the EBS compressor PWM driver without a soldering iron.
@@ -274,7 +350,10 @@ Existing RC on MCP4922 VREF (100 Ω + 10 µF) stays — overkill for the linear 
 - Place BSS123 (Q4) near the CMD_REVERSE path between PCF8574 P0 and the REVERSE_WIRE connector pin.
 - Place the medulla USB-C connector at the edge facing the Orin; route only D+/D−/GND/VBUS, with VBUS going only to the ESP32 5 V pin.
 - Place the green push-in connectors (CN1–CN8) along the kart-facing edge.
-- Continuous GND plane on at least one inner layer; star/loop GND for analog vs digital noise separation if comfortable doing so.
+- **Bring out a separate `PWR_GND` terminal** — see "Two ground terminals, not one" below. This is a
+  **functional requirement, not an optional refinement**: the measured 0.84 V ground shift that
+  killed the pressure reading is what it fixes.
+- Continuous GND plane on at least one inner layer for the signal side.
 - Mounting holes (M3 × 4) at corners, isolated from any nets.
 - Check footprint sizes against actual parts (DPAK for L7805, SOIC-16 for PCF8574, µMAX-8 for MAX4660, SOT-23 for BSS123, SOIC-14 for MCP4922).
 
