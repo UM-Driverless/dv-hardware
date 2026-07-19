@@ -127,7 +127,7 @@ star point; the harness side of this is documented in the kart-docs wiring page 
 | Switch | Drives | Why it belongs on `PWR_GND` |
 |---|---|---|
 | `compressor_fet` (gate on CN8.2) | EBS air compressor, ~8 A PWM | The measured offender |
-| `Q3` (pulls `SDC_5` / CN8.1 low) | SDC relay coil | Coil current, inductive kickback; nothing on this path is measured, so it has no reason to share the clean reference |
+| `Q3` (IRLZ44N, pulls `SDC_5` / CN8.1 low) | SDC relay coil | Low-side by necessity, not choice: N-channel needs its source at ground to be driven from a positive gate. Coil current plus inductive kickback, and nothing on this path is measured, so it has no reason to share the clean reference. Confirmed by Rubén 2026-07-19. |
 
 They can share `PWR_GND` with each other freely — neither is a measurement, so noise between them
 costs nothing. The separation that matters is between this pair and the ADC reference.
