@@ -332,14 +332,39 @@ Four separate items, all on the same signal chain. A fifth finding — the LM358
 full 10 V from the +12 V rail — was **judged not to matter for the kart** and is tracked as a separate
 polish task below rather than as part of this fix.
 
-1. **Move the connector pin to the amplifier output.** `CN10.2` currently sits on
-   `/P1/CMD_BRAKE__0_5V`, which is the MCP4922 VOUTB node. `/P1/CMD_BRAKE__0_10V` (LM358 U1 pin 1,
-   the ×2 output) reaches only R19 pin 2 and never leaves the PCB. So the board sends 0–5 V to a
-   valve whose setpoint input is 0–10 V, and full DAC scale commands about half the pressure range.
-   ERC/DRC stayed silent because a 2-pad net is electrically legal — nothing checks that a net has
-   an exit point. Whichever connector pin is chosen, the **amplifier output** is the net that belongs
-   on it. (`tasks/kart-medulla.md` previously named CN5.3 for this; CN5.3 carries `EXP_P4` today and
-   the brake command exits on CN10.2. Pick one and make the docs match.)
+**Root cause, found 2026-07-30:** commit `e8881f1` (2026-05-08, "assign CN1–CN10 pins to match ESP32
+geometry") renamed the label on what became CN10 pin 2 from `EXP_P7` to `CMD_BRAKE__0_5V`, and
+overwrote the label that had carried `CMD_BRAKE__0_10V` with `GND`. The EasyEDA design this project
+was migrated from had the connector on the amplified net, so this is a regression introduced in the
+KiCad cleanup, not an original design error. Details and the diff in `history.md` (2026-07-30, second
+entry); why the commit's own verification and ERC both missed it is in `.agents/error-log.md`.
+
+1. **Move the connector pin to the amplifier output — one label in the schematic, two segments and one
+   track on the PCB.** `CN10.2` sits on `/P1/CMD_BRAKE__0_5V`, the MCP4922 VOUTB node.
+   `/P1/CMD_BRAKE__0_10V` (LM358 U1 pin 1, the ×2 output) reaches only R19 pin 2 and never leaves the
+   PCB, so the board sends 0–5 V to a valve whose setpoint input is 0–10 V and full DAC scale commands
+   about half the pressure range. ERC/DRC stayed silent because a two-pad net is electrically legal —
+   nothing checks that a net has an exit point.
+
+   Every connection in this chain is made by a label on a short wire stub, not by a drawn wire, so:
+
+   - **Schematic:** change the label at **(218.44, 48.26)** — CN10 pin 2's stub — from
+     `CMD_BRAKE__0_5V` to `CMD_BRAKE__0_10V`. That is the entire schematic edit. Afterwards
+     `CMD_BRAKE__0_5V` = U13.10 + U1.3 (DAC to amplifier input, intact) and `CMD_BRAKE__0_10V` =
+     U1.1 + R19.2 + CN10.2.
+   - **PCB:** Update PCB from Schematic, then delete the two B.Cu segments that reach out to CN10.2 —
+     (74.5, 91.0)→(82.110, 91.0) and (82.110, 91.0)→(83.566, 92.456). The remaining five segments
+     still join U13.10 to U1.3 through the junction at (83.566, 92.456), so the DAC→amplifier path is
+     untouched. Then route CN10.2 (74.5, 91.0) to the `CMD_BRAKE__0_10V` net: 13.07 mm to U1.1
+     (85.255, 98.425) or 14.88 mm to R19.2 (87.845, 97.573). **Prefer R19.2 or the existing stub at
+     (86.108, 97.573)** — U1's pins 1–4 are a vertical column at x = 85.255 and pin 3 is on the 0–5 V
+     net, so approaching pin 1 from below threads past two pins on a foreign net. Existing 0–10 V
+     track width is 0.25 mm. Refill zones and re-run DRC.
+   - **Not yet checked:** whether the corridor between (74.5, 91) and (86, 97.5) on B.Cu is clear of
+     other copper. Check before committing to the route.
+
+   Note the older wording elsewhere in this file named **CN5.3** as the amplifier's exit; CN5.3 carries
+   `EXP_P4` today and the brake command exits on CN10.2. Use CN10.2 and make the docs match.
 2. **Same change removes an over-voltage path into the DAC.** With `CN10.2` on the DAC node, anything
    the harness presents at that terminal lands directly on MCP4922 VOUTB — no series resistor, no
    clamp, no buffer. The valve runs on 24 V, and this is a 5 V-supplied CMOS analog output. (Read the
@@ -396,6 +421,27 @@ against a pressure sensor, never from an open-loop DAC code.
 
 Either way, re-check the combined budget afterwards against item 4 of the fix task above (the DAC's
 own full-scale limit is a second, smaller shortfall on the same signal, and the two add).
+
+### Check whether the assembled medulla-v1 board has the valve-command bug too #ruben
+
+Raised 2026-07-30. Two minutes with a multimeter; do it before assuming the kart's brake command is
+fine or that it needs rework. The bug above was introduced in the KiCad cleanup on 2026-05-08, *after*
+the EasyEDA export that the assembled board descends from — and the EasyEDA design had the connector on
+the amplified net. So the built board is **probably** correct, but that is an inference, and the
+connector numbering differs between the two designs (EasyEDA had CN1–CN8, KiCad has CN1–CN10) so it
+does not even say which physical terminal carries the valve command.
+
+With the board unpowered, buzz the terminal wired to the Festo VPPM against U1 (LM358) pin 1 and
+against U1 pin 3:
+
+- **Continuity to pin 1** (op-amp output) — built board is correct, only the KiCad design needs fixing.
+- **Continuity to pin 3** (op-amp input / DAC output) — built board has the bug. Rework: cut the track
+  leaving that terminal, run a wire from the terminal to U1 pin 1.
+- **Also confirm U1 is actually populated.** If the amplifier was never fitted, the real chain differs
+  from what either design file says and this whole analysis needs redoing against the hardware.
+
+Record the result in `history.md` either way — right now nothing on disk says which design was
+fabricated, which is the same gap already flagged as contradictions 7–8 in the root `tasks.md`.
 
 ### Correct the brake-command documentation (it describes the as-built 0–5 V path as intended) #ruben
 

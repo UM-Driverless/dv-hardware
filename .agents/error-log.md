@@ -330,3 +330,49 @@ A contradiction that lives only in a chat message is an undocumented bug with a 
 - The chat summary is a pointer to the record, never the record itself.
 - Cross-reference: `history.md` 2026-07-16; the open list lives in `tasks.md` under "Resolve
   contradictions left open on 2026-07-16".
+
+## 2026-07-30 — Verified 30 net assignments "resolve to the intended net" and still shipped a wrong one
+
+**What happened:** Commit `e8881f1` (2026-05-08, "kart-medulla: assign CN1–CN10 pins to match ESP32
+geometry") reshuffled 30 connector-pin net assignments on the medulla schematic — 25 label renames
+plus 5 new wire+label pairs. Two of those edits, taken together, silently disconnected the
+proportional-valve command from the outside world:
+
+- The label on the wire stub that became **CN10 pin 2** was changed from `EXP_P7` to
+  **`CMD_BRAKE__0_5V`** — the raw MCP4922 DAC output, not the amplified signal.
+- The label at the stub that had carried **`CMD_BRAKE__0_10V`** — the LM358 ×2 output, and the
+  design's only exit for the valve command — was overwritten with **`GND`**.
+
+Result: the board sends 0–5 V to a Festo VPPM whose setpoint input is 0–10 V, the amplifier output
+reaches no connector at all, and the DAC output pin sits unprotected on an external terminal. Found
+2026-07-30, nearly three months later, and only because someone read the net names and thought one
+looked wrong. Full analysis in `history.md` under that date.
+
+**Root cause — two failures, both about what "verified" meant:**
+
+1. The commit message says "Verified end-to-end via netlist export: all 30 CN pins resolve to the
+   intended global net." That check confirmed each label **resolved to a net that exists**. It could
+   not confirm the net was the **electrically correct** one, because the check's own reference for
+   "intended" was the same list of names being applied. Comparing an edit against itself always
+   passes. Nothing in that loop knew that a 0–10 V connector pin must not carry a 0–5 V net.
+2. ERC could not catch it either. After the edit `CMD_BRAKE__0_10V` still had two pads on it — the
+   op-amp output and its feedback resistor — and a two-pad net is electrically legal. KiCad has no
+   check for "this net has no exit point", so a signal that terminates inside its own feedback loop
+   looks exactly like a healthy net.
+
+**Prevention rules:**
+- **A net-name edit is verified against the physical requirement, not against the list of names being
+  applied.** For every signal that leaves the board, state the required voltage range and the
+  destination device, then confirm the net on the connector pin carries that range. The `__<range>`
+  suffix already in the naming convention is what makes this checkable — use it as an assertion, not
+  decoration. Two nets differing only in that suffix (`__0_5V` vs `__0_10V`) are the highest-risk
+  case in a bulk rename, because they look almost identical in a diff.
+- **After any bulk connector reassignment, list every net that lost a connector pin.** Diff the set of
+  nets with at least one connector pad before and against after. A net dropping out of that set is
+  either a deliberate removal or exactly this bug; it is never something to leave unexamined. In this
+  commit `CMD_BRAKE__0_10V` left the set and nothing noticed.
+- **Do not treat "ERC/DRC clean" as evidence a signal reaches the outside world.** Neither tool models
+  intent to export. An amplifier output that connects only to its own feedback resistor is clean by
+  both, and useless.
+- Cross-reference: `history.md` 2026-07-30; the fix is the task "Fix the proportional-valve command
+  path — CN10.2 is on the wrong side of the LM358" in `tasks/kart-medulla.md`.

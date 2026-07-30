@@ -1140,3 +1140,108 @@ Full as-built connector map, for reference (all ten are 3-pin push-in terminals,
 | CN8 | `SDC_IN_LOW_SIDE` | `BUZZER` (old name; drives the compressor MOSFET gate) | `CMD_STEER_DIR__3V3` |
 | CN9 | `CMD_STEER__PWM_3V3` | `HYDRAULIC_1__0_5V` | `GND` |
 | CN10 | `CMD_ACC__0_5V` | `CMD_BRAKE__0_5V` | `GND` |
+
+## 2026-07-30 (later) — Root cause found: the connector's 0–10 V label was overwritten during the CN1–CN10 reshuffle, and the fix is one label
+
+Follow-up to the entry above, which established *that* `CN10.2` carries the 0–5 V DAC output instead
+of the amplified 0–10 V valve command. This entry establishes *when and how* that happened, and
+therefore how small the fix is.
+
+### The EasyEDA original was correct
+
+`projects/kart-medulla/easyeda-source/kart-medulla_2026-05-03.epro` — the export that ConvertEDA
+turned into this KiCad project — carries **two** `CMD_BRAKE__0_10V` net labels and **two**
+`CMD_BRAKE__0_5V` ones. Locating them by nearest designator inside `SHEET/*/1.esch`:
+
+| Label | Position | Nearest component | What it is |
+|---|---|---|---|
+| `CMD_BRAKE__0_5V` | (1020, 445) | U13 | DAC VOUTB |
+| `CMD_BRAKE__0_5V` | (1390, 365) | U4 | op-amp input |
+| `CMD_BRAKE__0_10V` | (1465, 375) | U4 | op-amp output |
+| `CMD_BRAKE__0_10V` | (860, 995) | CN1/CN2/CN3 cluster | **the connector exit** |
+
+(The op-amp is `U4` in EasyEDA and `U1` in KiCad — which is why
+`tasks/kart-medulla.md` has always said "the LM358 amp (U4)". EasyEDA had connectors CN1–CN8 only;
+CN9 and CN10 were added during the KiCad cleanup, so the pin *numbering* is not comparable across the
+two, but the exported *net* plainly was the amplified one.)
+
+The January 2026 pre-rename export is older still and has a single net `BRAKE_0V5` with no op-amp at
+all, so the amplifier and its 0–10 V exit were both added between January and May 2026.
+
+### The regression: commit `e8881f1`, 2026-05-08
+
+Counting both labels in every revision of `kart-medulla_P1.kicad_sch` shows the ratio holding at
+2 × `__0_5V` / 2 × `__0_10V` from the ConvertEDA baseline (`bf3dc77`) through 44 commits, then
+flipping to 3 / 1 at **`e8881f1` — "kart-medulla: assign CN1–CN10 pins to match ESP32 geometry"**
+(2026-05-08), and staying there ever since. That commit reassigned 30 connector pins so each would sit
+next to the ESP32 pin handling its signal. Two of its edits did the damage:
+
+```
+-	(label "EXP_P7"              →  +	(label "CMD_BRAKE__0_5V"     at (218.44, 48.26)   ← became CN10.2
+-	(label "CMD_BRAKE__0_10V"    →  +	(label "GND"                 at (100.33, 67.31)   ← the old exit
+```
+
+So the pin that the amplified signal used to leave through was taken for GND, and the pin that
+inherited the brake command was given the **DAC-side** net name. The signal did not lose a wire; it
+lost its name at the only place the name mattered.
+
+Why nothing caught it, in the two places it should have been caught, is written up in
+`.agents/error-log.md` under 2026-07-30 — briefly: the commit's stated verification ("all 30 CN pins
+resolve to the intended global net") compared the edit against the same list of names being applied,
+and ERC stayed silent because `CMD_BRAKE__0_10V` still had two pads (op-amp output + feedback
+resistor) and a two-pad net is electrically legal. KiCad has no "this net has no exit point" rule.
+
+### What the fix takes
+
+**Schematic — one label.** Every connection in this chain is made by a label on a short wire stub, not
+by a drawn wire, which is why a single rename is sufficient. Change the label at **(218.44, 48.26)**
+on CN10 pin 2's stub from `CMD_BRAKE__0_5V` to `CMD_BRAKE__0_10V`. Nothing else moves. Afterwards:
+
+| Net | Nodes |
+|---|---|
+| `CMD_BRAKE__0_5V` | U13.10 (DAC VOUTB, label sits on the pin) + U1.3 (op-amp +IN, label at (375.92, 308.61)) |
+| `CMD_BRAKE__0_10V` | U1.1 (op-amp OUT, label at (393.7, 306.07)) + R19.2 + **CN10.2** |
+
+**PCB — delete two segments, route one track.** Pad positions (all B.Cu except the through-hole
+connector), derived from the board file. Note when computing these by hand that KiCad's footprint
+rotation maps a pad's local (px, py) to
+`x = fx + px·cos A + py·sin A`, `y = fy − px·sin A + py·cos A` — CN10 sits at (77, 91) rotated 90°, and
+using +A instead of −A mirrors pin 2 to the wrong side of the connector.
+
+| Pad | Position | Net |
+|---|---|---|
+| CN10.2 | (74.5, 91.0) | `CMD_BRAKE__0_5V` → becomes `CMD_BRAKE__0_10V` |
+| U13.10 | (86.027, 91.44) | `CMD_BRAKE__0_5V` |
+| U1.1 | (85.255, 98.425) | `CMD_BRAKE__0_10V` |
+| U1.3 | (85.255, 100.965) | `CMD_BRAKE__0_5V` |
+| R19.2 | (87.845, 97.573) | `CMD_BRAKE__0_10V` |
+
+`CMD_BRAKE__0_5V` is routed as one T on B.Cu, 0.2 mm wide, ~22 mm total in 7 segments: from CN10.2
+east to (82.110, 91.0), diagonally to the junction at (83.566, 92.456), then one branch up-right to
+U13.10 and another down to U1.3. `CMD_BRAKE__0_10V` is a 2.95 mm stub, 0.25 mm wide, from U1.1 via
+(86.108, 97.573) to R19.2.
+
+Delete only the two segments that reach out to CN10.2 — (74.5, 91.0)→(82.110, 91.0) and
+(82.110, 91.0)→(83.566, 92.456). The remaining five still join U13.10 to U1.3 through the junction at
+(83.566, 92.456), so the DAC→amplifier path survives untouched. Then route CN10.2 to the
+`CMD_BRAKE__0_10V` net: 13.07 mm straight-line to U1.1, or 14.88 mm to R19.2. Prefer landing on R19.2
+or on the existing stub at (86.108, 97.573) rather than on U1.1 directly — U1's pins 1–4 form a
+vertical column at x = 85.255 (y = 98.425 / 99.695 / 100.965 / 102.235) and pin 3 in that column is on
+the 0–5 V net, so a track approaching pin 1 from below has to thread past two pins on a foreign net.
+Whether the corridor between (74.5, 91) and (86, 97.5) is clear of other copper has **not** been
+checked yet.
+
+### The physical board is a separate question — check it, do not infer it
+
+The assembled board on the kart (`medulla-v1`) is EasyEDA-origin, and the EasyEDA design had the
+connector on the amplified net, so the built hardware most likely does **not** carry this bug — it was
+introduced in the KiCad cleanup on 2026-05-08, after the export. That is an inference, not a
+measurement, and the connector numbering differs between the two designs (EasyEDA had CN1–CN8), so it
+does not even identify which physical terminal carries the valve command.
+
+**The measurement that settles it,** with the board unpowered: buzz the terminal wired to the valve
+against U1 (LM358) pin 1 and against pin 3. Continuity to **pin 1** means the built board is correct
+and only the KiCad design needs the fix. Continuity to **pin 3** means the built board has the bug too
+and needs rework — cut the track leaving that terminal and run a wire from the terminal to U1 pin 1.
+Also confirm U1 is populated at all; if the amplifier was never fitted, the whole chain is different
+from what either design file says.
