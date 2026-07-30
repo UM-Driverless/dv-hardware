@@ -328,7 +328,9 @@ Existing RC on MCP4922 VREF (100 Ω + 10 µF) stays — overkill for the linear 
 
 Found 2026-07-30 by parsing the board file. Full analysis and the verified net map are in
 `history.md` (entry "2026-07-30 — The brake / proportional-valve command leaves the board at 0–5 V").
-Five separate items, all on the same signal chain:
+Four separate items, all on the same signal chain. A fifth finding — the LM358 cannot guarantee a
+full 10 V from the +12 V rail — was **judged not to matter for the kart** and is tracked as a separate
+polish task below rather than as part of this fix.
 
 1. **Move the connector pin to the amplifier output.** `CN10.2` currently sits on
    `/P1/CMD_BRAKE__0_5V`, which is the MCP4922 VOUTB node. `/P1/CMD_BRAKE__0_10V` (LM358 U1 pin 1,
@@ -343,15 +345,7 @@ Five separate items, all on the same signal chain:
    clamp, no buffer. The valve runs on 24 V, and this is a 5 V-supplied CMOS analog output. (Read the
    exact absolute-maximum rating when the MCP4922 datasheet is filed — see item 5.) An op-amp output
    survives a harness fault far better than a DAC output does.
-3. **The LM358 cannot guarantee 10 V from the +12 V rail.** Per TI SLOS068AB rev. Oct 2024 §5.7
-   (`datasheets/LM358_TI_datasheet.pdf`), swing from the positive rail is 2 V typ / **3 V max** at
-   RL ≥ 10 kΩ. On 12 V that is a 10 V typical ceiling and a **9 V guaranteed** ceiling, against a
-   stage that must produce 10.0 V — and the kart's 12 V is an unregulated battery rail that sags.
-   Preferred fix: **supply U1 from 24 V instead of 12 V** (the kart already has a 24 V rail for the
-   valve — a UENPO 9–36 V → 24 V / 5 A buck-boost, see `~/dv/kart/pneumatics/history.md` 2026-05-30;
-   LM358 absolute max supply is 32 V, so 24 V is comfortable). Alternative: keep 12 V and fit a
-   rail-to-rail-output op-amp. Do not just accept a reduced range on a brake command.
-4. **Rename the nets so the range is visible at the connector.** One name, `CMD_BRAKE__0_5V`, is
+3. **Rename the nets so the range is visible at the connector.** One name, `CMD_BRAKE__0_5V`, is
    currently shared by the DAC output, the amplifier input, and the connector pin — which is how a
    0–5 V net ended up on a 0–10 V pin without looking wrong. Follow the throttle channel's pattern
    (`CMD_ACC_ESP32__0_5V` internal → `CMD_ACC__0_5V` exported): `CMD_BRAKE__0_5V` →
@@ -359,12 +353,49 @@ Five separate items, all on the same signal chain:
    pressure setpoint for a proportional regulator, not a brake-force command. Silkscreen shows
    `CMD_BRK` with no voltage, so a rename does not invalidate the board as built; update the legend
    to `CMD_PRES` at the next revision.
-5. **Check the DAC's own full-scale limit** before assuming the top of the valve's range is
+4. **Check the DAC's own full-scale limit** before assuming the top of the valve's range is
    reachable. VREFA/VREFB/VDD are all on `+5V_REG`, so DAC full scale is slightly under 5 V and the
    doubled result slightly under 10 V. The MCP4922 datasheet is **not** yet filed in
    `datasheets/` — add it and read the output-swing spec. Also: with VREF tied to the 5 V rail, the
    MCP4922 write word's **gain bit must be 1×**; selecting 2× asks for 10 V from a 5 V-supplied DAC
    and clips.
+
+### Give the pressure-command amplifier full 0–10 V swing on the next board revision #ruben
+
+Polish, not a blocker. Do it when the analog front end is next touched; do **not** hold a revision for
+it and do not rework the built board for it.
+
+**Decision, 2026-07-30 (Rubén):** not a problem for the kart — **9 bar of brake pressure is enough.**
+So the board ships as-is on this point.
+
+**The finding.** U1 (LM358DR) is the ×2 stage that turns the DAC's 0–5 V into the valve's 0–10 V
+setpoint, and it is supplied from +12 V. Per TI SLOS068AB rev. Oct 2024 §5.7 — the plain-LM358 table,
+not the LM358B one — swing from the positive rail is 2 V typ / **3 V max** at RL ≥ 10 kΩ
+(`datasheets/LM358_TI_datasheet.pdf`). On a 12 V rail that is a 10 V typical ceiling and a **9 V
+guaranteed** ceiling, so a worst-case device tops out at 9 V instead of 10 V. The kart's +12 V is an
+unregulated battery rail that sags under load, which pushes the real ceiling lower still.
+
+**Why it does not matter here.** The Festo VPPM-8L (571293) regulates 0.1–10 bar across a 0–10 V
+setpoint, roughly 1 bar per volt (datasheet: "Pressure regulation range 0.01 MPa…1 MPa / 0.1 bar…10
+bar", "Signal range analogue input 0 – 10 V"). A 9 V ceiling therefore costs the top ~1 bar of an
+unused part of the range. What it does mean, and what firmware should not assume: **commanding DAC
+full scale does not reliably produce 10 bar** — the achievable maximum is somewhere between about
+9 bar and 10 bar depending on the individual op-amp and the instantaneous battery voltage, and it is
+not repeatable between boards. Any pressure target above ~9 bar has to come from closed-loop control
+against a pressure sensor, never from an open-loop DAC code.
+
+**What to change when the time comes,** in order of preference:
+
+1. **Supply U1 from 24 V instead of +12 V.** The kart already carries a 24 V rail for the valve (a
+   UENPO 9–36 V → 24 V / 5 A buck-boost, bought 2026-05-30 — see
+   `~/dv/kart/pneumatics/history.md`). 24 − 3 = 21 V of guaranteed swing, so the 10 V target stops
+   being anywhere near the limit. The LM358's absolute-maximum supply is 32 V, so 24 V is comfortable.
+   Cost: routing that rail onto the medulla, which it does not have today.
+2. **Keep +12 V and fit a rail-to-rail-output op-amp** in the same SOIC-8 footprint. No new rail, but
+   a part change and a stock check.
+
+Either way, re-check the combined budget afterwards against item 4 of the fix task above (the DAC's
+own full-scale limit is a second, smaller shortfall on the same signal, and the two add).
 
 ### Correct the brake-command documentation (it describes the as-built 0–5 V path as intended) #ruben
 

@@ -978,7 +978,13 @@ output (Issue 1) also fixes this, since the op-amp output tolerates a short far 
 does. This risk is **not** an ESP32 risk — `CMD_BRAKE__0_5V` does not touch the ESP32 sockets U23/U24
 at any pad; the ESP32 only reaches the DAC over SPI (see below).
 
-### Issue 3 — the LM358 cannot guarantee 10 V from a 12 V rail
+### Issue 3 — the LM358 cannot guarantee 10 V from a 12 V rail (accepted, not fixed)
+
+**Resolved same day: Rubén judged this not a problem for the kart — 9 bar of brake pressure is
+enough.** The board keeps the +12 V supply on U1. Kept here because the numbers matter for firmware
+and for the next board revision; tracked as the polish task "Give the pressure-command amplifier full
+0–10 V swing on the next board revision" in `tasks/kart-medulla.md`. The consequence firmware must
+respect is at the end of this section.
 
 Checked against the TI datasheet for the fitted part (LM358DR), **SLOS068AB rev. October 2024,
 section 5.7 "Electrical Characteristics: LM358, LM358A"**, saved at
@@ -994,14 +1000,22 @@ The LM358 is not rail-to-rail. On a 12 V rail with a light load the *typical* ce
 12 − 2 = 10 V — exactly the value the stage is asked to produce — and the *guaranteed* ceiling is
 12 − 3 = 9 V. So a worst-case device clips at 90 % of the commanded range even with a perfect 12 V
 rail, and the kart's "12 V" is an unregulated battery rail that sags under load, which makes it
-worse. Options, in order of preference:
+worse.
 
-1. **Supply the op-amp from 24 V instead of 12 V.** The kart already carries a 24 V rail for the
-   valve (a UENPO 9–36 V → 24 V / 5 A buck-boost, bought 2026-05-30 — see
-   `~/dv/kart/pneumatics/history.md`). 24 − 3 = 21 V of guaranteed swing, huge margin. The LM358's
-   absolute maximum supply is 32 V (36 V for the B versions), so 24 V is well inside it.
-2. Keep 12 V and fit a rail-to-rail-output op-amp instead.
-3. Keep 12 V and the LM358, and accept a reduced usable range — not acceptable for a brake.
+**Why this was accepted rather than fixed.** The VPPM regulates 0.1–10 bar across the 0–10 V
+setpoint, so roughly 1 bar per volt (datasheet: "Pressure regulation range 0.01 MPa…1 MPa /
+0.1 bar…10 bar"). A 9 V ceiling costs the top ~1 bar, and 9 bar is more brake pressure than the kart
+needs. The two candidate fixes, for whenever the analog front end is next touched: supply the op-amp
+from 24 V instead of 12 V (the kart already carries a 24 V rail for the valve — a UENPO
+9–36 V → 24 V / 5 A buck-boost, bought 2026-05-30, see `~/dv/kart/pneumatics/history.md`; that gives
+24 − 3 = 21 V of guaranteed swing, and the LM358's absolute-maximum supply is 32 V so 24 V is well
+inside it), or keep 12 V and fit a rail-to-rail-output op-amp in the same footprint.
+
+**What firmware must not assume, on the board as built:** commanding DAC full scale does **not**
+reliably produce 10 bar. The achievable maximum lands somewhere between about 9 and 10 bar depending
+on the individual op-amp and the instantaneous battery voltage, and it is not repeatable from board to
+board. Any pressure target above ~9 bar has to come from closed-loop control against a pressure
+sensor, never from an open-loop DAC code.
 
 Related and unquantified: the MCP4922's own output cannot reach VDD either, so full-scale at the DAC
 is slightly under 5 V and the doubled result is slightly under 10 V. The MCP4922 datasheet is not yet
