@@ -927,3 +927,202 @@ IC, which is why `U2` being a SOIC-8 rather than a SOT-23 is a useful clue.)
 earlier advice "do not drive it from 5 V" was about the MOSFET **gate**, whereas the module's
 **control input** is a different node. Both statements are compatible, but only the first is
 verified.)*
+
+## 2026-07-30 — The brake / proportional-valve command leaves the board at 0–5 V; the 0–10 V amplifier output goes nowhere
+
+Triggered by a review of the net names around `CMD_BRAKE` on the `kart-medulla` PCB. The intended
+signal chain is: MCP4922 DAC generates 0–5 V → LM358 amplifies ×2 to 0–10 V → out through a push-in
+terminal to the Festo proportional pressure regulator. Only the first two thirds of that chain exist
+on the board.
+
+**Method.** Parsed `projects/kart-medulla/kart-medulla.kicad_pcb` directly (KiCad was open, so this
+was read-only; no MCP writes, no file edits). Note for future parsing: in KiCad 10 board files a pad
+carries `(net "NAME")` with **no net number** — a regex expecting `(net <n> "NAME")` silently matches
+nothing and looks like "the net does not exist".
+
+### Verified net map (as built)
+
+| Net | Every pad on it |
+|---|---|
+| `/P1/CMD_ACC_ESP32__0_5V` | U13.14 (MCP4922 VOUTA), U14.8 (MAX4660 NO) |
+| `/P1/CMD_ACC__0_5V` | U14.1 (MAX4660 COM), CN10.1 |
+| `/P1/PEDAL_ACC__0_5V` | U14.2 (MAX4660 NC), CN6.2, R14.2 |
+| `/P1/CMD_BRAKE__0_5V` | U13.10 (MCP4922 VOUTB), U1.3 (LM358 +IN1), **CN10.2** |
+| `Net-(U1A--IN1)` | U1.2 (LM358 −IN1), R19.1, R20.2 |
+| `/P1/CMD_BRAKE__0_10V` | U1.1 (LM358 OUT1), R19.2 — **and nothing else** |
+
+The amplifier itself is correct: R20 = 1 kΩ from −IN1 to GND, R19 = 1 kΩ from −IN1 to OUT1, so
+gain = 1 + R19/R20 = 2, and 0–5 V in gives 0–10 V out. U1 is supplied +12 V on pin 8 and GND on
+pin 4. The unused half U1B is tied off as a follower (pin 7 → pin 6, pin 5 → GND).
+
+### Issue 1 — the connector pin is on the wrong side of the amplifier
+
+`CN10.2` sits on `CMD_BRAKE__0_5V`, i.e. **directly on the DAC output**, in parallel with the
+amplifier input. `CMD_BRAKE__0_10V` terminates at the op-amp output and its own feedback resistor
+and never reaches a connector, so the amplified signal cannot leave the PCB. The board therefore
+sends 0–5 V to a device that expects 0–10 V — full DAC scale commands roughly half the pressure
+range, and no code change can recover the other half.
+
+This did not show up in ERC or DRC because `CMD_BRAKE__0_10V` has two pads on it. A net with two
+connections is electrically legal; nothing checks that one of them is an exit point.
+
+### Issue 2 — the DAC output pin is exposed on an external terminal with no protection
+
+Because `CN10.2` is the DAC node, whatever the harness presents at that terminal lands directly on
+MCP4922 VOUTB (and on the LM358 input). There is no series resistor, no clamp, no buffer. The
+destination device runs on a 24 V supply, so a wiring fault or a pull-up on the receiving side puts
+24 V onto a 5 V-supplied analog output pin. (The MCP4922's exact absolute-maximum rating on VOUT has
+not been read — its datasheet is not yet filed in the board's `datasheets/` folder — but no 5 V CMOS
+DAC output survives 24 V.) Moving the connector to the amplifier
+output (Issue 1) also fixes this, since the op-amp output tolerates a short far better than the DAC
+does. This risk is **not** an ESP32 risk — `CMD_BRAKE__0_5V` does not touch the ESP32 sockets U23/U24
+at any pad; the ESP32 only reaches the DAC over SPI (see below).
+
+### Issue 3 — the LM358 cannot guarantee 10 V from a 12 V rail
+
+Checked against the TI datasheet for the fitted part (LM358DR), **SLOS068AB rev. October 2024,
+section 5.7 "Electrical Characteristics: LM358, LM358A"**, saved at
+`projects/kart-medulla/datasheets/LM358_TI_datasheet.pdf`. "Voltage output swing from rail,
+positive rail" is specified as:
+
+| Condition | Typ | Max |
+|---|---|---|
+| VS = 30 V, RL ≥ 10 kΩ | 2 V | **3 V** |
+| VS = 30 V, RL = 2 kΩ, 0–70 °C | — | 4 V |
+
+The LM358 is not rail-to-rail. On a 12 V rail with a light load the *typical* ceiling is
+12 − 2 = 10 V — exactly the value the stage is asked to produce — and the *guaranteed* ceiling is
+12 − 3 = 9 V. So a worst-case device clips at 90 % of the commanded range even with a perfect 12 V
+rail, and the kart's "12 V" is an unregulated battery rail that sags under load, which makes it
+worse. Options, in order of preference:
+
+1. **Supply the op-amp from 24 V instead of 12 V.** The kart already carries a 24 V rail for the
+   valve (a UENPO 9–36 V → 24 V / 5 A buck-boost, bought 2026-05-30 — see
+   `~/dv/kart/pneumatics/history.md`). 24 − 3 = 21 V of guaranteed swing, huge margin. The LM358's
+   absolute maximum supply is 32 V (36 V for the B versions), so 24 V is well inside it.
+2. Keep 12 V and fit a rail-to-rail-output op-amp instead.
+3. Keep 12 V and the LM358, and accept a reduced usable range — not acceptable for a brake.
+
+Related and unquantified: the MCP4922's own output cannot reach VDD either, so full-scale at the DAC
+is slightly under 5 V and the doubled result is slightly under 10 V. The MCP4922 datasheet is not yet
+filed in the board's `datasheets/` folder; the exact swing limit needs checking there before the top
+of the pressure range is assumed reachable.
+
+### Issue 4 — the net naming does not match the throttle channel's convention, and does not name the signal
+
+The throttle channel distinguishes the internal node from the exported one:
+`CMD_ACC_ESP32__0_5V` (DAC side of the MAX4660 mux) → `CMD_ACC__0_5V` (what leaves on CN10.1). The
+brake channel reuses **one** name, `CMD_BRAKE__0_5V`, for the DAC output, the amplifier input, and
+the connector pin, which is exactly why a 0–5 V net ended up on a 0–10 V connector pin without
+looking wrong. Suggested rename, following the throttle's pattern and the `__<range>` suffix
+convention already used across the board:
+
+- `CMD_BRAKE__0_5V` → `CMD_PRES_DAC__0_5V` (internal: DAC output to amplifier input)
+- `CMD_BRAKE__0_10V` → `CMD_PRES__0_10V` (exported on CN10.2 to the valve)
+
+`CMD_PRES` rather than `CMD_BRAKE` because the signal is a **pressure setpoint** for a proportional
+regulator, not a brake-force or brake-position command. The silkscreen legend abbreviates CN10.2 as
+`CMD_BRK` with no voltage, so a net rename does not invalidate the existing silkscreen — but the
+legend should become `CMD_PRES` at the next revision.
+
+### The destination device
+
+Festo **VPPM-8L-L-1-G14-0L10H-V1P-S1C1** (Festo part 571293), proportional pressure regulator,
+sponsored. Confirmed from its datasheet (`~/dv/kart/pneumatics/resources/festo_571293_vppm_0_10bar_0_10v.pdf`):
+"Signal range analogue input **0 – 10 V**", "Signal range analogue output 0 – 10 V", operational
+voltage 21.6–26.4 V DC, max current consumption 300 mA. The `0L10H` field in the part number is the
+0…10 V setpoint option. The setpoint input's **impedance is not stated** in that short datasheet — it
+would be in the operating instructions (Festo doc 8110177 for the LED variant, 8110160 for the C1 LCD
+variant we own) and matters for choosing the op-amp load condition in Issue 3.
+
+Two consequences of the 24 V supply worth writing into the harness documentation: the valve's 0 V
+must be common with the medulla's GND for the setpoint to mean anything (CN10.3 is GND and is
+presumably that return, but it is not documented as such), and the valve is fed from a different
+supply than the board, so a ground-offset between the two shifts the commanded pressure.
+
+### Documentation that states the wrong thing
+
+Three places describe the as-built 0–5 V path as if it were correct or as if it went somewhere else:
+
+- `projects/kart-medulla/docs/pinout-cn-connectors.md` line 66 — "CN10 … CMD_BRAKE (0–5V) …
+  Throttle and brake analog commands from the MCP4922 DAC **to the motor controller**." The brake
+  command does not go to the motor controller; braking on this kart is pneumatic and the command
+  goes to the VPPM.
+- `projects/kart-medulla/docs/pinout-esp32-s3.md` line 217 — "VOUTB | CMD_BRAKE | Brake analog
+  command (0-5V) → brake valve driver". States 0–5 V as the delivered range.
+- `projects/kart-medulla/docs/pinout-esp32-s3.md` line 273 — "No chip — direct DAC output | analog
+  0–5 V | … MCP4922 VOUTB = `CMD_BRAKE` | → brake valve driver (no mux on PCB)". Describes the DAC
+  output as going straight out, which is what the board does but not what it should do; it also does
+  not mention that an amplifier exists.
+
+`tasks/kart-medulla.md` line 348 already carried the correct intent — "Place the LM358 amp (U4) near
+MCP4922 VOUTB on the brake path **before CN5 pin 3** (`CMD_BRAKE__0_10V`)" — so the amplifier's
+output was always meant to reach a connector. Note that entry names **CN5.3**, which today carries
+`EXP_P4`, while the brake command actually exits on **CN10.2**. Whichever pin is chosen, the amplifier
+output is the net that belongs on it.
+
+### How the ESP32 reaches the MCP4922 (the answer to "how do they connect")
+
+They do **not** connect by any analog path. The ESP32-S3-DevKitC-1 plugs into sockets U23/U24 and
+talks to the DAC over a three-wire, write-only SPI link; the DAC's analog outputs are on the other
+side of the chip and never return to the ESP32.
+
+| ESP32 GPIO | U23 socket pads | Net | MCP4922 pin |
+|---|---|---|---|
+| GPIO 11 | 33, 34 | `/P1/MOSI` | 5 — SDI |
+| GPIO 12 | 35, 36 | `/P1/CLK` | 4 — SCK |
+| GPIO 14 | 39, 40 | `/P1/CMD_DAC_CS` | 3 — CS# (active low) |
+| GPIO 13 | 37, 38 | `/P1/MISO` | *not connected to U13* |
+
+(Each signal appears on a pad pair because U23 is a dual-row socket with both rows shorted to the
+same header position.) `MISO` is routed to the socket but goes nowhere else — the MCP4922 is
+write-only, so the bus needs no return path and MISO is free for a future SPI peripheral.
+
+The rest of U13's pins are static:
+
+| MCP4922 pin | Net | Effect |
+|---|---|---|
+| 1 VDD, 13 VREFA, 11 VREFB, 9 SHDN# | `+5V_REG` | 5 V supply; both channels referenced to the same 5 V, so full scale ≈ 5 V; SHDN# high = both DACs enabled |
+| 8 LDAC# | `GND` | tied low, so each write transfers to the output immediately — no need to strobe a latch pin from firmware |
+| 12 VSS | `GND` | |
+| 2, 6, 7 | unconnected | NC pins |
+| 14 VOUTA | `CMD_ACC_ESP32__0_5V` | throttle command, into the MAX4660 mux |
+| 10 VOUTB | `CMD_BRAKE__0_5V` | brake/pressure command, into the LM358 — and, wrongly, out on CN10.2 |
+
+So firmware writes a 16-bit word per channel over SPI: channel select bit (A or B), buffered-VREF
+bit, gain bit (1× or 2×), shutdown bit, then 12 data bits. With VREF tied to the 5 V rail the
+**gain bit must be 1×** — selecting 2× asks for 10 V from a 5 V-supplied DAC and simply clips.
+
+The two channels are asymmetric downstream, which is the part that is easy to get wrong in firmware:
+VOUTA (throttle) passes through the U14 MAX4660 analog mux, which selects between the DAC and the
+throttle *pedal* under control of `SELECT_THROTTLE` (GPIO on U23 pads 15/16), so the ESP32 can hand
+the throttle back to the driver. VOUTB (brake/pressure) has **no mux** — the DAC always owns it, and
+the only way to release the brake command is to write zero.
+
+A note on the name `CMD_ACC_ESP32__0_5V`: the `_ESP32` suffix marks it as the ESP32-generated
+(autonomous) branch feeding the mux, as opposed to `PEDAL_ACC__0_5V` (the driver's branch) and
+`CMD_ACC__0_5V` (whichever one the mux selected, which is what actually leaves the board). The
+suffix does not mean the net connects to an ESP32 pin — it does not.
+
+### Also noticed while auditing the connectors
+
+`tasks/kart-medulla.md`, in the "External-connector audit (CN1–CN10)" section, says
+"`SDC_IN_LOW_SIDE` (on **CN5**)". As built it is on **CN8.1**; CN5 carries
+`HYDRAULIC_2__0_5V` / `PRESSURE_3__0_10V` / `EXP_P4`. The same section says "CN8 / CN9 / CN10 have
+free slots if EXP_P* are reshuffled", but CN10 has no `EXP_P*` pin at all — its three pins are
+`CMD_ACC__0_5V`, `CMD_BRAKE__0_5V`, `GND`, all in use.
+
+Full as-built connector map, for reference (all ten are 3-pin push-in terminals, Phoenix 1990012):
+
+| | Pin 1 | Pin 2 | Pin 3 |
+|---|---|---|---|
+| CN1 | `+3V3` | `+12V` | `GND` |
+| CN2 | `MOTOR_HALL_3__5V` | `MOTOR_HALL_2__5V` | `+5V_REG` |
+| CN3 | `EXP_P1` | `EXP_P2` | `EXP_P3` |
+| CN4 | `SCL__I2C` | `SDA__I2C` | `REVERSE_WIRE` |
+| CN5 | `HYDRAULIC_2__0_5V` | `PRESSURE_3__0_10V` | `EXP_P4` |
+| CN6 | `PEDAL_BRAKE__0_5V` | `PEDAL_ACC__0_5V` | `+3V3` |
+| CN7 | `PRESSURE_1__0_10V` | `PRESSURE_2__0_10V` | `MOTOR_HALL_1__5V` |
+| CN8 | `SDC_IN_LOW_SIDE` | `BUZZER` (old name; drives the compressor MOSFET gate) | `CMD_STEER_DIR__3V3` |
+| CN9 | `CMD_STEER__PWM_3V3` | `HYDRAULIC_1__0_5V` | `GND` |
+| CN10 | `CMD_ACC__0_5V` | `CMD_BRAKE__0_5V` | `GND` |

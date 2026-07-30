@@ -324,6 +324,84 @@ Schematic wiring rule: ESP32 5 V pin and medulla USB-C VBUS net stay separate fr
 
 Existing RC on MCP4922 VREF (100 Ω + 10 µF) stays — overkill for the linear but harmless and keeps the design swap-ready. Update `docs/pinout-esp32-s3.md` power architecture diagram to reflect the split-rail topology.
 
+### Fix the proportional-valve command path — CN10.2 is on the wrong side of the LM358 #ruben
+
+Found 2026-07-30 by parsing the board file. Full analysis and the verified net map are in
+`history.md` (entry "2026-07-30 — The brake / proportional-valve command leaves the board at 0–5 V").
+Five separate items, all on the same signal chain:
+
+1. **Move the connector pin to the amplifier output.** `CN10.2` currently sits on
+   `/P1/CMD_BRAKE__0_5V`, which is the MCP4922 VOUTB node. `/P1/CMD_BRAKE__0_10V` (LM358 U1 pin 1,
+   the ×2 output) reaches only R19 pin 2 and never leaves the PCB. So the board sends 0–5 V to a
+   valve whose setpoint input is 0–10 V, and full DAC scale commands about half the pressure range.
+   ERC/DRC stayed silent because a 2-pad net is electrically legal — nothing checks that a net has
+   an exit point. Whichever connector pin is chosen, the **amplifier output** is the net that belongs
+   on it. (`tasks/kart-medulla.md` previously named CN5.3 for this; CN5.3 carries `EXP_P4` today and
+   the brake command exits on CN10.2. Pick one and make the docs match.)
+2. **Same change removes an over-voltage path into the DAC.** With `CN10.2` on the DAC node, anything
+   the harness presents at that terminal lands directly on MCP4922 VOUTB — no series resistor, no
+   clamp, no buffer. The valve runs on 24 V, and this is a 5 V-supplied CMOS analog output. (Read the
+   exact absolute-maximum rating when the MCP4922 datasheet is filed — see item 5.) An op-amp output
+   survives a harness fault far better than a DAC output does.
+3. **The LM358 cannot guarantee 10 V from the +12 V rail.** Per TI SLOS068AB rev. Oct 2024 §5.7
+   (`datasheets/LM358_TI_datasheet.pdf`), swing from the positive rail is 2 V typ / **3 V max** at
+   RL ≥ 10 kΩ. On 12 V that is a 10 V typical ceiling and a **9 V guaranteed** ceiling, against a
+   stage that must produce 10.0 V — and the kart's 12 V is an unregulated battery rail that sags.
+   Preferred fix: **supply U1 from 24 V instead of 12 V** (the kart already has a 24 V rail for the
+   valve — a UENPO 9–36 V → 24 V / 5 A buck-boost, see `~/dv/kart/pneumatics/history.md` 2026-05-30;
+   LM358 absolute max supply is 32 V, so 24 V is comfortable). Alternative: keep 12 V and fit a
+   rail-to-rail-output op-amp. Do not just accept a reduced range on a brake command.
+4. **Rename the nets so the range is visible at the connector.** One name, `CMD_BRAKE__0_5V`, is
+   currently shared by the DAC output, the amplifier input, and the connector pin — which is how a
+   0–5 V net ended up on a 0–10 V pin without looking wrong. Follow the throttle channel's pattern
+   (`CMD_ACC_ESP32__0_5V` internal → `CMD_ACC__0_5V` exported): `CMD_BRAKE__0_5V` →
+   `CMD_PRES_DAC__0_5V`, `CMD_BRAKE__0_10V` → `CMD_PRES__0_10V`. `CMD_PRES` because the signal is a
+   pressure setpoint for a proportional regulator, not a brake-force command. Silkscreen shows
+   `CMD_BRK` with no voltage, so a rename does not invalidate the board as built; update the legend
+   to `CMD_PRES` at the next revision.
+5. **Check the DAC's own full-scale limit** before assuming the top of the valve's range is
+   reachable. VREFA/VREFB/VDD are all on `+5V_REG`, so DAC full scale is slightly under 5 V and the
+   doubled result slightly under 10 V. The MCP4922 datasheet is **not** yet filed in
+   `datasheets/` — add it and read the output-swing spec. Also: with VREF tied to the 5 V rail, the
+   MCP4922 write word's **gain bit must be 1×**; selecting 2× asks for 10 V from a 5 V-supplied DAC
+   and clips.
+
+### Correct the brake-command documentation (it describes the as-built 0–5 V path as intended) #ruben
+
+Raised 2026-07-30 alongside the task above. Do these together with the net rename so the docs and the
+board change in one step:
+
+- `docs/pinout-cn-connectors.md` line 66 — says CN10's two commands go "to the motor controller". The
+  brake/pressure command does not: braking on this kart is pneumatic and the command goes to the
+  Festo VPPM proportional regulator. Only `CMD_ACC` goes to the motor controller.
+- `docs/pinout-esp32-s3.md` line 217 — "VOUTB | CMD_BRAKE | Brake analog command (0-5V) → brake
+  valve driver" states 0–5 V as the delivered range. It should be the DAC-side range, with the
+  exported range given as 0–10 V.
+- `docs/pinout-esp32-s3.md` line 273 — "No chip — direct DAC output … → brake valve driver (no mux on
+  PCB)" describes the DAC output as going straight out and does not mention that an LM358 ×2 stage
+  exists. The "no mux" half is correct and worth keeping: unlike the throttle, the brake/pressure
+  channel has no MAX4660, so the DAC always owns it and the only way to release the command is to
+  write zero.
+- Document the valve's supply/ground relationship in the harness notes: the VPPM runs on a separate
+  24 V supply, so its 0 V must be common with the medulla's GND for the setpoint to mean anything.
+  `CN10.3` is GND and is presumably that return, but nothing says so. A ground offset between the two
+  supplies shifts the commanded pressure directly.
+- The VPPM setpoint input's **impedance is not stated** in the short datasheet
+  (`~/dv/kart/pneumatics/resources/festo_571293_vppm_0_10bar_0_10v.pdf`). It is needed to pick the
+  right load condition for the op-amp swing check above. It should be in the operating instructions —
+  Festo doc 8110160 for the C1 LCD variant we own, 8110177 for the LED variant.
+
+### Fix two stale connector references in the external-connector audit
+
+Noticed 2026-07-30 while dumping the as-built connector map (the full map is in the `history.md`
+entry for that date). In the "External-connector audit (CN1–CN10)" section below:
+
+- It says "`SDC_IN_LOW_SIDE` (on **CN5**)". As built it is on **CN8.1**. CN5 carries
+  `HYDRAULIC_2__0_5V` / `PRESSURE_3__0_10V` / `EXP_P4`.
+- It says "CN8 / CN9 / CN10 have free slots if EXP_P* are reshuffled". **CN10 has no `EXP_P*` pin**
+  and no free slot — its three pins are `CMD_ACC__0_5V`, `CMD_BRAKE__0_5V`, `GND`, all in use. CN9
+  pin 3 is GND, also in use. Only the `EXP_P*` pins on CN3 and CN5.3 are genuinely reshufflable.
+
 ### Finish medulla schematic — verify every signal is wired and labeled correctly #ruben
 
 - Title: change `ESP32-S3-DevkitC-1` → `ESP32-S3-DevKitC-1` (capital K).
