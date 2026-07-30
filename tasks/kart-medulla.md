@@ -339,8 +339,25 @@ was migrated from had the connector on the amplified net, so this is a regressio
 KiCad cleanup, not an original design error. Details and the diff in `history.md` (2026-07-30, second
 entry); why the commit's own verification and ERC both missed it is in `.agents/error-log.md`.
 
-1. **Move the connector pin to the amplifier output — one label in the schematic, two segments and one
-   track on the PCB.** `CN10.2` sits on `/P1/CMD_BRAKE__0_5V`, the MCP4922 VOUTB node.
+1. **DONE 2026-07-30 — connector pin moved to the amplifier output.** As built: schematic label at
+   (218.44, 48.26) renamed to `CMD_BRAKE__0_10V`; CN10 pad 2's net changed to match; CN10.2 routed to
+   the 0–10 V net on **F.Cu** — (74.5, 90.9999) at 45° to (81.0727, 97.5726), then east to
+   (87.0, 97.5726), then a 0.6/0.3 mm via down onto the existing B.Cu stub between U1.1 and R19.2.
+   F.Cu was empty in that corridor, which avoids the congested B.Cu side entirely; the track clears
+   CN10.1's through-hole pad by ~0.81 mm. Zones refilled. Verified: ERC 0 violations, DRC 0 violations,
+   0 unconnected items, netlist shows `CMD_BRAKE__0_5V` = U13.10 + U1.3 and `CMD_BRAKE__0_10V` =
+   CN10.2 + R19.2 + U1.1. The 5 remaining schematic-parity warnings (U1 footprint-field mismatch, the
+   four `PAD1`–`PAD4` mechanical pads) are byte-identical to those at the previous commit — pre-existing
+   and unrelated.
+
+   Also restored in the same commit: the **U13.10 → U1.3** copper (DAC output to amplifier input). Six
+   of the seven `CMD_BRAKE__0_5V` segments had been ripped up in KiCad, leaving that connection
+   unrouted — DRC reported it as a missing connection between U1 pad 3 and U13 pad 10. The original
+   geometry was put back (via (84.582, 91.44) → (83.566, 92.456) → (83.566, 99.8826) →
+   (84.6484, 100.965)), since it was the routing the layout was designed around.
+
+   Original problem statement, kept for context: `CN10.2` sat on `/P1/CMD_BRAKE__0_5V`, the MCP4922
+   VOUTB node.
    `/P1/CMD_BRAKE__0_10V` (LM358 U1 pin 1, the ×2 output) reaches only R19 pin 2 and never leaves the
    PCB, so the board sends 0–5 V to a valve whose setpoint input is 0–10 V and full DAC scale commands
    about half the pressure range. ERC/DRC stayed silent because a two-pad net is electrically legal —

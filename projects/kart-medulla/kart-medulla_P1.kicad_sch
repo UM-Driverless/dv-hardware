@@ -8254,7 +8254,7 @@
 		)
 		(uuid "11ffca81-b618-4cf1-b2f4-25f82b78af4a")
 	)
-	(label "CMD_BRAKE__0_5V"
+	(label "CMD_BRAKE__0_10V"
 		(at 218.44 48.26 0)
 		(effects
 			(font

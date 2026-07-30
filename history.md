@@ -1245,3 +1245,67 @@ and only the KiCad design needs the fix. Continuity to **pin 3** means the built
 and needs rework — cut the track leaving that terminal and run a wire from the terminal to U1 pin 1.
 Also confirm U1 is populated at all; if the amplifier was never fitted, the whole chain is different
 from what either design file says.
+
+## 2026-07-30 (fix applied) — valve command now leaves the board at 0–10 V, routed on F.Cu
+
+Applied the fix described in the entry above. KiCad was closed and
+`scripts/guard-kicad-write.sh` passed, so this was a direct file edit; no MCP write tools were called
+(`kicad-mcp-pro` was still resident, which forbids mixing the two).
+
+**Schematic:** the label at (218.44, 48.26) on CN10 pin 2's wire stub renamed `CMD_BRAKE__0_5V` →
+`CMD_BRAKE__0_10V`. That was the entire schematic change — every connection in this chain is a label on
+a stub, so no wires moved. Exported netlist confirms the split:
+`CMD_BRAKE__0_5V` = U13.10 + U1.3, `CMD_BRAKE__0_10V` = CN10.2 + R19.2 + U1.1. ERC 0 violations.
+
+**PCB:** CN10 pad 2's net updated to match, then CN10.2 routed to the 0–10 V net **on F.Cu**:
+(74.5, 90.9999) → 45° → (81.0727, 97.5726) → east → (87.0, 97.5726), then a 0.6 / 0.3 mm via down onto
+the existing B.Cu stub that already runs between U1.1 and R19.2. Track width 0.25 mm, matching the
+existing 0–10 V copper.
+
+F.Cu was chosen because that corridor is completely empty on the front layer, while B.Cu is not: the
+0–5 V net's vertical run at x = 83.566 spans y = 92.456…99.883, the +12 V feed to U1.8 occupies
+y ≈ 98.4 around x = 79.8…82.6, and U1's own pads reach out to x = 84.28 (a SOIC-8 rotated 90°, so each
+pad's *long* 1.95 mm axis lies along x, not y — getting that backwards makes the corridor look ~1 mm
+wider than it is). The F.Cu diagonal clears CN10.1's through-hole pad by about 0.81 mm against a
+0.254 mm requirement.
+
+**Zone refill was the one step no CLI tool does.** `kicad-cli pcb drc` does *not* refill zones, so the
+first DRC run after adding copper reported 6 clearance/hole-clearance violations, every one of them
+"new copper vs Zone 'GND'" with an actual clearance of 0.0000 mm — the stored fill polygons predated
+the new track. Nothing was wrong with the geometry. Refilled headlessly with KiCad's Python API and
+saved:
+
+```
+/Applications/KiCad/KiCad.app/Contents/Frameworks/Python.framework/Versions/Current/bin/python3
+import pcbnew
+b = pcbnew.LoadBoard(path); pcbnew.ZONE_FILLER(b).Fill(b.Zones()); b.Save(path)
+```
+
+(It prints a harmless `create wxApp before calling this` assert when run headless.) After that: **DRC 0
+violations, 0 unconnected items.** Note `b.Save()` rewrites the whole file in KiCad's canonical format,
+so the commit diff is ~850 lines even though the intended change is small; object counts were compared
+before and after to confirm nothing was lost — footprints 59, pads 234, zones 7, nets 83, gr_text 4 all
+unchanged, segments 332 → 332, vias 7 → 8 (the new one).
+
+The 5 schematic-parity warnings that remain (U1's empty footprint field, and the four `PAD1`–`PAD4`
+mechanical pads reported as extra footprints) are byte-identical to the same check run against the
+previous commit's files — pre-existing, unrelated to this change.
+
+### The DAC→amplifier copper had also been ripped up, and was restored
+
+Independently of the fix, six of the seven `CMD_BRAKE__0_5V` segments had been deleted in KiCad,
+leaving only the 0.6 mm stub at U1 pad 3. That left **U13.10 → U1.3 unrouted** — the DAC output no
+longer reached the amplifier input in copper — which DRC reported as a missing connection between U1
+pad 3 and U13 pad 10. (The deletion is identifiable as a KiCad-side save rather than a scripted edit
+because the same write also dropped the `(zone_defaults)` token from the `setup` block, which only
+KiCad's serializer does.)
+
+The original geometry was restored rather than re-routed: (86.027, 91.44) → (84.582, 91.44) →
+(83.566, 92.456) → (83.566, 99.8826) → (84.6484, 100.965), joining the surviving stub to U1.3. That
+path was what the surrounding layout had been designed around, and it is DRC-clean.
+
+### Still open on this signal
+
+The four remaining items of the fix task in `tasks/kart-medulla.md` — the net rename to `CMD_PRES*`,
+the DAC full-scale check (and filing the MCP4922 datasheet), the three wrong documentation lines, and
+the continuity check on the assembled board — are unaffected by this commit and still stand.
