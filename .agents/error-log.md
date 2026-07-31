@@ -376,3 +376,27 @@ looked wrong. Full analysis in `history.md` under that date.
   both, and useless.
 - Cross-reference: `history.md` 2026-07-30; the fix is the task "Fix the proportional-valve command
   path — CN10.2 is on the wrong side of the LM358" in `tasks/kart-medulla.md`.
+
+## 2026-07-31 — Placed the same footprint twice by trusting `HEAD~1` as "the clean board"
+
+**What happened.** While iterating on the design-ID silkscreen QR, each attempt started by restoring a
+"clean" board with `git show HEAD~1:projects/kart-medulla/kart-medulla.kicad_pcb`. Another session
+committed to this repo in between, so `HEAD~1` was no longer the commit before the placement — it
+already contained one. The script then appended a second copy, 0.5 mm from the first.
+
+**How it presented.** Three symptoms that all looked like problems with the change being tested rather
+than with the file: 199 `silk_overlap` DRC violations between the footprint's own polygons, a
+silkscreen plot where the QR modules rendered as hollow outlines and the caption lines appeared to
+overlap, and a QR that would not decode. All three are what two copies of one QR offset by half a
+millimetre look like. Time went into bisecting the wrong variable — whether adding a text line above
+the symbol had broken something — before diffing the placed footprint blocks showed the file had 471
+lines where the committed one had 235.
+
+**Root cause.** `HEAD~1` is a moving target in a repo with concurrent sessions. It names a position in
+history, not a state of the file.
+
+**Prevention.** Restore a known state by content, not by position: strip the element being replaced
+(match its name, walk its parentheses to the closing one, cut it out) and assert the result contains
+zero of them before inserting, then assert exactly one afterwards. Both assertions are one line each
+and would have failed immediately on the first bad run. When a change produces a wall of geometry
+violations against *its own* items, check element count before investigating geometry.
