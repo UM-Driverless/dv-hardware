@@ -2340,3 +2340,36 @@ at all (which is why the board carries an MCP4922), and the MCP4922 driver does 
 firmware repo's `spi-fix` branch, commit `45580ff` "feat(mcp4922): implement the SPI write and add
 bench diagnostics". I had looked only at `dev`, which is the v1 PWM attempt, and concluded from its
 absence that no driver had ever been written.
+
+### Same day — U1B wired as the throttle gain stage, which is what makes the 3.3 V DAC free
+
+Moving `U13` to +3V3 fixes the logic levels but drops the DAC's full scale from ~5 V to 3.3 V. The
+pressure path absorbs that with a resistor value (`R19` 1 k → 2 k, gain ×2 → ×3). The throttle path had
+no gain stage at all — VOUTA went through the MAX4660 straight to CN10.1 — so it would have reached
+only 66 % of the motor controller's 0–5 V input.
+
+I had been recording that as the *cost* of the 3.3 V move. Rubén: *"the switch to 3.3v in v2 is quite
+literally free. we just need to use the unused second opamp."* Correct — `U1B` has been sitting on the
+board as a parked follower since the design was drawn, input strapped to GND and output looping back
+to its own inverting pin, doing nothing.
+
+**As built now:** `VOUTA → U1B non-inverting ×1.51 → R39 → U14 pin 8 (mux NO) → CN10.1`.
+`R37` 5.1 k feedback and `R38` 10 k to ground give 1 + 5.1/10 = **1.51**, so 3.3 × 1.51 = **4.98 V** —
+full throttle range restored with no new IC. Those are the values the firmware repo's `spi-fix` branch
+had already worked out for the same problem approached from the PWM-bypass side.
+
+**Why `R39`, the 1 k in series.** `U1B` shares its supply pin with `U1A`, which needs +12 V to make the
+valve's 10 V, so `U1B` sits on 12 V while the MAX4660 it feeds is supplied from 5 V. In normal
+operation that cannot bite: the input is the DAC, which physically cannot exceed 3.3 V, so ×1.51
+caps the output at 4.98 V. It only matters if the op-amp saturates or the feedback network opens, and
+then the series resistor limits the current into the mux's input clamp diodes instead of letting a
+12 V rail drive them directly. This was the objection I raised against using `U1B` at all; it costs
+one resistor to answer, not a redesign.
+
+**Why the gain sits before the mux, not after it.** The mux's other input is the pedal, already at
+0–5 V. A gain stage after the mux would amplify that too.
+
+`U1B`'s three pins are now `+IN2` = `CMD_ACC_ESP32__0_5V` (the DAC), `-IN2` = `ACC_AMP_FB`,
+`OUT2` = `ACC_AMP_OUT`; the follower strap is deleted and the mux's stub relabelled to
+`CMD_ACC_BUF__0_5V`. ERC 0 violations, topology confirmed on a fresh netlist export, and both new
+areas checked by SVG render — the first attempt left the input labels overlapping the op-amp symbol.
