@@ -1685,3 +1685,36 @@ VPPM after the LM358 ×2, not 0–5 V to the motor controller; the VOUTB row now
 the command and the only release is writing zero. Also documented on CN10.3: the VPPM runs from a
 separate 24 V supply, so its 0 V must be common with the medulla's GND or the commanded pressure
 shifts by the offset.
+
+### Follow-ups, same night
+
+**WAGO 2601 footprints ship with KiCad 10 — nothing to draw.** The task written earlier tonight said
+neither part was in `kart-medulla.pretty` and that WAGO's own downloads might be needed. Wrong:
+`TerminalBlock_WAGO_2601-3102_1x02_P3.50mm_Vertical` and `..._2601-3103_1x03_P3.50mm_Vertical` are in
+the stock `TerminalBlock_WAGO` library, reachable with no setup because the global `fp-lib-table`
+nests KiCad's own table. KiCad's naming also settles the variant question independently of WAGO's
+website: every `-31xx` footprint is `_Vertical`, every `-11xx` is `_Horizontal`.
+
+Comparing the two footprint files gives the real cost of the swap, which is not the pitch:
+
+| | Phoenix `1990012` | WAGO `2601-3103` |
+|---|---|---|
+| Holes per 3-pole | 3 | **6** — two per pole, rows 5 mm apart |
+| Pitch | 2.5 mm | 3.5 mm |
+| Pin-1→pin-3 span | 5.0 mm | 7.0 mm |
+| Drill | 1.0 mm | 1.2 mm |
+| Arrangement | staggered, pin 2 offset 5 mm | regular grid |
+
+Twelve extra holes appear along each board edge, all on nets that already exist. But the staggered
+pin-2 row — the thing that made the old rotation task expensive, because rotating it moved which side
+pin 2 sat on — simply disappears. The swap widens the connectors and simplifies the copper under them
+at the same time.
+
+**`CN8.2` frees up on v2.** Rubén, on being told there are no free connector pins: the buzzer is not
+needed on v2 either. `CN8.2` carries the net still named `BUZZER`, which actually drives the external
+compressor MOSFET's gate — and v2 brings that MOSFET on-board, so the signal stops leaving the PCB.
+Nothing will reclaim the pin, since the kart carries no buzzer at all. So v2's spare capacity is one
+free pin plus the four reshufflable `EXP_P*` pins, and `SDC_ENABLE` (no exit anywhere) and CN4's
+missing encoder power/ground are the claims on it.
+
+**Vault:** the WAGO 2601 entry moves from `Noted` to `To Buy` — confirmed we are buying them.

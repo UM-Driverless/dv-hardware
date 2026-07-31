@@ -12,7 +12,7 @@ current; motor inrush is a short peak and is judged separately.**
 |---|---|---|---|---|---|---|
 | Phoenix Contact **1990012** | PTSA 0,5/3-2,5-Z | 2.5 mm | **2 A** @ 250 V | 0.5 mm², AWG 20 max | 45° | CN1–CN10 on the assembled kart-medulla |
 | WAGO **2601-3103** | 2601 (Push-in CAGE CLAMP, lever) | 3.5 mm | **17.5 A** | 1.5 mm², AWG 26–14 | **top entry** | 3-pole, on the team's buy list |
-| WAGO **2601-3102** | same, 2-pole | 3.5 mm | **17.5 A** | 1.5 mm², AWG 26–14 | top entry (see note) | 2-pole, on the team's buy list |
+| WAGO **2601-3102** | same, 2-pole | 3.5 mm | **17.5 A** | 1.5 mm², AWG 26–14 | **top entry** | 2-pole, on the team's buy list |
 | WAGO **2601-1103** | same, 3-pole | 3.5 mm | 17.5 A | 1.5 mm², AWG 26–14 | side entry | not chosen — listed to show the difference |
 
 Checked 2026-07-31 against
@@ -29,14 +29,19 @@ one already on the buy list. `2601-11xx` is the side-entry variant of the same s
 same current, wire arriving parallel to the board.
 
 The middle two digits carry the entry style and the last two the pole count, so `2601-3102` is the
-2-pole top-entry part and `2601-3103` the 3-pole. WAGO's page for `-3103` states "top entry"
-explicitly and `-1103` states "side entry"; the page for `-3102` does not print the phrase, so its
-entry style is read from the series numbering rather than confirmed on its own page. Worth a
-30-second check on the datasheet before ordering.
+2-pole top-entry part and `2601-3103` the 3-pole. WAGO's page for `-3103` states "top entry" and
+`-1103` states "side entry"; the `-3102` page does not print the phrase, but **KiCad 10's stock
+library confirms it independently** — it names every `-31xx` footprint `_Vertical` and every `-11xx`
+one `_Horizontal`.
 
-**None of these are owned yet.** `~/vault/inventory/` holds the Phoenix 1990012 (status `Noted`,
-also not purchased) and WAGO 221 lever nuts, which are in-line splice connectors and unrelated. The
-2601 series is a buy-list item, not stock.
+**Confirmed 2026-07-31 that these are being bought**, but none are owned yet — `~/vault/inventory/`
+holds the Phoenix 1990012 (also never purchased) and WAGO 221 lever nuts, which are in-line splice
+connectors and unrelated.
+
+**KiCad 10 ships the footprints**, so nothing has to be drawn:
+`TerminalBlock_WAGO:TerminalBlock_WAGO_2601-3102_1x02_P3.50mm_Vertical` and
+`..._2601-3103_1x03_P3.50mm_Vertical`. The library is reachable from any project through the stock
+table with no setup.
 
 Stock only the 2-pole and 3-pole WAGO parts: with {2, 3} any pole count from 2 upward composes with
 no gaps, and per-pin price is flat across pole counts, so higher counts save nothing.

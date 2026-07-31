@@ -359,14 +359,40 @@ wire in from above, levers on the front face. Ratings and sources:
 - **Pitch goes 2.5 mm → 3.5 mm**, so every connector footprint gets wider and the board outline and
   component keep-outs along both edges have to be re-checked. Ten 3-pole connectors gain 10 × 2 mm
   of edge length between them.
-- **New footprints and 3D models.** Neither part is in `kart-medulla.pretty` yet. WAGO publishes
-  both; check whether KiCad 10 bundles the 2601 series before drawing them by hand.
+- ~~**New footprints and 3D models.**~~ **Nothing to draw — KiCad 10 already ships both**, checked
+  2026-07-31. Use `TerminalBlock_WAGO:TerminalBlock_WAGO_2601-3103_1x03_P3.50mm_Vertical` and
+  `..._2601-3102_1x02_P3.50mm_Vertical`. The `TerminalBlock_WAGO` library is reachable with no
+  setup: the global `fp-lib-table` nests KiCad's stock table, which registers it. (KiCad calls the
+  top-entry parts `_Vertical` and the side-entry `-11xx` ones `_Horizontal` — a second, independent
+  confirmation of which variant is which.)
+- **Pad geometry changes more than the pitch does.** Measured from the two footprint files:
+
+  | | Phoenix `CONN-TH_3P-P2.50-S5.00_1990012` | WAGO `2601-3103_1x03_P3.50mm_Vertical` |
+  |---|---|---|
+  | Holes per 3-pole | 3 | **6** — two per pole, rows 5 mm apart |
+  | Pin pitch | 2.5 mm | 3.5 mm |
+  | Pin-1→pin-3 span | 5.0 mm | 7.0 mm |
+  | Drill | 1.0 mm | **1.2 mm** |
+  | Pad | 1.66 mm round | 1.5 × 2.3 mm |
+  | Arrangement | staggered — pins 1 & 3 one row, pin 2 offset 5 mm | regular grid, both rows aligned |
+
+  Doubling the hole count per pole is the part that matters for routing: twelve extra holes appear
+  along each board edge, all on existing nets. The staggered pin-2 row disappears, which is what made
+  the old rotation task expensive — so the swap actually *simplifies* the copper under each
+  connector even as it widens it.
 - **Placement requirements, replacing the rotation task:** wires must exit **outward**, away from
   the board, and pin numbering must run **co-directional** with the CN numbering on each side, so
   `CN1.1, CN1.2, CN1.3, CN2.1, …` reads straight down the edge. Both were the point of the old task.
 - **Silkscreen legend and `docs/pinout-cn-connectors.md`** need updating for the new pin order.
 - **Decide whether all ten swap or only the high-current path.** All ten is the tidier answer and the
   one assumed here; confirm before ordering, since it changes the quantity to buy.
+- **The pin budget improves in v2, it does not just move.** `CN8.2` currently carries the net still
+  named `BUZZER`, which drives the external compressor MOSFET's gate. v2 brings that MOSFET
+  on-board, so the gate signal never leaves the PCB and **`CN8.2` frees up** (Rubén, 2026-07-31 —
+  and no buzzer is coming back to claim it, the kart carries none). That is one genuinely free pin
+  on top of the four reshufflable `EXP_P*` pins, and the first claim on it should be settled here
+  rather than discovered later: `SDC_ENABLE` has no exit at all, and CN4's encoder has neither power
+  nor ground.
 
 Buy-list entry and per-variant notes: `~/vault/inventory/wago-2601-pcb-terminal-blocks.md`. Nothing
 is in stock yet.
@@ -846,7 +872,7 @@ below.** All thirty pins are assigned; there is no free slot anywhere.
 **Definitely missing — must be added/decided before fab:**
 
 - **`SDC_ENABLE`** (ESP32 GPIO 39, drives the external SDC enable relay/contactor). Currently only a free-text annotation on the schematic ("SDC_ENABLE — orphan, expected from external module" near U24 pin 14). No wire, no label, no exit on any connector. Decide:
-  - Wire GPIO 39 to a label and route it out. **There is no free pin.** Re-checked against the netlist 2026-07-31: all thirty pins on CN1–CN10 are assigned (map below). The only reshufflable pins are the expander outputs `EXP_P1`–`EXP_P3` on CN3 and `EXP_P4` on CN5.3, none of which has a documented kart-side function yet. So this needs either one of those four pins or a CN11.
+  - Wire GPIO 39 to a label and route it out. **There is no free pin on the board as built.** Re-checked against the netlist 2026-07-31: all thirty pins on CN1–CN10 are assigned (map below). Reshufflable: the expander outputs `EXP_P1`–`EXP_P3` on CN3 and `EXP_P4` on CN5.3, none with a documented kart-side function. **On v2 there is one genuinely free pin as well** — `CN8.2` carries the compressor gate (the net still named `BUZZER`), and v2 puts that MOSFET on-board, so the signal stops leaving the PCB. No buzzer will reclaim it; the kart carries none. `SDC_ENABLE` and CN4's missing encoder power/ground are the two claims competing for it.
   - Or: drop `SDC_ENABLE` entirely if the SDC relay is now driven from elsewhere (Orin? external module?). If dropped, also remove the row from `docs/pinout-esp32-s3.md` and the GPIO 39 assignment.
 
 **Verify (probably fine, but confirm with the schematic before fab):**
