@@ -52,6 +52,36 @@ What the table does **not** solve, because it is connector capacity rather than 
 `SDC_ENABLE` still has no terminal, and CN4 gives the steering encoder its two bus lines but neither
 power nor ground.
 
+### Act on the 7 verified audit findings (2026-07-31) #ruben
+
+Raised by the multi-agent audit and each one survived two independent refuters told to kill it.
+Full evidence, consequence and proposed fix for every item is in `history.md`, entry
+"audit workflow, capped rerun". Ordered by what blocks what.
+
+1. **[BLOCKER] `U25` (PCF8574T, narrow SO16) is on a wide-body SOIC-16W land pattern** — leads land
+   0.5 mm short of every pad. This is on the fabricated board. Decide which side is wrong, then
+   either retarget to `Package_SO:SOIC-16_3.9x9.9mm_P1.27mm` or change the part.
+2. **[major] MCP4922 `CS#`/`SCK`/`SDI` have no pull resistors**, the DAC sits on `+5V_REG` which is
+   live without the ESP32, and `LDAC#` is tied low so there is no second latch. With the ESP32 in
+   reset or being reflashed, noise can latch an arbitrary brake-pressure setpoint onto CN10.2 —
+   `VOUTB` has no mux to fall back on, unlike the throttle. Add a 10 kΩ pull-up on `CS#` to
+   `+5V_REG` and a 10 kΩ pulldown on `SCK`.
+3. **[major] `C13` and the `R8`/`R9`/`R10` divider sit on GPIO 1, which carries the MT6701's
+   994.4 Hz PWM.** The divider presents a 3.3 V logic high as 1.100 V against a 2.475 V VIH, and
+   the 239 Hz corner smears the PWM. `C13` was added on 2026-07-31, the same day GPIO 1 was
+   confirmed as the steering input. Delete the divider and the cap on whichever pin ends up
+   carrying the PWM.
+4. **[major] MCP4922 digital inputs are driven below their guaranteed threshold** — VIH is
+   0.7·VDD = 3.5 V on the 5 V rail and the ESP32 drives 3.3 V, with no level shifter in the path.
+   Works at room temperature, guaranteed by nothing. Either buffer through a 5 V HCT part or move
+   U13 to 3.3 V and gain up after the DAC.
+5. **[major] The v2 pin table and `requirements.md` contradict each other** on returning
+   `PRESSURE_3` to GPIO 1. Pick one and edit the other in the same commit.
+6. **[major] No footprint declares an SMD or through-hole attribute** — the pick-and-place export
+   contains 1 of 41 SMD parts. Add `(attr smd)` / `(attr through_hole)` in `kart-medulla.pretty`.
+7. **[major] `U1` (LM358) has an empty Footprint field** in the schematic; the SOIC-8 exists only
+   as a PCB-side override, so the BOM is wrong. Set it on both units and re-export.
+
 ### Patch the fabricated board for the CN10.2 brake fix #ruben
 
 Filed 2026-07-31. The design fix landed in `f68cc1f` and is marked DONE under "Fix the

@@ -2170,3 +2170,98 @@ recovered all 43 findings.
 file rather than the script's own output — grep for the content that should now be there. Never chain
 a success message with `;`. And when a block mixes a script with a commit, read the git output: "nothing
 added to commit" is the write failing loudly.
+
+## 2026-07-31 — audit workflow, capped rerun: 7 findings survived adversarial verification
+
+66 agents, 3.26M subagent tokens, 17 minutes, ~22 points of the 5-hour quota. **26 findings
+were raised and verified; 7 survived two independent refuters, 19 were killed or contested.**
+Refuters ran on Sonnet at low effort with the caps described in the previous entry; the auditors ran
+on Opus. Everything below cites a file, a line or a net from the exported netlist.
+
+**Two of the seven are defects introduced earlier the same day**, by me, in the ADC filter-cap work
+and the v2 pin table. That is the point of the exercise working.
+
+### 1. [MAJOR] MCP4922 CS#, SCK and SDI have no pull-up or pull-down while the DAC sits on a rail that is live without the ESP32, and LDAC# is hard-tied low
+
+*dimension: boot-straps · survived 2 refuters*
+
+**Evidence.** Netlist: net 9 `/P1/CMD_DAC_CS` = U13.3 (CS#, input) + U23.39/40 only; net 6 `/P1/CLK` = U13.4 (SCK) + U23.35/36; net 24 `/P1/MOSI` = U13.5 (SDI) + U23.33/34 — no pull resistor on any of the three. U13.8 (LDAC#) is tied directly to GND (net 48) and U13.9 (SHDN#) directly to +5V_REG (net 2). U13.1 VDD = +5V_REG, which comes from U19 (L7805, kart-medulla_P1.kicad_sch:13824) off +12V at CN1.2 — a supply completely independent of the ESP32's (see the +5V_USB finding). The DAC's VOUTB path is unmuxed by design: docs/pinout-esp32-s3.md:357 "unlike the throttle there is no MAX4660 in this path, so the DAC always owns the command and the only way to release it is to write zero."
+
+**Consequence.** Whenever 12 V is applied and the ESP32 is in reset, being reflashed, or simply not USB-powered, the DAC is fully powered and enabled (SHDN# high) with its chip select floating and its latch pin permanently asserted. Any noise that clocks a plausible frame into a selected device is latched to the output immediately — LDAC# low means there is no second gate. VOUTA is protected by the MAX4660 (SELECT has R32's 10 kΩ pulldown, so COM sits on the pedal), but VOUTB is not: it goes through U1A ×2 to CN10.2 and straight to the Festo VPPM 0–10 V pressure setpoint, i.e. the kart's pneumatic braking, with no firmware running and no mux to fall back on. The MCP4922 POR state itself is safe (datasheets/MCP4922_Microchip_datasheet.pdf, section 4.2.1.1: outputs come up high-impedance with a ~500 kΩ pulldown until a valid write), which is exactly why the missing CS# pull-up matters — it is the only thing standing between POR-safe and an arbitrary latched setpoint.
+
+**Why ERC/DRC miss it.** Three legal 2-3 pad nets between an MCU header and a DAC — ERC sees a driver and a receiver on each and stops there. No checker knows that the two ICs sit in different power domains, that LDAC# being tied low removes the second latch, or that the resulting analog output is an unmuxed brake-pressure command.
+
+**Proposed fix.** Add a 10 kΩ pull-up from CMD_DAC_CS to +5V_REG (the DAC's own rail, so the deselect is valid whenever the DAC is powered) and a 10 kΩ pulldown on SCK. Both are standard for an SPI slave whose master can be absent or unpowered while the slave is live. If the valve command is meant to be recoverable independently of firmware, also consider a pulldown at CN10.2 so the VPPM setpoint has a defined 0 with the board half-powered.
+
+### 2. [MAJOR] C13 and the R8/R9/R10 divider sit on GPIO 1, which the project's own docs say carries the MT6701's 994.4 Hz PWM — the divider puts the logic high at 1.100 V, below the 2.475 V VIH, and the cap's 239 Hz corner destroys the PWM
+
+*dimension: analog · survived 2 refuters*
+
+**Evidence.** docs/pinout-esp32-s3.md:278 — GPIO 1 / `PRESSURE_3` (ADC1_CH0): "Reads the MT6701 steering-angle sensor's PWM output. Decided 2026-07-31 (Rubén). Pressure sensor 3 is not fitted on this board." Net `PRESSURE_3__0_3V3` carries C13.2 (100nF, kart-medulla_P1.kicad_sch:22043 ref / :22054 value, added 2026-07-31 per tasks.md:838), R9.2, R10.1, U24.19; fed from CN5.2 through R8 (10K) + R9 (10K) with R10 (10K) to GND. Divider = 1/3, so a 3.3 V logic high arrives as 1.100 V. ESP32-S3 datasheet v2.2 Table 5-4: VIH min = 0.75 x VDD = 2.475 V at VDD = 3.3 V. Thevenin source = 20k ∥ 10k = 6.667 kΩ, so with 100 nF the pole is 1/(2π·6667·100n) = 239 Hz. MT6701 datasheet (/Users/rubenayla/dv/datasheets/MT6701_MagnTek_datasheet.pdf p.7 and p.19): PWM frame frequency 994.4 Hz, one PWM clock period 244 ns.
+
+**Consequence.** A 3.3 V logic PWM entering CN5.2 never crosses the ESP32's HIGH threshold, so digital PWM capture reads a constant LOW. Independently, the 239 Hz single pole is 4.2x below the 994.4 Hz frame rate and roughly three orders of magnitude below the 244 ns duty-encoding resolution, so even a level-correct signal would be smeared past recovery. requirements.md:93-94 already asks to drop the divider on this input; nothing anywhere records that C13 must go with it — and C13 was added to that net on the same day the PWM decision was taken.
+
+**Why ERC/DRC miss it.** ERC sees an ordinary RC network on an ADC-capable pin, which is exactly what a pressure input should look like. Nothing in the schematic encodes that this pin's real signal is a 3.3 V logic PWM — that fact lives only in the docs.
+
+**Proposed fix.** Decide which signal owns GPIO 1 in the schematic and make the analog front end match one intent, not both. If GPIO 1 stays the steering PWM capture, delete R8/R9/R10 and C13 and take CN5.2 straight to the pin (series resistor only, no shunt cap, no divider). If the v2 plan holds and STEER_SENS_PWM moves to GPIO 38 with PRESSURE_3 returning to GPIO 1, keep them — but then make sure GPIO 38 gets neither a divider nor a filter cap, or the same defect just moves pin.
+
+### 3. [MAJOR] MCP4922 digital inputs are driven below their guaranteed threshold: VIH is 0.7·VDD = 3.5 V at a 5 V supply, and the ESP32 drives 3.3 V with no level shifter
+
+*dimension: power · survived 2 refuters*
+
+**Evidence.** U13 VDD is on +5V_REG (netlist net 2, U13.1) fed by U19 = L7805CDT. The three SPI inputs come straight from the 3.3 V module with nothing in between: net 9 `/P1/CMD_DAC_CS` = U13.3, U23.39, U23.40; net 6 `/P1/CLK` = U13.4, U23.35, U23.36; net 24 `/P1/MOSI` = U13.5, U23.33, U23.34 — two pins each are the two socket pads of the same module pin, so there is no series element on any of the three. datasheets/MCP4922_Microchip_datasheet.pdf, DC characteristics: "Schmitt Trigger High-Level Input Voltage (All digital input pins) VIH min = 0.7 VDD". At VDD = 5.0 V that is 3.50 V; even at the L7805's minimum output of 4.75 V it is 3.33 V, still above the ESP32-S3's 3.3 V rail (its VOH can never exceed its own supply). The only level-translating part on the board, U5 (SN74LVC3G17), is supplied from +3V3 (net 1, U5.8) and is wired to the hall inputs (nets 25/27/29, 56/57/58), not to the DAC.
+
+**Consequence.** Every SPI write to the DAC is made with logic highs below the specified threshold across the whole tolerance band of the regulator. Parts typically switch near 2.3 V so boards usually work at room temperature, but there is no margin and no guarantee over temperature or part spread: a marginal unit latches a wrong bit and the DAC outputs a wrong code — which on this board is the throttle command at CN10.1 or the brake-pressure setpoint at CN10.2. The failure is intermittent and temperature-dependent, i.e. the worst kind to debug on a running kart.
+
+**Why ERC/DRC miss it.** KiCad has no concept of logic levels between pins on the same net. ERC's pin-type matrix sees output→input and is satisfied; the two chips have different supply rails but nothing in the netlist records what those rails imply for thresholds.
+
+**Proposed fix.** Either (a) put a 5 V-supplied HCT-family buffer (74AHCT125/74HCT125, VIH = 2.0 V) in the CS/SCK/SDI path, or (b) supply U13 from 3.3 V and take the 0–5 V range from a gain stage after the DAC, as is already done for the 0–10 V pressure command. Option (a) is the smaller change and also fixes the abs-max issue below if the buffer's supply is the same 5 V rail. Whichever is chosen, record the decision in docs/pinout-esp32-s3.md, which currently documents the 3.3 V-to-5 V SPI link with no mention of thresholds.
+
+### 4. [MAJOR] requirements.md forbids the one move the v2 table makes — returning PRESSURE_3 to GPIO 1 — and under the requirement as written the seven analog inputs do not fit on ADC1 at all
+
+*dimension: pins · survived 2 refuters*
+
+**Evidence.** docs/pinout-esp32-s3.md:226 — "| 1 | `PRESSURE_3` | ADC1_CH0. Returns to its designed use." and :217-221, the whole rationale for evicting the steering sensor. Contradicted by requirements.md:26-28 — "That repurpose stands, so V2 must find the third pressure channel a *new* GPIO, ADC divider and connector pin **rather than take GPIO 1 back**" — and requirements.md:99-101 — "Decided 2026-07-31: ... GPIO 1 is not coming back, so V2 needs a different ADC-capable GPIO for `PRESSURE_3`". tasks.md:21 repeats it: "GPIO 1 is not coming back". All three are dated 2026-07-31, the same day as the table. Arithmetic check of the audit's stated claim: ADC1 = GPIO 1-10 is correct for the ESP32-S3 (ADC2 = GPIO 11-20, unusable with WiFi), and the table's channel labels are right (1→CH0, 2→CH1, 4→CH3, 5→CH4, 6→CH5, 7→CH6, 10→CH9). Under the table's allocation the seven analog inputs fit exactly: 7 analog + 3 deliberate non-analog squatters (GPIO 3 compressor, 8/9 I²C) = 10. Under requirements.md's rule the steering PWM stays on GPIO 1, giving 7 analog + 4 squatters = 11 claims on 10 pins.
+
+**Consequence.** Two live, same-dated specifications for the same board disagree about which signal owns GPIO 1 and CN5.2. If v2 is laid out against requirements.md (the file the repo declares durable and authoritative for the target), PRESSURE_3 has no ADC1 pin to go to — the third pressure channel gets silently dropped for the second revision running, which is precisely the v1 failure this table was written to prevent. If it is laid out against the table, CN5.2's divider, silkscreen and the kart harness all change meaning without requirements.md recording it.
+
+**Why ERC/DRC miss it.** Purely a specification-level contradiction between two prose documents; no netlist, ERC or DRC artifact exists for either version yet.
+
+**Proposed fix.** Pick one and edit the other in the same commit. The table's version is the better engineering (the steering sensor gets a pin chosen for it, no I²C move needed), so amend requirements.md:26-28 and :99-101 and tasks.md:21 to say GPIO 1 returns to PRESSURE_3 and the steering sensor moves to a dedicated non-ADC pin — or, if GPIO 1 genuinely must not come back, the table has to evict I²C from GPIO 8/9 instead, and must say so.
+
+### 5. [MAJOR] U1 (LM358, the pressure-command amplifier) has an empty Footprint field in the schematic; the SOIC-8 exists only as a PCB-side override
+
+*dimension: consistency · survived 2 refuters*
+
+**Evidence.** /Users/rubenayla/repos/dv-hardware/projects/kart-medulla/kart-medulla_P1.kicad_sch:15486 and :19792 — `(property "Footprint" "")` on both units of U1 (references at :15464 and :19770). The PCB carries `kart-medulla:SOIC-8_L5.0-W4.0-P1.27-LS6.0-BL` for U1 at (82.55, 100.33). DRC parity: `[footprint_symbol_mismatch]: kart-medulla:SOIC-8_… doesn't match footprint given by symbol ()`. /Users/rubenayla/repos/dv-hardware/projects/kart-medulla/output/bom.csv: `U1,LM358DR,,kart-medulla:LM358DR,` — empty footprint column. U1 is the only real component in the schematic with a blank footprint.
+
+**Consequence.** The schematic is the project's declared source of truth, and it says U1 has no package. Any "Update PCB from Schematic" run with footprint re-association enabled silently strips U1's footprint from the board, deleting the op-amp that produces the 0–10 V valve command. An assembler working from the exported BOM has no package for that part.
+
+**Why ERC/DRC miss it.** —
+
+**Proposed fix.** Set U1's Footprint property to `kart-medulla:SOIC-8_L5.0-W4.0-P1.27-LS6.0-BL` in the schematic (both units), then re-export the BOM.
+
+### 6. [BLOCKER] U25 (PCF8574T/3,518, narrow SO16) is on a wide-body SOIC-16W land pattern — leads land 0.5 mm short of every pad
+
+*dimension: footprints · survived 2 refuters*
+
+**Evidence.** kart-medulla_P1.kicad_sch:13103 `(property "Value" "PCF8574T/3,518")`; :13114 `(property "Footprint" "kart-medulla:SOIC-16_L10.3-W7.5-P1.27-LS10.3-BL")`. kart-medulla.pretty/SOIC-16_L10.3-W7.5-P1.27-LS10.3-BL.kicad_mod: pads 1-16 at y = ±4.7503 mm, size 0.574 × 2.4005 mm (long axis in Y), so the inner copper edge sits 3.5501 mm from the centreline; body outline (Dwgs.User) is 10.3 × 7.5 mm; the footprint's own 3D binding is `Package_SO.3dshapes/SOIC-16W_7.5x10.3mm_P1.27mm.step` — the 300-mil wide-body part. The PCB carries the identical geometry: the embedded U25 footprint in kart-medulla.kicad_pcb has pads at y = ±4.7503, size 0.574 × 2.4005. The part number says otherwise: PCF8574T/3,518 is NXP SO16, package code SOT109-1, whose package sheet gives 'Package dimensions including leads (l x w) 9.9 x 6 mm' and 'body width 3.9 mm' (https://assets.nexperia.com/documents/package-information/SOT109-1.pdf). output/bom.csv line for U25 propagates the same pairing.
+
+**Consequence.** A genuine SO16-narrow PCF8574T has lead tips at ±3.0 mm (±3.1 mm worst case). The nearest copper starts at 3.55 mm. Every one of the 16 leads ends roughly 0.45-0.55 mm short of its pad, sitting over bare laminate — on a reflow-assembled board none of the 16 joints forms and U25 is electrically absent, taking CMD_REVERSE and EXP_P1-P4 with it. Note the v1 board reportedly has a live device at I2C 0x20 (history.md:719), which means whatever is physically soldered there is not the part the BOM names, or it was hand-bridged across the gap. Either way, ordering v2 from this BOM buys a chip that does not fit the land pattern.
+
+**Why ERC/DRC miss it.** ERC never sees footprints. DRC's schematic-parity compares reference designators, nets and the footprint *name string* — never pad geometry against a manufacturer package. The one DRC family that would catch a body far larger than its part is courtyard checking, and `missing_courtyard`, `pth_inside_courtyard` and `npth_inside_courtyard` are all set to `ignore` in kart-medulla.kicad_pro, on a library where no footprint has a courtyard to check anyway.
+
+**Proposed fix.** Decide which side is wrong. If the intended part is the NXP PCF8574T, retarget U25 to the KiCad stock narrow land pattern `Package_SO:SOIC-16_3.9x9.9mm_P1.27mm` (present at /Applications/KiCad/KiCad.app/Contents/SharedSupport/footprints/Package_SO.pretty/SOIC-16_3.9x9.9mm_P1.27mm.kicad_mod, no library setup needed) and re-route the four short stubs under it. If a wide-body part was actually fitted and works, change the schematic Value and the BOM to that exact orderable part number (e.g. TI PCF8574DW) so the next order matches the copper. This closes the still-open tasks.md:885 item 'Check footprint sizes against actual parts (... SOIC-16 for PCF8574 ...)'.
+
+### 7. [MAJOR] No footprint declares an SMD/through-hole type attribute — the pick-and-place file exports 1 of 41 SMD parts
+
+*dimension: footprints · survived 2 refuters*
+
+**Evidence.** 37 of the 38 .kicad_mod files in kart-medulla.pretty/ contain no `(attr ...)` line at all; the sole exception is SOP65P490X110-9N.kicad_mod, which has `(attr smd)` (it came from SnapEDA, not the EasyEDA import). The PCB inherits this: 59 of the 60 footprint instances in kart-medulla.kicad_pcb have no `(attr ...)`. Reproduced with the project's own toolchain: `kicad-cli pcb export pos --format csv --units mm --side both -o /tmp/pos_all.csv` writes 60 lines (59 parts + header), while adding `--smd-only` writes 2 lines — header plus `"U14","MAX4660EUA+T","SOP65P490X110-9N",...`. 41 parts are SMD on B.Cu. kart-medulla.kicad_pro `rule_severities` has `footprint_type_mismatch = ignore`.
+
+**Consequence.** A component-placement (CPL) file generated the normal way for an assembly house contains exactly one part, so 40 SMD components are silently omitted from the assembly order; the boards come back with only U14 populated. The inverse filter ('exclude all footprints with through-hole pads') behaves just as arbitrarily, because KiCad classifies an attribute-less footprint as neither SMD nor THT.
+
+**Why ERC/DRC miss it.** The footprint type attribute is metadata, not connectivity or geometry — it changes nothing ERC or DRC evaluates, and the one DRC rule that inspects it (`footprint_type_mismatch`) is explicitly set to `ignore` in this project. The failure only appears at the export step, which nobody runs until the boards are being ordered.
+
+**Proposed fix.** Add `(attr smd)` to the SMD footprints in kart-medulla.pretty (C0603, R0603, SOIC-8/14/16, SOP65P400X130-8N, SOT-23, TO-252) and `(attr through_hole)` to the through-hole ones (CONN-TH_3P-P2.50-S5.00_1990012, HDR-TH_ESQ-122-23-G-S, HDR-TH_ESQ-122-59-G-D, TO-220-3), then push to the board with Update Footprints from Library. Set `footprint_type_mismatch` back to `warning` in kart-medulla.kicad_pro so this cannot regress unseen.
+
