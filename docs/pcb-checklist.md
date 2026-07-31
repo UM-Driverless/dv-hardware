@@ -73,8 +73,12 @@ Tick against a **named revision**, never against "the PCB" — see [Revision nam
 Every fabricated board gets its own name. "The PCB" is ambiguous the moment a second one exists, and
 this repo already has an assembled board plus a next revision in progress being discussed as "V2".
 
-- Format `<board>-v<N>` — `medulla-v1`, `medulla-v2`. Matches the existing tag convention in
+- Format `<board>-v<N>` — `kart-medulla-v1`, `kart-medulla-v2`. Matches the tag convention in
   `AGENTS.md` (`<board>-v<rev>`, firmware `<board>-v<rev>-fw`)
+- `<board>` is the **project folder name** under `projects/`, spelled in full: `kart-medulla`, not
+  `medulla`. Decided by Rubén 2026-07-31, because the full name is what the folder, the firmware
+  repo and the documentation already use. Older notes and the pre-convention tag
+  `medulla-v0.1-converted` use the short form; they refer to the same board and are not renamed
 - The name goes **on the silkscreen**, in the KiCad title block, on the git tag, and on the
   `fab/<board>/<rev>/` folder. A board you cannot name by looking at it is a board you cannot debug
 - Never reuse a number. A respin after a fab error is a new number, not "v2 again"

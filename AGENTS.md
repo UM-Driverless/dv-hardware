@@ -91,7 +91,7 @@ Apply this even mid-task — pause, write the log, continue. The user shouldn't 
 - `scripts/guard-kicad-write.sh` — preflight check before any agent-driven edit to KiCad project files. Run it; if it fails, do not write.
 
 ## Pairing with firmware
-Match-tagged. Hardware rev `medulla-v1.2` here pairs with firmware tag `medulla-v1.2-fw` in `kart-medulla`. Cross-link in both READMEs at release time.
+Match-tagged. Hardware rev `kart-medulla-v2` here pairs with firmware tag `kart-medulla-v2-fw` in `kart-medulla`. Cross-link in both READMEs at release time. Revision numbers are whole integers — never `v1.2` — see `docs/pcb-checklist.md`, "Revision naming".
 
 ## Sister repos — consult before asking the user about kart facts
 - `~/dv/` — **team Google Drive mirror**, the active working knowledge base for the whole DV section. Has its own `AGENTS.md`, `tasks.md`, `onboarding.md`. Authoritative for: datasheet master catalog (`~/dv/datasheets/`), CAN DBCs (`~/dv/can/`), inventory (`~/dv/inventory/`), team/onboarding notes, cross-system mechanical/pneumatic/brake docs (`~/dv/kart/<subsystem>/`). **Hardware-specific docs (pinouts, board READMEs, per-board history, decision notes) live in this GitHub repo under `projects/<board>/docs/`** so the schematic and its documentation move together; `~/dv/` is for everything that is not tied to a single PCB. Grep `~/dv/` before asking the user any "what part / what value / what does the team standard say" question.

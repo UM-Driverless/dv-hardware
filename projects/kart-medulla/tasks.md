@@ -69,7 +69,7 @@ V2 item in [`requirements.md`](requirements.md)) so the two don't end up competi
 — the steering sensor may want SSI/SPI rather than PWM depending on which part is chosen
 (AS5600 / MT6701 / MA732 are all still under evaluation).
 
-### Put `medulla-v1` on the assembled board, and name the next one `medulla-v2` #ruben
+### Put `kart-medulla-v1` on the assembled board, and name the next one `kart-medulla-v2` #ruben
 
 Confirmed 2026-07-31 (Rubén): the assembled EasyEDA-origin board **is** `medulla-v1`, so the next
 revision is `medulla-v2` — which is what `../../docs/pcb-checklist.md` and this task list already
@@ -83,12 +83,16 @@ next fab release `medulla-v2` (with `medulla-v2-fw` on the firmware repo, per `A
 9.45 mm QR and the digits `1604 0948 4608 5574`, right of CN5. DRC clean; the QR decodes from the
 plotted silkscreen. Still open: the KiCad title block, and the tag at fab time.
 
-**Spelling conflict to settle, introduced by that commit.** The silkscreen says `kart-medulla-v2`,
-but `docs/pcb-checklist.md` gives the examples as `medulla-v1` / `medulla-v2` and the only existing
-tag is `medulla-v0.1-converted`. Everything else calls the board `kart-medulla` — this folder, the
-firmware repo, the docs pages. One of the two spellings has to give, and whichever wins must be used
-for the silkscreen, the title block, the tag and the `fab/` folder together, or the four stop
-matching.
+**Spelling settled 2026-07-31 (Rubén): the full name, `kart-medulla-v2`.** The silkscreen already
+said that while `docs/pcb-checklist.md` gave its examples as `medulla-v1` / `medulla-v2`; the full
+form wins because the folder, the firmware repo and the docs pages all use it. The checklist and
+`AGENTS.md` now say so, and the four places the name appears — silkscreen, title block, git tag,
+`fab/` folder — must all use it. The pre-convention tag `medulla-v0.1-converted` keeps its name;
+bare `medulla-vN` in older notes means the same board.
+
+**Also settled: revision numbers are whole integers**, never `v1.1` or `v1.0.1`. The next number is
+earned by changes the previous revision is not compatible with, which is what makes the number worth
+reading. Written into `docs/pcb-checklist.md` under "Revision naming".
 
 ### V2 Hardware Improvements (Kart Medulla PCB)
 
