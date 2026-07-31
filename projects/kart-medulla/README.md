@@ -25,7 +25,8 @@ identifier for it.
 **`84d6dd0`** — "medulla: add fabrication gerbers + drill files (zip for fab)". The last commit
 touching `fabrication/`, so it is the best available evidence of what the fab house received;
 inferred from this repo rather than read off a purchase order. Paired with kart-brain `main` at
-`c200e56`.
+`c200e56`. Also reachable as the git tag `kart-medulla-v1`, which is only an alias — the hash is
+what the board carries and what firmware quotes.
 
 Two pins are also used for something other than their designed signal on this board (the steering
 sensor's PWM on `PRESSURE_3`, the compressor MOSFET gate on `BUZZER`) — that is firmware assignment
