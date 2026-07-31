@@ -2297,3 +2297,46 @@ was never in scope.
 What survives of the finding is already handled. On v2 GPIO 1 returns to `PRESSURE_3`, where the
 divider and `C13` are correct, and `requirements.md` now states that GPIO 38 — the steering PWM's new
 home — must carry neither a divider nor a filter capacitor.
+
+## 2026-08-01 — MCP4922 moved to +3V3; the logic-level problem fixed at the supply, not with a buffer
+
+The audit found that the MCP4922's digital inputs — `CS#`, `SCK` and `SDI`, the three control wires
+from the ESP32 — were driven below their guaranteed threshold. Datasheet DS22250A page 7, "AC
+Characteristics (SPI Timing Specifications)", first row: **Schmitt Trigger High-Level Input Voltage
+(All digital input pins), VIH min = 0.7 VDD.** Nothing in the datasheet says "5 V logic required" —
+the threshold is a *fraction of whatever supply you choose*, so V_DD = 5 V silently makes it 3.5 V,
+which a 3.3 V part can never reach.
+
+My first proposal was a 5 V HCT buffer in the SPI path. Rubén rejected it: *"if you know the esp32
+works at 3.3V, you must choose a compatible chip. Not throw more errors at my face!"* He is right —
+the part was never the problem, the supply choice was. Adding a buffer would have patched a decision
+instead of correcting it.
+
+**The change.** `U13`'s V_DD, `SHDN#`, VREFA and VREFB all tap one vertical wire fed by a single
+label, so moving that label from `+5V_REG` to `+3V3` moves all four pins at once. V_IH becomes
+0.7 × 3.3 = **2.31 V** and the ESP32 clears it with margin. `V_IL` max is 0.2 × V_DD, so the low side
+was never in question.
+
+Full scale drops from ~4.96 V to ~3.3 V, so the pressure amplifier's gain has to rise to compensate:
+**`R19` 1 kΩ → 2 kΩ**, giving U1A a gain of 3 and 3.3 × 3 = **9.9 V** at CN10.2 — the same range as
+before, since the LM358 only guarantees about 9 V on its 12 V rail anyway.
+
+**A defect I introduced and then caught.** `R35`, the `CS#` pull-up added hours earlier, referenced
+`+5V_REG` — correct when the DAC ran at 5 V, and wrong the moment it did not. Pulling `CS#` to 5 V
+against a 3.3 V V_DD exceeds the part's absolute maximum of V_DD + 0.3 V and forward-biases the input
+protection diode. Moved to `+3V3`. The rule that made the original choice right is the same rule that
+made it wrong after the supply moved: **a pull resistor references the rail of the chip it is holding,
+so it follows that chip's supply.**
+
+**Still open: the throttle.** `CMD_ACC` runs from VOUTA through the MAX4660 straight to CN10.1 with no
+gain stage, so at 3.3 V full scale it reaches about 66 % of the motor controller's 0–5 V input. The
+firmware repo's `spi-fix` branch has already worked this out — U1B, the LM358's idle second half, at
+gain 5/3.3 = 1.52 with Rf = 5.1 k, and lift U13 pin 14 before U1B drives that net. Not applied here:
+both LM358 halves share one supply pin, so U1B sits on 12 V and would feed a MAX4660 supplied from
+5 V.
+
+**Two corrections to my own reasoning along the way**, both Rubén's: the ESP32-S3 has no built-in DAC
+at all (which is why the board carries an MCP4922), and the MCP4922 driver does exist — on the
+firmware repo's `spi-fix` branch, commit `45580ff` "feat(mcp4922): implement the SPI write and add
+bench diagnostics". I had looked only at `dev`, which is the v1 PWM attempt, and concluded from its
+absence that no driver had ever been written.

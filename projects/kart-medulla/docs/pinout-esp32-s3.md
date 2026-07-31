@@ -354,7 +354,7 @@ onto PCF8574 P0 to free GPIO 36 and gain N8R8 compatibility), `2026-05-08`
 | Chip / signal | Type | NC input (manual) | NO input (autonomous) | COM output |
 |---|---|---|---|---|
 | **U14 MAX4660 (THR)** | analog 0–5 V | Manual throttle source | MCP4922 VOUTA = `CMD_ACC` | → AliExpress motor electronics |
-| **LM358 U1A, ×2 non-inverting** | analog 0–5 V in, 0–10 V out | (n/a — manual brake bypasses ESP32) | MCP4922 VOUTB = `CMD_PRES_DAC__0_5V` | → LM358 U1A (R19/R20 both 1 kΩ, gain 2) → `CMD_PRES__0_10V` → CN10.2 → Festo VPPM. **No mux on the PCB** — unlike the throttle there is no MAX4660 in this path, so the DAC always owns the command and the only way to release it is to write zero. |
+| **LM358 U1A, ×2 non-inverting** | analog 0–5 V in, 0–10 V out | (n/a — manual brake bypasses ESP32) | MCP4922 VOUTB = `CMD_PRES_DAC__0_5V` | → LM358 U1A (**R19 2 kΩ / R20 1 kΩ, gain 3** as of 2026-08-01, because U13 now runs from +3V3) → `CMD_PRES__0_10V` → CN10.2 → Festo VPPM. **No mux on the PCB** — unlike the throttle there is no MAX4660 in this path, so the DAC always owns the command and the only way to release it is to write zero. |
 | **U25 PCF8574T pin 4 / P0** | digital | Manual reverse button (in parallel) | I²C-controlled `CMD_REVERSE` (open-drain via PCF8574) | → kart-electronics-box REVERSE wire |
 
 The single MAX4660's SELECT pin is driven by ESP32 GPIO 15 (`SELECT_THROTTLE`)

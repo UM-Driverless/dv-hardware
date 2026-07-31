@@ -8792,7 +8792,7 @@
 		)
 		(uuid "8818126d-f982-44ff-9bd3-eb04103e6362")
 	)
-	(label "+5V_REG"
+	(label "+3V3"
 		(at 243.84 313.69 0)
 		(effects
 			(font
@@ -17338,7 +17338,7 @@
 				)
 			)
 		)
-		(property "Value" "1K"
+		(property "Value" "2K"
 			(at 383.54 289.56 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -22314,7 +22314,7 @@
 		)
 	)
 	(symbol
-		(lib_id "kart-medulla:+5V_REG")
+		(lib_id "kart-medulla:+3V3")
 		(at 462.28 251.46 0)
 		(unit 1)
 		(body_style 1)
@@ -22337,7 +22337,7 @@
 				)
 			)
 		)
-		(property "Value" "+5V_REG"
+		(property "Value" "+3V3"
 			(at 464.82 248.92 0)
 			(show_name no)
 			(do_not_autoplace no)
