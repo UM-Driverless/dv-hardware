@@ -78,3 +78,8 @@ this repo already has an assembled board plus a next revision in progress being 
 - The name goes **on the silkscreen**, in the KiCad title block, on the git tag, and on the
   `fab/<board>/<rev>/` folder. A board you cannot name by looking at it is a board you cannot debug
 - Never reuse a number. A respin after a fab error is a new number, not "v2 again"
+- **Whole integers only — no `v1.1`, no `v1.0.1`.** A revision that changes the board in ways the
+  previous one is not compatible with gets the next whole number. That is what the number is for:
+  it tells a reader whether hardware and firmware built against different numbers can be swapped.
+  Decimal versions imply a compatible tweak, which a fabricated board never is — any respin worth
+  ordering has changed the copper. Decided by Rubén, 2026-07-31

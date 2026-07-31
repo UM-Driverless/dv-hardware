@@ -79,6 +79,17 @@ assume. Nothing on disk backs it today: `fab/` is empty and the only tag is
 To close it: put the revision name on the silkscreen and in the schematic title block, and tag the
 next fab release `medulla-v2` (with `medulla-v2-fw` on the firmware repo, per `AGENTS.md`).
 
+**Silkscreen done 2026-07-31** (`b4fe1e2`): the board carries the revision name, `Design ID`, a
+9.45 mm QR and the digits `1604 0948 4608 5574`, right of CN5. DRC clean; the QR decodes from the
+plotted silkscreen. Still open: the KiCad title block, and the tag at fab time.
+
+**Spelling conflict to settle, introduced by that commit.** The silkscreen says `kart-medulla-v2`,
+but `docs/pcb-checklist.md` gives the examples as `medulla-v1` / `medulla-v2` and the only existing
+tag is `medulla-v0.1-converted`. Everything else calls the board `kart-medulla` — this folder, the
+firmware repo, the docs pages. One of the two spellings has to give, and whichever wins must be used
+for the silkscreen, the title block, the tag and the `fab/` folder together, or the four stop
+matching.
+
 ### V2 Hardware Improvements (Kart Medulla PCB)
 
 Moved to [`requirements.md`](requirements.md) on 2026-07-16 — requirements are durable, this list gets pruned as tasks complete. Scope a revision from that file; track the work here.
