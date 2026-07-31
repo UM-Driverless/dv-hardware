@@ -1620,3 +1620,68 @@ far under the IF = 5 mA point where the PC817's CTR is specified (80–160 % for
 phototransistor barely conducts. 330 Ω gives 6.4 mA — just above the characterised point, roughly
 5–10 mA of collector current — and costs an ESP32-S3 pin rated 28 mA nothing. That is the entire
 modification, and it is sound.
+
+## 2026-07-31 (late) — connector audit re-checked against the netlist; five doc errors found
+
+Prompted by Rubén: lots of tasks left, and the answers were not actionable. So instead of asking,
+three tasks that needed nobody else were worked: the brake-command documentation, the stale
+references in the connector audit, and the MAX4660 wiring check. Everything below comes from a fresh
+`kicad-cli sch export netlist` on the current schematic, not from re-reading the docs.
+
+### As-built connector map, 2026-07-31
+
+| | Pin 1 | Pin 2 | Pin 3 |
+|---|---|---|---|
+| CN1 | `+3V3` | `+12V` | `GND` |
+| CN2 | `MOTOR_HALL_3__5V` | `MOTOR_HALL_2__5V` | `+5V_REG` |
+| CN3 | `EXP_P1` | `EXP_P2` | `EXP_P3` |
+| CN4 | `SCL__I2C` | `SDA__I2C` | `REVERSE_WIRE` |
+| CN5 | `HYDRAULIC_2__0_5V` | `PRESSURE_3__0_10V` | `EXP_P4` |
+| CN6 | `PEDAL_BRAKE__0_5V` | `PEDAL_ACC__0_5V` | `+3V3` |
+| CN7 | `PRESSURE_1__0_10V` | `PRESSURE_2__0_10V` | `MOTOR_HALL_1__5V` |
+| CN8 | `SDC_IN_LOW_SIDE` | `BUZZER` (= compressor gate) | `CMD_STEER_DIR__3V3` |
+| CN9 | `CMD_STEER__PWM_3V3` | `HYDRAULIC_1__0_5V` | `GND` |
+| CN10 | `CMD_ACC__0_5V` | `CMD_BRAKE__0_10V` | `GND` |
+
+### What the audit had wrong
+
+1. **`SDC_IN_LOW_SIDE` was recorded on CN5. It is on CN8.1.** Already known and filed; now corrected
+   in place.
+2. **"CN8 / CN9 / CN10 have free slots if `EXP_P*` are reshuffled" — there are no free slots.** All
+   thirty pins are assigned. The only reshufflable pins on the whole board are `EXP_P1`–`EXP_P3` on
+   CN3 and `EXP_P4` on CN5.3.
+3. **`EXP_P1`–`EXP_P7` on CN8/CN9/CN10 — wrong on both counts.** They are on CN3 and CN5.3, and only
+   four exist: `EXP_P5`–`EXP_P7` are not nets in the schematic at all. Four pins is therefore the
+   board's entire spare capacity, and `SDC_ENABLE` and the encoder's power/ground are both competing
+   for it.
+4. **CN4 is worse than recorded.** The audit said "no GND; pins are SDA / SCL / +3V3". Actually its
+   pins are `SCL__I2C` / `SDA__I2C` / **`REVERSE_WIRE`** — so the steering encoder gets its two bus
+   lines and *neither* power nor ground, and nothing documents where those come from. Worth settling
+   during the WAGO footprint swap rather than after it, since the pole count is in play then.
+5. **"+12V on CN6, +5V from the LM2596 buck" — both wrong.** `+12V` is on **CN1.2** and feeds `U19`,
+   an **L7805CDT**. The buck was evaluated and never fitted.
+
+### Two open questions answered without asking anyone
+
+- **Where the motor halls' 5 V comes from:** the medulla supplies it. `CN2.3` exports `+5V_REG`, the
+  L7805's output, and the three hall sense lines sit on CN2.1, CN2.2 and CN7.3. The same pin can
+  instead accept an external 5 V tied onto the shared net. Remaining: a load check, since that
+  regulator's budget was written up as ~1 mA for the analog chips.
+- **`REVERSE_WIRE` and the I²C rename:** both already done. `REVERSE_WIRE` is on `CN4.3` (the task
+  proposed CN8), and the nets are `SDA__I2C` / `SCL__I2C` with no `STEER_` prefix. Marked done.
+
+### MAX4660 (U14)
+
+Schematic side re-verified and unchanged since 2026-05-07: COM=`CMD_ACC__0_5V`, NC=`PEDAL_ACC__0_5V`,
+NO=`CMD_ACC_ESP32__0_5V`, IN=`SELECT_THROTTLE`, V+=`+5V_REG`, pin 5 unconnected, GND/V−/EP to GND.
+ERC 0 violations. Nothing left in this repo — the remaining item is firmware driving GPIO 15.
+
+### Brake-command documentation
+
+Three lines corrected to describe the board as it now is: `CN10.2` exports **0–10 V** to the Festo
+VPPM after the LM358 ×2, not 0–5 V to the motor controller; the VOUTB row now separates the DAC-side
+0–5 V from the exported 0–10 V; and the signal-path table names the LM358 stage while keeping the
+"no mux" point, which is real — unlike the throttle there is no MAX4660 here, so the DAC always owns
+the command and the only release is writing zero. Also documented on CN10.3: the VPPM runs from a
+separate 24 V supply, so its 0 V must be common with the medulla's GND or the commanded pressure
+shifts by the offset.

@@ -426,7 +426,7 @@ Outcome to commit: a 1-line note in `docs/pinout` (or wherever pinout lives) say
 
 ### Triple-check MAX4660 (U14) throttle-mux wiring
 
-Current verified state (per netlist generated 2026-05-07): pin 1 COM=`CMD_ACC__0_5V`, pin 2 NC=`PEDAL_ACC__0_5V`, pin 3 GND=GND, pin 4 V+=`+5V_REG`, pin 5 NC=no-connect, pin 6 IN=`SELECT_THROTTLE`, pin 7 V−=GND, pin 8 NO=`CMD_ACC_ESP32__0_5V`, pin 9 EP=GND. ERC clean.
+**Schematic side is done — re-verified 2026-07-31 on a fresh netlist export and unchanged since 2026-05-07:** pin 1 COM=`CMD_ACC__0_5V`, pin 2 NC=`PEDAL_ACC__0_5V`, pin 3 GND=GND, pin 4 V+=`+5V_REG`, pin 5 NC=unconnected, pin 6 IN=`SELECT_THROTTLE`, pin 7 V−=GND, pin 8 NO=`CMD_ACC_ESP32__0_5V`, pin 9 EP=GND. ERC 0 violations. **Nothing further to check in this repo; what remains is firmware.**
 
 Outstanding doubts to resolve:
 - **`SELECT_THROTTLE` driver — RESOLVED on the schematic side 2026-07-10; firmware side still open.**
@@ -677,12 +677,12 @@ entry for that date). In the "External-connector audit (CN1–CN10)" section bel
 - Pin 13 signal labeled `SDC_NOT_EMERGENCY__3V3` everywhere (matching the schematic; the doc was updated to match).
 - All ESP32 SPARE / RESERVED pins have NC flags or `SPARE` text labels (Pins 8, 10, 11, 12, 16, 17, 36 — see `docs/pinout-esp32-s3.md`). DRC should report no unconnected-pin warnings.
 - ADC voltage dividers in place for: PEDAL_ACC (0–5 V → ~0–2.5 V), PEDAL_BRAKE (0–5 V), PRESSURE_1/2/3 (0–10 V → ~0–2.5 V), HYDRAULIC_1/2 (0–5 V). Each input also gets a small filter cap (100 nF) at the ADC pin.
-- Verify where the 5 V supply for the motor hall sensors comes from (`MOTOR_HALL_*__5V` nets on CN6/CN7). If it's external, the medulla connector just passes it through. If it's medulla-supplied, decide whether to feed from the on-board L7805 rail or add a separate 5 V source.
+- ~~Verify where the 5 V supply for the motor hall sensors comes from~~ — **answered 2026-07-31 from the netlist. It is medulla-supplied.** `CN2.3` carries the `+5V_REG` net, which is the output of `U19` (L7805CDT) fed from `+12V` on `CN1.2`. The halls themselves sit on `CN2.1`, `CN2.2` and `CN7.3`, so CN2 hands out both the supply and two of the three sense lines. Same net can instead take an external 5 V rail from outside — that is by design, not an accident. What remains is a load check: three hall sensors on a linear regulator whose budget was written up as ~1 mA for the analog chips alone.
 
 ### Add REVERSE_WIRE + needed signals to the green push-in connectors #ruben
 
-- Add `REVERSE_WIRE` (output of the BSS123 Q4 drain) to a connector pin. Empty CN8 is the natural choice. Confirm whether the manual reverse button is wired through the medulla too (would need a second pin + GND); if the button goes directly to the kart electronics box, just one pin suffices.
-- Rename `STEER_SDA__I2C` → `SDA__I2C` and `STEER_SCL__I2C` → `SCL__I2C` on CN4 (I²C bus is now shared with the PCF8574, not just the AS5600). [partially done 2026-05-04 — confirm and finish]
+- ~~Add `REVERSE_WIRE` to a connector pin~~ — **done, verified 2026-07-31: it is on `CN4.3`**, not CN8 as this task proposed. Still open: whether the manual reverse button is also wired through the medulla (that would need a second pin plus GND, and there is no free pin — see the connector audit). If the button goes straight to the kart electronics box, `CN4.3` alone is enough.
+- ~~Rename `STEER_SDA__I2C` → `SDA__I2C` and `STEER_SCL__I2C` → `SCL__I2C`~~ — **done, verified 2026-07-31**: the netlist carries `SDA__I2C` and `SCL__I2C` with no `STEER_` prefix anywhere.
 - Verify every signal in `docs/pinout-esp32-s3.md` that needs to leave the medulla actually has a connector pin. Cross-check: PEDAL_ACC, PEDAL_BRAKE, PRESSURE_1/2/3, HYDRAULIC_1/2, motor halls (×3), CMD_ACC, CMD_BRAKE, CMD_STEER_PWM, CMD_STEER_DIR, SDA, SCL, REVERSE_WIRE, manual reverse button (if needed), 12 V, GND.
 
 ### Lay out the medulla PCB (post-schematic, blocked on schematic finish) #ruben
@@ -827,23 +827,39 @@ Moved to this file → "Wire ASSI/AS-emergency buzzer on the BUZZER GPIO (old na
 
 Audited the 10× green push-in 3-pin connectors against the schematic and pinout doc on 2026-05-08.
 
+**As-built map, re-exported from the netlist 2026-07-31 — this is the authority for the corrections
+below.** All thirty pins are assigned; there is no free slot anywhere.
+
+| | Pin 1 | Pin 2 | Pin 3 |
+|---|---|---|---|
+| CN1 | `+3V3` | `+12V` | `GND` |
+| CN2 | `MOTOR_HALL_3__5V` | `MOTOR_HALL_2__5V` | `+5V_REG` |
+| CN3 | `EXP_P1` | `EXP_P2` | `EXP_P3` |
+| CN4 | `SCL__I2C` | `SDA__I2C` | `REVERSE_WIRE` |
+| CN5 | `HYDRAULIC_2__0_5V` | `PRESSURE_3__0_10V` | `EXP_P4` |
+| CN6 | `PEDAL_BRAKE__0_5V` | `PEDAL_ACC__0_5V` | `+3V3` |
+| CN7 | `PRESSURE_1__0_10V` | `PRESSURE_2__0_10V` | `MOTOR_HALL_1__5V` |
+| CN8 | `SDC_IN_LOW_SIDE` | `BUZZER` (= compressor gate) | `CMD_STEER_DIR__3V3` |
+| CN9 | `CMD_STEER__PWM_3V3` | `HYDRAULIC_1__0_5V` | `GND` |
+| CN10 | `CMD_ACC__0_5V` | `CMD_BRAKE__0_10V` | `GND` |
+
 **Definitely missing — must be added/decided before fab:**
 
 - **`SDC_ENABLE`** (ESP32 GPIO 39, drives the external SDC enable relay/contactor). Currently only a free-text annotation on the schematic ("SDC_ENABLE — orphan, expected from external module" near U24 pin 14). No wire, no label, no exit on any connector. Decide:
-  - Wire GPIO 39 to a label, route to a free pin on an existing 3-pin push-in (CN8 / CN9 / CN10 have free slots if EXP_P* are reshuffled), OR add a CN11.
+  - Wire GPIO 39 to a label and route it out. **There is no free pin.** Re-checked against the netlist 2026-07-31: all thirty pins on CN1–CN10 are assigned (map below). The only reshufflable pins are the expander outputs `EXP_P1`–`EXP_P3` on CN3 and `EXP_P4` on CN5.3, none of which has a documented kart-side function yet. So this needs either one of those four pins or a CN11.
   - Or: drop `SDC_ENABLE` entirely if the SDC relay is now driven from elsewhere (Orin? external module?). If dropped, also remove the row from `docs/pinout-esp32-s3.md` and the GPIO 39 assignment.
 
 **Verify (probably fine, but confirm with the schematic before fab):**
 
-- **CN4 (I²C bus to AS5600 steering encoder) has no GND.** Pins are SDA / SCL / +3V3. The AS5600 module needs 4 wires (VCC, GND, SCL, SDA). If GND is supplied via a separate cable / chassis return, document it. Cleaner: reshuffle so CN4 carries SDA / SCL / +3V3 / GND on a 4-pin connector, or split power onto a sibling connector and keep CN4 as 3-pin signal-only.
-- **`SDC_IN_LOW_SIDE` (on CN5) vs `SDC_NOT_EMERGENCY__3V3` (internal)** — confirm they're the same physical SDC sense signal at different voltage levels with a divider/level-shift in between. If they're separate nets that aren't bridged, the SDC readback path is broken.
+- **CN4 has neither GND nor power** — worse than this audit originally recorded. Re-checked 2026-07-31: its pins are `SCL__I2C` / `SDA__I2C` / **`REVERSE_WIRE`**, not SDA / SCL / +3V3. So the steering encoder (AS5600 or MT6701, still being chosen) gets *only* its two bus lines here and must take VCC and GND from somewhere else entirely, which nothing documents. Decide before the harness is built: a 4-pin or 5-pin connector for the encoder, or a sibling connector carrying +3V3 and GND. Note that fixing this collides with the WAGO swap — settle the pole count while that footprint change is being made, not after.
+- **`SDC_IN_LOW_SIDE` (on CN8.1, not CN5) vs `SDC_NOT_EMERGENCY__3V3` (internal)** — confirm they're the same physical SDC sense signal at different voltage levels with a divider/level-shift in between. If they're separate nets that aren't bridged, the SDC readback path is broken. (Connector corrected 2026-07-31 against the netlist: CN5 carries `HYDRAULIC_2__0_5V` / `PRESSURE_3__0_10V` / `EXP_P4`.)
 - **`MANUAL_THR` passthrough** — the manual throttle path requires `PEDAL_ACC__0_5V` (from CN5) to branch internally to (a) the ESP32 ADC divider and (b) the U14 MAX4660 NC pin. Confirm the schematic actually has both branches connected on the same net (earlier ERC audit suggests yes, but reverify after current PCB-layout work).
 
 **Defer / informational:**
 
-- **`EXP_P1`–`EXP_P7`** (PCF8574 outputs on CN8 / CN9 / CN10) currently have no documented kart-side function. Decide what each will drive (relays, indicators, valves, …) before final cable harness build, and document in `docs/pinout-esp32-s3.md`.
+- **`EXP_P1`–`EXP_P4`** (PCF8574 outputs on **CN3.1/2/3 and CN5.3**, not CN8/CN9/CN10) have no documented kart-side function. Only four of the expander's eight outputs reach a connector — `EXP_P5`–`EXP_P7` are not nets in the schematic at all. Decide what each of the four will drive before the harness is built, and document it in `docs/pinout-esp32-s3.md`. These four pins are also the only spare capacity on the whole board, so anything else that needs to get out (`SDC_ENABLE`, encoder power/ground) competes for them.
 - **External buzzer** — if the buzzer (currently dangling label, see "Design the buzzer circuit" task above) lives off-board, it needs a connector pin. If it's on-board, no connector entry needed.
-- **5V power input** — the medulla currently takes +12V on CN6 and (presumably) derives +5V on-board via the LM2596SX-ADJ buck. Confirm the LM2596 instance is actually placed and routed (not just stocked) before fab.
+- ~~**5V power input**~~ — **settled 2026-07-31 against the netlist.** `+12V` comes in on **CN1.2**, not CN6. It feeds `U19`, an **L7805CDT** linear regulator (not the LM2596SX-ADJ buck, which was evaluated and never fitted), whose output is the `+5V_REG` net. That rail is exported on **CN2.3**, which is where the motor hall sensors get their 5 V — so the hall supply is medulla-supplied, not a pass-through. The same pin can instead accept an external 5 V rail tied onto `+5V_REG`; the net is shared by design.
 
 ### In Progress (as moved)
 

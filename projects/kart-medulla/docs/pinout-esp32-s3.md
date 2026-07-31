@@ -234,7 +234,7 @@ the firmware is written; the point of this section is that someone probing the b
 | VREFA | 5V via RC filter | 100 Ω series + 10 µF ceramic to GND, placed next to chip |
 | VREFB | 5V via RC filter | 100 Ω series + 10 µF ceramic to GND (can share filter node) |
 | VOUTA | CMD_ACC | Accelerator analog command (0-5V) → motor controller |
-| VOUTB | CMD_BRAKE | Brake analog command (0-5V) → brake valve driver |
+| VOUTB | CMD_BRAKE | Pressure command, **0–5 V at the DAC pin**. It does not leave the board at that level: U1A (LM358) amplifies it ×2 and CN10.2 exports **0–10 V** to the Festo VPPM proportional regulator. |
 
 RC filter purpose: attenuates ~150 kHz switching ripple from the XW-1224 buck
 by ~60 dB at the DAC reference pins. DAC VREF draws <100 µA so the 100 Ω
@@ -291,7 +291,7 @@ onto PCF8574 P0 to free GPIO 36 and gain N8R8 compatibility), `2026-05-08`
 | Chip / signal | Type | NC input (manual) | NO input (autonomous) | COM output |
 |---|---|---|---|---|
 | **U14 MAX4660 (THR)** | analog 0–5 V | Manual throttle source | MCP4922 VOUTA = `CMD_ACC` | → AliExpress motor electronics |
-| **No chip — direct DAC output** | analog 0–5 V | (n/a — manual brake bypasses ESP32) | MCP4922 VOUTB = `CMD_BRAKE` | → brake valve driver (no mux on PCB) |
+| **LM358 U1A, ×2 non-inverting** | analog 0–5 V in, 0–10 V out | (n/a — manual brake bypasses ESP32) | MCP4922 VOUTB = `CMD_BRAKE` | → LM358 U1A (R19/R20 both 1 kΩ, gain 2) → CN10.2 → Festo VPPM. **No mux on the PCB** — unlike the throttle there is no MAX4660 in this path, so the DAC always owns the command and the only way to release it is to write zero. |
 | **U25 PCF8574T pin 4 / P0** | digital | Manual reverse button (in parallel) | I²C-controlled `CMD_REVERSE` (open-drain via PCF8574) | → kart-electronics-box REVERSE wire |
 
 The single MAX4660's SELECT pin is driven by ESP32 GPIO 15 (`SELECT_THROTTLE`)
