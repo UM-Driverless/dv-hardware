@@ -39,7 +39,8 @@ def module_matrix(pid: str) -> list[list[int]]:
     return [[int(bit) for bit in row] for row in qr.matrix]
 
 
-def footprint(pid: str, name: str, module_mm: float, text_mm: float) -> str:
+def footprint(pid: str, name: str, module_mm: float, text_mm: float,
+              caption_lines: list[str] | None = None) -> str:
     matrix = module_matrix(pid)
     n = len(matrix)
     span = n * module_mm
@@ -62,7 +63,16 @@ def footprint(pid: str, name: str, module_mm: float, text_mm: float) -> str:
                 f'(stroke (width 0) (type solid)) (fill solid) (layer "F.SilkS"))'
             )
 
-    label_y = y0 + span + text_mm * 1.6
+    # Caption below the symbol, stacked so the block stays no wider than the QR itself. A single
+    # "Design ID: 1604 0948 4608 5574" line runs ~25 mm — three times the symbol — which wastes board
+    # and forces the whole footprint into a wide slot no layout has spare.
+    caption = caption_lines or ["Design ID", grouped(pid)]
+    pitch = text_mm * 1.7
+    labels = "\n".join(
+        f'  (fp_text user "{line}" (at 0 {y0 + span + pitch * (i + 1):.4f}) (layer "F.SilkS")\n'
+        f'    (effects (font (size {text_mm} {text_mm}) (thickness 0.15))))'
+        for i, line in enumerate(caption)
+    )
     body = "\n".join(polys)
     return f'''(footprint "{name}"
   (version 20241229)
@@ -76,8 +86,7 @@ def footprint(pid: str, name: str, module_mm: float, text_mm: float) -> str:
   (fp_text value "{name}" (at 0 {y0 - text_mm * 3.2:.4f}) (layer "F.Fab") hide
     (effects (font (size {text_mm} {text_mm}) (thickness 0.15))))
 {body}
-  (fp_text user "Design ID: {grouped(pid)}" (at 0 {label_y:.4f}) (layer "F.SilkS")
-    (effects (font (size {text_mm} {text_mm}) (thickness 0.15))))
+{labels}
 )
 '''
 
@@ -90,6 +99,8 @@ def main() -> None:
                     help="Footprint library directory, relative to the repo root")
     ap.add_argument("--module-mm", type=float, default=0.4, help="Size of one QR module in mm")
     ap.add_argument("--text-mm", type=float, default=1.0, help="Height of the digits line in mm")
+    ap.add_argument("--caption", default=None,
+                    help="Caption lines below the QR, separated by | (default: 'Design ID|<grouped id>'). Board setup may impose a minimum silk text height — KiCad DRC reports it as text_height.")
     args = ap.parse_args()
 
     pid = args.design_id.replace(" ", "")
@@ -99,7 +110,8 @@ def main() -> None:
     lib = REPO_ROOT / args.library
     lib.mkdir(parents=True, exist_ok=True)
     out = lib / f"{args.name}.kicad_mod"
-    out.write_text(footprint(pid, args.name, args.module_mm, args.text_mm))
+    lines = args.caption.split('|') if args.caption else None
+    out.write_text(footprint(pid, args.name, args.module_mm, args.text_mm, lines))
 
     n = len(module_matrix(pid))
     print(f"Design ID : {pid}  ({grouped(pid)})")
