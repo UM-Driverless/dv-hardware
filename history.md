@@ -1394,3 +1394,79 @@ because the rework is recorded on the page it resolves to.
 (`kart-docs/docs/p/1604094846085574.md`). The v2 silkscreen should carry that number as text plus its
 QR. The existing fabricated board (`84d6dd0`) predates all of this and has no silkscreened ID, so it
 takes a sticker — and a sticker can carry the hash directly, since a sticker is not in the board file.
+
+## 2026-07-31 (later) — seven of the eight open contradictions closed
+
+Rubén: "tell me in simple terms the contradictions. we have to solve them now." Below is what each
+turned out to be and how it was closed. Only number 7 is still open.
+
+### Closed without a decision — they were factual errors, not choices
+
+**1 — `history.md` ordering.** `AGENTS.md` said "Newest entries first"; this file has always been
+oldest-first, appended at the bottom, which is what global `~/.claude/CLAUDE.md` specifies. The
+instruction was wrong. `AGENTS.md` now says "Append to the end — oldest entry first, newest last".
+
+**2 — references to `.agents/tasks.md`, a file that no longer exists.** Rubén's ruling: a dated log
+is allowed to be out of date at the top, that is what the name means. Written into `AGENTS.md` as a
+standing policy and into global `~/.claude/CLAUDE.md` as a general one: **dated entries are never
+edited to match later reality.** A path or decision named in an old entry was accurate on its date;
+when it moves or is reversed, the newer entry says so and the old one stays as written. Stale paths
+in `history.md` and `.agents/error-log.md` are not inconsistencies and should not be filed as such.
+
+**4 — L7805 linear vs LM2596SX-ADJ buck.** Not a real disagreement once checked against the
+schematic: `U19` is an **L7805CDT** in a DPAK, so the linear part is what is fitted, and the LM2596
+(8 in stock) was an alternative never taken. The power-architecture diagram in
+`docs/pinout-esp32-s3.md` had described the choice as open; it now names the L7805 as fitted, and the
+datasheet list carries both with the LM2596 marked "evaluated, not fitted".
+
+### Closed by a decision from Rubén
+
+**5 — does compressor motor power come on-board?** *Signals only for now; power on-board in a future
+revision.* v2 routes the compressor's gate signal to a terminal and nothing else; the MOSFET, its
+flyback diode and the bulk capacitance stay off-board. This **reverses the 2026-07-18 directive**
+("integrate it — fewer wires running between boxes and bolted-on PCBs"), so the task
+"Design the compressor MOSFET drive on-board for medulla-v2" was retitled and deferred to the later
+power-section revision, with a note asking Rubén to confirm the reversal.
+
+Rubén asked for the connector to be checked against the load. Measured compressor current is **6 A
+running at 60 % duty** (bench, 2026-07-18):
+
+| Connector | Rated | Verdict against 6 A |
+|---|---|---|
+| Phoenix Contact 1990012 (PTSA 0,5/3-2,5-Z) — fitted as CN1–CN10 | **2 A** @ 250 V, 0.5 mm² | **No** — 3× under, before any inrush |
+| WAGO 2601-3103 — the team's stocked standard | **17.5 A**, 1.5 mm² | Yes, comfortable |
+| Deutsch **DT**, size-16 contacts | 13 A continuous | Yes |
+| Deutsch **DTM**, size-20 contacts | 7.5 A continuous | Marginal |
+
+Ratings checked 2026-07-31 against the manufacturer/distributor pages, all cited in the new
+`docs/connectors.md`, which is now the cross-board home for connector ratings. **The Deutsch DT
+family is the team standard for harness connectors** (Rubén, 2026-07-31) — that fact was nowhere in
+this repo or in `~/dv/` before today. Soldering the wire straight to the board is an accepted
+fallback. Locked-rotor inrush has never been measured and must be, before that revision is designed;
+it is what sizes the MOSFET, the flyback path and the copper. Rubén's emphasis, recorded verbatim in
+substance: **the traces must be properly sized** — the ~1 mA copper `+12V` and the motor return carry
+today is the actual blocker, and a bigger connector in front of undersized copper just moves the
+failure.
+
+**6 — two pressure channels or three?** *Three.* This overrides the 2026-07-18 reading that dropped
+it to two. `PRESSURE_3`'s old pin (GPIO 1, CN5.2) stays with the steering sensor, so v2 must give the
+third pressure channel a **new** ADC-capable GPIO, its own 0–10 V divider and a terminal pin. New
+task on the board list; `requirements.md` amended in three places, including the V1 line that had
+been marked down to two.
+
+**8 — is the assembled board `medulla-v1`?** *Yes*, so the next revision is `medulla-v2` — which is
+what the docs already assumed. Nothing on disk backs it (`fab/` is empty, the only tag is
+`medulla-v0.1-converted`), so the task is now to put the name on the silkscreen and in the title
+block and to tag the next fab release.
+
+### Still open
+
+**7 — the 4th copy of the PCB checklist**, in the team Drive at
+`formula/formula_24-25-26/el/pcb-checklist.md`, stale since 2024-12-04. Rubén wants exactly one copy
+and ruled out a symlink, which Drive handles badly. No symlink is needed: replacing that file's
+contents with the single public URL
+<https://github.com/UM-Driverless/dv-hardware/blob/main/docs/pcb-checklist.md> is a pointer, not a
+second copy, and the repo is public so no GitHub account is required to follow it. Blocked on two
+things: `el/` belongs to the whole electronics section rather than Driverless, so overwriting a file
+there needs its owner's agreement; and the Drive integration available here can read and create but
+cannot delete or overwrite, so it is a manual edit either way.

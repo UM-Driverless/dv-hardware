@@ -36,39 +36,28 @@ with no date, author note, or surrounding context, and it has two readings that 
 
 Rubén: say which, then either delete this or write it up properly.
 
-### Contradictions left open on 2026-07-16 — read before trusting any doc below
+### Restore the third pressure channel on a new pin (V2) #ruben
 
-Found during the tasks.md consolidation (`history.md` 2026-07-16) and moved here from the root board
-on 2026-07-31, because all four are about this board. **Until one is closed, the files named disagree
-with each other — don't treat either side as authoritative.** The numbering is the root board's
-original 1–8 and is kept because `history.md` refers to these items by number; 1, 2, 3 and 7 are
-repo-level and stayed in `dv-hardware/tasks.md`.
+Decided 2026-07-31. Three 0–10 V pressure inputs stay a requirement, overriding the 2026-07-18
+reading that dropped it to two. On the as-built board `PRESSURE_3` (GPIO 1, CN5.2) was repurposed to
+read the steering sensor's PWM angle output, and that repurpose stands — so the third pressure
+channel needs a **new** home, not GPIO 1 back.
 
-**Contradiction 4 — L7805 linear vs LM2596SX-ADJ buck.** The task "Add L7805 on-board linear
-regulator (12 V → 5 V)" below specifies an L7805 (decision 2026-05-02); the power-architecture
-diagram in [`docs/pinout-esp32-s3.md`](docs/pinout-esp32-s3.md) shows an LM2596SX-ADJ. One is stale.
-Settle it while the power section is open.
+Needs, all three together: an ADC-capable GPIO that isn't a strap pin, a 0–10 V divider in front of
+it, and a terminal pin to reach it. Scope it alongside the steering sensor's own pin choice (see the
+V2 item in [`requirements.md`](requirements.md)) so the two don't end up competing for the same GPIO
+— the steering sensor may want SSI/SPI rather than PWM depending on which part is chosen
+(AS5600 / MT6701 / MA732 are all still under evaluation).
 
-**Contradiction 5 — compressor power path.** Three V2 improvement items (MOSFET, flyback diode, bulk
-caps) assume the board carries motor power. It does not: `+12V` enters at CN1 pin 2, feeds only the
-on-board regulator for the logic/analog rail at roughly 1 mA, and its tracks are sized for that. The
-full working, and the decision it forces (does the compressor power path come on-board at all?), is
-in [`requirements.md`](requirements.md) under "Contradictions to resolve before V2", item 3.
+### Put `medulla-v1` on the assembled board, and name the next one `medulla-v2` #ruben
 
-**Contradiction 6 — `PRESSURE_3` repurpose vs the 3× pressure-sensor requirement.** The built board
-reads the steering sensor's PWM angle output on GPIO 1 / CN5.2, the pin named and silkscreened for a
-third pressure sensor. Recorded in [`requirements.md`](requirements.md) as resolved-in-substance on
-2026-07-18 (the repurpose is deliberate and the third pressure sensor is dropped), leaving tidy-up
-work rather than a decision — see the V2 item "make the steering-sensor input a first-class signal".
-Confirm two pressure channels is genuinely enough before the ADC dividers are finalised; the third
-pin is not coming back.
+Confirmed 2026-07-31 (Rubén): the assembled EasyEDA-origin board **is** `medulla-v1`, so the next
+revision is `medulla-v2` — which is what `../../docs/pcb-checklist.md` and this task list already
+assume. Nothing on disk backs it today: `fab/` is empty and the only tag is
+`medulla-v0.1-converted`.
 
-**Contradiction 8 — `medulla-v1` vs `medulla-v2` numbering is an assumption, not a confirmed fact.**
-`../../docs/pcb-checklist.md` and this task list both name the next revision `medulla-v2`, reading the
-"V2 Hardware Improvements" heading as authoritative and treating the assembled EasyEDA-origin board as
-v1. But `fab/` is empty and the only tag is `medulla-v0.1-converted`, so nothing on disk confirms the
-assembled board is "v1". Rubén: confirm the mapping, then put the name on the silkscreen and the title
-block.
+To close it: put the revision name on the silkscreen and in the schematic title block, and tag the
+next fab release `medulla-v2` (with `medulla-v2-fw` on the firmware repo, per `AGENTS.md`).
 
 ### V2 Hardware Improvements (Kart Medulla PCB)
 
@@ -78,11 +67,20 @@ Two moved items **contradict** other requirements and are flagged there rather t
 
 The connector-rotation item also restates the "Flip all ten CN connectors 180°" task below — same change, two entries. Kept the task, moved the requirement.
 
-### Design the compressor MOSFET drive on-board for medulla-v2 #ruben
+### Design the compressor MOSFET drive — deferred past v2, kept for the power-section revision #ruben
 
-Raised 2026-07-18 after the EBS compressor was bench-run for the first time. Rubén's directive for
-this revision: **integrate it — fewer wires running between boxes and bolted-on PCBs.** So the
-switching stage comes onto the medulla board rather than staying an external module.
+**Not v2 work any more.** Raised 2026-07-18, when Rubén's directive was *integrate it — fewer wires
+running between boxes and bolted-on PCBs*, which put the switching stage on the medulla board. The
+2026-07-31 answer on the compressor power path supersedes that: **v2 carries the compressor's control
+signal only**, and motor power comes on-board in a later power-section revision. So everything below
+is the design for that later revision, not for v2. **Rubén: confirm this reading — it reverses your
+2026-07-18 directive.**
+
+What v2 does carry is the gate signal out to a terminal, which is already scoped in the GPIO 38/39
+routing task below. Before the later revision is designed, read
+[`../../docs/connectors.md`](../../docs/connectors.md): the compressor draws 6 A running, the
+Phoenix 1990012 terminals fitted to CN1–CN10 are rated 2 A, and locked-rotor inrush has never been
+measured.
 
 **Why the current arrangement fails.** The compressor is switched by an **IRLZ44N** whose gate is
 driven straight from a 3.3 V ESP32 pin. Measured on the bench (see `kart-medulla` repo `history.md`

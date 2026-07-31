@@ -18,43 +18,26 @@ fab process), stays on this file.
 
 ## TODO
 
-### Resolve contradictions left open on 2026-07-16 — read before trusting any doc below
+### Settle the 4th copy of the PCB checklist, in the team Google Drive #ruben
 
-Opened or found during the tasks.md consolidation (`history.md` 2026-07-16). Each needs a decision from
-Rubén. **Until one is closed, the files listed disagree with each other — don't treat either side as
-authoritative.** Numbering is kept stable because `history.md` refers to these items by number; the
-board-specific ones now live in the kart-medulla task board and are left here as pointers only.
+The last of the eight contradictions opened on 2026-07-16 (`history.md` that date); the other seven
+were closed on 2026-07-31 — see the `history.md` entry for that day, and the kart-medulla task board
+for the four that were board-specific.
 
-1. **`AGENTS.md` says "Newest entries first" for `history.md`; the file is oldest-first** (entries
-   run 2026-05-03 → newest appended at the bottom, which is what global `~/.claude/CLAUDE.md`
-   specifies). The instruction is wrong, not the file. Fix the instruction, or reverse the file.
-2. **`.agents/tasks.md` no longer exists but is still named** in two `history.md` entries and one
-   `.agents/error-log.md` entry. Left deliberately — dated append-only records that were accurate
-   when written. Decide whether that's the standing policy for stale paths in logs; if so, write it
-   into `AGENTS.md` so nobody "fixes" them later. The 2026-07-31 move described in item 3 leaves more
-   of these, so this decision now covers a larger set of files.
-3. ~~**Per-board `projects/<board>/tasks.md` vs this root `tasks.md`**~~ **RESOLVED 2026-07-31,
-   reversing the 2026-07-16 decision.** The 2026-07-16 call was one `tasks.md` per repo at the root,
-   with big clusters in `tasks/<name>.md` linked from it. Two weeks of use showed the split leaked:
-   the root board declared itself cross-board-only while carrying four kart-medulla items, one of
-   which ("flip CN3 and CN4") duplicated a task already in the board file. Rubén's call 2026-07-31:
-   **each board's task list lives in its own project folder** as `projects/<board>/tasks.md`, and this
-   root file is the cross-board board plus the index of them. `tasks/kart-medulla.md` →
-   `projects/kart-medulla/tasks.md`; the `tasks/` folder is gone.
-4. **L7805 linear vs LM2596SX-ADJ buck** — kart-medulla item, see "Contradiction 4" in
-   [`projects/kart-medulla/tasks.md`](projects/kart-medulla/tasks.md).
-5. **Compressor power path** — kart-medulla item, see "Contradiction 5" in
-   [`projects/kart-medulla/tasks.md`](projects/kart-medulla/tasks.md).
-6. **PRESSURE_3 repurpose vs the 3× pressure-sensor requirement** — kart-medulla item, see
-   "Contradiction 6" in [`projects/kart-medulla/tasks.md`](projects/kart-medulla/tasks.md).
-7. **A 4th copy of the PCB checklist lives outside this repo**, in the team Google Drive at
-   `formula/formula_24-25-26/el/pcb-checklist.md` — stale (last modified 2024-12-04, heading still
-   says "formula 23-24") and now superseded by `docs/pcb-checklist.md`. Not deleted: the `el/` folder
-   belongs to the whole electronics section, not just DV, so removing it is not this repo's call.
-   Decide whether to delete it or replace its contents with a pointer here.
-8. **`medulla-v1` vs `medulla-v2` numbering is an assumption, not a confirmed fact** — kart-medulla
-   item, see "Contradiction 8" in
-   [`projects/kart-medulla/tasks.md`](projects/kart-medulla/tasks.md).
+`docs/pcb-checklist.md` in this repo is the live checklist. A stale 4th copy sits in the team Google
+Drive at `formula/formula_24-25-26/el/pcb-checklist.md` — last modified 2024-12-04, heading still says
+"formula 23-24". Rubén wants exactly one copy and no duplicates, and rejected a symlink because Drive
+does not handle them.
+
+**No symlink is needed.** Replace that file's whole contents with a single line pointing at
+<https://github.com/UM-Driverless/dv-hardware/blob/main/docs/pcb-checklist.md>. The repo is public, so
+anyone on the team opens it without a GitHub account, and a one-line file is a pointer rather than a
+second copy. Two things to settle before doing it:
+
+1. The `el/` folder belongs to the whole electronics section, not just Driverless, so overwriting a
+   file there is not this repo's call to make unilaterally. Rubén: check with whoever owns `el/`.
+2. The Claude Drive integration can read and create but **cannot delete or overwrite**, so this is a
+   manual edit in the Drive web UI, not something an agent can do.
 
 ### Buy WAGO 2601 PCB terminal blocks (2-pole + 3-pole)
 

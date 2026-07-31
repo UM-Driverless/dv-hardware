@@ -234,10 +234,11 @@ Kart 12V battery ─┬─→ XW-1224 buck (external, 5A) ──→ 5V kart-wide
                   │                                   │
                   │                                   └→ other kart 5V loads
                   │
-                  ├─→ LM2596SX-ADJ buck (on-PCB, qty 8 in stock) ──→ alternative 5V rail
-                  │   feeds ESP32 + MAX4660 Vcc when the kart-wide XW-1224 rail is not available.
-                  │   (The medulla can be powered from either the kart-wide 5V rail via H1.21 or
-                  │   from an on-board LM2596 buck; final source is decided at integration time.)
+                  ├─→ L7805CDT linear regulator (U19, DPAK) ──→ the on-board +5V_REG rail.
+                  │   THIS IS WHAT IS FITTED. Feeds MCP4922 VDD/VREF and MAX4660 V+ — about
+                  │   1 mA total, 7 mW of heat, so a linear part is fine here. An LM2596SX-ADJ
+                  │   buck (qty 8 in stock) was the alternative and was NOT taken; settled
+                  │   2026-07-31 against the schematic, where U19 = L7805CDT.
                   │
                   └─→ Cytron H-bridge 12V (steering driver) — permanently powered, NOT gated by
                       the manual/autonomous mode switch. Decision 2026-05-01: routing the Cytron
@@ -317,7 +318,8 @@ Other signals related to this design:
 Datasheets live in the shared `dv/datasheets/` folder (one canonical copy per part, indexed in `dv/datasheets/README.md`). Per-board project folders hold integration-specific docs only (e.g. `kart/kart-medulla/resources/esp32-s3-devkitc-1/` keeps mechanical drawings + the local clone-vendor PDF, not the chip datasheet itself).
 
 - **MAX4660EUA+T**: `dv/datasheets/max4660_analogdevices_datasheet.pdf` (mirrored 2026-05-02; canonical URL <https://www.analog.com/media/en/technical-documentation/data-sheets/MAX4659-MAX4660.pdf>).
-- **LM2596SX-ADJ**: `dv/datasheets/lm2596_ti_datasheet.pdf` (mirrored 2026-05-02).
+- **L7805CDT** (U19, the fitted 12 V → 5 V regulator): <https://item.szlcsc.com/datasheet/L7805CDT/21968527.html>.
+- **LM2596SX-ADJ** (evaluated, not fitted): `dv/datasheets/lm2596_ti_datasheet.pdf` (mirrored 2026-05-02).
 
 ---
 

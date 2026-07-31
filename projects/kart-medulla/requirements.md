@@ -22,9 +22,10 @@ and is not independently confirmed. The board built from this brief exists and i
   arduino-style dupont
 - Read 3× 5 V digital from the motor hall sensors, level-translated to 3.3 V
 - Read 3× 0–10 V analog from the Festo pressure sensors (voltage divider may suffice)
-  — **amended 2026-07-18: only 2 remain.** The third input (`PRESSURE_3`, GPIO 1, CN5.2) was
-  repurposed on the built board to read the steering sensor's PWM angle output. See the V2 item
-  below; this line is left as the original brief for the record.
+  — **still three. Confirmed 2026-07-31 by Rubén**, overriding the 2026-07-18 reading that dropped
+  it to two. On the as-built board only two work: `PRESSURE_3` (GPIO 1, CN5.2) was repurposed to
+  read the steering sensor's PWM angle output. That repurpose stands, so V2 must find the third
+  pressure channel a *new* GPIO, ADC divider and connector pin rather than take GPIO 1 back.
 - Write 5 V analog for the kart accelerator
 - Write the signal for the Festo actuators / servo braking
 - Hold a normally-open relay able to cut the shutdown circuit on condition
@@ -49,13 +50,12 @@ Moved here from the board's task list on 2026-07-16 so it outlives it.
 
 - **Rotate the push-in connectors** — wires exit outward, away from the board, and pin
   numbering runs co-directional with the CN numbering on each side
-- **On-board compressor MOSFET & cooling** — a second dedicated power MOSFET on the PCB to
-  drive the compressor, with a footprint that takes a heatsink
-- **Built-in flyback diode** — 3 A+ Schottky across the compressor motor output terminals, to
-  protect the MOSFET from the inductive spikes when disconnecting the motor
-- **Bulk capacitance on the 12 V rail** — large bulk electrolytics in the design (e.g. 2×
-  4700 µF 35 V in parallel) beside the compressor MOSFET, to stabilise 12 V and absorb
-  locked-rotor inrush
+- **Compressor: control signal only, not motor power** — decided 2026-07-31. V2 routes the
+  compressor's gate signal out to a terminal and nothing else; the MOSFET, its flyback diode and
+  the bulk capacitance stay off-board at the compressor, because the board's `+12V` is a ~1 mA
+  logic feed with copper sized for that. Bringing motor power on-board is wanted eventually but is
+  a power-section redesign — see "Contradictions to resolve before V2" item 3 below for what it
+  has to get right (copper sizing first, then a connector rated above the measured 6 A)
 - **Separate power/signal GND** — distinct net classes for Power GND (compressor, heavy
   actuators) and Signal GND (ESP32, logic)
 - **Reachable spare GPIOs** — bring at least two unassigned, PWM-capable, non-strap GPIOs out
@@ -90,8 +90,10 @@ does not do. For V2:
   than inherited from a pressure channel. Note the sensor itself is not settled — AS5600, MT6701
   and MA732 are all under evaluation (datasheets in the `kart-medulla` repo), and MT6701/MA732
   offer SSI/SPI as well as PWM, so the pin choice should not foreclose that.
-- **Confirm two pressure channels is genuinely enough** before the ADC dividers are finalised. If
-  a third is wanted later it needs a new pin, because this one is not coming back.
+- **Restore the third pressure channel on a new pin.** Decided 2026-07-31: three pressure inputs
+  remain a requirement, and GPIO 1 is not coming back, so V2 needs a different ADC-capable GPIO for
+  `PRESSURE_3`, its own 0–10 V divider, and a connector pin. Scope this alongside the steering
+  sensor's pin choice so the two don't compete for the same GPIO.
 
 ### Contradictions to resolve before V2 — do not action either item as written
 
@@ -101,38 +103,46 @@ Rubén decides.
 1. ~~**"Repurpose BUZZER for compressor PWM"**~~ — **RESOLVED 2026-07-18.** Not a conflict: the
    kart carries no buzzer or ASSI (formula vehicle only), so nothing was displaced. GPIO 3 /
    CN8.2 is the compressor's permanently and the `BUZZER` name on that net is historical.
-2. ~~**"Repurpose PRESSURE_3 for steering PWM"**~~ — **RESOLVED 2026-07-18.** Also not a conflict:
-   the repurpose is *already done on the built board*, deliberately. GPIO 1 / CN5.2 reads the
-   steering sensor's PWM angle output. The third pressure sensor is dropped; the V1 line above is
-   amended accordingly. What remains is not a decision but tidy-up work — see the V2 item below.
+2. ~~**"Repurpose PRESSURE_3 for steering PWM"**~~ — **RESOLVED 2026-07-31**, refining the
+   2026-07-18 answer. The repurpose itself is not a conflict: it is *already done on the built
+   board*, deliberately, and GPIO 1 / CN5.2 reads the steering sensor's PWM angle output. What the
+   2026-07-18 note got wrong was concluding the third pressure sensor is dropped. Rubén 2026-07-31:
+   **three pressure channels stay a requirement.** So V2 keeps the steering sensor on its own pin
+   *and* provisions a new GPIO, divider and terminal for `PRESSURE_3`. Both V2 items above are
+   written accordingly.
 
-3. **The three compressor items (MOSFET, flyback diode, bulk caps) assume the board carries
-   motor power. It does not.** Raised by Rubén 2026-07-16. `+12V` enters at CN1 pin 2 and only
-   feeds the on-board regulator for the logic/analog rail — roughly **1 mA, 7 mW**. The
-   compressor MOSFET switches low-side, so the motor's + terminal is fed from the battery
-   externally and only the return passes through the board. Consequences:
-   - Bulk caps on the board's `+12V` would sit across a milliamp logic rail, outside the
-     inrush loop (battery → motor → MOSFET → GND → battery). They cannot absorb locked-rotor
-     inrush from there.
-   - A low-side flyback diode returns to the motor's +12 V, so placing it on-board puts amps of
-     freewheel current through a net sized for milliamps.
-   - **Track width is the concrete blocker.** `+12V` and the motor-return copper are drawn today
-     for a ~1 mA logic supply. Compressor current — and especially locked-rotor inrush — needs
-     tracks (or pours) sized for it, plus the via count to match. No amount of adding components
-     fixes a net whose copper is sized for a different job: any on-board compressor power path
-     starts with re-sizing `+12V`, the motor return, and their vias, and stating the design
-     current those are sized for.
+3. ~~**The three compressor items (MOSFET, flyback diode, bulk caps) assume the board carries
+   motor power. It does not.**~~ — **RESOLVED 2026-07-31 (Rubén): signals only for now, power
+   on-board later.** Raised 2026-07-16. `+12V` enters at CN1 pin 2 and only feeds the on-board
+   regulator for the logic/analog rail — roughly **1 mA, 7 mW**. The compressor MOSFET switches
+   low-side, so the motor's + terminal is fed from the battery externally and only the return would
+   pass through the board.
 
-   **The decision this forces: does the compressor power path come on-board at all?**
-   - *Signals only* — matches the board's own precedent for the steering driver: "The PCB only
-     routes signals (CMD_STEER_PWM, CMD_STEER_DIR) to the Cytron, not power" (see
-     `docs/pinout-esp32-s3.md`, power architecture). Flyback and bulk caps live at the
-     compressor. The three items collapse into the GPIO 38/39 routing task, already scoped.
-   - *Power on-board* — needs a high-current 12 V input terminal, heavy copper for `+12V` and
-     the motor return, a heatsinked MOSFET, then the flyback and bulk caps make sense. This is
-     a power-section redesign and should be scoped as one, not as improvement bullets.
+   **The decision.** The next revision carries the compressor's *control signal* only, matching the
+   board's existing precedent for the steering driver ("The PCB only routes signals
+   (CMD_STEER_PWM, CMD_STEER_DIR) to the Cytron, not power" — `docs/pinout-esp32-s3.md`). The
+   MOSFET, flyback diode and bulk capacitance stay off-board at the compressor. Motor power **is**
+   intended to come on-board in a later revision, so that revision is a power-section redesign
+   scoped as one job, not three improvement bullets bolted onto a signal board.
 
-   Unrelated discrepancy found while checking this: this board's `tasks.md` specifies an **L7805 linear**
-   regulator (decision 2026-05-02) while `docs/pinout-esp32-s3.md` power architecture shows an
-   **LM2596SX-ADJ buck**. One of the two is stale — worth settling while the power section is
-   open.
+   **What that later revision must get right,** decided at the same time:
+   - **Track and via sizing is the blocker, and it is the important part.** `+12V` and the motor
+     return are drawn today for a ~1 mA logic supply. They must be re-drawn (or poured) for a
+     stated design current, with the via count to match, and that current written down. No
+     component addition fixes copper sized for a different job.
+   - **The connector must be rated for the load.** The compressor measured **6 A running at 60 %
+     duty** (bench, 2026-07-18). The Phoenix 1990012 push-in terminals fitted to CN1–CN10 are rated
+     **2 A** — 3× under, so compressor current must not go through them. The **WAGO 2601-3103**
+     the team already stocks is rated **17.5 A** and clears it comfortably. If a sealed harness
+     connector is wanted instead, the team standard is the **Deutsch DT family** (DT size-16
+     contacts 13 A; DTM size-20 contacts 7.5 A, which is tight for this load). Soldering the wire
+     directly to the board is an accepted fallback. Ratings, sources and the worked example:
+     [`../../docs/connectors.md`](../../docs/connectors.md).
+   - **Measure locked-rotor inrush before designing it.** Only the running current is known. The
+     stall peak is what sizes the MOSFET, the flyback path and the copper.
+
+   Unrelated discrepancy found while checking this, now closed: the task list specified an **L7805
+   linear** regulator (decision 2026-05-02) while the `docs/pinout-esp32-s3.md` power architecture
+   showed an **LM2596SX-ADJ buck**. Settled 2026-07-31 against the schematic — `U19` is an
+   **L7805CDT** in a DPAK, so the L7805 is what is fitted and the LM2596 was an alternative never
+   taken. The pinout docs say so now.
