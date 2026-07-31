@@ -1751,3 +1751,25 @@ on-board compressor switching, 6 A copper sizing, third pressure channel on a ne
 having no exit, and the steering sensor becoming a first-class signal. The one thing that had *not*
 been written down until now is this decision itself — the individual changes were all recorded, but
 nothing said the board would be redone rather than edited.
+
+### What is actually left to settle the v2 schematic, checked 2026-07-31
+
+Three items from the "Finish medulla schematic" list were checked against the netlist rather than
+re-read, and two of them turned out to be already done:
+
+- **Title capitalisation** (`ESP32-S3-DevkitC-1` → `DevKitC-1`): done, no lowercase variant remains.
+- **SPARE / RESERVED pins flagged**: done. 24 unconnected pins across the design, all flagged, ERC
+  0 violations — `U24` 14, `U25` 4, `U13` 3, `U23` 2, `U14` 1.
+- **ADC filter caps: genuinely missing, on all seven analog inputs.** Every input does have its
+  divider (`PEDAL_ACC` R14/R15, `PEDAL_BRAKE` R16/R17, `HYDRAULIC_1` R24/R25, `HYDRAULIC_2` R26/R27
+  as two-resistor 0–5 V dividers; `PRESSURE_1` R11/R12/R13, `PRESSURE_2` R4/R6/R7, `PRESSURE_3`
+  R8/R9/R10 as three-resistor 0–10 V chains). But the board carries only six capacitors, C1–C6, and
+  all six are on power rails. No ADC node has one. The task list has asked for 100 nF at each ADC pin
+  since 2026-05; it was never done.
+
+**Spare capacity found while counting:** `U25` (PCF8574) pins 10, 11, 12 — `EXP_P5`–`EXP_P7` — are
+unconnected on the chip, as is `INT#` on pin 13. That is three more expander outputs available for
+free, which matters because the connector audit had concluded the board's spare capacity was four
+`EXP_P*` pins plus `CN8.2` freeing up on v2. They suit anything needing a slow on/off line —
+`SDC_ENABLE` above all — and suit nothing needing PWM, timing, analog, or supply current, since a
+write costs an I²C transaction.

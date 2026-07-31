@@ -713,11 +713,12 @@ entry for that date). In the "External-connector audit (CN1–CN10)" section bel
 
 ### Finish medulla schematic — verify every signal is wired and labeled correctly #ruben
 
-- Title: change `ESP32-S3-DevkitC-1` → `ESP32-S3-DevKitC-1` (capital K).
+- ~~Title: change `ESP32-S3-DevkitC-1` → `ESP32-S3-DevKitC-1` (capital K).~~ **Done** — verified 2026-07-31, the schematic already carries the capital K and no lowercase variant remains.
 - ESP32 header pin labels match the canonical names committed 2026-05-03: MOSI / CLK / CMD_DAC_CS (not OUT_SDI/SDK/CS).
 - Pin 13 signal labeled `SDC_NOT_EMERGENCY__3V3` everywhere (matching the schematic; the doc was updated to match).
-- All ESP32 SPARE / RESERVED pins have NC flags or `SPARE` text labels (Pins 8, 10, 11, 12, 16, 17, 36 — see `docs/pinout-esp32-s3.md`). DRC should report no unconnected-pin warnings.
-- ADC voltage dividers in place for: PEDAL_ACC (0–5 V → ~0–2.5 V), PEDAL_BRAKE (0–5 V), PRESSURE_1/2/3 (0–10 V → ~0–2.5 V), HYDRAULIC_1/2 (0–5 V). Each input also gets a small filter cap (100 nF) at the ADC pin.
+- ~~All ESP32 SPARE / RESERVED pins have NC flags or `SPARE` text labels.~~ **Done** — verified 2026-07-31: 24 unconnected pins across the design, all flagged, ERC reports 0 violations. Breakdown: `U24` 14 (the second ESP32 socket row), `U25` 4, `U13` 3, `U23` 2, `U14` 1.
+- **`EXP_P5`, `EXP_P6`, `EXP_P7` exist on the chip and are free** — `U25` (PCF8574) pins 10, 11, 12 are unconnected, as is `INT#` on pin 13. They are cheap extra capacity for anything that only needs a slow on/off line, `SDC_ENABLE` being the obvious candidate. They are **not** usable for the encoder's supply, for PWM, or for anything analog: they are I²C-driven expander outputs, so a write costs a bus transaction and they cannot be timed.
+- **Dividers: present on all seven inputs. Filter caps: missing on all seven.** Verified against the netlist 2026-07-31. Each 0–5 V input has a two-resistor divider (`PEDAL_ACC` R14/R15, `PEDAL_BRAKE` R16/R17, `HYDRAULIC_1` R24/R25, `HYDRAULIC_2` R26/R27) and each 0–10 V input a three-resistor chain (`PRESSURE_1` R11/R12/R13, `PRESSURE_2` R4/R6/R7, `PRESSURE_3` R8/R9/R10). But the whole board contains only **six capacitors, C1–C6, and every one is on a power rail** — none sits on an ADC node. Add 100 nF at each of the seven ADC pins in v2. This is schematic work that needs no decision from anyone and can be done before the pin table is settled, since it attaches to the existing divider nodes.
 - ~~Verify where the 5 V supply for the motor hall sensors comes from~~ — **answered 2026-07-31 from the netlist. It is medulla-supplied.** `CN2.3` carries the `+5V_REG` net, which is the output of `U19` (L7805CDT) fed from `+12V` on `CN1.2`. The halls themselves sit on `CN2.1`, `CN2.2` and `CN7.3`, so CN2 hands out both the supply and two of the three sense lines. Same net can instead take an external 5 V rail from outside — that is by design, not an accident. What remains is a load check: three hall sensors on a linear regulator whose budget was written up as ~1 mA for the analog chips alone.
 
 ### Add REVERSE_WIRE + needed signals to the green push-in connectors #ruben
