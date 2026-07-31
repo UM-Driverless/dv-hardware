@@ -32,7 +32,7 @@ Rework outstanding on this board:
 - **CN10.2 brake output is on the wrong side of the LM358.** The board carries the unamplified 0-5 V
   DAC output where the valve needs 0-10 V, and the U13.10 -> U1.3 copper (DAC to amplifier input) is
   unrouted. Fixed in the design by `f68cc1f`, which is *after* this board was made, so the board
-  still has the fault. Needs a physical patch — see `tasks/kart-medulla.md`.
+  still has the fault. Needs a physical patch — see [`tasks.md`](tasks.md).
 - **Throttle has no working output.** The MCP4922 SPI write was never implemented in firmware. If the
   filtered-PWM bypass is taken instead of fixing the firmware, that adds rework here: U13 pin 14
   lifted, and an RC network from the dev board's GPIO 38 to U14 pin 8. Decision tracked in the

@@ -1309,3 +1309,51 @@ path was what the surrounding layout had been designed around, and it is DRC-cle
 The four remaining items of the fix task in `tasks/kart-medulla.md` — the net rename to `CMD_PRES*`,
 the DAC full-scale check (and filing the MCP4922 datasheet), the three wrong documentation lines, and
 the continuity check on the assembled board — are unaffected by this commit and still stand.
+
+## 2026-07-31 — per-board task boards, reversing the 2026-07-16 one-file-per-repo rule
+
+On 2026-07-16 the kart-medulla task list was moved out of its project folder to `tasks/kart-medulla.md`
+under a rule of "exactly one `tasks.md` per repo, at the root, no exceptions; big clusters get a
+`tasks/<name>.md` linked from it". The stated reason was that a second file named `tasks.md` breeds
+duplicate and stale entries.
+
+Two weeks of use showed the split leaking in exactly the way the rule was meant to prevent. The root
+board declared at its "In Progress" heading that kart-medulla items live in the other file, while its
+TODO carried four of them: a bare "flip CN3 and CN4" line, which also existed as "Flip all ten CN
+connectors 180°" in the board file; "Patch the fabricated board for the CN10.2 brake fix"; and four of
+the eight numbered open contradictions (L7805 vs LM2596, compressor power path, `PRESSURE_3`,
+`medulla-v1`/`v2` naming). The duplication had not been prevented, only moved across a directory
+boundary. It also cut against this repo's own stated goal for project folders — a self-contained
+`git clone` (`AGENTS.md`, "Datasheets").
+
+Rubén's call, after asking why the board's tasks sat two directories away from the board: **each board
+keeps its own `projects/<board>/tasks.md`**, and the root `tasks.md` is the cross-board board plus the
+index of every per-board board. An unlinked task board is still invisible; that part of the old rule
+survives.
+
+Also asked at the same time: whether the `projects/` folder earns its level, since it holds one entry.
+Kept. The repo root is not mostly boards — it is `lib/` (shared symbols, footprints, 3D models),
+`fab/`, `docs/` (cross-board), `scripts/`, `.agents/` and `projects/`. Without the wrapper, a second
+and third board would list alongside the shared infrastructure. It looks redundant only because there
+is currently one board.
+
+What moved:
+
+- `git mv tasks/kart-medulla.md projects/kart-medulla/tasks.md` (history preserved); `tasks/` deleted.
+- The four kart-medulla items above moved from the root board into the board file. Contradiction
+  numbering is unchanged (1, 2, 3, 7 stayed at the root; 4, 5, 6, 8 moved) because entries in this
+  file refer to them by number; the root keeps one-line pointers so the numbers still resolve.
+- "flip CN3 and CN4" was not merged into the connector-rotation task. It arrived in `280a379` as a
+  bare line with no date or context and has two readings — rotate those two connectors 180° (a subset
+  of the existing task, so a duplicate) or swap their signal assignments (separate work). Filed in the
+  board's task list as a question for Rubén rather than silently resolved either way.
+- Path references updated in `AGENTS.md`, `README.md`, `docs/pcb-checklist.md`, and the board's
+  `README.md`, `parts.md`, `requirements.md` and `docs/pinout-cn-connectors.md`. References inside
+  this file and `.agents/error-log.md` were left alone — they are dated append-only records that were
+  accurate when written, which is the standing question in open contradiction 2.
+- The board task list's front-matter marker was `read in full — kept under 150 lines`, which the file
+  has not honoured for a long time (it is ~750 lines). Changed to `reference — read when working on
+  this board`.
+
+Global `~/.claude/CLAUDE.md` carried the 2026-07-16 rule as a general convention, so it was updated
+too; otherwise the next session would move the file back.

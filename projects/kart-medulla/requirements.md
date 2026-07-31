@@ -5,8 +5,8 @@
 What the board must do. Durable: survives revisions and task pruning.
 
 - **This file** = the target (what the board must do, what the next revision must add).
-- **`../../../tasks/kart-medulla.md`** = the work for this board (pruned as items are done).
-  The repo-wide board is the root `tasks.md`, which indexes it.
+- **`tasks.md`** (next to this file) = the work for this board (pruned as items are done).
+  The cross-board board is the repo root `tasks.md`, which indexes it.
 - **`pinout-esp32-s3.md` / `pinout-cn-connectors.md`** = the as-built pin-by-pin reality.
 
 Signals are named here, never pin-mapped — pin assignments live in the pinout docs only.
@@ -40,7 +40,7 @@ and is not independently confirmed. The board built from this brief exists and i
     that net is purely historical, and nothing needs to be found a new home before fab.
   - The buzzer parts already in inventory (CPT-407-105-L60 x5, RE46C100S8F x10) and the SPL
     bench-measurement work belong to the **formula vehicle**, not here. Kept in
-    `tasks/kart-medulla.md` marked not-applicable rather than deleted, so the research is not lost
+    `tasks.md` marked not-applicable rather than deleted, so the research is not lost
     if that vehicle needs it.
 
 ## V2 target — next revision
@@ -73,7 +73,7 @@ Moved here from the board's task list on 2026-07-16 so it outlives it.
   must not treat DAC full scale as 10 bar: the achievable maximum varies between boards, so any
   target above ~9 bar needs closed-loop control against a pressure sensor. Full working and the
   trade-off between the two fixes: "Give the pressure-command amplifier full 0–10 V swing on the
-  next board revision" in [`../../../tasks/kart-medulla.md`](../../../tasks/kart-medulla.md).
+  next board revision" in [`tasks.md`](tasks.md).
 
 ### V2 — make the steering-sensor input a first-class signal, not a repurposed one
 
@@ -132,7 +132,7 @@ Rubén decides.
      the motor return, a heatsinked MOSFET, then the flyback and bulk caps make sense. This is
      a power-section redesign and should be scoped as one, not as improvement bullets.
 
-   Unrelated discrepancy found while checking this: `tasks/kart-medulla.md` specifies an **L7805 linear**
+   Unrelated discrepancy found while checking this: this board's `tasks.md` specifies an **L7805 linear**
    regulator (decision 2026-05-02) while `docs/pinout-esp32-s3.md` power architecture shows an
    **LM2596SX-ADJ buck**. One of the two is stale — worth settling while the power section is
    open.

@@ -7,7 +7,9 @@ Firmware lives in [UM-Driverless/kart-medulla](https://github.com/UM-Driverless/
 ## Layout
 ```
 lib/                 shared symbols, footprints, 3D models — referenced by every project
-projects/<board>/    one folder per board (KiCad project + EasyEDA source archive)
+projects/<board>/    one folder per board (KiCad project, EasyEDA source archive,
+                     the board's requirements.md, tasks.md and docs/)
+tasks.md             cross-board tasks + the index of every per-board task board
 fab/<board>/<rev>/   released Gerbers, BOM, pick-and-place, JLC zip
 docs/                cross-board notes
 .agents/             agent-readable project knowledge (history, errors)

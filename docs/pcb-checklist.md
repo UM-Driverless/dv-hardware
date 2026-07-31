@@ -3,7 +3,7 @@
 # PCB checklist
 
 Applies to **every** board in this repo. Not a task list: it's the standing bar a revision has to
-clear. A board's `tasks/<board>.md` carries **one** finishable task — "pass this checklist for
+clear. A board's `projects/<board>/tasks.md` carries **one** finishable task — "pass this checklist for
 `<board>-vN`" — instead of copying these items out. Copying them into a task list is how four
 divergent copies of this checklist came to exist (see `history.md` 2026-07-16).
 

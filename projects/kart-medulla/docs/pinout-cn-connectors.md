@@ -43,7 +43,7 @@ CN1        CN2        CN3        CN4       CN5        CN6        CN7        CN8 
 1. **`BUZZ` on CN8.2 is an OLD name.** There is no buzzer on it. The net was repurposed to
    `CMD_COMPRESSOR_PWM` — GPIO 3 driving the EBS compressor MOSFET gate. Wherever `BUZZER` appears
    in this repo it should be read as *(old name)*. Note this collides with the rules-mandated ASSI
-   buzzer, which still needs a home — see `tasks/kart-medulla.md`.
+   buzzer, which still needs a home — see `projects/kart-medulla/tasks.md`.
 2. **`EXP_P2` is CN3.2, and always has been.** The exported netlist
    (`projects/kart-medulla/output/netlist.net`, dated 7 May) lists `CN8.2 → /EXP_P2`, which is
    **wrong** — that file is the known-stale export flagged in `tasks.md`, and it also shows Q3's and

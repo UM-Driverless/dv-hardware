@@ -1,10 +1,74 @@
-<!-- read in full — kept under 150 lines -->
+<!-- reference — read when working on this board; too long to load every task -->
 
 # kart-medulla — board-specific tasks
 
-Per-board task list. Higher-level/cross-board work lives in `dv-hardware/tasks.md` (repo root). Update status: `TODO → In Progress → Done`. Claim by adding `[YYYY-MM-DD <name>]`.
+This board's task list, indexed from the repo root board at `dv-hardware/tasks.md`, which carries only
+cross-board work. Update status: `TODO → In Progress → Done`. Claim by adding `[YYYY-MM-DD <name>]`.
 
 ## TODO
+
+### Patch the fabricated board for the CN10.2 brake fix #ruben
+
+Filed 2026-07-31. The design fix landed in `f68cc1f` and is marked DONE under "Fix the
+proportional-valve command path" below — but the board that exists was fabbed from `84d6dd0`, one
+commit earlier, so **the fault is still physically in the hardware**. Fixing the design does not fix
+the artifact, and nothing tracked that gap until now.
+
+On the assembled board: CN10.2 sits on the unamplified `CMD_BRAKE__0_5V` node instead of the LM358's
+×2 output, so the proportional valve is commanded over 0-5 V where it expects 0-10 V; and the
+U13.10 → U1.3 copper (MCP4922 channel B into the amplifier's non-inverting input) is unrouted,
+because six of that net's seven segments had been ripped up in KiCad.
+
+Needs a cut-and-jumper on the assembled board, not a respin. Rubén said 2026-07-31 this will be
+patched physically while the PCB is fixed. Record what was actually cut and jumpered in the rework
+list in [`README.md`](README.md) — a patched board no longer matches the hash printed on it, and that
+list is the only thing that will say so.
+
+### "flip CN3 and CN4" — what was meant? #ruben
+
+Carried over from the root board 2026-07-31. It arrived there as a bare one-line TODO in `280a379`
+with no date, author note, or surrounding context, and it has two readings that need different work:
+
+- **Rotate CN3 and CN4 by 180°**, which is a subset of "Flip all ten CN connectors 180°" below and
+  should be deleted as a duplicate.
+- **Swap the signal assignments between CN3 and CN4**, which is a separate change and would need its
+  own pinout and silkscreen updates.
+
+Rubén: say which, then either delete this or write it up properly.
+
+### Contradictions left open on 2026-07-16 — read before trusting any doc below
+
+Found during the tasks.md consolidation (`history.md` 2026-07-16) and moved here from the root board
+on 2026-07-31, because all four are about this board. **Until one is closed, the files named disagree
+with each other — don't treat either side as authoritative.** The numbering is the root board's
+original 1–8 and is kept because `history.md` refers to these items by number; 1, 2, 3 and 7 are
+repo-level and stayed in `dv-hardware/tasks.md`.
+
+**Contradiction 4 — L7805 linear vs LM2596SX-ADJ buck.** The task "Add L7805 on-board linear
+regulator (12 V → 5 V)" below specifies an L7805 (decision 2026-05-02); the power-architecture
+diagram in [`docs/pinout-esp32-s3.md`](docs/pinout-esp32-s3.md) shows an LM2596SX-ADJ. One is stale.
+Settle it while the power section is open.
+
+**Contradiction 5 — compressor power path.** Three V2 improvement items (MOSFET, flyback diode, bulk
+caps) assume the board carries motor power. It does not: `+12V` enters at CN1 pin 2, feeds only the
+on-board regulator for the logic/analog rail at roughly 1 mA, and its tracks are sized for that. The
+full working, and the decision it forces (does the compressor power path come on-board at all?), is
+in [`requirements.md`](requirements.md) under "Contradictions to resolve before V2", item 3.
+
+**Contradiction 6 — `PRESSURE_3` repurpose vs the 3× pressure-sensor requirement.** The built board
+reads the steering sensor's PWM angle output on GPIO 1 / CN5.2, the pin named and silkscreened for a
+third pressure sensor. Recorded in [`requirements.md`](requirements.md) as resolved-in-substance on
+2026-07-18 (the repurpose is deliberate and the third pressure sensor is dropped), leaving tidy-up
+work rather than a decision — see the V2 item "make the steering-sensor input a first-class signal".
+Confirm two pressure channels is genuinely enough before the ADC dividers are finalised; the third
+pin is not coming back.
+
+**Contradiction 8 — `medulla-v1` vs `medulla-v2` numbering is an assumption, not a confirmed fact.**
+`../../docs/pcb-checklist.md` and this task list both name the next revision `medulla-v2`, reading the
+"V2 Hardware Improvements" heading as authoritative and treating the assembled EasyEDA-origin board as
+v1. But `fab/` is empty and the only tag is `medulla-v0.1-converted`, so nothing on disk confirms the
+assembled board is "v1". Rubén: confirm the mapping, then put the name on the silkscreen and the title
+block.
 
 ### V2 Hardware Improvements (Kart Medulla PCB)
 
@@ -94,7 +158,7 @@ IR drop, and the arithmetic closes:
 | A 0.25 mm x 50 mm 1 oz trace | **96 mOhm → 0.77 V at 8 A** |
 
 The compressor MOSFET switches low-side **on this board**, so the full ~8 A return crosses ground
-copper drawn for a ~1 mA logic feed (see [`requirements.md`](../projects/kart-medulla/requirements.md)).
+copper drawn for a ~1 mA logic feed (see [`requirements.md`](requirements.md)).
 That lifts the ESP32's ground relative to the sensor's reference, and since the ADC reads
 `sensor_out − esp32_gnd`, the reading falls. Same mechanism as the USB brownouts.
 
@@ -531,7 +595,7 @@ entry for that date). In the "External-connector audit (CN1–CN10)" section bel
 
 ### Pass the PCB checklist for `medulla-v2` #ruben
 
-One finishable task: walk [`docs/pcb-checklist.md`](../docs/pcb-checklist.md) end to end against
+One finishable task: walk [`docs/pcb-checklist.md`](../../docs/pcb-checklist.md) end to end against
 `medulla-v2` and tick every box. Done = every item passes, the board is tagged `medulla-v2`, and the
 fab package is committed under `fab/kart-medulla/v2/`.
 
@@ -547,7 +611,7 @@ Board-specific additions for this revision, on top of the generic checklist:
 ### Pre-fab finishing — board-specific remainder
 
 Moved here from the root board 2026-07-16: these are kart-medulla items, not cross-board work. Most
-of what was here has been folded into [`docs/pcb-checklist.md`](../docs/pcb-checklist.md) — the
+of what was here has been folded into [`docs/pcb-checklist.md`](../../docs/pcb-checklist.md) — the
 generic parts (DRC/ERC, parity, 3D check, DFM preview, gerber export, easter eggs, GND pour, outline
 rounding, antenna keepout, DRC constraints) are now checklist items, ticked once via "Pass the PCB
 checklist for `medulla-v2`" above rather than tracked as separate tasks.
@@ -647,7 +711,7 @@ Reference: https://community.aisler.net/t/adding-our-logo-to-your-pcb/5382
 
 ### Design the buzzer circuit
 
-Moved to `tasks/kart-medulla.md` → "Wire ASSI/AS-emergency buzzer on the BUZZER GPIO (old name)" — has the concrete inventory parts (CPT-407-105-L60 ×5, RE46C100S8F ×10) and the FS-Rules SPL constraint worked out.
+Moved to this file → "Wire ASSI/AS-emergency buzzer on the BUZZER GPIO (old name)" — has the concrete inventory parts (CPT-407-105-L60 ×5, RE46C100S8F ×10) and the FS-Rules SPL constraint worked out.
 
 ### External-connector audit (CN1–CN10) — missing / suspect signals
 

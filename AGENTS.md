@@ -13,9 +13,9 @@ projects/<board>/               one folder per board
   ├── 3dmodels/                 .step files referenced by footprints (${KIPRJMOD}/3dmodels/)
   ├── parts.md                  per-part sourcing (where symbol/footprint/3D came from)
   ├── requirements.md           what the board must do (durable; outlives the task list)
+  ├── tasks.md                  this board's task board (linked from the root tasks.md)
   └── docs/                     board-specific notes (pinout, mechanical, app notes)
-tasks.md                        the repo's only task board
-tasks/<name>.md                 big task clusters, each linked from tasks.md
+tasks.md                        cross-board task board + index of every per-board task board
 fab/<board>/<rev>/              released Gerbers, BOM, pick-and-place, JLC zip
 docs/                           cross-board notes (fab process, KiCad setup, library standards)
 .agents/                        agent-readable knowledge base
@@ -82,7 +82,7 @@ When you discover **non-obvious config values, gotchas, sign conventions, or wor
 Apply this even mid-task — pause, write the log, continue. The user shouldn't have to remember to ask. If you're unsure whether something qualifies, err on logging it: a duplicated note is cheaper than a re-discovered gotcha.
 
 ## Knowledge files
-- `tasks.md` (repo root) — the repo's only task board (TODO / In Progress / Done). Read before starting work. Big clusters live in `tasks/<name>.md` (e.g. `tasks/kart-medulla.md`) and **must** be linked from the root board — an unlinked file under `tasks/` is invisible. There is no `.agents/tasks.md` and no `projects/<board>/tasks.md`: exactly one `tasks.md` per repo, at the root, no exceptions.
+- `tasks.md` (repo root) — the cross-board task board (TODO / In Progress / Done), and the index of every other task board in the repo. Read before starting work. **Each board keeps its own `projects/<board>/tasks.md`** so a board folder is self-contained, and every one of them **must** be linked from the root board — an unlinked task board is invisible. Work spanning boards, or belonging to none (purchasing, repo conventions, shared library, fab process), stays on the root file. There is no `.agents/tasks.md`. Decided 2026-07-31, reversing the 2026-07-16 one-file-per-repo rule, which leaked: the root board declared itself cross-board-only while carrying four kart-medulla items, one of them a duplicate.
 - `.agents/kicad10-ui.md` — verified KiCad 10 UI cheat-sheet (menus, panels, hotkeys). Grep before describing any KiCad UI element.
 - `.agents/kicad-workflow.md` — the two modes for KiCad work (read-only MCP vs direct-edit), tool cheat-sheet. Read when touching `.kicad_*` files.
 - `history.md` — append-only log: what was tried, what worked, what didn't, gotchas, references. Grep — don't read in full.
