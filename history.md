@@ -1357,3 +1357,40 @@ What moved:
 
 Global `~/.claude/CLAUDE.md` carried the 2026-07-16 rule as a general convention, so it was updated
 too; otherwise the next session would move the file back.
+
+---
+
+## 2026-07-31 — A commit hash cannot be silkscreened; the board carries a design ID and the page carries the hash
+
+**The problem found.** The board-identity convention decided earlier today (`README.md`, "Board
+identity") says a manufactured board is identified by the dv-hardware commit its gerbers were exported
+from, "written on the board as a QR code or label". On a **sticker** applied after fabrication that
+works. In **silkscreen** it is impossible, and not for a practical reason but a definitional one:
+putting hash `H` into `kart-medulla.kicad_pcb` changes that file, so the commit containing it hashes to
+something other than `H`. A commit can never contain its own hash. Stamping the parent commit is the
+only variant that terminates, and the parent is precisely not the gerber-export commit the convention
+asks for.
+
+**The fix, which needs no change to the convention.** The kart-docs part-QR system already mints a
+different kind of identifier: a random 16-digit **design ID** (see `kart-docs/history.md`, 2026-06-14
+and 2026-07-31). It has the opposite property — it is minted *before* any layout is committed, so it
+can sit in the silkscreen from the first commit and never has to change again. So:
+
+- **On the board (silkscreen): the design ID**, as text plus a QR. Stampable in advance, permanent,
+  and already resolvable by the kart-docs `/scan/` page.
+- **On its page `/p/<id>/`: the gerber-export commit hash**, the fabrication date, the per-board rework
+  list, and the paired firmware commits.
+
+The two identifiers are not competitors and neither replaces the other. The design ID is a physical
+handle that can never go stale because it points at a page rather than at content; the hash is the
+exact content it points at. Trying to make one code do both jobs is what fails.
+
+**It also covers the case the convention already flagged as unsolved.** A board stops matching its
+hash the moment it is reworked — a lifted pin exists on one physical board and in no commit. A hash
+silkscreened on the board would then be wrong with no way to correct it. A design ID stays correct,
+because the rework is recorded on the page it resolves to.
+
+**Consequence for the medulla.** `Kart Medulla PCB v2` has design ID `1604 0948 4608 5574`
+(`kart-docs/docs/p/1604094846085574.md`). The v2 silkscreen should carry that number as text plus its
+QR. The existing fabricated board (`84d6dd0`) predates all of this and has no silkscreened ID, so it
+takes a sticker — and a sticker can carry the hash directly, since a sticker is not in the board file.
