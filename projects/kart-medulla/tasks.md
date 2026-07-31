@@ -79,30 +79,23 @@ To decide when drawing it:
 
 ### Consider putting CAN on the board #ruben
 
-Raised 2026-07-31 by Rubén, with the question: is there pin budget for it, and could the GPIO
-expander free some up?
+Raised 2026-07-31 by Rubén: is there pin budget for CAN, and could the GPIO expander free some up?
 
-**The expander cannot provide CAN pins.** `U25` is a PCF8574, an I²C port expander — every state
-change costs a bus transaction, so it cannot carry a bit-timed protocol. CAN on an ESP32-S3 means the
-built-in **TWAI** controller, which needs **two real GPIOs** (TX and RX) plus an external transceiver.
+**Yes, indirectly.** CAN needs the ESP32-S3's TWAI controller on two real GPIOs plus a transceiver.
+The PCF8574 can't carry those, but it can absorb any slow on/off signal currently occupying a GPIO,
+and the vacated GPIO is then free for TWAI. `EXP_P5`, `EXP_P6` and `EXP_P7` are unconnected on `U25`
+today (pins 10, 11, 12, plus `INT#` on 13), so three slots exist with no new hardware — pick which
+existing signals move there when the v2 pin table is drawn.
 
-**But it can free real GPIOs indirectly**, which is the useful version of the idea: move any slow
-on/off signal currently sitting on a GPIO onto the expander, and the GPIO it vacates becomes
-available for TWAI. `EXP_P5`, `EXP_P6` and `EXP_P7` are unconnected on `U25` today (pins 10, 11, 12,
-plus `INT#` on 13), so three expander slots already exist with no new hardware.
+The rest of the cost:
+- **A 3.3 V CAN transceiver** — SN65HVD230 or TCAN332 class. New part, new footprint.
+- **Two terminal pins** for CANH/CANL, competing with `SDC_ENABLE` (no exit at all) and CN4's
+  steering encoder (no power, no ground) for the board's scarce connector capacity.
+- **A termination decision**: 120 Ω fitted if the medulla is an end node, omitted if it is a stub.
 
-What a CAN port actually costs, beyond the two GPIOs:
-- **A transceiver**, 3.3 V-compatible — SN65HVD230 or TCAN332 class. New part, new footprint.
-- **Two connector pins** for CANH/CANL, which competes directly with the board's scarce terminal
-  capacity — `SDC_ENABLE` has no exit at all and CN4's steering encoder has neither power nor
-  ground. See the connector audit.
-- **A termination decision**: 120 Ω fitted, or a jumper, depending on where the medulla sits on the
-  bus. If it is an end node it needs termination; if it is a stub it must not have it.
-
-**Answer first, then design:** what would CAN carry that the current link to the Orin does not? If
-nothing on the kart speaks CAN yet, this is capacity for later rather than a requirement — worth
-saying which, because it changes whether it earns two of the board's few free pins. Note the team
-does keep CAN DBCs in `~/dv/can/`, so something in the wider vehicle does use it.
+**Worth answering first:** what would CAN carry that the existing Orin link does not? The team keeps
+DBCs in `~/dv/can/`, so something in the wider vehicle speaks it — but if nothing on *this* kart does
+yet, this is capacity for later, which changes whether it earns two of the few free pins.
 
 ### Restore the third pressure channel on a new pin (V2) #ruben
 
@@ -771,10 +764,7 @@ board change in one step:
   24 V supply, so its 0 V must be common with the medulla's GND for the setpoint to mean anything.
   `CN10.3` is GND and is presumably that return, but nothing says so. A ground offset between the two
   supplies shifts the commanded pressure directly.
-- The VPPM setpoint input's **impedance is not stated** in the short datasheet
-  (`~/dv/kart/pneumatics/resources/festo_571293_vppm_0_10bar_0_10v.pdf`). It is needed to pick the
-  right load condition for the op-amp swing check above. It should be in the operating instructions —
-  Festo doc 8110160 for the C1 LCD variant we own, 8110177 for the LED variant.
+- ~~Find the VPPM setpoint input's impedance.~~ **Dropped 2026-07-31 (Rubén): not a problem.** It is a signal input and the op-amp holds the voltage.
 
 ### Fix two stale connector references in the external-connector audit
 

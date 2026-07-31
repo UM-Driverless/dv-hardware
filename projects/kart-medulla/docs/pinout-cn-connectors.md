@@ -81,13 +81,8 @@ powers the valve. When a note here says a 24 V fault could reach a medulla pin, 
 supply appearing on CN10.2 through a harness fault — not the EBS valve, which is 12 V and not wired
 to this board at all.
 
-**Still unknown: the VPPM setpoint input's impedance.** Needed to pick the load condition for the
-op-amp swing check. Not in the short datasheet
-(`~/dv/kart/pneumatics/resources/festo_571293_vppm_0_10bar_0_10v.pdf`). The operating instructions
-for the LED variant are on disk at `festo_vppm_led_operating_instructions_8110177.pdf` but resist
-text extraction, so this needs a human to open it — or Festo doc 8110160, the C1/LCD variant we
-actually own.
-
+The VPPM setpoint is a signal input and the LM358 drives it directly; its input impedance was
+treated as an open question until 2026-07-31 and is not one.
 ## Voltage levels — quick reference
 
 | Suffix in signal name | Meaning |
