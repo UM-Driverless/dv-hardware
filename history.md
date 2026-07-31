@@ -1546,3 +1546,56 @@ cannot overwrite or delete.
 Global `~/.claude/CLAUDE.md` said push only with explicit confirmation. Rubén: that belongs to
 specific projects, not to every repo. Changed to push after committing by default, with ask-first
 being something a project states in its own `AGENTS.md`.
+
+## 2026-07-31 (evening) — U2 identified as a PC817; the WAGO swap makes the rotation task moot
+
+### The compressor module's input stage
+
+Photograph supplied by Rubén, saved at
+`projects/kart-medulla/docs/images/compressor-module-U2-PC817.png`. It shows:
+
+- **`U2` = Sharp `PC817`**, lot code `CW831` — a 4-pin phototransistor optocoupler, mounted
+  surface-style on the carrier.
+- **`R2`, `R3`, `R4` all marked `1002` = 10 kΩ**, in a row directly above `U2`.
+
+This closes the question opened on 2026-07-18 ("Does the module's control input actually accept
+3.3 V?", and the sub-question of what `U2` is). The answer recorded then reasoned toward a
+transistor level-shifter and treated `U2`'s package as a clue to how many stages it had. That was
+the wrong shape of answer: the module is **opto-isolated**. The ESP32 pin drives an LED, and the
+MOSFET gate is driven on the far side from the module's own DC-IN rail. Both earlier statements
+survive — a 3.3 V pin still cannot drive a power MOSFET gate, and this module does not ask it to.
+
+Two things the photograph does *not* settle, now written into the task:
+
+- **The 330 Ω is not in the frame.** None of `R2`/`R3`/`R4` is 330 Ω, so the resistor Rubén changed
+  to make the input work at 3.3 V is elsewhere on the board, probably `R1`.
+- **The output side is unseen.** If a 10 kΩ turns out to be the only pull-up on a gate the size of
+  the HA210N06's (Qg = 135 nC, Ciss = 5800 pF), that is an RC of tens of microseconds and the device
+  crosses its linear region slowly on every edge. Survivable at 500 Hz, but that part should be
+  replaced with a real driver when the circuit is copied onto the PCB rather than reproduced as-is.
+
+### The connector rotation task is obsolete
+
+Rubén, on being offered the "rotate all ten CN connectors 180°" task as the next piece of work:
+*obsolete if we use WAGO*. Correct, and it had not occurred to me while writing the task up an hour
+earlier. That task exists only because the Phoenix 1990012 parts are already placed the wrong way
+round. v2 replaces them with WAGO 2601-31xx, a different footprint at a different pitch, so there is
+nothing to rotate — the new footprints get placed correctly the first time, and the two complaints
+behind the rotation task (wires must exit outward; pin numbering must run with the CN numbering)
+become placement requirements instead of rework.
+
+New task **"Switch CN1–CN10 to WAGO 2601-31xx on v2"** supersedes it. What it costs, which is more
+than a symbol swap: **pitch goes 2.5 mm → 3.5 mm**, so every connector widens and the board outline
+and edge keep-outs need re-checking; neither part has a footprint or 3D model in
+`kart-medulla.pretty` yet; the silkscreen legend and `docs/pinout-cn-connectors.md` need the new pin
+order; and whether *all ten* swap or only the high-current path needs confirming before ordering,
+since it changes the quantity.
+
+The old rotation task is kept below it rather than deleted — it is the clearest statement of what
+"placed correctly" means and of what the 1990012's staggered pin-2 row costs.
+
+### The Drive checklist copies
+
+Handed to a different agent session. The root task is flagged claimed so the work is not repeated,
+with its findings (four copies plus a backup, file IDs and links) left in place in case that session
+stops early.

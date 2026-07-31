@@ -20,6 +20,9 @@ fab process), stays on this file.
 
 ### Collapse the PCB checklist to one copy — there are five, not two #ruben
 
+**[2026-07-31] Claimed — another agent session is doing this. Don't start it here.** Left in place
+with its findings so the work isn't repeated or lost if that session stops early.
+
 The last of the eight contradictions opened on 2026-07-16 (`history.md` that date); the other seven
 were closed on 2026-07-31.
 

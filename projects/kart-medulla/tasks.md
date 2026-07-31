@@ -105,17 +105,31 @@ That combination is a proven 3.3 V-driven switch for this load, and he has more 
 at home, so the parts already exist. The v2 job is to put that circuit on the PCB rather than design
 a fresh gate-drive stage.
 
-**Before drawing it, three things have to be pinned down:**
+**What the module's input stage is, confirmed from a photograph 2026-07-31**
+([`docs/images/compressor-module-U2-PC817.png`](docs/images/compressor-module-U2-PC817.png)):
 
-1. **Which module is it, exactly?** The optocoupler input and the removed bridge rectifier do not
-   match the HUABAN 4×25 A HA210N06 board described further down (that one has a 2-pin JST control
-   input and an unidentified `U2` stage). Identify the part in hand, photograph the board, and trace
-   the input stage.
-2. **Its schematic.** Optocoupler part number, the LED-side resistor now fitted (330 Ω), the
-   output-side gate drive and what rail supplies it, the MOSFET, and the flyback arrangement.
-3. **File it.** Datasheets to `datasheets/`, the traced schematic and photos to
-   `docs/`, and the sourcing line to `parts.md`, so v2 can be drawn from documents rather than from
-   the physical board.
+- **`U2` is a Sharp `PC817`** — a 4-pin phototransistor optocoupler, lot code `CW831`, mounted
+  surface-style on the carrier. Datasheet: <https://www.sharpsde.com/fileadmin/products/Optoelectronics/Optocouplers/Specs/PC817X_Series_Datasheet.pdf>
+- **`R2`, `R3` and `R4` are all 10 kΩ** (marked `1002`), sitting in a row directly above `U2`.
+
+This settles the question left open on 2026-07-18, which had guessed `U2` was a transistor
+level-shifter and treated its package as a clue. It is not — the module is **opto-isolated**, so the
+ESP32 pin drives an LED and the MOSFET gate is driven on the far side from the module's own DC-IN
+rail. That is why a 3.3 V pin works here when it cannot drive a power gate directly.
+
+**Still to pin down before v2 can be drawn:**
+
+1. **Where the 330 Ω went.** None of the three resistors in the photograph is 330 Ω, so the modified
+   LED series resistor is outside that crop — likely `R1`. Find it and confirm the value in circuit.
+2. **The output side.** What loads the phototransistor's collector, what rail feeds it, and what
+   drives the gate. If a 10 kΩ is the only pull-up on a gate the size of the HA210N06's
+   (Qg = 135 nC, Ciss = 5800 pF), the RC is tens of microseconds and the device spends a long time
+   in linear operation on every edge — survivable at 500 Hz, but worth replacing with a real driver
+   when the circuit moves onto the PCB rather than copying as-is.
+3. **The MOSFET and flyback arrangement**, and whether this carrier is in fact the HUABAN
+   HA210N06 board described further down (the `U2` reference designator matches).
+4. **File it.** Datasheets to `datasheets/`, the traced schematic to `docs/`, sourcing to
+   `parts.md`, so v2 is drawn from documents rather than from the physical board.
 
 Opto-isolated input also changes the framing of the problem below: the ESP32 pin drives an LED at
 330 Ω, not a power MOSFET gate, so the 3.3 V gate-drive analysis in the rest of this task describes
@@ -314,6 +328,36 @@ the first: `CMD_COMPRESSOR_PWM`. Coordinate with the connector-flip task below �
 not a spare pin. Bring at least two unassigned, PWM-capable, non-strap GPIOs to terminals on every
 revision.
 
+### Switch CN1–CN10 to WAGO 2601-31xx on v2 #ruben
+
+Decided 2026-07-31. Replaces the connector-rotation task below, which only existed because the
+Phoenix parts were already placed the wrong way round — swapping the part makes rotating the old one
+pointless. Place the new footprints correctly from the start instead.
+
+**Why swap at all.** The fitted Phoenix Contact 1990012 (PTSA 0,5/3-2,5-Z) is rated **2 A**. v2
+carries the compressor's **6 A** on-board, so at least that path needs a different connector, and
+using one family across the board beats mixing two. The WAGO **2601-3103** (3-pole) and
+**2601-3102** (2-pole) are rated **17.5 A**, are the team's chosen standard, and are top entry —
+wire in from above, levers on the front face. Ratings and sources:
+[`../../docs/connectors.md`](../../docs/connectors.md).
+
+**What changes on the board, and it is not a drop-in:**
+
+- **Pitch goes 2.5 mm → 3.5 mm**, so every connector footprint gets wider and the board outline and
+  component keep-outs along both edges have to be re-checked. Ten 3-pole connectors gain 10 × 2 mm
+  of edge length between them.
+- **New footprints and 3D models.** Neither part is in `kart-medulla.pretty` yet. WAGO publishes
+  both; check whether KiCad 10 bundles the 2601 series before drawing them by hand.
+- **Placement requirements, replacing the rotation task:** wires must exit **outward**, away from
+  the board, and pin numbering must run **co-directional** with the CN numbering on each side, so
+  `CN1.1, CN1.2, CN1.3, CN2.1, …` reads straight down the edge. Both were the point of the old task.
+- **Silkscreen legend and `docs/pinout-cn-connectors.md`** need updating for the new pin order.
+- **Decide whether all ten swap or only the high-current path.** All ten is the tidier answer and the
+  one assumed here; confirm before ordering, since it changes the quantity to buy.
+
+Buy-list entry and per-variant notes: `~/vault/inventory/wago-2601-pcb-terminal-blocks.md`. Nothing
+is in stock yet.
+
 ### Flip all ten CN connectors 180° (wires outward, pin order in sequence)
 
 Raised by Rubén 2026-07-10 after handling the assembled board. Two complaints, one root cause:
@@ -331,9 +375,15 @@ Rotating every CN by 180° fixes both at once: wires exit outward, away from the
 pin numbering becomes co-directional with the CN numbering on each side, so you can read
 `CN1.1, CN1.2, CN1.3, CN2.1, …` straight down (or up) the edge.
 
-**Confirmed 2026-07-31 (Rubén): all ten, not a subset.** A bare "flip CN3 and CN4" line had been
-sitting on the root task board since `280a379` with no context; it meant this task and is now
-deleted rather than tracked twice.
+**Obsolete as a rotation job — superseded 2026-07-31.** Rubén confirmed it was all ten and not a
+subset (a bare "flip CN3 and CN4" line had been sitting on the root board since `280a379` with no
+context; it meant this task and is now deleted rather than tracked twice). But then: *obsolete if we
+use WAGO*. He is right. v2 replaces the Phoenix 1990012 with WAGO 2601-31xx parts, which is a
+different footprint at a different pitch — so there is nothing to rotate. The new footprints simply
+get **placed** correctly the first time, and the two complaints above become placement requirements
+rather than a rework task. See "Switch CN1–CN10 to WAGO 2601-31xx on v2" below. Everything from here
+down is kept because it states what "correct" means and what the pin-2 stagger costs; it is no longer
+work in its own right.
 
 **Not a free rotation.** The footprint is `CONN-TH_3P-P2.50-S5.00_1990012` — staggered pads,
 pins 1 and 3 in one row and pin 2 in a row 5.00 mm across. A 180° flip swaps which side pin 2's

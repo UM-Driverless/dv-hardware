@@ -48,8 +48,13 @@ and is not independently confirmed. The board built from this brief exists and i
 
 Moved here from the board's task list on 2026-07-16 so it outlives it.
 
-- **Rotate the push-in connectors** — wires exit outward, away from the board, and pin
-  numbering runs co-directional with the CN numbering on each side
+- **Switch CN1–CN10 to WAGO 2601-31xx, placed correctly** — the fitted Phoenix 1990012 is rated
+  2 A and v2 carries the compressor's 6 A, so the connector family changes to the team's WAGO
+  standard (17.5 A, 3.5 mm pitch, top entry). This replaces the earlier "rotate the push-in
+  connectors" requirement: swapping the part makes rotating the old one moot, and the two things
+  that requirement wanted become placement rules for the new footprints — **wires exit outward,
+  away from the board, and pin numbering runs co-directional with the CN numbering on each side.**
+  Note the pitch change from 2.5 mm widens every connector and affects the board outline
 - **On-board compressor switching, motor current included** — reconfirmed 2026-07-31: integrate
   it, the less wiring the better. V2 carries the MOSFET, its gate drive, the flyback diode and the
   bulk capacitance, copying the already-validated module circuit (bridge rectifier removed, 330 Ω
