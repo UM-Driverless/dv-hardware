@@ -1773,3 +1773,37 @@ free, which matters because the connector audit had concluded the board's spare 
 `EXP_P*` pins plus `CN8.2` freeing up on v2. They suit anything needing a slow on/off line —
 `SDC_ENABLE` above all — and suit nothing needing PWM, timing, analog, or supply current, since a
 write costs an I²C transaction.
+
+### ADC filter caps added — C7–C13
+
+The seven 100 nF capacitors the task list had been asking for since 2026-05 are now on the schematic:
+`C7` `PEDAL_ACC__3V3`, `C8` `PEDAL_BRAKE__3V3`, `C9` `HYDRAULIC_1__0_3V3`, `C10`
+`HYDRAULIC_2__0_3V3`, `C11` `PRESSURE_1__0_3V3`, `C12` `PRESSURE_2__0_3V3`, `C13`
+`PRESSURE_3__0_3V3`. Each is `kart-medulla:C0603`, one pin on the divider's output node and one on
+GND, drawn as a label-on-stub block in free sheet space at X≈490, Y 88.9–165.1 — the same style the
+rest of this schematic uses, so nothing had to be routed through existing geometry.
+
+**Why 100 nF is the right value here.** The corner frequency depends on the divider's source
+impedance, which differs per input:
+
+| Input | Divider | Source impedance | −3 dB with 100 nF |
+|---|---|---|---|
+| `PEDAL_ACC`, `PEDAL_BRAKE` | 10 k / 10 k | 5.0 kΩ | 318 Hz |
+| `HYDRAULIC_1`, `HYDRAULIC_2` | 2 k / 3.9 k | 1.32 kΩ | 1.2 kHz |
+| `PRESSURE_1`–`3` | 20 k / 10 k | 6.67 kΩ | 239 Hz |
+
+All three are far above the bandwidth of a pedal position or a tank pressure and far below anything
+the ADC needs to track, so the same value works everywhere. The second reason matters more: the
+ESP32-S3's SAR ADC charges an internal sampling capacitor from whatever it is connected to, and
+6.67 kΩ is a high source impedance for that. The 100 nF sits next to the pin as a charge reservoir,
+so the sampling cap is fed from it rather than through the divider.
+
+**Method note.** `scripts/guard-kicad-write.sh` reported `kicad-mcp-pro` running, so this was a
+direct file edit with no MCP write calls, per the one-mode-per-session rule. Verified three ways:
+ERC 0 violations, a fresh netlist export confirming all seven caps on their intended nets with GND on
+the other pin, and an SVG render. The render caught something the netlist could not — at the first
+attempt the caps were spaced 7.62 mm apart, which put each one's `100nF` value text exactly on the
+next one's reference designator. Re-done at 12.7 mm.
+
+**Left for the PCB:** each cap has to be placed at the ESP32's ADC pin, not next to its divider. At
+the wrong end of the trace it does nothing.
