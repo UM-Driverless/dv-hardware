@@ -13,6 +13,13 @@ docs/                cross-board notes
 .agents/             agent-readable project knowledge (history, errors)
 ```
 
+## Board identity
+A manufactured board is identified by the commit in this repo that its gerbers were exported from,
+written on the board as a QR code or label (short hash is enough). Firmware repos quote that hash to
+declare which hardware they target. Because rework exists on a physical board and in no commit, each
+board also carries a rework list alongside its hash. Worked example and the boards that exist:
+[`projects/kart-medulla/README.md`](projects/kart-medulla/README.md).
+
 ## Migration status
 Projects originate in EasyEDA Pro and are being migrated to KiCad 9. Each `projects/<board>/` keeps:
 - `easyeda-source/` — original `.epro` exports for reference (do not edit)

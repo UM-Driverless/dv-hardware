@@ -54,6 +54,23 @@ with each other — don't treat either side as authoritative.**
    only tag is `medulla-v0.1-converted`, so nothing on disk confirms the assembled board is "v1".
    Rubén: confirm the mapping, then put the name on the silkscreen and the title block.
 
+### Patch the fabricated board for the CN10.2 brake fix #ruben
+
+Filed 2026-07-31. The design fix landed in `f68cc1f` and is marked DONE under "Fix the
+proportional-valve command path" in [`tasks/kart-medulla.md`](tasks/kart-medulla.md) — but the board
+that exists was fabbed from `84d6dd0`, one commit earlier, so **the fault is still physically in the
+hardware**. Fixing the design does not fix the artifact, and nothing tracked that gap until now.
+
+On the assembled board: CN10.2 sits on the unamplified `CMD_BRAKE__0_5V` node instead of the LM358's
+×2 output, so the proportional valve is commanded over 0-5 V where it expects 0-10 V; and the
+U13.10 → U1.3 copper (MCP4922 channel B into the amplifier's non-inverting input) is unrouted,
+because six of that net's seven segments had been ripped up in KiCad.
+
+Needs a cut-and-jumper on the assembled board, not a respin. Rubén said 2026-07-31 this will be
+patched physically while the PCB is fixed. Record what was actually cut and jumpered in the rework
+list in [`projects/kart-medulla/README.md`](projects/kart-medulla/README.md) — a patched board no
+longer matches the hash printed on it, and that list is the only thing that will say so.
+
 ### Buy WAGO 2601 PCB terminal blocks (2-pole + 3-pole)
 
 Stock only **`2601-3102` (2-pole)** and **`2601-3103` (3-pole)** — with {2, 3} you can compose every pole count ≥ 2 (2 and 3 are coprime, so no gaps from 2 upward). 1-pole isn't needed: power runs are always ≥ 2-wire. Per-pin price is flat across pole counts on DigiKey (1-off, 2026-05), so no saving from 4-pole+. Full sourcing rationale + datasheet/Bürklin mirror hashes in `history.md:629`. Standards entry: `~/repos/ruben/docs/writing/standards.md` under Electric > Electric connectors.
