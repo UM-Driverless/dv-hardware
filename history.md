@@ -1599,3 +1599,24 @@ The old rotation task is kept below it rather than deleted — it is the cleares
 Handed to a different agent session. The root task is flagged claimed so the work is not repeated,
 with its findings (four copies plus a backup, file IDs and links) left in place in case that session
 stops early.
+
+### Correction, same evening — the 330 Ω arithmetic, and what the photograph is
+
+The entry above listed "where the 330 Ω went" as an open question because none of `R2`/`R3`/`R4` in
+the photograph reads 330 Ω. That was a wasted question: **the photograph is from before the resistor
+was changed**, so it shows as-shipped values, and 330 Ω was already stated plainly.
+
+The value also checks out on its own, which is the point that should have been made instead of asking
+about it. The PC817's LED drops about 1.2 V, so the series resistor sets LED current:
+
+| Series resistor | Drive voltage | LED current |
+|---|---|---|
+| 10 kΩ as shipped | 12 V | (12 − 1.2) / 10 k = 1.1 mA |
+| 10 kΩ as shipped | 3.3 V | (3.3 − 1.2) / 10 k = 0.21 mA — dead |
+| **330 Ω fitted** | **3.3 V** | (3.3 − 1.2) / 330 = **6.4 mA** |
+
+The as-shipped 10 kΩ was sized for a 12 V control input. At 3.3 V it delivers a fifth of a milliamp,
+far under the IF = 5 mA point where the PC817's CTR is specified (80–160 % for rank A), so the
+phototransistor barely conducts. 330 Ω gives 6.4 mA — just above the characterised point, roughly
+5–10 mA of collector current — and costs an ESP32-S3 pin rated 28 mA nothing. That is the entire
+modification, and it is sound.

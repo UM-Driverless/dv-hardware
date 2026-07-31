@@ -105,30 +105,43 @@ That combination is a proven 3.3 V-driven switch for this load, and he has more 
 at home, so the parts already exist. The v2 job is to put that circuit on the PCB rather than design
 a fresh gate-drive stage.
 
-**What the module's input stage is, confirmed from a photograph 2026-07-31**
+**The input stage**, from a photograph taken **before the resistor change**
 ([`docs/images/compressor-module-U2-PC817.png`](docs/images/compressor-module-U2-PC817.png)):
 
-- **`U2` is a Sharp `PC817`** — a 4-pin phototransistor optocoupler, lot code `CW831`, mounted
-  surface-style on the carrier. Datasheet: <https://www.sharpsde.com/fileadmin/products/Optoelectronics/Optocouplers/Specs/PC817X_Series_Datasheet.pdf>
-- **`R2`, `R3` and `R4` are all 10 kΩ** (marked `1002`), sitting in a row directly above `U2`.
+- **`U2` is a Sharp `PC817`** — a 4-pin phototransistor optocoupler, lot code `CW831`.
+  Datasheet: <https://www.sharpsde.com/fileadmin/products/Optoelectronics/Optocouplers/Specs/PC817X_Series_Datasheet.pdf>
+- **`R2`, `R3` and `R4` read 10 kΩ** (marked `1002`) — the as-shipped values.
 
 This settles the question left open on 2026-07-18, which had guessed `U2` was a transistor
-level-shifter and treated its package as a clue. It is not — the module is **opto-isolated**, so the
+level-shifter and treated its package as a clue. It is not: the module is **opto-isolated**, so the
 ESP32 pin drives an LED and the MOSFET gate is driven on the far side from the module's own DC-IN
 rail. That is why a 3.3 V pin works here when it cannot drive a power gate directly.
 
-**Still to pin down before v2 can be drawn:**
+**Why 330 Ω is the right value.** The PC817's LED drops about 1.2 V, so the series resistor sets the
+LED current directly:
 
-1. **Where the 330 Ω went.** None of the three resistors in the photograph is 330 Ω, so the modified
-   LED series resistor is outside that crop — likely `R1`. Find it and confirm the value in circuit.
-2. **The output side.** What loads the phototransistor's collector, what rail feeds it, and what
+| Series resistor | Drive voltage | LED current |
+|---|---|---|
+| 10 kΩ as shipped | 12 V | (12 − 1.2) / 10 k = **1.1 mA** |
+| 10 kΩ as shipped | 3.3 V | (3.3 − 1.2) / 10 k = **0.21 mA** — dead |
+| **330 Ω fitted** | **3.3 V** | (3.3 − 1.2) / 330 = **6.4 mA** |
+
+The as-shipped 10 kΩ was sized for a 12 V control input. Driven from 3.3 V it gives a fifth of a
+milliamp, far below the IF = 5 mA point where the PC817's current-transfer ratio is specified
+(80–160 % for the rank-A part), so the phototransistor barely conducts. 330 Ω puts 6.4 mA through the
+LED — just above the characterised point, with CTR giving roughly 5–10 mA of collector current — and
+6.4 mA is nothing for an ESP32-S3 pin rated 28 mA. That is the whole modification.
+
+**Still to trace before v2 can be drawn:**
+
+1. **The output side.** What loads the phototransistor's collector, what rail feeds it, and what
    drives the gate. If a 10 kΩ is the only pull-up on a gate the size of the HA210N06's
    (Qg = 135 nC, Ciss = 5800 pF), the RC is tens of microseconds and the device spends a long time
    in linear operation on every edge — survivable at 500 Hz, but worth replacing with a real driver
    when the circuit moves onto the PCB rather than copying as-is.
-3. **The MOSFET and flyback arrangement**, and whether this carrier is in fact the HUABAN
-   HA210N06 board described further down (the `U2` reference designator matches).
-4. **File it.** Datasheets to `datasheets/`, the traced schematic to `docs/`, sourcing to
+2. **The MOSFET and flyback arrangement**, and whether this carrier is the HUABAN HA210N06 board
+   described further down (the `U2` reference designator matches).
+3. **File it.** Datasheets to `datasheets/`, the traced schematic to `docs/`, sourcing to
    `parts.md`, so v2 is drawn from documents rather than from the physical board.
 
 Opto-isolated input also changes the framing of the problem below: the ESP32 pin drives an LED at
