@@ -39,6 +39,12 @@ Rework outstanding on this board:
   DAC output where the valve needs 0-10 V, and the U13.10 -> U1.3 copper (DAC to amplifier input) is
   unrouted. Fixed in the design by `f68cc1f`, which is *after* this board was made, so the board
   still has the fault. Needs a physical patch — see [`tasks.md`](tasks.md).
+- **R10 removed, to read the steering sensor's PWM on GPIO 1.** The `PRESSURE_3` front end is
+  `CN5.2 —[R8 10k]— node —[R9 10k]— GPIO 1 —[R10 10k]— GND`. R10 is the only shunt to ground, so
+  removing it (and only it) turns the terminal into a usable digital input; R8 + R9 stay as a 20 kΩ
+  series, which is far too high-impedance for the ADC — that is why this pin is decoded as PWM with
+  the MCPWM capture peripheral rather than read as an analog voltage. Recorded here 2026-07-31; the
+  reasoning and the wiring context are on the kart-docs medulla page.
 - **Throttle has no working output.** The MCP4922 SPI write was never implemented in firmware. If the
   filtered-PWM bypass is taken instead of fixing the firmware, that adds rework here: U13 pin 14
   lifted, and an RC network from the dev board's GPIO 38 to U14 pin 8. Decision tracked in the
