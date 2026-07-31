@@ -90,9 +90,12 @@ form wins because the folder, the firmware repo and the docs pages all use it. T
 `fab/` folder — must all use it. The pre-convention tag `medulla-v0.1-converted` keeps its name;
 bare `medulla-vN` in older notes means the same board.
 
-**Also settled: revision numbers are whole integers**, never `v1.1` or `v1.0.1`. The next number is
-earned by changes the previous revision is not compatible with, which is what makes the number worth
-reading. Written into `docs/pcb-checklist.md` under "Revision naming".
+**Also settled: the number tracks compatibility.** A whole-number bump is earned by changes the
+previous revision is not compatible with; a change that leaves the board a drop-in replacement —
+heavier copper, a part substitution, a silkscreen fix — takes a decimal instead. So `kart-medulla-v2`
+is right for the next revision because its connector and pinout work breaks compatibility, and
+`v1.1` would have been right for a copper-weight respin of the same design. Written into
+`docs/pcb-checklist.md` under "Revision naming".
 
 ### V2 Hardware Improvements (Kart Medulla PCB)
 
