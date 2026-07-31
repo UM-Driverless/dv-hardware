@@ -2509,3 +2509,31 @@ The failure is not that the audit missed it. The audit found it and recorded the
 The failure is that *undecided* was re-read as *pending* often enough that it hardened into a fact.
 When an item survives several entries without a decision, re-check that it is still real before
 building on it.
+
+### Same day — the WAGO footprints had to be copied into the project library
+
+Rubén ran **Tools → Update PCB from Schematic** and reported: the push-in connectors vanished, a
+cluster of small new parts appeared, and no WAGO connectors. The board file on disk was unchanged, so
+what he saw was KiCad's in-memory result before saving. The small parts were the twelve genuinely new
+components (`C7`–`C13`, `R35`–`R39`) landing where an update drops them. The connectors disappearing
+was the real fault: KiCad removed the Phoenix footprints and then could not load the replacements.
+
+**Cause: the library nickname.** I had set the footprint to
+`TerminalBlock_WAGO:TerminalBlock_WAGO_2601-3103_1x03_P3.50mm_Vertical`, on the strength of finding
+`TerminalBlock_WAGO` in KiCad's stock footprint table. That table is reached through a **nested**
+entry — the global `fp-lib-table` holds one row, `(lib (name "KiCad") (type "Table") (uri
+.../template/fp-lib-table))` — and the stock rows inside it use `${KICAD10_FOOTPRINT_DIR}`, which is
+not defined in this install's `kicad_common.json` (`"environment": {"vars": null}`). So the nickname
+did not resolve, and an earlier claim in this file that the library was "reachable from any project
+through the stock table with no setup" was wrong in practice.
+
+**Fix:** copied both parts into `kart-medulla.pretty/` and repointed the schematic at
+`kart-medulla:TerminalBlock_WAGO_2601-3103_1x03_P3.50mm_Vertical`. That is how every other footprint
+in this project is referenced, it needs no path variable and no global table, and it keeps the
+self-contained-`git clone` property `AGENTS.md` asks for. The 2-pole `2601-3102` was copied at the
+same time so it is there when a connector needs two poles. Both KiCad-stock files already declare
+`(attr through_hole)`, so they need no patching.
+
+**The general lesson:** a footprint existing on disk is not the same as KiCad being able to resolve
+its nickname. Verifying the first and asserting the second is what produced a "no setup needed" claim
+that cost a failed board update. For this repo the safe form is always `kart-medulla:<name>`.

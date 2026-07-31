@@ -9502,7 +9502,7 @@
 				)
 			)
 		)
-		(property "Footprint" "TerminalBlock_WAGO:TerminalBlock_WAGO_2601-3103_1x03_P3.50mm_Vertical"
+		(property "Footprint" "kart-medulla:TerminalBlock_WAGO_2601-3103_1x03_P3.50mm_Vertical"
 			(at 83.82 66.04 0)
 			(hide yes)
 			(show_name no)
@@ -10338,7 +10338,7 @@
 				)
 			)
 		)
-		(property "Footprint" "TerminalBlock_WAGO:TerminalBlock_WAGO_2601-3103_1x03_P3.50mm_Vertical"
+		(property "Footprint" "kart-medulla:TerminalBlock_WAGO_2601-3103_1x03_P3.50mm_Vertical"
 			(at 83.82 49.53 0)
 			(hide yes)
 			(show_name no)
@@ -11658,7 +11658,7 @@
 				)
 			)
 		)
-		(property "Footprint" "TerminalBlock_WAGO:TerminalBlock_WAGO_2601-3103_1x03_P3.50mm_Vertical"
+		(property "Footprint" "kart-medulla:TerminalBlock_WAGO_2601-3103_1x03_P3.50mm_Vertical"
 			(at 208.28 81.28 0)
 			(hide yes)
 			(show_name no)
@@ -11885,7 +11885,7 @@
 				)
 			)
 		)
-		(property "Footprint" "TerminalBlock_WAGO:TerminalBlock_WAGO_2601-3103_1x03_P3.50mm_Vertical"
+		(property "Footprint" "kart-medulla:TerminalBlock_WAGO_2601-3103_1x03_P3.50mm_Vertical"
 			(at 83.82 82.55 0)
 			(hide yes)
 			(show_name no)
@@ -14735,7 +14735,7 @@
 				)
 			)
 		)
-		(property "Footprint" "TerminalBlock_WAGO:TerminalBlock_WAGO_2601-3103_1x03_P3.50mm_Vertical"
+		(property "Footprint" "kart-medulla:TerminalBlock_WAGO_2601-3103_1x03_P3.50mm_Vertical"
 			(at 142.24 49.53 0)
 			(hide yes)
 			(show_name no)
@@ -16009,7 +16009,7 @@
 				)
 			)
 		)
-		(property "Footprint" "TerminalBlock_WAGO:TerminalBlock_WAGO_2601-3103_1x03_P3.50mm_Vertical"
+		(property "Footprint" "kart-medulla:TerminalBlock_WAGO_2601-3103_1x03_P3.50mm_Vertical"
 			(at 205.74 48.26 0)
 			(hide yes)
 			(show_name no)
@@ -16520,7 +16520,7 @@
 				)
 			)
 		)
-		(property "Footprint" "TerminalBlock_WAGO:TerminalBlock_WAGO_2601-3103_1x03_P3.50mm_Vertical"
+		(property "Footprint" "kart-medulla:TerminalBlock_WAGO_2601-3103_1x03_P3.50mm_Vertical"
 			(at 260.35 48.26 0)
 			(hide yes)
 			(show_name no)
@@ -17861,7 +17861,7 @@
 				)
 			)
 		)
-		(property "Footprint" "TerminalBlock_WAGO:TerminalBlock_WAGO_2601-3103_1x03_P3.50mm_Vertical"
+		(property "Footprint" "kart-medulla:TerminalBlock_WAGO_2601-3103_1x03_P3.50mm_Vertical"
 			(at 142.24 81.28 0)
 			(hide yes)
 			(show_name no)
@@ -19446,7 +19446,7 @@
 				)
 			)
 		)
-		(property "Footprint" "TerminalBlock_WAGO:TerminalBlock_WAGO_2601-3103_1x03_P3.50mm_Vertical"
+		(property "Footprint" "kart-medulla:TerminalBlock_WAGO_2601-3103_1x03_P3.50mm_Vertical"
 			(at 142.24 64.77 0)
 			(hide yes)
 			(show_name no)
@@ -19962,7 +19962,7 @@
 				)
 			)
 		)
-		(property "Footprint" "TerminalBlock_WAGO:TerminalBlock_WAGO_2601-3103_1x03_P3.50mm_Vertical"
+		(property "Footprint" "kart-medulla:TerminalBlock_WAGO_2601-3103_1x03_P3.50mm_Vertical"
 			(at 207.01 64.77 0)
 			(hide yes)
 			(show_name no)
