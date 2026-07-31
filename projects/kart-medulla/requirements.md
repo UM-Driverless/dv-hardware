@@ -62,6 +62,18 @@ Moved here from the board's task list on 2026-07-16 so it outlives it.
   to terminals on every revision. From 2026-07-10: *a spare pin you cannot reach with a
   screwdriver is not a spare pin.* Concretely, route GPIO 38 → CN3.1 and GPIO 39 → CN3.2; the
   first is the intended `CMD_COMPRESSOR_PWM`
+- **Full 0–10 V swing on the pressure-command amplifier** — the brake command chain is the
+  MCP4922 DAC (0–5 V) → an LM358 ×2 non-inverting stage (U1) → the Festo VPPM proportional
+  valve. U1 is supplied from +12 V and the LM358 is not rail-to-rail: TI SLOS068AB §5.7 gives
+  3 V max swing from the positive rail, so a worst-case part reaches only 9 V where the valve
+  wants 10 V, and the kart's unregulated 12 V sagging under load pushes that lower. Accepted on
+  the as-built board (the VPPM is ~1 bar per volt, so it costs the top ~1 bar of a range the kart
+  does not use) but the next revision should deliver the full range — either supply U1 from 24 V,
+  or fit a rail-to-rail-output op-amp in the same SOIC-8 footprint. Until it is fixed, firmware
+  must not treat DAC full scale as 10 bar: the achievable maximum varies between boards, so any
+  target above ~9 bar needs closed-loop control against a pressure sensor. Full working and the
+  trade-off between the two fixes: "Give the pressure-command amplifier full 0–10 V swing on the
+  next board revision" in [`../../../tasks/kart-medulla.md`](../../../tasks/kart-medulla.md).
 
 ### V2 — make the steering-sensor input a first-class signal, not a repurposed one
 
