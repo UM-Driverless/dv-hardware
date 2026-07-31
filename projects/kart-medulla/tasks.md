@@ -81,11 +81,30 @@ To decide when drawing it:
 
 Raised 2026-07-31 by Rubén: is there pin budget for CAN, and could the GPIO expander free some up?
 
-**Yes, indirectly.** CAN needs the ESP32-S3's TWAI controller on two real GPIOs plus a transceiver.
-The PCF8574 can't carry those, but it can absorb any slow on/off signal currently occupying a GPIO,
-and the vacated GPIO is then free for TWAI. `EXP_P5`, `EXP_P6` and `EXP_P7` are unconnected on `U25`
-today (pins 10, 11, 12, plus `INT#` on 13), so three slots exist with no new hardware — pick which
-existing signals move there when the v2 pin table is drawn.
+**Yes. TWAI needs two GPIOs, and both can be found without displacing anything important.**
+`EXP_P5`, `EXP_P6` and `EXP_P7` are unconnected on `U25` (pins 10, 11, 12; `INT#` on 13 is free too),
+so there are three expander slots waiting with no new hardware. Checked against the netlist
+2026-07-31, the ESP32's 22 signals give:
+
+- **`MISO` (GPIO 13) is already free.** Its net reaches `U23.37`/`U23.38` and nothing else — the
+  MCP4922 is a write-only device with no data output, so nothing is on the other end. That is one
+  TWAI pin at zero cost, no expander involved.
+- **`SELECT_THROTTLE` (GPIO 15) is the clean move.** It drives the MAX4660 throttle mux and changes a
+  handful of times per run, so I²C latency is irrelevant. **One catch that must be designed around:**
+  a PCF8574 output powers up in the weak-high state, and HIGH on this net means COM→NO, the ESP32 DAC
+  taking the throttle. The existing 10 kΩ pulldown makes the power-on default pedal pass-through,
+  which is the safe state. Moving the signal to the expander must keep that default — the PCF8574's
+  pull-up is only ~100 µA, so a 10 kΩ pulldown holds the pin near 1 V and should still read LOW at
+  the MAX4660, but that has to be checked against the MAX4660's input threshold rather than assumed.
+- **`CMD_STEER_DIR` (GPIO 17) is arguable** — a direction bit that only changes at reversals, but it
+  is a motor-control signal and an I²C write puts a few hundred microseconds in front of every
+  change. Only move it if a second pin is genuinely needed.
+- **Nothing else can move.** The rest is analog inputs, PWM, SPI, I²C, hall inputs and the
+  safety-chain read — none tolerates being behind a bus transaction. `SDC_NOT_EMERGENCY` in
+  particular should stay on a real pin.
+
+So the realistic answer is `MISO` plus `SELECT_THROTTLE`, which costs one expander slot and leaves
+two spare.
 
 The rest of the cost:
 - **A 3.3 V CAN transceiver** — SN65HVD230 or TCAN332 class. New part, new footprint.
