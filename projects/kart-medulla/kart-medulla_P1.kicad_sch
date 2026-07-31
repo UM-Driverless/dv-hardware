@@ -9491,7 +9491,7 @@
 				(justify left bottom)
 			)
 		)
-		(property "Value" "1990012"
+		(property "Value" "2601-3103"
 			(at 83.82 72.39 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9502,7 +9502,7 @@
 				)
 			)
 		)
-		(property "Footprint" "kart-medulla:CONN-TH_3P-P2.50-S5.00_1990012"
+		(property "Footprint" "TerminalBlock_WAGO:TerminalBlock_WAGO_2601-3103_1x03_P3.50mm_Vertical"
 			(at 83.82 66.04 0)
 			(hide yes)
 			(show_name no)
@@ -10327,7 +10327,7 @@
 				(justify left bottom)
 			)
 		)
-		(property "Value" "1990012"
+		(property "Value" "2601-3103"
 			(at 83.82 55.88 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10338,7 +10338,7 @@
 				)
 			)
 		)
-		(property "Footprint" "kart-medulla:CONN-TH_3P-P2.50-S5.00_1990012"
+		(property "Footprint" "TerminalBlock_WAGO:TerminalBlock_WAGO_2601-3103_1x03_P3.50mm_Vertical"
 			(at 83.82 49.53 0)
 			(hide yes)
 			(show_name no)
@@ -11647,7 +11647,7 @@
 				(justify left bottom)
 			)
 		)
-		(property "Value" "1990012"
+		(property "Value" "2601-3103"
 			(at 208.28 87.63 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -11658,7 +11658,7 @@
 				)
 			)
 		)
-		(property "Footprint" "kart-medulla:CONN-TH_3P-P2.50-S5.00_1990012"
+		(property "Footprint" "TerminalBlock_WAGO:TerminalBlock_WAGO_2601-3103_1x03_P3.50mm_Vertical"
 			(at 208.28 81.28 0)
 			(hide yes)
 			(show_name no)
@@ -11874,7 +11874,7 @@
 				(justify left bottom)
 			)
 		)
-		(property "Value" "1990012"
+		(property "Value" "2601-3103"
 			(at 83.82 88.9 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -11885,7 +11885,7 @@
 				)
 			)
 		)
-		(property "Footprint" "kart-medulla:CONN-TH_3P-P2.50-S5.00_1990012"
+		(property "Footprint" "TerminalBlock_WAGO:TerminalBlock_WAGO_2601-3103_1x03_P3.50mm_Vertical"
 			(at 83.82 82.55 0)
 			(hide yes)
 			(show_name no)
@@ -14724,7 +14724,7 @@
 				(justify left bottom)
 			)
 		)
-		(property "Value" "1990012"
+		(property "Value" "2601-3103"
 			(at 142.24 55.88 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14735,7 +14735,7 @@
 				)
 			)
 		)
-		(property "Footprint" "kart-medulla:CONN-TH_3P-P2.50-S5.00_1990012"
+		(property "Footprint" "TerminalBlock_WAGO:TerminalBlock_WAGO_2601-3103_1x03_P3.50mm_Vertical"
 			(at 142.24 49.53 0)
 			(hide yes)
 			(show_name no)
@@ -15998,7 +15998,7 @@
 				(justify left bottom)
 			)
 		)
-		(property "Value" "1990012"
+		(property "Value" "2601-3103"
 			(at 205.74 54.61 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -16009,7 +16009,7 @@
 				)
 			)
 		)
-		(property "Footprint" "kart-medulla:CONN-TH_3P-P2.50-S5.00_1990012"
+		(property "Footprint" "TerminalBlock_WAGO:TerminalBlock_WAGO_2601-3103_1x03_P3.50mm_Vertical"
 			(at 205.74 48.26 0)
 			(hide yes)
 			(show_name no)
@@ -16509,7 +16509,7 @@
 				(justify left bottom)
 			)
 		)
-		(property "Value" "1990012"
+		(property "Value" "2601-3103"
 			(at 260.35 54.61 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -16520,7 +16520,7 @@
 				)
 			)
 		)
-		(property "Footprint" "kart-medulla:CONN-TH_3P-P2.50-S5.00_1990012"
+		(property "Footprint" "TerminalBlock_WAGO:TerminalBlock_WAGO_2601-3103_1x03_P3.50mm_Vertical"
 			(at 260.35 48.26 0)
 			(hide yes)
 			(show_name no)
@@ -17850,7 +17850,7 @@
 				(justify left bottom)
 			)
 		)
-		(property "Value" "1990012"
+		(property "Value" "2601-3103"
 			(at 142.24 87.63 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17861,7 +17861,7 @@
 				)
 			)
 		)
-		(property "Footprint" "kart-medulla:CONN-TH_3P-P2.50-S5.00_1990012"
+		(property "Footprint" "TerminalBlock_WAGO:TerminalBlock_WAGO_2601-3103_1x03_P3.50mm_Vertical"
 			(at 142.24 81.28 0)
 			(hide yes)
 			(show_name no)
@@ -19435,7 +19435,7 @@
 				(justify left bottom)
 			)
 		)
-		(property "Value" "1990012"
+		(property "Value" "2601-3103"
 			(at 142.24 71.12 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19446,7 +19446,7 @@
 				)
 			)
 		)
-		(property "Footprint" "kart-medulla:CONN-TH_3P-P2.50-S5.00_1990012"
+		(property "Footprint" "TerminalBlock_WAGO:TerminalBlock_WAGO_2601-3103_1x03_P3.50mm_Vertical"
 			(at 142.24 64.77 0)
 			(hide yes)
 			(show_name no)
@@ -19951,7 +19951,7 @@
 				(justify left bottom)
 			)
 		)
-		(property "Value" "1990012"
+		(property "Value" "2601-3103"
 			(at 207.01 71.12 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19962,7 +19962,7 @@
 				)
 			)
 		)
-		(property "Footprint" "kart-medulla:CONN-TH_3P-P2.50-S5.00_1990012"
+		(property "Footprint" "TerminalBlock_WAGO:TerminalBlock_WAGO_2601-3103_1x03_P3.50mm_Vertical"
 			(at 207.01 64.77 0)
 			(hide yes)
 			(show_name no)

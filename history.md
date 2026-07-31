@@ -2373,3 +2373,26 @@ one resistor to answer, not a redesign.
 `OUT2` = `ACC_AMP_OUT`; the follower strap is deleted and the mux's stub relabelled to
 `CMD_ACC_BUF__0_5V`. ERC 0 violations, topology confirmed on a fresh netlist export, and both new
 areas checked by SVG render — the first attempt left the input labels overlapping the op-amp symbol.
+
+### Same day — all ten connectors swapped to the WAGO 2601-3103
+
+Rubén, twice: all ten, not a subset. `CN1`–`CN10` now carry
+`TerminalBlock_WAGO:TerminalBlock_WAGO_2601-3103_1x03_P3.50mm_Vertical` and a Value of `2601-3103`.
+One connector family on the board, 17.5 A instead of the Phoenix part's 2 A, and top entry so the
+wires leave upward rather than across the board.
+
+**One trap worth recording.** The first pass changed *eleven* Value fields, not ten: the schematic
+keeps a cached copy of every symbol in its own `lib_symbols` block, and a blind string replace hit
+that too. ERC immediately reported ten `lib_symbol_mismatch` warnings — the cached copy no longer
+matched `kart-medulla.kicad_sym`. The fix is that **only placed instances carry the new Value; the
+cached library symbol must keep matching the master.** Reverted that one field and ERC went back to
+zero. This is the same two-copy rule `AGENTS.md` already records for symbol edits, arriving from the
+other direction: there it warns you to edit *both* copies, here the point is not to edit the cache at
+all when what you are changing is per-instance data.
+
+The symbol is still named `1990012` after the Phoenix part it no longer represents. Left alone for
+now — renaming a library symbol touches the master `.kicad_sym`, the cache and every instance, and it
+buys nothing electrically. Worth doing when the library is next tidied.
+
+ERC 0 violations. The PCB still carries the Phoenix footprints, so schematic-parity now reports ten
+more mismatches — deliberate, and they disappear when the board is re-laid out.
