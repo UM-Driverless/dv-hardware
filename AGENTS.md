@@ -33,6 +33,22 @@ docs/                           cross-board notes (fab process, KiCad setup, lib
 - `projects/<board>/docs/` (per-board) = pinout, mechanical drawings, design-decision notes, board-revision changelog, app notes specific to this design's use of a part.
 - Rule of thumb: *would another board's designer read this?* → shared. *Only meaningful for this PCB?* → project folder.
 
+## Reporting: separate the decisions from the work
+
+Every report on this board ends with a **`Your call:`** block listing only what genuinely needs a
+human decision, each with the context needed to answer it in one line. **Anything not in that block
+is the agent's to finish** — do not describe your own next steps in a way that reads like a question.
+
+The failure this prevents, 2026-07-31: a report explained that a PCF8574 output powers up weak-high
+and that the existing pulldown "wants checking against the MAX4660's input threshold". That was the
+agent's own to-do, but it read as a decision, and Rubén had to ask which it was. A finding stated
+without saying who owns it costs a round trip every time.
+
+Rule of thumb for what belongs in `Your call:` — it needs a fact only the human has (what the vehicle
+must do, what is in a box at home, what a teammate agreed), or it commits money, an order, or an
+irreversible change. Datasheet lookups, arithmetic, threshold checks, netlist verification and
+consistency sweeps are never decisions.
+
 ## Tooling
 - **KiCad 10.0.1+** on macOS. Confirmed — don't ask again or assume an older version. UI labels and menu paths follow KiCad 10 (e.g. Grids live in `KiCad → Settings… → PCB Editor → Grids`, not under the View menu).
 
