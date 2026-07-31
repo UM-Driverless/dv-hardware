@@ -711,17 +711,39 @@ entry for that date). In the "External-connector audit (CN1–CN10)" section bel
 - ~~Rename `STEER_SDA__I2C` → `SDA__I2C` and `STEER_SCL__I2C` → `SCL__I2C`~~ — **done, verified 2026-07-31**: the netlist carries `SDA__I2C` and `SCL__I2C` with no `STEER_` prefix anywhere.
 - Verify every signal in `docs/pinout-esp32-s3.md` that needs to leave the medulla actually has a connector pin. Cross-check: PEDAL_ACC, PEDAL_BRAKE, PRESSURE_1/2/3, HYDRAULIC_1/2, motor halls (×3), CMD_ACC, CMD_BRAKE, CMD_STEER_PWM, CMD_STEER_DIR, SDA, SCL, REVERSE_WIRE, manual reverse button (if needed), 12 V, GND.
 
-### Lay out the medulla PCB (post-schematic, blocked on schematic finish) #ruben
+### Re-lay out the medulla PCB from scratch for v2 — do not edit the v1 copper #ruben
+
+**Decision 2026-07-31 (Rubén): enough has changed that the board is worth redoing rather than
+patched.** Rip up the existing routing and start the layout again once the v2 schematic is settled.
+This replaces the incremental placement list this task used to be.
+
+**The arithmetic behind it,** measured 2026-07-31. The board today carries **332 track segments,
+14 vias, 8 zones and 60 footprints**. The connector swap alone invalidates most of it: **27 of the
+82 nets reach a CN connector, and 201 of the 332 track segments — 60 % — sit on one of those nets.**
+All of those have to move, because every connector footprint changes pitch and hole pattern. On top
+of that, v2 adds a power section that does not exist yet (compressor MOSFET, gate drive, flyback,
+bulk capacitance), resizes `+12V` and the motor return from ~1 mA copper to something carrying 6 A,
+splits `PWR_GND` off the signal ground, and adds a third pressure channel. Preserving the remaining
+40 % is not worth routing around.
+
+**Order of work: the schematic lands first.** Routing before the v2 schematic is settled just makes
+copper that gets deleted again. The rip-up is one operation and is reversible through git, so it
+belongs at the moment the schematic is done — not before.
+
+**Placement notes, corrected 2026-07-31 against the netlist.** The previous version of this list had
+three wrong references: it called the op-amp "U4" (it is `U1`), said "CN1–CN8" when there are ten,
+and put the throttle and pressure commands on CN7.3 and CN5.3 when both are on CN10.
 
 - Place ESP32-S3-DevKitC-1 in the center, footprint matching `~/dv/kart/kart-medulla/resources/esp32-s3-devkitc-1/` (verified 22.86 mm row spacing).
-- Place L7805 (U19) with its caps near the +12 V input edge, copper pour on the GND tab for thermal dissipation.
+- Place L7805 (U19) with its caps near the +12 V input edge (`CN1.2`), copper pour on the GND tab for thermal dissipation.
 - Place MCP4922 (U13) close to the ESP32 SPI pins (MOSI/CLK/CMD_DAC_CS, Pins 39/40/42).
-- Place MAX4660 ×1 (U14, throttle mux) near the throttle command path between MCP4922 VOUTA and CN7 pin 3.
-- Place the LM358 amp (U4) near MCP4922 VOUTB on the brake path before CN5 pin 3 (`CMD_BRAKE__0_10V`).
-- Place PCF8574 (U25) on the I²C bus near the AS5600 connector (CN4); break P1–P7 to a small future-expansion header.
-- Place BSS123 (Q4) near the CMD_REVERSE path between PCF8574 P0 and the REVERSE_WIRE connector pin.
+- Place MAX4660 (U14, throttle mux) on the throttle path between MCP4922 VOUTA and **`CN10.1`**.
+- Place the LM358 (**U1**, not U4) near MCP4922 VOUTB on the pressure-command path before **`CN10.2`** (`CMD_BRAKE__0_10V`).
+- Place the compressor switching stage — MOSFET, gate drive, flyback, bulk caps — as its own block with its own heavy copper, kept away from the analog chain.
+- Place PCF8574 (U25) on the I²C bus near the steering-encoder connector (CN4); break the unused expander outputs to a small future-expansion header.
+- Place BSS123 (Q4) near the CMD_REVERSE path between PCF8574 P0 and `REVERSE_WIRE` (**`CN4.3`**).
 - Place the medulla USB-C connector at the edge facing the Orin; route only D+/D−/GND/VBUS, with VBUS going only to the ESP32 5 V pin.
-- Place the green push-in connectors (CN1–CN8) along the kart-facing edge.
+- Place the WAGO push-in connectors (**CN1–CN10**, plus CN11 if the pin count grows) along the kart-facing edge, wires exiting **outward** and pin numbering co-directional with the CN numbering.
 - **Bring out a separate `PWR_GND` terminal** — see "Two ground terminals, not one" below. This is a
   **functional requirement, not an optional refinement**: the measured 0.84 V ground shift that
   killed the pressure reading is what it fixes.

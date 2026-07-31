@@ -1718,3 +1718,36 @@ free pin plus the four reshufflable `EXP_P*` pins, and `SDC_ENABLE` (no exit any
 missing encoder power/ground are the claims on it.
 
 **Vault:** the WAGO 2601 entry moves from `Noted` to `To Buy` — confirmed we are buying them.
+
+### The v2 board gets re-laid-out, not patched
+
+Rubén, same night: enough has changed to be worth a redo of the board, so the existing routing can
+go. Measured to check that, rather than taking it on feel:
+
+- The board carries **332 track segments, 14 vias, 8 zones, 60 footprints**.
+- **27 of the 82 nets reach a CN connector**, and **201 of the 332 track segments — 60 % — sit on
+  one of those nets.** All ten connector footprints change pitch and hole pattern in v2, so every one
+  of those segments moves regardless.
+
+Add the parts that do not exist on the board at all yet — the compressor switching stage, `+12V` and
+the motor return re-sized from ~1 mA copper to 6 A, a `PWR_GND` split off the signal ground, a third
+pressure channel — and preserving the remaining 40 % is not worth routing around. So: rip up and
+start again.
+
+**Sequencing matters more than the decision does.** The rip-up is one operation and reversible
+through git, but doing it before the v2 schematic is settled produces an empty board paired with a
+stale schematic, which is worse than what exists now. It belongs at the moment the schematic is
+finished.
+
+The "Lay out the medulla PCB" task is rewritten as this re-layout. Its placement list also had three
+wrong references, corrected against the netlist while rewriting: it called the op-amp `U4` (it is
+`U1`), said "CN1–CN8" when there are ten connectors, and put the throttle and pressure commands on
+CN7.3 and CN5.3 when both are on CN10.
+
+**Everything decided for v2 is now on the board list.** Checked one by one: WAGO connector swap,
+on-board compressor switching, 6 A copper sizing, third pressure channel on a new pin, separate
+`PWR_GND`, GPIO 38/39 routed out, `medulla-v1`/`v2` naming on silkscreen and title block, the op-amp
+0–10 V swing fix, the silkscreen legend redo, CN4's missing encoder power and ground, `SDC_ENABLE`
+having no exit, and the steering sensor becoming a first-class signal. The one thing that had *not*
+been written down until now is this decision itself — the individual changes were all recorded, but
+nothing said the board would be redone rather than edited.
