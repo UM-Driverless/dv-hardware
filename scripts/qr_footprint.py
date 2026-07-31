@@ -40,7 +40,7 @@ def module_matrix(pid: str) -> list[list[int]]:
 
 
 def footprint(pid: str, name: str, module_mm: float, text_mm: float,
-              caption_lines: list[str] | None = None) -> str:
+              caption_lines: list[str] | None = None, header: str | None = None) -> str:
     matrix = module_matrix(pid)
     n = len(matrix)
     span = n * module_mm
@@ -73,6 +73,12 @@ def footprint(pid: str, name: str, module_mm: float, text_mm: float,
         f'    (effects (font (size {text_mm} {text_mm}) (thickness 0.15))))'
         for i, line in enumerate(caption)
     )
+    # A header line above the symbol says what the number is. It goes above rather than below because
+    # the caption below is already the widest part of the block, and a slot short enough to force the
+    # choice usually has its spare room on the other side of the symbol.
+    if header:
+        labels = (f'  (fp_text user "{header}" (at 0 {y0 - pitch:.4f}) (layer "F.SilkS")\n'
+                  f'    (effects (font (size {text_mm} {text_mm}) (thickness 0.15))))\n') + labels
     body = "\n".join(polys)
     return f'''(footprint "{name}"
   (version 20241229)
@@ -99,6 +105,8 @@ def main() -> None:
                     help="Footprint library directory, relative to the repo root")
     ap.add_argument("--module-mm", type=float, default=0.4, help="Size of one QR module in mm")
     ap.add_argument("--text-mm", type=float, default=1.0, help="Height of the digits line in mm")
+    ap.add_argument("--header", default=None,
+                    help="Single line placed ABOVE the QR, e.g. 'Design ID'")
     ap.add_argument("--caption", default=None,
                     help="Caption lines below the QR, separated by | (default: 'Design ID|<grouped id>'). Board setup may impose a minimum silk text height — KiCad DRC reports it as text_height.")
     args = ap.parse_args()
@@ -111,7 +119,7 @@ def main() -> None:
     lib.mkdir(parents=True, exist_ok=True)
     out = lib / f"{args.name}.kicad_mod"
     lines = args.caption.split('|') if args.caption else None
-    out.write_text(footprint(pid, args.name, args.module_mm, args.text_mm, lines))
+    out.write_text(footprint(pid, args.name, args.module_mm, args.text_mm, lines, args.header))
 
     n = len(module_matrix(pid))
     print(f"Design ID : {pid}  ({grouped(pid)})")
