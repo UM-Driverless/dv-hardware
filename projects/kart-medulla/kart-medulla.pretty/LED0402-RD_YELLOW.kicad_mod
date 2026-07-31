@@ -1,6 +1,7 @@
 (footprint "LED0402-RD_YELLOW"
   (version 20211014)
   (generator "emit_kicad_footprint.py")
+  (attr smd)
   (fp_text reference "REF**" (at 0 0 0) (layer "F.SilkS")
     (effects (font (size 1 1) (thickness 0.15)))
   )

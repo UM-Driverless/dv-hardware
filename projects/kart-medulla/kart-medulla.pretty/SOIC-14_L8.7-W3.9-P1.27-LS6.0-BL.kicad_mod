@@ -1,6 +1,7 @@
 (footprint "SOIC-14_L8.7-W3.9-P1.27-LS6.0-BL"
   (version 20211014)
   (generator "emit_kicad_footprint.py")
+  (attr smd)
   (fp_text reference "REF**" (at 0 0 0) (layer "F.SilkS")
     (effects (font (size 1 1) (thickness 0.15)))
   )

@@ -13111,7 +13111,7 @@
 				)
 			)
 		)
-		(property "Footprint" "kart-medulla:SOIC-16_L10.3-W7.5-P1.27-LS10.3-BL"
+		(property "Footprint" "Package_SO:SOIC-16_3.9x9.9mm_P1.27mm"
 			(at 486.41 217.17 0)
 			(hide yes)
 			(show_name no)
@@ -15483,7 +15483,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "kart-medulla:SOIC-8_L5.0-W4.0-P1.27-LS6.0-BL"
 			(at 386.08 331.47 0)
 			(hide yes)
 			(show_name no)
@@ -19789,7 +19789,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "kart-medulla:SOIC-8_L5.0-W4.0-P1.27-LS6.0-BL"
 			(at 384.81 306.07 0)
 			(hide yes)
 			(show_name no)
