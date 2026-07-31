@@ -27,6 +27,12 @@ touching `fabrication/`, so it is the best available evidence of what the fab ho
 inferred from this repo rather than read off a purchase order. Paired with kart-brain `main` at
 `c200e56`.
 
+Two pins are also used for something other than their designed signal on this board (the steering
+sensor's PWM on `PRESSURE_3`, the compressor MOSFET gate on `BUZZER`) — that is firmware assignment
+rather than copper, so it is listed in
+[`docs/pinout-esp32-s3.md`](docs/pinout-esp32-s3.md) under "As-built pin use". Read both that section
+and the list below to know what this board actually does.
+
 Rework outstanding on this board:
 
 - **CN10.2 brake output is on the wrong side of the LM358.** The board carries the unamplified 0-5 V

@@ -200,6 +200,26 @@ before assuming this pinout works:
 | 43 | 5V | - | +5V_USB | Power | 5V from USB VBUS via the medulla USB-C connector — powers the ESP32 dev board only (split-rail design, see history.md 2026-05-02). NOT connected to the L7805 +5V_REG rail. |
 | 44 | GND | - | GND | Power | Ground (bottom of left edge / LEFT_HEADER row 22) |
 
+## As-built pin use — board `84d6dd0`
+
+**The table above is the *design*. This section is the *board that exists*, and it lists only the pins
+whose real use differs.** Everything not listed here is used as the table says. Exceptions-only is
+deliberate: a second full table would drift out of sync with the first one within a revision.
+
+Physical modifications (cut traces, patch wires) are **not** here — they live in the per-board rework
+list in [`../README.md`](../README.md), keyed to the same hash. This section is firmware-side pin
+assignment; that one is copper. A person holding the board needs both.
+
+| Pin | GPIO | Designed signal | Actual use on `84d6dd0` | Status |
+|---|---|---|---|---|
+| 19 | 1 | `PRESSURE_3` (ADC1_CH0) | **Reads the MT6701 steering-angle sensor's PWM output.** | Decided 2026-07-31 (Rubén). Pressure sensor 3 is not fitted on this board. |
+| 35 | 3 | `BUZZER` (Digital Out) | **Drives the compressor MOSFET gate.** | Reassigned 2026-07-10 (see `../../../history.md`); confirmed 2026-07-31 that no buzzer is fitted on this board. GPIO 3 floats at reset with no internal pull, so an external pulldown wins at boot — which is what makes it safe on a gate. |
+| 13 | 38 | `HOLD` (unassigned) | **Planned:** raw ESP32 PWM → RC low-pass → U14 pin 8, as the throttle command, bypassing the SPI/MCP4922 path. | **Not done.** Adds rework (U13 pin 14 lifted) — see the README rework list. Accepted 2026-07-31 that a 3.3 V peak into a 0–5 V input reaches ~66 % of scale; that is enough throttle. |
+
+Neither the pressure-3 sensor nor the buzzer is populated on this board, so both reassignments are
+free — no signal was displaced. Record any further deviation here the day it is decided, not the day
+the firmware is written; the point of this section is that someone probing the board can trust it.
+
 ## MCP4922 (dual 12-bit SPI DAC) — external chip connections on the PCB
 
 | Pin | Signal | Connects to |

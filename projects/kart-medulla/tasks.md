@@ -7,6 +7,36 @@ cross-board work. Update status: `TODO → In Progress → Done`. Claim by addin
 
 ## TODO
 
+### Decide the medulla-v2 pinout as one allocation, not signal by signal #ruben
+
+Raised 2026-07-31. There are now at least six separate claims on v2 pins, each already tracked as its
+own item, and several of them want the same kind of GPIO. Deciding them one at a time is how two
+signals end up on one pin — which is exactly what happened on v1, where `PRESSURE_3` and `BUZZER` both
+got quietly repurposed (see "As-built pin use" in
+[`docs/pinout-esp32-s3.md`](docs/pinout-esp32-s3.md)).
+
+The competing claims, all of which must be satisfied by one table before v2 layout starts:
+
+- **3× 0–10 V pressure inputs** — needs three non-strap ADC-capable GPIOs plus dividers and terminals.
+  GPIO 1 is not coming back; see "Restore the third pressure channel on a new pin (V2)".
+- **Steering angle sensor** — pin need depends on the interface, and the part is settled where v1 is
+  concerned but not for v2: v1 runs the **MT6701 on PWM** (validated on the kart 2026-07-31). If v2
+  keeps PWM it needs one capture-capable GPIO; SSI/SPI needs more. Decide the part and the interface
+  before allocating.
+- **Compressor MOSFET drive, on-board** — see "Design the compressor MOSFET drive on-board for
+  medulla-v2". Needs a gate-drive GPIO whose reset state is safe (v1 uses GPIO 3 for exactly this
+  reason: it floats with no internal pull, so an external pulldown wins at boot).
+- **ASSI buzzer on GPIO 3** — rules-mandated, and it collides head-on with the compressor use above.
+  One of the two moves; `requirements.md` flags the conflict but does not resolve it.
+- **Throttle command path** — whether v2 keeps the MCP4922 SPI DAC, switches to the DAC7574, or
+  keeps a filtered-PWM output as a designed-in fallback rather than a patch.
+- **GPIO 38 + 39 reaching terminals** — see "Route GPIO 38 + GPIO 39 out to CN terminals"; today no
+  spare GPIO is physically reachable, which is what forced the v1 repurposing in the first place.
+
+Done = one pin table in `docs/pinout-esp32-s3.md` for v2 with every claim above placed and no pin
+carrying two signals, each strap pin checked against its boot behaviour, and every signal that leaves
+the board having a terminal to leave through. Cross-check against `requirements.md` before closing.
+
 ### Patch the fabricated board for the CN10.2 brake fix #ruben
 
 Filed 2026-07-31. The design fix landed in `f68cc1f` and is marked DONE under "Fix the
