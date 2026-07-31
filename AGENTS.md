@@ -33,25 +33,53 @@ docs/                           cross-board notes (fab process, KiCad setup, lib
 - `projects/<board>/docs/` (per-board) = pinout, mechanical drawings, design-decision notes, board-revision changelog, app notes specific to this design's use of a part.
 - Rule of thumb: *would another board's designer read this?* → shared. *Only meaningful for this PCB?* → project folder.
 
-## Reporting: say who owns each open item
+## How to work here — the corrections that had to be repeated
 
-**The rule is that no finding is left without an owner** — not that reports must contain a question.
-When something genuinely needs a human decision, put it at the end under `Your call:` with the
-context to answer it in one line. **When nothing does, write nothing.** An empty section, or one
-padded with a question that was really the agent's own to-do, is worse than no section: it hands back
-work that was already understood, and it trains the reader to skim the part that matters.
+Every rule below was said more than once by Rubén on 2026-07-31/08-01. Read this before asking him
+anything. The full incidents are in `history.md` under "the corrections that had to be repeated".
 
-Everything not marked as the human's is the agent's to finish. Never describe your own next step in a
-way that reads like a question.
+**Search this repo's own records before asking or asserting.** Four places that answer most
+questions: `projects/<board>/README.md`'s **rework list** (parts removed, pins lifted — a part in the
+schematic may not exist on the board); `history.md` for "did we already decide this?"; the firmware
+repo's **other branches**, since `dev` is not the whole codebase; and what Rubén already told you
+this session.
 
-Rule of thumb for what is genuinely the human's: it needs a fact only they have (what the vehicle
-must do, what is in a box at home, what a teammate agreed), or it commits money, an order, or an
-irreversible change. Datasheet lookups, arithmetic, threshold checks, netlist verification and
-consistency sweeps are never decisions — do them.
+**Do the thing. Do not offer to do the thing.** Model tiers, effort levels, caps, resistor values,
+refactors of your own scaffolding, one-line firmware fixes — all yours. If you have already concluded
+a change is right, making it and saying so is the answer; presenting it as an option is handing work
+back. *"why do you wait for me to get disappointed?"*
 
-The failure this came from, 2026-07-31: a report said a PCF8574 output powers up weak-high and that
-the existing pulldown "wants checking against the MAX4660's input threshold". That was the agent's
-own to-do, but it read as a decision, and Rubén had to spend a turn asking which it was.
+**Fix the cause, not the symptom.** A 3.3 V part driving a 5 V-supplied chip is fixed by changing the
+supply, not by adding a level-shifter to patch the supply choice. Adding a component to work around a
+decision is almost always the wrong shape of answer.
+
+**Verify a write by reading the file, never by reading your own script's output.** `grep` for the
+content that should now be there. Never chain a success message with `;`. A commit that says "nothing
+added to commit" is the write failing loudly.
+
+**Write it down the same turn you understand it.** Not when asked. If a correction, a measurement, a
+decision or a dead end came up, it goes into `history.md` before the reply. *"that's why we note
+things."*
+
+**Plain words.** Name the thing: "the DAC's three control wires — chip select, clock, data in", not
+"its inputs". No hyphenated compound labels for questions ("your all-ten-or-high-current-only
+answer"). No wall of text where four lines will do — and when he says "tldr" or "short", that is a
+standing mode for the rest of the session, not a note about the next reply.
+
+**Do not invent problems.** Chase what he raised. An op-amp drives a signal input; its impedance is
+not a design risk worth a task. *"worry about the things i tell you, not invented problems."*
+
+**An open question left open becomes a phantom fact.** `SDC_ENABLE` was recorded as undecided in May,
+then inherited by every later document as a real constraint on connector capacity — including a
+proposal to add a connector for it. It was never a net. When an item stays undecided across several
+entries, re-check whether it is still real before building on it.
+
+**No finding is left without an owner.** When something genuinely needs Rubén, put it at the end
+under `Your call:` with the context to answer it in one line. When nothing does, write nothing — a
+padded section trains him to skim the part that matters. Everything not marked as his is yours to
+finish, and you never describe your own next step in a way that reads like a question. It is
+genuinely his only when it needs a fact only he has (what the vehicle must do, what is in a box at
+home, what a teammate agreed) or when it commits money, an order, or an irreversible change.
 
 ## Tooling
 - **KiCad 10.0.1+** on macOS. Confirmed — don't ask again or assume an older version. UI labels and menu paths follow KiCad 10 (e.g. Grids live in `KiCad → Settings… → PCB Editor → Grids`, not under the View menu).

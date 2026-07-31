@@ -2425,3 +2425,87 @@ re-read as *pending*, and every later document that touched connector capacity i
 constraint. An open question left open long enough starts being treated as a fact.
 
 Removed from `tasks.md` in six places and from the v2 pin table's GPIO 39 row. GPIO 39 is simply free.
+
+## 2026-08-01 — the corrections that had to be repeated
+
+Written because Rubén asked for it in those terms: *"i'm tired of repeating myself, so you better note
+these things that you finally understand to history.md. i'm tired of asking, so make sure AGENTS.md
+makes you behave like that."* Each of these was said more than once across 2026-07-31 and 08-01. The
+rules distilled from them are at the top of `AGENTS.md`; the incidents are here so the rules are not
+just assertions.
+
+### Speak plainly
+
+Said four separate times: *"FUCKING SPEAK CLEARLY. What is 'its inputs'? the power, or all the
+signals? it's not clear!"* · *"and again, i dont understand shit about your answer"* · *"how many
+times do i have to tell you to talk normally"* · *"tldr"*.
+
+Three distinct failures behind those, worth separating because they need different fixes:
+
+- **Ambiguous shorthand for a specific thing.** "The MCP4922's inputs" could mean its power pin, its
+  analog outputs, or its three digital control wires. It meant `CS#`, `SCK` and `SDI`. Name the
+  thing.
+- **Hyphenated compound labels standing in for a question.** "your all-ten-or-high-current-only
+  answer" is not English. The question was: *do you want all ten connectors replaced, or only the
+  ones carrying the compressor's current?*
+- **Length.** A correct answer buried in twelve paragraphs is a failed answer. And "tldr" or "short"
+  is a **standing mode for the rest of the session**, not a note about the next reply.
+
+### Decide the things that are yours to decide
+
+*"if you dont need me, go ahead"* · *"ok go ahead and fix whatever you need. only ask me when in
+doubt"* · *"then why dont you fix the freaking code?"* · and, most sharply, after I identified that
+the audit agents were running at high effort for no benefit and then queued the change for approval:
+*"if 'high buys little' is true, you should already have them configured at medium. why do you wait
+for me to get disappointed?"*
+
+The pattern is naming a change, giving the reasoning that justifies it, and then presenting it as a
+menu item. That is not caution, it is handing the work back. Config, model tiers, effort levels,
+caps, resistor values, a one-line firmware fix, refactors of my own scaffolding — all mine.
+
+### Fix the cause, not the symptom
+
+On the MCP4922's logic-level problem I proposed adding a 74AHCT125 buffer. Rubén: *"if you know the
+esp32 works at 3.3V, you must choose a compatible chip. Not throw more errors at my face!"* The part
+was never wrong; the supply choice was. Moving `U13` to +3V3 fixed it with no new component. Adding
+hardware to work around a decision is almost always the wrong shape of answer.
+
+### Verify a write by reading the file
+
+Told to stop the workflow, I stopped it, ran a one-liner meant to save the findings, and reported them
+saved. The script had crashed before its write; the commit in the same command printed "nothing added
+to commit"; `echo saved` was chained with `;` so it printed regardless. I read my own output instead
+of the file. Rubén had to ask what had happened to `history.md`. Full write-up in the 2026-07-31 entry
+and in `.agents/error-log.md`.
+
+### Write it down the same turn
+
+*"isn't it explained in history.md? I think we removed a resistor... I THINK. I'm not sure. I dont
+remember everything. that why we note things."* He was right: `README.md`'s rework list said R10 had
+been removed, which refuted a finding I was about to send him to measure with a multimeter. The note
+existed. Neither I nor eight audit agents nor three refuters read it, because the workflow's context
+block never named that file.
+
+The corollary is the one he stated: he does not remember everything and should not have to. Anything
+understood in a turn gets written before the reply, not when asked.
+
+### Do not invent problems
+
+I filed the Festo VPPM's setpoint input impedance as an open item blocking the op-amp swing check.
+Rubén: *"it's just a signal. dont worry about it. the opamp should be able to keep the voltage. worry
+about the things i tell you, not invented problems."* Dropped.
+
+### An open question left open becomes a phantom fact
+
+`SDC_ENABLE` was correctly identified in May as having no wire, no label and no connector exit, with
+"drop it entirely" listed as one of two options. Nobody chose. Over the following months every
+document that touched connector capacity inherited it as a real constraint: a competing claim against
+the steering encoder's power and ground, against CANH/CANL, one of the two things the v2 pin table
+"does not solve", and first claim on GPIO 39. On 2026-08-01 Rubén asked *"why would i want
+SDC_ENABLE? we have a mosfet that ends the shutdown loop to gnd when everything ok"* — and the whole
+edifice was about a signal that had never existed.
+
+The failure is not that the audit missed it. The audit found it and recorded the option to delete it.
+The failure is that *undecided* was re-read as *pending* often enough that it hardened into a fact.
+When an item survives several entries without a decision, re-check that it is still real before
+building on it.
