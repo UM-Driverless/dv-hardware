@@ -24,8 +24,13 @@ and is not independently confirmed. The board built from this brief exists and i
 - Read 3× 0–10 V analog from the Festo pressure sensors (voltage divider may suffice)
   — **still three. Confirmed 2026-07-31 by Rubén**, overriding the 2026-07-18 reading that dropped
   it to two. On the as-built board only two work: `PRESSURE_3` (GPIO 1, CN5.2) was repurposed to
-  read the steering sensor's PWM angle output. That repurpose stands, so V2 must find the third
-  pressure channel a *new* GPIO, ADC divider and connector pin rather than take GPIO 1 back.
+  read the steering sensor's PWM angle output. **On V2 that pin goes back to `PRESSURE_3` and the
+  steering sensor moves to GPIO 38** — see the v2 pin allocation in `docs/pinout-esp32-s3.md`.
+  An earlier version of this line said the opposite, that GPIO 1 was not coming back and the third
+  pressure channel needed a new pin. That is not possible: ADC1 is GPIO 1–10 and ADC2 is unusable
+  with WiFi on, so there are exactly ten analog-capable pins, and seven analog inputs plus the
+  compressor gate on GPIO 3 and I²C on GPIO 8/9 already fills them. Something non-analog has to
+  leave ADC1, and the steering PWM is the one that costs nothing to move.
 - Write 5 V analog for the kart accelerator
 - Write the signal for the Festo actuators / servo braking
 - Hold a normally-open relay able to cut the shutdown circuit on condition
@@ -96,10 +101,15 @@ does not do. For V2:
   than inherited from a pressure channel. Note the sensor itself is not settled — AS5600, MT6701
   and MA732 are all under evaluation (datasheets in the `kart-medulla` repo), and MT6701/MA732
   offer SSI/SPI as well as PWM, so the pin choice should not foreclose that.
-- **Restore the third pressure channel on a new pin.** Decided 2026-07-31: three pressure inputs
-  remain a requirement, and GPIO 1 is not coming back, so V2 needs a different ADC-capable GPIO for
-  `PRESSURE_3`, its own 0–10 V divider, and a connector pin. Scope this alongside the steering
-  sensor's pin choice so the two don't compete for the same GPIO.
+- **Give the steering sensor its own pin and let `PRESSURE_3` have GPIO 1 back.** Amended
+  2026-07-31 after the ADC1 count above: `STEER_SENS_PWM` moves to **GPIO 38**, which is
+  unconstrained, is not a strap pin and is on neither ADC, so a PWM capture input wastes nothing
+  there. `PRESSURE_3` returns to GPIO 1 with the divider it already has. This is what this section
+  asked for in the first place — a pin chosen for the steering sensor rather than inherited from a
+  pressure channel. **GPIO 38 must get no divider and no filter capacitor**: a 1/3 divider puts a
+  3.3 V logic high at 1.100 V against the ESP32's 2.475 V VIH, and 100 nF against that source
+  impedance gives a 239 Hz corner on a 994.4 Hz PWM frame. Both are correct for an analog pressure
+  input and fatal for a logic-level one.
 
 ### Contradictions to resolve before V2 — do not action either item as written
 
