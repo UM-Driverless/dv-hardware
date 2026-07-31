@@ -1905,3 +1905,49 @@ the cost is a 3.3 V transceiver, two more terminal pins on a board that has none
 termination decision. Recorded with the question that should be answered first: what would CAN carry
 that the existing Orin link does not — the team does keep DBCs in `~/dv/can/`, so something in the
 wider vehicle speaks it.
+
+## 2026-07-31 (late night) — the v2 pin table, and the constraint nobody had spotted
+
+Four decisions from Rubén settled the inputs: MT6701 stays on PWM, the MCP4922 stays as the throttle
+DAC, the op-amp keeps its 12 V rail and its ~9 V ceiling, and the multi-agent validation fan-out waits
+until the pin table exists. That unblocked the table, which is now in `docs/pinout-esp32-s3.md`.
+
+### ADC1 is full, and that decides the whole table
+
+On the ESP32-S3, ADC1 is GPIO 1–10 and ADC2 is GPIO 11–20, but ADC2 is unusable whenever WiFi is on.
+So this board has exactly **ten** analog-capable pins. v2 needs **seven** of them — `PEDAL_ACC`,
+`PEDAL_BRAKE`, `PRESSURE_1`, `PRESSURE_2`, `PRESSURE_3`, `HYDRAULIC_1`, `HYDRAULIC_2`.
+
+All ten were already occupied, and **four of the occupants are not analog at all**: the steering
+sensor's PWM on GPIO 1, the compressor gate on GPIO 3, and I²C on GPIO 8 and 9. Six analog signals
+plus four squatters fills the range exactly, which is why restoring the third pressure channel looked
+impossible when it was considered on its own — and why deciding pins one at a time was the wrong
+method. The constraint only appears when the whole allocation is laid out at once.
+
+**The fix costs one firmware pin number.** `STEER_SENS_PWM` moves from GPIO 1 to **GPIO 38**, which is
+an unconstrained HOLD, not a strap pin, and on neither ADC — a PWM capture input does not care which
+pin it uses. GPIO 1 goes back to `PRESSURE_3`, its originally designed use. Moving I²C off GPIO 8/9
+instead would also have worked but touches two pins and the firmware bus setup for no extra gain.
+
+This is also exactly what `requirements.md` had asked for in words — that the steering sensor get a
+pin chosen deliberately rather than inherited from a pressure channel.
+
+### CAN needed no pins freed
+
+While reading the pin table for the above: **GPIO 41 and 42 are already held for `CAN_RX` and
+`CAN_TX`**, marked in the doc as *"Held for future CAN … medulla has no transceiver in this rev"*.
+Neither is ADC-capable or a strap pin.
+
+So the earlier answer to Rubén's question — that the PCF8574 could free real GPIOs by absorbing slow
+signals like `SELECT_THROTTLE` — was solving a problem that did not exist. The analysis itself was
+sound and the facts in it hold (`MISO` on GPIO 13 is genuinely unused because the MCP4922 is
+write-only; a PCF8574 output powers up weak-high, which would invert `SELECT_THROTTLE`'s safe
+default), but it should have started by reading the existing pin table. What CAN actually still needs
+is a 3.3 V transceiver, two terminal pins for CANH/CANL, and a termination decision — all board and
+edge, none of it pin table.
+
+### What the table does not solve
+
+Connector capacity, not GPIO capacity: `SDC_ENABLE` still has no terminal to leave through, and CN4
+gives the steering encoder its two bus lines but neither power nor ground. Both are in the connector
+audit and both are now the binding constraints on v2 rather than anything about GPIOs.

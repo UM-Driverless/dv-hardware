@@ -200,6 +200,69 @@ before assuming this pinout works:
 | 43 | 5V | - | +5V_USB | Power | 5V from USB VBUS via the medulla USB-C connector — powers the ESP32 dev board only (split-rail design, see history.md 2026-05-02). NOT connected to the L7805 +5V_REG rail. |
 | 44 | GND | - | GND | Power | Ground (bottom of left edge / LEFT_HEADER row 22) |
 
+## medulla-v2 pin allocation — decided 2026-07-31, as one table
+
+Decided together rather than signal by signal, which is what let `PRESSURE_3` and `BUZZER` get
+quietly repurposed on v1. Inputs to it: MT6701 stays on PWM, the MCP4922 stays as the throttle DAC,
+and the op-amp keeps its 12 V rail (all Rubén, 2026-07-31).
+
+**The constraint that drives the whole table: ADC1 is full.** On the ESP32-S3, ADC1 is GPIO 1–10 and
+ADC2 is GPIO 11–20 — and ADC2 is unusable whenever WiFi is on, so in practice this board has exactly
+**ten analog-capable pins**. v2 needs **seven** of them (`PEDAL_ACC`, `PEDAL_BRAKE`, `PRESSURE_1`,
+`PRESSURE_2`, `PRESSURE_3`, `HYDRAULIC_1`, `HYDRAULIC_2`). All ten are currently occupied, four by
+signals that are not analog at all: the steering-sensor PWM on GPIO 1, the compressor gate on GPIO 3,
+and I²C on GPIO 8 and 9. Six analog + four squatters = ten, so restoring the third pressure channel
+means evicting one squatter.
+
+**Evict the steering sensor, not I²C.** Moving `STEER_SENS_PWM` from GPIO 1 to **GPIO 38** costs
+nothing: GPIO 38 is an unconstrained HOLD today, is not a strap pin, is not on either ADC, and a PWM
+capture input does not care which pin it sits on. That returns GPIO 1 to `PRESSURE_3`, its originally
+designed use, and it is what `requirements.md` already asks for — the steering sensor gets a pin
+chosen for it rather than inherited from a pressure channel. Moving I²C instead would work but
+touches two pins and the firmware bus setup for no extra gain.
+
+| GPIO | v2 signal | Why this pin |
+|---|---|---|
+| 1 | `PRESSURE_3` | ADC1_CH0. Returns to its designed use. |
+| 2 | `HYDRAULIC_2` | ADC1_CH1, unchanged |
+| 3 | `CMD_COMPRESSOR_PWM` | Unchanged, and deliberately: GPIO 3 floats at reset with no internal pull, so an external pulldown wins at boot. That is what makes it safe on a MOSFET gate. |
+| 4 | `PEDAL_ACC` | ADC1_CH3, unchanged |
+| 5 | `PEDAL_BRAKE` | ADC1_CH4, unchanged |
+| 6 | `PRESSURE_1` | ADC1_CH5, unchanged |
+| 7 | `PRESSURE_2` | ADC1_CH6, unchanged |
+| 8 | `SDA` | I²C, unchanged. Costs an ADC1 pin but moving it buys nothing once the steering sensor has left. |
+| 9 | `SCL` | I²C, unchanged |
+| 10 | `HYDRAULIC_1` | ADC1_CH9, unchanged |
+| 11 | `MOSI` | SPI to MCP4922, unchanged |
+| 12 | `CLK` | SPI, unchanged |
+| 13 | `MISO` | Unused — MCP4922 is write-only. Free pin, left as a spare. |
+| 14 | `CMD_DAC_CS` | SPI chip select, unchanged |
+| 15 | `SELECT_THROTTLE` | MAX4660 mux select. 10 kΩ pulldown gives the safe power-on default (pedal pass-through). |
+| 16 | `MOTOR_HALL_1` | unchanged |
+| 17 | `CMD_STEER_DIR` | unchanged |
+| 18 | `SDC_NOT_EMERGENCY` | Drives Q3's gate. Stays on a real pin — a safety read must not sit behind a bus transaction. |
+| 21 | `MOTOR_HALL_3` | unchanged |
+| 38 | **`STEER_SENS_PWM`** | **New.** MT6701 PWM angle capture, moved off GPIO 1. Unconstrained, no strap, not ADC. |
+| 39 | *spare, reachable* | The remaining unconstrained GPIO. First claim on it is `SDC_ENABLE` if that stays a real pin rather than moving to the expander. |
+| 40 | `CMD_STEER_PWM` | unchanged |
+| 41 | `CAN_RX` | Already reserved for CAN. Not ADC, not a strap pin. |
+| 42 | `CAN_TX` | Already reserved for CAN. |
+| 47 | `MOTOR_HALL_2` | unchanged |
+| 0, 45, 46 | strap pins — leave HOLD | boot behaviour risk |
+| 35, 36, 37 | unusable | octal PSRAM on the fitted N16R8 |
+| 48 | BLOCKED | module's own RGB LED |
+| 19, 20 | NC | USB pins, no connector on this board |
+
+**No pin carries two signals, every strap pin is left alone, and the two ADC-capable pins spent on
+non-analog signals (3 and 8/9) are spent deliberately.**
+
+Two things this table does *not* solve, because they are connector capacity rather than GPIO
+capacity: `SDC_ENABLE` still has no terminal to leave through, and CN4 gives the steering encoder its
+two bus lines but neither power nor ground. See the connector audit in `tasks.md`.
+
+**Firmware impact:** one pin number changes, `STEER_SENS_PWM` from GPIO 1 to GPIO 38. Everything else
+keeps its current assignment.
+
 ## As-built pin use — board `84d6dd0`
 
 **The table above is the *design*. This section is the *board that exists*, and it lists only the pins

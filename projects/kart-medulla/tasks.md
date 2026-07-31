@@ -35,9 +35,22 @@ The competing claims, all of which must be satisfied by one table before v2 layo
 - **GPIO 38 + 39 reaching terminals** — see "Route GPIO 38 + GPIO 39 out to CN terminals"; today no
   spare GPIO is physically reachable, which is what forced the v1 repurposing in the first place.
 
-Done = one pin table in `docs/pinout-esp32-s3.md` for v2 with every claim above placed and no pin
-carrying two signals, each strap pin checked against its boot behaviour, and every signal that leaves
-the board having a terminal to leave through. Cross-check against `requirements.md` before closing.
+**DONE 2026-07-31 — the table is in `docs/pinout-esp32-s3.md` under "medulla-v2 pin allocation".**
+Every claim above is placed, no pin carries two signals, and no strap pin is used.
+
+The constraint that decided it, which none of the individual claims had exposed: **ADC1 is full.**
+ADC1 is GPIO 1–10 and ADC2 is unusable with WiFi on, so the board has exactly ten analog-capable
+pins. v2 needs seven. All ten were occupied, four by non-analog signals — steering PWM on GPIO 1,
+compressor gate on GPIO 3, I²C on 8 and 9 — so the third pressure channel could only come back by
+evicting one. **`STEER_SENS_PWM` moves from GPIO 1 to GPIO 38** (unconstrained, no strap, not ADC),
+returning GPIO 1 to `PRESSURE_3`. That is one firmware pin number and nothing else.
+
+Also settled while building it: **GPIO 41/42 were already reserved for `CAN_RX`/`CAN_TX`**, so the
+CAN question needed no pins freed at all.
+
+What the table does **not** solve, because it is connector capacity rather than GPIO capacity:
+`SDC_ENABLE` still has no terminal, and CN4 gives the steering encoder its two bus lines but neither
+power nor ground.
 
 ### Patch the fabricated board for the CN10.2 brake fix #ruben
 
@@ -81,7 +94,26 @@ To decide when drawing it:
 
 Raised 2026-07-31 by Rubén: is there pin budget for CAN, and could the GPIO expander free some up?
 
-**Yes. TWAI needs two GPIOs, and both can be found without displacing anything important.**
+**The GPIOs are already reserved — this was answered before the question was asked.**
+`docs/pinout-esp32-s3.md` holds **GPIO 41 for `CAN_RX` and GPIO 42 for `CAN_TX`**, marked
+*"Held for future CAN … medulla has no transceiver in this rev"*. Neither is ADC-capable and neither
+is a strap pin, so they cost nothing else. **No pins need freeing and the expander is not involved.**
+
+What CAN actually still needs is on the board and the edge, not the pin table:
+- **A 3.3 V transceiver** — SN65HVD230 or TCAN332 class. New part, new footprint. `CAN_TX`/`CAN_RX`
+  only have to reach it, and it is on-board, so they never need terminals.
+- **Two terminal pins** for CANH/CANL, which is the real cost — the board has no spare, and
+  `SDC_ENABLE` and CN4's steering encoder are already competing. (`CN8.2` frees up on v2 and
+  `EXP_P1`–`EXP_P4` are reshufflable.)
+- **A termination decision**: 120 Ω fitted if the medulla is an end node, omitted if it is a stub.
+
+(Superseded analysis, kept because the facts in it are still true and useful elsewhere: TWAI needs
+two GPIOs; `MISO` on GPIO 13 is unused because the MCP4922 is write-only; `SELECT_THROTTLE` on
+GPIO 15 could move to the expander if a slow signal ever needs displacing — with the caveat that a
+PCF8574 output powers up weak-high and HIGH on that net hands the throttle to the DAC, so the 10 kΩ
+pulldown would have to keep winning.)
+
+**Superseded — the two GPIOs were already reserved:**
 `EXP_P5`, `EXP_P6` and `EXP_P7` are unconnected on `U25` (pins 10, 11, 12; `INT#` on 13 is free too),
 so there are three expander slots waiting with no new hardware. Checked against the netlist
 2026-07-31, the ESP32's 22 signals give:
