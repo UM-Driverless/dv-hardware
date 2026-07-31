@@ -24,10 +24,12 @@ The competing claims, all of which must be satisfied by one table before v2 layo
   keeps PWM it needs one capture-capable GPIO; SSI/SPI needs more. Decide the part and the interface
   before allocating.
 - **Compressor MOSFET drive, on-board** — see "Design the compressor MOSFET drive on-board for
-  medulla-v2". Needs a gate-drive GPIO whose reset state is safe (v1 uses GPIO 3 for exactly this
-  reason: it floats with no internal pull, so an external pulldown wins at boot).
-- **ASSI buzzer on GPIO 3** — rules-mandated, and it collides head-on with the compressor use above.
-  One of the two moves; `requirements.md` flags the conflict but does not resolve it.
+  medulla-v2". GPIO 3 carries it on v1 and keeps it on v2 — its reset state is what makes it safe
+  (floats with no internal pull, so an external pulldown wins at boot). Allocate around it.
+- ~~ASSI buzzer on GPIO 3~~ — **not a competing claim: closed 2026-07-18**, the kart carries no buzzer
+  or ASSI (those are formula-vehicle only), so **GPIO 3 is the compressor's permanently** and the
+  `BUZZER` net name is historical. `requirements.md` still flags this as an unresolved conflict — that
+  flag is stale and should be cleared when v2 is scoped.
 - **Throttle command path** — whether v2 keeps the MCP4922 SPI DAC, switches to the DAC7574, or
   keeps a filtered-PWM output as a designed-in fallback rather than a patch.
 - **GPIO 38 + 39 reaching terminals** — see "Route GPIO 38 + GPIO 39 out to CN terminals"; today no

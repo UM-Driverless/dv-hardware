@@ -213,7 +213,7 @@ assignment; that one is copper. A person holding the board needs both.
 | Pin | GPIO | Designed signal | Actual use on `84d6dd0` | Status |
 |---|---|---|---|---|
 | 19 | 1 | `PRESSURE_3` (ADC1_CH0) | **Reads the MT6701 steering-angle sensor's PWM output.** | Decided 2026-07-31 (Rubén). Pressure sensor 3 is not fitted on this board. |
-| 35 | 3 | `BUZZER` (Digital Out) | **Drives the compressor MOSFET gate.** | Reassigned 2026-07-10 (see `../../../history.md`); confirmed 2026-07-31 that no buzzer is fitted on this board. GPIO 3 floats at reset with no internal pull, so an external pulldown wins at boot — which is what makes it safe on a gate. |
+| 35 | 3 | `BUZZER` (Digital Out) | **Drives the compressor MOSFET gate.** | Reassigned 2026-07-10 (see `../../../history.md`); and **permanent** — the kart carries no buzzer or ASSI at all (closed 2026-07-18; those are formula-vehicle only), so the `BUZZER` net name is historical. GPIO 3 floats at reset with no internal pull, so an external pulldown wins at boot — which is what makes it safe on a gate. |
 | 13 | 38 | `HOLD` (unassigned) | **Planned:** raw ESP32 PWM → RC low-pass → U14 pin 8, as the throttle command, bypassing the SPI/MCP4922 path. | **Not done.** Adds rework (U13 pin 14 lifted) — see the README rework list. Accepted 2026-07-31 that a 3.3 V peak into a 0–5 V input reaches ~66 % of scale; that is enough throttle. |
 
 Neither the pressure-3 sensor nor the buzzer is populated on this board, so both reassignments are
