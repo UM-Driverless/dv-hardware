@@ -65,6 +65,29 @@ CN1        CN2        CN3        CN4       CN5        CN6        CN7        CN8 
 | **CN9**  | L         | CMD_STEER_PWM (3V3) | HYDRAULIC_1 (0–5V) | GND | Pin 1 = Cytron H-bridge PWM. Pin 2 = Hydraulic-1 sensor. Pin 3 = GND return for the left-side analog/SDC group. |
 | **CN10** | L, bottom | CMD_ACC (0–5V) | CMD_PRES (0–10V) | GND | Pin 1 = throttle command, MCP4922 VOUTA via the MAX4660 mux, to the motor controller. Pin 2 = **pressure command to the Festo VPPM proportional regulator, not to the motor controller** — braking on this kart is pneumatic. It is VOUTB amplified ×2 by the LM358 (U1A), so 0–10 V leaves the board, not the DAC's 0–5 V. The net was called `CMD_BRAKE` until 2026-07-31; it is `CMD_PRES__0_10V` now, because the signal is a pressure setpoint for a proportional regulator rather than a brake-force command. The silkscreen on the built board still reads `CMD_BRK`. Pin 3 = GND, and it is also the **return the VPPM's setpoint is measured against**: the valve runs from a separate 24 V supply, so that supply's 0 V must be common with the medulla's GND or the commanded pressure shifts by whatever the offset is. |
 
+## The pneumatic side — three devices, three supplies, only one of them on a medulla pin
+
+Written 2026-07-31 because "the valve" was being used to mean different things. Sources:
+`~/dv/kart/pneumatics/README.md` and `~/dv/kart/pneumatics/history.md` (2026-05-30).
+
+| Device | Festo part | Its own supply | What the medulla does |
+|---|---|---|---|
+| **VPPM-8L proportional pressure regulator** | 571293 | **24 V DC** (21.6–26.4 V, 300 mA, 7 W) from a UENPO 9–36 V → 24 V buck-boost | Drives its **0–10 V setpoint** out of **CN10.2** (`CMD_PRES__0_10V`). GND on **CN10.3** is the return that setpoint is measured against. The medulla does **not** supply its 24 V. |
+| **EBS emergency electrovalve** (and the ASB valve) | 8035174 / 8035167, VUVS-LT25 | **12 V** coils, switched by the **shutdown relay** | Nothing. No medulla pin touches it. |
+| **SDE5 pressure sensors** | 567465 | 15–30 V, fed from the same 24 V rail | Reads their **0–10 V outputs** on `PRESSURE_1`/`PRESSURE_2` (CN7.1, CN7.2) through dividers |
+
+The setpoint and the supply are different things on the VPPM: 0–10 V is the command, 24 V is what
+powers the valve. When a note here says a 24 V fault could reach a medulla pin, it means the VPPM's
+supply appearing on CN10.2 through a harness fault — not the EBS valve, which is 12 V and not wired
+to this board at all.
+
+**Still unknown: the VPPM setpoint input's impedance.** Needed to pick the load condition for the
+op-amp swing check. Not in the short datasheet
+(`~/dv/kart/pneumatics/resources/festo_571293_vppm_0_10bar_0_10v.pdf`). The operating instructions
+for the LED variant are on disk at `festo_vppm_led_operating_instructions_8110177.pdf` but resist
+text extraction, so this needs a human to open it — or Festo doc 8110160, the C1/LCD variant we
+actually own.
+
 ## Voltage levels — quick reference
 
 | Suffix in signal name | Meaning |

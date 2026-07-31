@@ -37,9 +37,10 @@ Per-part provenance for symbols, footprints, 3D models, and datasheets used on t
   binding limit on this chain.
 - **Absolute maximum on the outputs** (§ Absolute Maximum Ratings): any input or output referred to
   VSS is **−0.3 V to VDD + 0.3 V**, so **−0.3 V to +5.3 V** here, and output-pin current is capped at
-  **±25 mA**. This is the number behind the over-voltage concern on the old CN10.2 wiring: the valve
-  runs on 24 V, so a harness fault at that terminal presented roughly 19 V over the absolute maximum
-  directly onto VOUTB, with no series resistor, clamp or buffer in the way. Moving CN10.2 to the
+  **±25 mA**. This is the number behind the over-voltage concern on the old CN10.2 wiring: the **Festo
+  VPPM-8L proportional pressure regulator** on the far end of CN10.2 is supplied from 24 V (its
+  0–10 V setpoint is a separate signal), so a harness fault at that terminal presented roughly 19 V
+  over the absolute maximum directly onto VOUTB, with no series resistor, clamp or buffer in the way. Moving CN10.2 to the
   op-amp output removed that path.
 - **Two write-word bits are constrained by how VREF is wired** (Register 5-1, DS22250A page 24):
   - **`GA` must be 1**, which selects 1×. `GA` = 0 selects 2× and asks for 10 V out of a 5 V-supplied

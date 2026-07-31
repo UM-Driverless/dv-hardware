@@ -1849,3 +1849,59 @@ onto VOUTB, with no series resistor, clamp or buffer. Moving CN10.2 onto the op-
 that path.
 
 Only item 1 of the four is left, and it is not desk work: a continuity check on the assembled board.
+
+## 2026-07-31 (night) — "the valve" meant three different devices; PWR_GND scoped; two new tasks
+
+### The confusion, and what is actually true
+
+Rubén, on reading a note that said a 24 V fault could reach a DAC pin: *what are you talking about? i
+dont know what pin, what valve. we have a valve for the emergency braking system, but it runs at 12V,
+not 24V, and it's powered by the shutdown relay.*
+
+He is right about his valve and I was right about mine, which is exactly the problem — **there are
+three pneumatic devices and "the valve" was being used for all of them.** From
+`~/dv/kart/pneumatics/history.md` (2026-05-30) and `README.md`:
+
+| Device | Part | Its own supply | Medulla involvement |
+|---|---|---|---|
+| **VPPM-8L proportional pressure regulator** | 571293 | **24 V DC** (21.6–26.4 V, 300 mA, 7 W), from a UENPO 9–36 V → 24 V buck-boost bought 2026-05-30 | Drives its **0–10 V setpoint** out of **CN10.2**; GND on CN10.3 is that setpoint's return. Does **not** supply the 24 V. |
+| **EBS emergency electrovalve** (+ the ASB valve) | 8035174 / 8035167, VUVS-LT25 | **12 V** coils, switched by the shutdown relay | **None.** No medulla pin touches it. |
+| **SDE5 pressure sensors** | 567465 | 15–30 V, off the same 24 V rail | Reads their 0–10 V outputs on CN7.1 / CN7.2 through dividers |
+
+So the 24 V in the over-voltage note is the **VPPM's supply** — a separate thing from its 0–10 V
+setpoint — and the 12 V shutdown-relay valve is a different device entirely. The numbers were sourced
+and correct; what was missing was ever naming which valve and which pin. Written up as a table in
+`docs/pinout-cn-connectors.md` so the next reader does not have to reconstruct it, and the ambiguous
+"the valve runs on 24 V" phrasing in `parts.md` and `tasks.md` now names the VPPM and says
+explicitly that the EBS valve is not connected to this board.
+
+Also confirmed while checking: the VPPM setpoint input's **impedance is still unknown**. It is not in
+the short datasheet. The LED-variant operating instructions are on disk
+(`festo_vppm_led_operating_instructions_8110177.pdf`) but the text will not extract, so it needs a
+human to open it, or Festo doc 8110160 for the C1/LCD variant actually owned.
+
+### `PWR_GND` scoped
+
+Rubén: it exists for the compressor MOSFET and nothing else. The medulla supplies ground on one pin
+of the compressor motor's connector and +12 V on the other; that return carries the motor current and
+is the noisy one. Everything else leaving the board is signal and stays on ordinary `GND`. So this is
+**one dedicated return pin for one load**, not a board-wide power/signal ground split — which is a
+much smaller change than the task had been carrying.
+
+### Two new tasks from Rubén
+
+**Flyback diode on the PCB**, across the compressor MOSFET's output, so a different compressor can be
+swapped in without soldering a diode into loose harness — it fits better on a board than lying around.
+Open points recorded: rating against the 6 A running current plus the unmeasured stall peak, the loop
+being short and tight against the MOSFET (a layout constraint, not just a BOM line), and whether to
+populate it by default given most modules carry their own.
+
+**CAN on the board.** His question was whether the GPIO expander could free pins for it. It cannot
+provide CAN pins — `U25` is a PCF8574 on I²C, so every state change is a bus transaction and it can
+never carry a bit-timed protocol. CAN means the ESP32-S3's built-in TWAI controller, two real GPIOs
+plus a transceiver. The expander does help *indirectly*: move any slow on/off signal off a GPIO onto
+`EXP_P5`–`EXP_P7` (unconnected today) and the vacated GPIO becomes available for TWAI. The rest of
+the cost is a 3.3 V transceiver, two more terminal pins on a board that has none spare, and a
+termination decision. Recorded with the question that should be answered first: what would CAN carry
+that the existing Orin link does not — the team does keep DBCs in `~/dv/can/`, so something in the
+wider vehicle speaks it.

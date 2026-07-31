@@ -56,6 +56,54 @@ patched physically while the PCB is fixed. Record what was actually cut and jump
 list in [`README.md`](README.md) — a patched board no longer matches the hash printed on it, and that
 list is the only thing that will say so.
 
+### Consider a flyback diode on the PCB, at the compressor MOSFET's output #ruben
+
+Raised 2026-07-31 by Rubén. The compressor motor is inductive, so its switching MOSFET needs a
+freewheel path. Today that diode lives at the compressor. Putting a footprint for it **on the medulla
+itself**, across the MOSFET's output terminals, means a different compressor can be swapped in later
+without soldering a diode onto loose wiring — his reasoning: it fits better on a PCB than lying
+around in the harness.
+
+Depends on the on-board compressor stage landing first (see the compressor task above), since the
+diode sits across that MOSFET.
+
+To decide when drawing it:
+- **Rating.** The motor drew 6 A running at 60 % duty on the bench. The diode carries the freewheel
+  current, so size it for that plus the unmeasured stall peak, with the margin-from-stock policy
+  already agreed for this load. A Schottky of 3 A+ was the earlier suggestion; 6 A running argues for
+  more.
+- **Placement.** The loop the diode closes has to be short and tight against the MOSFET, or the
+  inductive spike takes the long way round anyway. This constrains the layout, not just the BOM.
+- **Whether to fit it by default or leave the footprint unpopulated**, given that most modules
+  already carry their own.
+
+### Consider putting CAN on the board #ruben
+
+Raised 2026-07-31 by Rubén, with the question: is there pin budget for it, and could the GPIO
+expander free some up?
+
+**The expander cannot provide CAN pins.** `U25` is a PCF8574, an I²C port expander — every state
+change costs a bus transaction, so it cannot carry a bit-timed protocol. CAN on an ESP32-S3 means the
+built-in **TWAI** controller, which needs **two real GPIOs** (TX and RX) plus an external transceiver.
+
+**But it can free real GPIOs indirectly**, which is the useful version of the idea: move any slow
+on/off signal currently sitting on a GPIO onto the expander, and the GPIO it vacates becomes
+available for TWAI. `EXP_P5`, `EXP_P6` and `EXP_P7` are unconnected on `U25` today (pins 10, 11, 12,
+plus `INT#` on 13), so three expander slots already exist with no new hardware.
+
+What a CAN port actually costs, beyond the two GPIOs:
+- **A transceiver**, 3.3 V-compatible — SN65HVD230 or TCAN332 class. New part, new footprint.
+- **Two connector pins** for CANH/CANL, which competes directly with the board's scarce terminal
+  capacity — `SDC_ENABLE` has no exit at all and CN4's steering encoder has neither power nor
+  ground. See the connector audit.
+- **A termination decision**: 120 Ω fitted, or a jumper, depending on where the medulla sits on the
+  bus. If it is an end node it needs termination; if it is a stub it must not have it.
+
+**Answer first, then design:** what would CAN carry that the current link to the Orin does not? If
+nothing on the kart speaks CAN yet, this is capacity for later rather than a requirement — worth
+saying which, because it changes whether it earns two of the board's few free pins. Note the team
+does keep CAN DBCs in `~/dv/can/`, so something in the wider vehicle does use it.
+
 ### Restore the third pressure channel on a new pin (V2) #ruben
 
 Decided 2026-07-31. Three 0–10 V pressure inputs stay a requirement, overriding the 2026-07-18
@@ -260,6 +308,13 @@ Believed yes by inference, unverified — see `history.md` 2026-07-18. If the mo
 gate from its own DC-IN rail, its `U2` stage is a working reference design to copy here.
 
 ### Two ground terminals, not one — give the switched loads their own `PWR_GND` pin #ruben
+
+**Scope settled 2026-07-31 (Rubén): `PWR_GND` exists for the compressor MOSFET and nothing else.**
+The medulla will supply ground on one pin of the compressor motor's connector, with +12 V on the
+other. That return carries the motor current, so it is the noisy one. Every other signal leaving the
+board is just a signal, and stays on the ordinary `GND`. So this is one dedicated return pin for one
+load, not a general power/signal ground split across the board.
+
 
 Rubén's directive for medulla-v2 (2026-07-19). The board currently exposes only one kind of ground
 (CN1.3 / CN9.3 / CN10.3), so every return leaves on the same conductor and the switched current is
@@ -604,7 +659,9 @@ entry); why the commit's own verification and ERC both missed it is in `.agents/
    With `CN10.2` on the DAC node, anything the harness presented at that terminal landed directly on
    MCP4922 VOUTB with no series resistor, clamp or buffer. Datasheet filed 2026-07-31: any input or
    output referred to VSS has an **absolute maximum of −0.3 V to VDD + 0.3 V**, so **−0.3 V to
-   +5.3 V** here, with output-pin current capped at ±25 mA. The valve runs on 24 V, so a fault at
+   +5.3 V** here, with output-pin current capped at ±25 mA. The **VPPM-8L proportional regulator** on
+   the far end of CN10.2 is supplied from 24 V — that is its supply, not its 0–10 V setpoint, and it
+   is a different device from the 12 V EBS electrovalve, which no medulla pin touches — so a fault at
    that terminal was about **19 V over the absolute maximum**, straight onto a CMOS analog output.
    CN10.2 now sits on the op-amp output instead, which survives a harness fault far better.
 3. **DONE 2026-07-31 — nets renamed.** `CMD_BRAKE__0_5V` → **`CMD_PRES_DAC__0_5V`** and
