@@ -50,12 +50,13 @@ Moved here from the board's task list on 2026-07-16 so it outlives it.
 
 - **Rotate the push-in connectors** — wires exit outward, away from the board, and pin
   numbering runs co-directional with the CN numbering on each side
-- **Compressor: control signal only, not motor power** — decided 2026-07-31. V2 routes the
-  compressor's gate signal out to a terminal and nothing else; the MOSFET, its flyback diode and
-  the bulk capacitance stay off-board at the compressor, because the board's `+12V` is a ~1 mA
-  logic feed with copper sized for that. Bringing motor power on-board is wanted eventually but is
-  a power-section redesign — see "Contradictions to resolve before V2" item 3 below for what it
-  has to get right (copper sizing first, then a connector rated above the measured 6 A)
+- **On-board compressor switching, motor current included** — reconfirmed 2026-07-31: integrate
+  it, the less wiring the better. V2 carries the MOSFET, its gate drive, the flyback diode and the
+  bulk capacitance, copying the already-validated module circuit (bridge rectifier removed, 330 Ω
+  optocoupler LED resistor for 3.3 V drive). This is a power-section change before it is a
+  component addition: `+12V` and the motor return must be re-sized from the ~1 mA they carry today,
+  and CN1–CN10's 2 A Phoenix terminals replaced on that path — see "Contradictions to resolve
+  before V2" item 3 below and [`../../docs/connectors.md`](../../docs/connectors.md)
 - **Separate power/signal GND** — distinct net classes for Power GND (compressor, heavy
   actuators) and Signal GND (ESP32, logic)
 - **Reachable spare GPIOs** — bring at least two unassigned, PWM-capable, non-strap GPIOs out
@@ -112,34 +113,34 @@ Rubén decides.
    written accordingly.
 
 3. ~~**The three compressor items (MOSFET, flyback diode, bulk caps) assume the board carries
-   motor power. It does not.**~~ — **RESOLVED 2026-07-31 (Rubén): signals only for now, power
-   on-board later.** Raised 2026-07-16. `+12V` enters at CN1 pin 2 and only feeds the on-board
-   regulator for the logic/analog rail — roughly **1 mA, 7 mW**. The compressor MOSFET switches
-   low-side, so the motor's + terminal is fed from the battery externally and only the return would
-   pass through the board.
+   motor power. It does not.**~~ — **RESOLVED 2026-07-31 (Rubén): v2 integrates the compressor
+   switching stage, motor current and all.** The observation that raised this on 2026-07-16 was
+   correct about the board as built — `+12V` enters at CN1 pin 2 and feeds only the on-board
+   regulator for the logic/analog rail, roughly **1 mA, 7 mW**, with copper sized for that. The
+   answer is to change the copper, not to keep the compressor off the board: *the less wiring, the
+   better*, and the kart currently runs two boxes that v2 is meant to collapse into one.
 
-   **The decision.** The next revision carries the compressor's *control signal* only, matching the
-   board's existing precedent for the steering driver ("The PCB only routes signals
-   (CMD_STEER_PWM, CMD_STEER_DIR) to the Cytron, not power" — `docs/pinout-esp32-s3.md`). The
-   MOSFET, flyback diode and bulk capacitance stay off-board at the compressor. Motor power **is**
-   intended to come on-board in a later revision, so that revision is a power-section redesign
-   scoped as one job, not three improvement bullets bolted onto a signal board.
+   **What makes it tractable is that the circuit already exists and is validated.** The compressor
+   MOSFET module in service has had its **bridge rectifier removed** and the **series resistor
+   feeding the optocoupler's LED changed to 330 Ω**, which makes its input work when driven from
+   3.3 V. It works, and more of the same modules are in stock. v2 copies that circuit onto the PCB
+   rather than designing a fresh gate-drive stage. The module has to be identified and its schematic
+   traced first — see the compressor task in `tasks.md`.
 
-   **What that later revision must get right,** decided at the same time:
-   - **Track and via sizing is the blocker, and it is the important part.** `+12V` and the motor
-     return are drawn today for a ~1 mA logic supply. They must be re-drawn (or poured) for a
-     stated design current, with the via count to match, and that current written down. No
-     component addition fixes copper sized for a different job.
-   - **The connector must be rated for the load.** The compressor measured **6 A running at 60 %
-     duty** (bench, 2026-07-18). The Phoenix 1990012 push-in terminals fitted to CN1–CN10 are rated
-     **2 A** — 3× under, so compressor current must not go through them. The **WAGO 2601-3103**
-     the team already stocks is rated **17.5 A** and clears it comfortably. If a sealed harness
-     connector is wanted instead, the team standard is the **Deutsch DT family** (DT size-16
-     contacts 13 A; DTM size-20 contacts 7.5 A, which is tight for this load). Soldering the wire
-     directly to the board is an accepted fallback. Ratings, sources and the worked example:
-     [`../../docs/connectors.md`](../../docs/connectors.md).
-   - **Measure locked-rotor inrush before designing it.** Only the running current is known. The
-     stall peak is what sizes the MOSFET, the flyback path and the copper.
+   **What v2 must get right:**
+   - **Track and via sizing.** `+12V` and the motor return are drawn today for a ~1 mA supply. They
+     must be re-drawn (or poured) for a stated design current, with the via count to match, and that
+     current written down. No component addition fixes copper sized for a different job — Rubén's
+     emphasis: this is the important part.
+   - **A connector rated for the load.** The compressor measured **6 A running at 60 % duty**
+     (bench, 2026-07-18). The Phoenix 1990012 terminals fitted as CN1–CN10 are rated **2 A** and
+     cannot carry it. The **WAGO 2601-3103** already on the buy list is rated **17.5 A** and can.
+     Deutsch **DT** (13 A per size-16 contact) is the team's harness standard if a sealed connector
+     is wanted; **DTM** at 7.5 A is tight. Soldering the wire straight to the board is an accepted
+     fallback. Ratings and sources: [`../../docs/connectors.md`](../../docs/connectors.md).
+   - **Nothing is gained by measuring locked-rotor inrush.** Decided 2026-07-31: the circuit is
+     validated in service and over-sizing costs nothing when the parts are already in stock. Size
+     generously from what is on the shelf instead of measuring the peak and designing to it.
 
    Unrelated discrepancy found while checking this, now closed: the task list specified an **L7805
    linear** regulator (decision 2026-05-02) while the `docs/pinout-esp32-s3.md` power architecture

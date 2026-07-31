@@ -1470,3 +1470,79 @@ second copy, and the repo is public so no GitHub account is required to follow i
 things: `el/` belongs to the whole electronics section rather than Driverless, so overwriting a file
 there needs its owner's agreement; and the Drive integration available here can read and create but
 cannot delete or overwrite, so it is a manual edit either way.
+
+## 2026-07-31 (later still) — v2 integrates the compressor after all; connector and WAGO facts
+
+Same day, a few hours after the entry above, which had recorded the compressor power path as "signals
+only for now, power on-board in a later revision". **That is wrong and is superseded here.** The
+question had been put as a binary and Rubén's fuller answer was that v2 integrates the switching
+stage, motor current included — *the less wiring, the better*, and the kart runs two boxes today that
+v2 is meant to collapse into one. The earlier entry stays as written, per the no-retro-editing rule
+settled the same day; this one is the current state.
+
+### The circuit already exists and is validated
+
+The compressor MOSFET module in service has been modified: its **bridge rectifier is removed** and
+the **series resistor feeding the optocoupler's LED is changed to 330 Ω** so the input works driven
+from 3.3 V. It runs the compressor today, and more of the same modules are at home. So v2 copies that
+circuit onto the PCB instead of designing a gate-drive stage from scratch.
+
+This also reframes the 2026-07-18 gate-drive research further up this file. That work concluded a
+3.3 V pin cannot drive a power MOSFET gate, which remains true — but the modified module does not ask
+it to. The ESP32 pin drives an optocoupler LED through 330 Ω; the gate is driven on the isolated side
+from the DC-IN rail. The analysis applies to the unmodified arrangement, not to what is now in
+service.
+
+Three things must be pinned down before v2 can be drawn, and none of them are in this repo yet:
+**which module it actually is** (the optocoupler input and removed bridge rectifier do not match the
+HUABAN HA210N06 board described earlier, which has a JST control input and an unidentified `U2`),
+**its traced schematic**, and **the files** — datasheets, photos, sourcing line.
+
+### Connector ratings, checked against the 6 A the compressor draws
+
+| Connector | Rated | Verdict |
+|---|---|---|
+| Phoenix Contact 1990012 (PTSA 0,5/3-2,5-Z), fitted as CN1–CN10 | 2 A @ 250 V, 0.5 mm² | **Cannot carry it** — 3× under |
+| WAGO 2601-3103, on the buy list | 17.5 A, 1.5 mm² | Yes, comfortably |
+| Deutsch DT, size-16 contacts | 13 A | Yes |
+| Deutsch DTM, size-20 contacts | 7.5 A | Marginal |
+
+New file `docs/connectors.md` holds these with their sources. The **Deutsch DT family is the team
+standard for harness connectors** (Rubén) — that was recorded nowhere before today.
+
+**Locked-rotor inrush will not be measured.** Rubén: the circuit is validated in service, and having
+components bigger than strictly needed costs nothing when they are already in stock. So the rule for
+this load is *pick from the shelf and leave margin*, not *measure the peak and size to it*. What does
+still have to be got right is the copper: `+12V` and the motor return are drawn for ~1 mA today, and
+his emphasis was that **the traces being properly sized is the important part** — a bigger connector
+in front of undersized copper just moves the failure.
+
+### WAGO 2601 — which variant is the vertical one
+
+Asked because a photo of a top-entry 2601 looked like a better fit than what might have been ordered.
+Answer: **`2601-31xx` is top entry** — wire in from above, perpendicular to the board, levers on the
+front face — and that is already what the buy list names (`2601-3102` 2-pole, `2601-3103` 3-pole).
+`2601-11xx` is the side-entry variant of the same series. WAGO's page for `-3103` says "top entry"
+and for `-1103` says "side entry"; the `-3102` page does not print the phrase, so that one is read
+from the series numbering and is worth confirming on the datasheet before ordering.
+
+**None of them are in inventory.** `~/vault/inventory/` had only the Phoenix 1990012 (status
+`Noted`, also not bought) and WAGO 221 lever nuts, which are in-line splice connectors and unrelated.
+New vault entry: `~/vault/inventory/wago-2601-pcb-terminal-blocks.md`.
+
+### Connector rotation, and the checklist copies
+
+**All ten CN connectors get rotated 180°**, not a subset — confirming the existing task and disposing
+of the bare "flip CN3 and CN4" line that had been on the root board since `280a379`. Wires exit
+outward and pin numbering runs with the CN numbering.
+
+Searching Drive for the "4th" stale PCB checklist found **four copies plus a backup**, all owned by
+Rubén, so the `el/`-folder-ownership blocker recorded earlier does not apply. The root task now lists
+each with its link. The fix stays a manual one: the Drive integration here can read and create but
+cannot overwrite or delete.
+
+### Pushing
+
+Global `~/.claude/CLAUDE.md` said push only with explicit confirmation. Rubén: that belongs to
+specific projects, not to every repo. Changed to push after committing by default, with ask-first
+being something a project states in its own `AGENTS.md`.

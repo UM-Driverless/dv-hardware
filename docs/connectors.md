@@ -8,16 +8,35 @@ current; motor inrush is a short peak and is judged separately.**
 
 ## On-board PCB terminal blocks
 
-| Part | Series | Pitch | Rated current | Conductor | Where used |
-|---|---|---|---|---|---|
-| Phoenix Contact **1990012** | PTSA 0,5/3-2,5-Z | 2.5 mm | **2 A** @ 250 V | 0.5 mm², AWG 20 max | CN1–CN10 on the assembled kart-medulla |
-| WAGO **2601-3103** | 2601 (Push-in CAGE CLAMP, lever) | 3.5 mm | **17.5 A** | 1.5 mm², AWG 26–14 | 3-pole, the team's stocked standard |
-| WAGO **2601-3102** | same, 2-pole | 3.5 mm | **17.5 A** | 1.5 mm², AWG 26–14 | 2-pole, the team's stocked standard |
+| Part | Series | Pitch | Rated current | Conductor | Wire entry | Where used |
+|---|---|---|---|---|---|---|
+| Phoenix Contact **1990012** | PTSA 0,5/3-2,5-Z | 2.5 mm | **2 A** @ 250 V | 0.5 mm², AWG 20 max | 45° | CN1–CN10 on the assembled kart-medulla |
+| WAGO **2601-3103** | 2601 (Push-in CAGE CLAMP, lever) | 3.5 mm | **17.5 A** | 1.5 mm², AWG 26–14 | **top entry** | 3-pole, on the team's buy list |
+| WAGO **2601-3102** | same, 2-pole | 3.5 mm | **17.5 A** | 1.5 mm², AWG 26–14 | top entry (see note) | 2-pole, on the team's buy list |
+| WAGO **2601-1103** | same, 3-pole | 3.5 mm | 17.5 A | 1.5 mm², AWG 26–14 | side entry | not chosen — listed to show the difference |
 
 Checked 2026-07-31 against
 [Phoenix 1990012](https://www.phoenixcontact.com/en-us/products/printed-circuit-board-terminal-ptsa-05-3-25-z-1990012)
-(figures also on [TME](https://www.tme.com/us/en-us/details/ptsa0.5_3-2.5-z/pcb-terminal-blocks/phoenix-contact/1990012/))
-and [WAGO 2601-3103](https://www.wago.com/global/pcb-terminal-blocks-and-pluggable-connectors/pcb-terminal-block/p/2601-3103).
+(figures also on [TME](https://www.tme.com/us/en-us/details/ptsa0.5_3-2.5-z/pcb-terminal-blocks/phoenix-contact/1990012/)),
+[WAGO 2601-3103](https://www.wago.com/ca-en/pcb-terminal-blocks-and-pluggable-connectors/pcb-terminal-block/p/2601-3103)
+and [WAGO 2601-1103](https://www.wago.com/us/pcb-interconnect/pcb-terminal-block/p/2601-1103).
+
+### Which WAGO 2601 is the "vertical" one
+
+**`2601-31xx` is top entry — the wire goes in from above, perpendicular to the board, with the
+orange levers on the front face.** That is the shape most people mean by "vertical", and it is the
+one already on the buy list. `2601-11xx` is the side-entry variant of the same series: same pitch,
+same current, wire arriving parallel to the board.
+
+The middle two digits carry the entry style and the last two the pole count, so `2601-3102` is the
+2-pole top-entry part and `2601-3103` the 3-pole. WAGO's page for `-3103` states "top entry"
+explicitly and `-1103` states "side entry"; the page for `-3102` does not print the phrase, so its
+entry style is read from the series numbering rather than confirmed on its own page. Worth a
+30-second check on the datasheet before ordering.
+
+**None of these are owned yet.** `~/vault/inventory/` holds the Phoenix 1990012 (status `Noted`,
+also not purchased) and WAGO 221 lever nuts, which are in-line splice connectors and unrelated. The
+2601 series is a buy-list item, not stock.
 
 Stock only the 2-pole and 3-pole WAGO parts: with {2, 3} any pole count from 2 upward composes with
 no gaps, and per-pin price is flat across pole counts, so higher counts save nothing.
@@ -44,22 +63,25 @@ number:
 - **The Phoenix 1990012 fitted to the assembled board cannot carry it** — 2 A rated against 6 A
   measured is 3× over, before any inrush. Compressor current must not be routed through CN1–CN10 as
   the board stands.
-- **The WAGO 2601-3103 can**, with margin: 17.5 A against 6 A continuous. The team is already
-  stocking these, so a future board that carries compressor power does not need a new connector
-  family on the PCB for this load.
+- **The WAGO 2601-3103 can**, with margin: 17.5 A against 6 A continuous. It is already the team's
+  chosen part, so medulla-v2 — which *does* carry compressor power on-board — does not need a new
+  connector family for this load.
 - **Deutsch DT (13 A) also clears it**; DTM (7.5 A) clears the running current but with little room,
   so DT is the safer pick if the harness side needs a sealed connector for this load.
 - **Soldering the wire straight to the board** is an accepted fallback when no connector fits.
 
-**Locked-rotor inrush was never measured.** A brushed DC motor typically draws several times running
-current at stall, so peak here is plausibly 20–30 A. That peak sizes the MOSFET, the flyback path and
-the copper — not necessarily the connector, which tolerates brief peaks above its continuous rating.
-Measure it before designing a board that switches this motor.
+**Locked-rotor inrush will not be measured** — Rubén, 2026-07-31: the circuit is already validated
+in service, and over-sizing costs nothing when the parts are in stock. So the design rule for this
+load is *pick from what's on the shelf and leave margin*, not *measure the peak and size to it*. For
+reference, a brushed DC motor typically draws several times running current at stall, so the peak
+here is plausibly 20–30 A; the 17.5 A WAGO tolerates brief peaks above its continuous rating, and
+the copper is sized generously rather than exactly.
 
 ## The part that connectors do not fix
 
 A connector rating says nothing about the copper behind it. On the kart-medulla as built, `+12V` and
-the motor-return net are drawn for the **~1 mA** logic supply they actually carry. Any board revision
-that puts compressor current on-board starts by re-sizing those tracks (or pouring them) and their
-vias for a stated design current, and writing that current down. Fitting a bigger connector to a net
-sized for milliamps moves the failure, it does not remove it.
+the motor-return net are drawn for the **~1 mA** logic supply they actually carry. medulla-v2 brings
+compressor current on-board, so it starts by re-sizing those tracks (or pouring them) and their vias
+for a stated design current, and writing that current down. Fitting a bigger connector to a net sized
+for milliamps moves the failure, it does not remove it. Rubén's emphasis, 2026-07-31: **the traces
+being properly sized is the important part.**

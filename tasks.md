@@ -18,26 +18,37 @@ fab process), stays on this file.
 
 ## TODO
 
-### Settle the 4th copy of the PCB checklist, in the team Google Drive #ruben
+### Collapse the PCB checklist to one copy — there are five, not two #ruben
 
 The last of the eight contradictions opened on 2026-07-16 (`history.md` that date); the other seven
-were closed on 2026-07-31 — see the `history.md` entry for that day, and the kart-medulla task board
-for the four that were board-specific.
+were closed on 2026-07-31.
 
-`docs/pcb-checklist.md` in this repo is the live checklist. A stale 4th copy sits in the team Google
-Drive at `formula/formula_24-25-26/el/pcb-checklist.md` — last modified 2024-12-04, heading still says
-"formula 23-24". Rubén wants exactly one copy and no duplicates, and rejected a symlink because Drive
-does not handle them.
+`docs/pcb-checklist.md` in this repo is the live checklist and stays the single source. The item was
+filed as "a 4th copy exists in the team Drive". A search on 2026-07-31 found **four checklist copies
+plus a backup** in Drive, all owned by `ruben.jimenezmejias@gmail.com`, so this is Rubén's cleanup to
+do and not blocked on the `el/` folder's owner after all:
 
-**No symlink is needed.** Replace that file's whole contents with a single line pointing at
-<https://github.com/UM-Driverless/dv-hardware/blob/main/docs/pcb-checklist.md>. The repo is public, so
-anyone on the team opens it without a GitHub account, and a one-line file is a pointer rather than a
-second copy. Two things to settle before doing it:
+| File | Size | Last modified | Link |
+|---|---|---|---|
+| `pcb-checklist.md` — the `el/` copy, heading still says "formula 23-24" | 5014 B | 2026-04-12 | [open](https://drive.google.com/file/d/1PHIJccg5II7XtpXAjtRninKK2DPvlvcl/view) |
+| `pcb_checklist.md` | 5014 B | 2026-06-05 | [open](https://drive.google.com/file/d/1DhO2Or8D2ThQcZpfv9QldPdRuQ2dkbXw/view) |
+| `pcb_checklist.md` | 5016 B | 2024-04-22 | [open](https://drive.google.com/file/d/1T5ezNKGtI7q40F1n8cWXP9NeM1yFvgeN/view) |
+| `PCB CHECKLIST.md` | 4519 B | 2023-08-12 | [open](https://drive.google.com/file/d/1iYyxn4AP7VqBQQxLEFsYpG6ef-844gTx/view) |
+| `pcb-checklist-md.backup20240202` | 4721 B | 2026-04-12 | [open](https://drive.google.com/file/d/1eXi9UZvN0_YgFEPPhBR3ltjxFK_RWwf_/view) |
 
-1. The `el/` folder belongs to the whole electronics section, not just Driverless, so overwriting a
-   file there is not this repo's call to make unilaterally. Rubén: check with whoever owns `el/`.
-2. The Claude Drive integration can read and create but **cannot delete or overwrite**, so this is a
-   manual edit in the Drive web UI, not something an agent can do.
+**No symlink is needed** — Drive not handling them is not a blocker. Replace each file's entire
+contents with the single line
+
+```
+https://github.com/UM-Driverless/dv-hardware/blob/main/docs/pcb-checklist.md
+```
+
+A file holding a URL is a pointer, not a second copy, and this repo is public so nobody needs a
+GitHub account to follow it. Delete the backup outright.
+
+**Manual work, in the Drive web UI.** The Drive integration available to an agent here can read and
+create but cannot overwrite or delete, so an agent can find these files and read them but cannot
+carry out the edit.
 
 ### Buy WAGO 2601 PCB terminal blocks (2-pole + 3-pole)
 

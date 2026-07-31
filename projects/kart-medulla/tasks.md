@@ -24,18 +24,6 @@ patched physically while the PCB is fixed. Record what was actually cut and jump
 list in [`README.md`](README.md) — a patched board no longer matches the hash printed on it, and that
 list is the only thing that will say so.
 
-### "flip CN3 and CN4" — what was meant? #ruben
-
-Carried over from the root board 2026-07-31. It arrived there as a bare one-line TODO in `280a379`
-with no date, author note, or surrounding context, and it has two readings that need different work:
-
-- **Rotate CN3 and CN4 by 180°**, which is a subset of "Flip all ten CN connectors 180°" below and
-  should be deleted as a duplicate.
-- **Swap the signal assignments between CN3 and CN4**, which is a separate change and would need its
-  own pinout and silkscreen updates.
-
-Rubén: say which, then either delete this or write it up properly.
-
 ### Restore the third pressure channel on a new pin (V2) #ruben
 
 Decided 2026-07-31. Three 0–10 V pressure inputs stay a requirement, overriding the 2026-07-18
@@ -67,20 +55,45 @@ Two moved items **contradict** other requirements and are flagged there rather t
 
 The connector-rotation item also restates the "Flip all ten CN connectors 180°" task below — same change, two entries. Kept the task, moved the requirement.
 
-### Design the compressor MOSFET drive — deferred past v2, kept for the power-section revision #ruben
+### Design the compressor MOSFET drive on-board for medulla-v2 #ruben
 
-**Not v2 work any more.** Raised 2026-07-18, when Rubén's directive was *integrate it — fewer wires
-running between boxes and bolted-on PCBs*, which put the switching stage on the medulla board. The
-2026-07-31 answer on the compressor power path supersedes that: **v2 carries the compressor's control
-signal only**, and motor power comes on-board in a later power-section revision. So everything below
-is the design for that later revision, not for v2. **Rubén: confirm this reading — it reverses your
-2026-07-18 directive.**
+Raised 2026-07-18 after the EBS compressor was bench-run for the first time. Rubén's directive, given
+then and **reconfirmed 2026-07-31**: *integrate it — fewer wires running between boxes and bolted-on
+PCBs. The less wiring, the better.* So the switching stage, and the compressor current with it, comes
+onto the medulla board for v2. The kart runs two boxes today; v2 is meant to collapse that.
 
-What v2 does carry is the gate signal out to a terminal, which is already scoped in the GPIO 38/39
-routing task below. Before the later revision is designed, read
-[`../../docs/connectors.md`](../../docs/connectors.md): the compressor draws 6 A running, the
-Phoenix 1990012 terminals fitted to CN1–CN10 are rated 2 A, and locked-rotor inrush has never been
-measured.
+**Copy the module that already works, don't invent one.** Rubén, 2026-07-31: the compressor MOSFET
+module in service has been modified and validated —
+
+- its **bridge rectifier is removed**, and
+- the **series resistor feeding the optocoupler's LED is changed to 330 Ω** so the input works when
+  driven from 3.3 V.
+
+That combination is a proven 3.3 V-driven switch for this load, and he has more of the same modules
+at home, so the parts already exist. The v2 job is to put that circuit on the PCB rather than design
+a fresh gate-drive stage.
+
+**Before drawing it, three things have to be pinned down:**
+
+1. **Which module is it, exactly?** The optocoupler input and the removed bridge rectifier do not
+   match the HUABAN 4×25 A HA210N06 board described further down (that one has a 2-pin JST control
+   input and an unidentified `U2` stage). Identify the part in hand, photograph the board, and trace
+   the input stage.
+2. **Its schematic.** Optocoupler part number, the LED-side resistor now fitted (330 Ω), the
+   output-side gate drive and what rail supplies it, the MOSFET, and the flyback arrangement.
+3. **File it.** Datasheets to `datasheets/`, the traced schematic and photos to
+   `docs/`, and the sourcing line to `parts.md`, so v2 can be drawn from documents rather than from
+   the physical board.
+
+Opto-isolated input also changes the framing of the problem below: the ESP32 pin drives an LED at
+330 Ω, not a power MOSFET gate, so the 3.3 V gate-drive analysis in the rest of this task describes
+the *unmodified* arrangement and the alternative if the module circuit is not copied.
+
+Read [`../../docs/connectors.md`](../../docs/connectors.md) before laying it out: the compressor
+draws **6 A running**, the Phoenix 1990012 terminals fitted to CN1–CN10 are rated **2 A** and cannot
+carry it, and the WAGO 2601-3103 on the buy list is rated 17.5 A. Locked-rotor inrush will not be
+measured — Rubén, 2026-07-31: the circuit is validated in service and over-sizing from stock costs
+nothing. Size the copper generously; **the traces being properly sized is the important part.**
 
 **Why the current arrangement fails.** The compressor is switched by an **IRLZ44N** whose gate is
 driven straight from a 3.3 V ESP32 pin. Measured on the bench (see `kart-medulla` repo `history.md`
@@ -285,6 +298,10 @@ Verified against `kart-medulla.kicad_pcb`:
 Rotating every CN by 180° fixes both at once: wires exit outward, away from the board, and the
 pin numbering becomes co-directional with the CN numbering on each side, so you can read
 `CN1.1, CN1.2, CN1.3, CN2.1, …` straight down (or up) the edge.
+
+**Confirmed 2026-07-31 (Rubén): all ten, not a subset.** A bare "flip CN3 and CN4" line had been
+sitting on the root task board since `280a379` with no context; it meant this task and is now
+deleted rather than tracked twice.
 
 **Not a free rotation.** The footprint is `CONN-TH_3P-P2.50-S5.00_1990012` — staggered pads,
 pins 1 and 3 in one row and pin 2 in a row 5.00 mm across. A 180° flip swaps which side pin 2's
