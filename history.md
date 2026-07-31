@@ -1807,3 +1807,45 @@ next one's reference designator. Re-done at 12.7 mm.
 
 **Left for the PCB:** each cap has to be placed at the ESP32's ADC pin, not next to its divider. At
 the wrong end of the trace it does nothing.
+
+### Valve-command task: three of its four items closed 2026-07-31
+
+**Net rename (item 3).** `CMD_BRAKE__0_5V` → `CMD_PRES_DAC__0_5V`, `CMD_BRAKE__0_10V` →
+`CMD_PRES__0_10V`, following the throttle channel's internal-vs-exported pattern. `CMD_PRES` because
+the signal is a pressure setpoint for a proportional regulator, not a brake-force command. Applied to
+the schematic (4 occurrences), the PCB (15) and both pinout docs, so schematic and board stay in
+parity: ERC 0 violations, DRC 0 violations, 0 unconnected items. One `CMD_BRAKE` reference remains in
+`docs/pinout-esp32-s3.md` and is correct where it sits — under the "Legacy: classic ESP32 (previous
+board)" heading. The built board's silkscreen still reads `CMD_BRK`; the legend gets updated at the
+next revision.
+
+**MCP4922 datasheet filed (item 4).** DS22250A, 2010, from
+<https://ww1.microchip.com/downloads/en/DeviceDoc/22250A.pdf>, now at
+`datasheets/MCP4922_Microchip_datasheet.pdf`. It answers the question the task asked, and the answer
+is that the DAC is *not* the binding constraint:
+
+- **Output swing: 0.01 V to VDD − 0.04 V typical.** On the 5.0 V rail that caps full scale at about
+  **4.96 V**, 0.8 % short of 5 V. Doubled by the LM358 it is **9.92 V rather than 10.00 V** — about
+  0.08 bar on a valve regulating roughly 1 bar per volt.
+- Beside the LM358's own 1–2 V of lost headroom on a 12 V rail, that is noise. The op-amp remains
+  what limits the top of the range, which is what the separate polish task already says.
+- Calibration caveat: accuracy is guaranteed better than 1 LSb only for VOUT between 10 mV and
+  VDD − 40 mV, so the extreme codes are outside spec.
+
+**Two firmware constraints fall out of it,** both in the same 16-bit write word (Register 5-1, page
+24), and neither is implemented — there is no MCP4922 write in `~/repos/kart-medulla` at all:
+
+- **`GA` = 1** selects 1×. `GA` = 0 selects 2×, which asks a 5 V-supplied part for 10 V and clips at
+  ~4.96 V.
+- **`BUF` = 0**, unbuffered VREF. Buffered mode accepts VREF only from 0.040 V to VDD − 0.040 V, and
+  VREF here *is* VDD — outside that window. Unbuffered accepts 0 to VDD at 165 kΩ input impedance,
+  which the 5 V rail drives easily.
+
+**The over-voltage number (item 2).** The task had asked for the exact absolute-maximum rating once
+the datasheet was filed. It is **−0.3 V to VDD + 0.3 V** on any input or output referred to VSS, so
+**−0.3 V to +5.3 V** here, with output-pin current capped at ±25 mA. The valve runs on 24 V, so a
+harness fault at the old CN10.2 wiring presented roughly **19 V over the absolute maximum** directly
+onto VOUTB, with no series resistor, clamp or buffer. Moving CN10.2 onto the op-amp output removed
+that path.
+
+Only item 1 of the four is left, and it is not desk work: a continuity check on the assembled board.

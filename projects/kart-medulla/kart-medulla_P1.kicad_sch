@@ -8254,7 +8254,7 @@
 		)
 		(uuid "11ffca81-b618-4cf1-b2f4-25f82b78af4a")
 	)
-	(label "CMD_BRAKE__0_10V"
+	(label "CMD_PRES__0_10V"
 		(at 218.44 48.26 0)
 		(effects
 			(font
@@ -8760,7 +8760,7 @@
 		)
 		(uuid "83e692bd-4fd0-4129-9d0f-0e4fdb06930a")
 	)
-	(label "CMD_BRAKE__0_10V"
+	(label "CMD_PRES__0_10V"
 		(at 393.7 306.07 0)
 		(effects
 			(font
@@ -8782,7 +8782,7 @@
 		)
 		(uuid "86522823-f6a4-40c2-bec3-1a83dc8d2a38")
 	)
-	(label "CMD_BRAKE__0_5V"
+	(label "CMD_PRES_DAC__0_5V"
 		(at 281.94 288.29 0)
 		(effects
 			(font
@@ -8836,7 +8836,7 @@
 		)
 		(uuid "91edf541-07a6-40ef-9d6d-87b316dee138")
 	)
-	(label "CMD_BRAKE__0_5V"
+	(label "CMD_PRES_DAC__0_5V"
 		(at 375.92 308.61 180)
 		(effects
 			(font

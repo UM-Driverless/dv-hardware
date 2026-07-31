@@ -600,12 +600,17 @@ entry); why the commit's own verification and ERC both missed it is in `.agents/
 
    Note the older wording elsewhere in this file named **CN5.3** as the amplifier's exit; CN5.3 carries
    `EXP_P4` today and the brake command exits on CN10.2. Use CN10.2 and make the docs match.
-2. **Same change removes an over-voltage path into the DAC.** With `CN10.2` on the DAC node, anything
-   the harness presents at that terminal lands directly on MCP4922 VOUTB — no series resistor, no
-   clamp, no buffer. The valve runs on 24 V, and this is a 5 V-supplied CMOS analog output. (Read the
-   exact absolute-maximum rating when the MCP4922 datasheet is filed — see item 5.) An op-amp output
-   survives a harness fault far better than a DAC output does.
-3. **Rename the nets so the range is visible at the connector.** One name, `CMD_BRAKE__0_5V`, is
+2. **DONE — the same change removed an over-voltage path into the DAC, and the number is now known.**
+   With `CN10.2` on the DAC node, anything the harness presented at that terminal landed directly on
+   MCP4922 VOUTB with no series resistor, clamp or buffer. Datasheet filed 2026-07-31: any input or
+   output referred to VSS has an **absolute maximum of −0.3 V to VDD + 0.3 V**, so **−0.3 V to
+   +5.3 V** here, with output-pin current capped at ±25 mA. The valve runs on 24 V, so a fault at
+   that terminal was about **19 V over the absolute maximum**, straight onto a CMOS analog output.
+   CN10.2 now sits on the op-amp output instead, which survives a harness fault far better.
+3. **DONE 2026-07-31 — nets renamed.** `CMD_BRAKE__0_5V` → **`CMD_PRES_DAC__0_5V`** and
+   `CMD_BRAKE__0_10V` → **`CMD_PRES__0_10V`**, applied to the schematic (4 occurrences), the PCB
+   (15 occurrences, so the two stay in parity) and the two pinout docs. ERC 0 violations, DRC
+   0 violations and 0 unconnected items afterwards. Original reasoning: One name, `CMD_BRAKE__0_5V`, is
    currently shared by the DAC output, the amplifier input, and the connector pin — which is how a
    0–5 V net ended up on a 0–10 V pin without looking wrong. Follow the throttle channel's pattern
    (`CMD_ACC_ESP32__0_5V` internal → `CMD_ACC__0_5V` exported): `CMD_BRAKE__0_5V` →
@@ -613,12 +618,23 @@ entry); why the commit's own verification and ERC both missed it is in `.agents/
    pressure setpoint for a proportional regulator, not a brake-force command. Silkscreen shows
    `CMD_BRK` with no voltage, so a rename does not invalidate the board as built; update the legend
    to `CMD_PRES` at the next revision.
-4. **Check the DAC's own full-scale limit** before assuming the top of the valve's range is
-   reachable. VREFA/VREFB/VDD are all on `+5V_REG`, so DAC full scale is slightly under 5 V and the
-   doubled result slightly under 10 V. The MCP4922 datasheet is **not** yet filed in
-   `datasheets/` — add it and read the output-swing spec. Also: with VREF tied to the 5 V rail, the
-   MCP4922 write word's **gain bit must be 1×**; selecting 2× asks for 10 V from a 5 V-supplied DAC
-   and clips.
+4. **DONE 2026-07-31 — datasheet filed and the limit measured. It is not the binding constraint.**
+   `datasheets/MCP4922_Microchip_datasheet.pdf` (DS22250A). Output swing is **0.01 V to VDD − 0.04 V
+   typical**, so on this board's 5.0 V rail full scale is about **4.96 V** — 0.8 % short. Doubled by
+   the LM358 that is **9.92 V instead of 10.00 V**, roughly 0.08 bar on a valve regulating about
+   1 bar per volt. Negligible beside the op-amp's own 1–2 V of lost headroom, which remains the real
+   limit on this chain. One caveat for calibration: accuracy is guaranteed better than 1 LSb only
+   between 10 mV and VDD − 40 mV, so the extreme codes are out of spec.
+
+   **Two firmware constraints follow from how VREF is wired** (Register 5-1, datasheet page 24), and
+   both are set in the same 16-bit write word:
+   - **`GA` = 1**, selecting 1×. `GA` = 0 selects 2× and asks a 5 V-supplied part for 10 V, which
+     clips at ~4.96 V.
+   - **`BUF` = 0**, unbuffered VREF. Buffered mode accepts VREF only over 0.040 V to VDD − 0.040 V,
+     and VREF here *is* VDD, outside that window. Unbuffered accepts 0 to VDD at 165 kΩ.
+
+   Neither is checked in firmware yet — `~/repos/kart-medulla` has no MCP4922 write implemented at
+   all, which is the separate "throttle has no working output" item in the board README.
 
 ### Give the pressure-command amplifier full 0–10 V swing on the next board revision #ruben
 
