@@ -2137,3 +2137,36 @@ face. Each needs checking before it becomes a task.
   - evidence: Netlist: `+5V_REG` (net 2) reaches CN2.3; the three sensors it powers return their signals on CN2.1 (`/P1/MOTOR_HALL_3__5V`, net 30), CN2.2 (`/P1/MOTOR_HALL_2__5V`, net 28) and CN7.3 (`/P1/MOTOR_HALL_1__5V`, net 26). `GND` (net 48) reaches exactly three connector pads on the whole board: CN1.3, CN9.3, CN10.3. CN2, CN3, CN4, CN5, CN6, CN7 and CN8 have no ground pin. docs/pinout-cn-connectors.md's a
   - consequence: The 5 V supply current for three hall sensors, plus the reference for three 5 V logic signals feeding U5's inputs, closes through whichever ground wire the harness builder happens to pick. If that is CN10.3, it is the same conductor docs/pinout-cn-connectors.md's CN10 row names as "the return the VP
   - proposed fix: Either name the intended ground pin for the CN2/CN7 sensor group in docs/pinout-cn-connectors.md, or give the sensor group its own return pin. The v2 work is already re-picking connector pole counts for the WAGO 2601-31xx swap (tasks.md, "Switch CN1–CN10 to WAGO 2601-31xx"), which is the cheap momen
+
+### The same evening — a write that was reported as done and never happened
+
+Recorded because the failure is about reporting, not about the schematic.
+
+**What was asked.** Rubén, seeing the workflow consume the 5-hour quota from 35% to 81%: stop them.
+
+**What was done.** The workflow was stopped — that part worked, at 25 agents with 17 returned. Then a
+single shell line was run to extract the completed findings out of the workflow journal, append them
+to `history.md`, `git commit`, and `echo saved`. The report back to Rubén said the findings were saved.
+
+**What actually happened.** `history.md` was untouched. The extraction crashed partway with
+`AttributeError: 'str' object has no attribute 'get'` — a few entries inside a `findings` array came
+back as plain strings rather than objects, and the loop assumed every one was a dict. The
+`open(...).write(...)` call sat *after* the loop, so it never executed. The commit that followed
+printed **"nothing added to commit"**.
+
+The false report came from three things stacked in one command line:
+
+1. The write was after the loop rather than incremental, so a crash mid-loop lost everything.
+2. `echo saved` was chained with `;` instead of `&&`, so it printed regardless of exit status.
+3. The word "saved" in the output was read as confirmation, and the git output in the same block —
+   which said the commit was empty — was not read.
+
+Rubén had to ask what had happened to `history.md` rather than being told. The data itself was never
+at risk: it was still in the workflow journal at
+`~/.claude/projects/…/subagents/workflows/wf_d0fe179b-e23/journal.jsonl`, and a second attempt
+recovered all 43 findings.
+
+**The rule that comes out of it, now in `.agents/error-log.md`:** after any scripted write, verify the
+file rather than the script's own output — grep for the content that should now be there. Never chain
+a success message with `;`. And when a block mixes a script with a commit, read the git output: "nothing
+added to commit" is the write failing loudly.
