@@ -77,8 +77,12 @@ def footprint(pid: str, name: str, module_mm: float, text_mm: float,
     # the caption below is already the widest part of the block, and a slot short enough to force the
     # choice usually has its spare room on the other side of the symbol.
     if header:
-        labels = (f'  (fp_text user "{header}" (at 0 {y0 - pitch:.4f}) (layer "F.SilkS")\n'
-                  f'    (effects (font (size {text_mm} {text_mm}) (thickness 0.15))))\n') + labels
+        head_lines = header.split("|")
+        labels = "".join(
+            f'  (fp_text user "{line}" (at 0 {y0 - pitch * (len(head_lines) - j):.4f}) (layer "F.SilkS")\n'
+            f'    (effects (font (size {text_mm} {text_mm}) (thickness 0.15))))\n'
+            for j, line in enumerate(head_lines)
+        ) + labels
     body = "\n".join(polys)
     return f'''(footprint "{name}"
   (version 20241229)
@@ -106,7 +110,7 @@ def main() -> None:
     ap.add_argument("--module-mm", type=float, default=0.4, help="Size of one QR module in mm")
     ap.add_argument("--text-mm", type=float, default=1.0, help="Height of the digits line in mm")
     ap.add_argument("--header", default=None,
-                    help="Single line placed ABOVE the QR, e.g. 'Design ID'")
+                    help="Lines placed ABOVE the QR, separated by | , e.g. 'kart-medulla-v2|Design ID'")
     ap.add_argument("--caption", default=None,
                     help="Caption lines below the QR, separated by | (default: 'Design ID|<grouped id>'). Board setup may impose a minimum silk text height — KiCad DRC reports it as text_height.")
     args = ap.parse_args()
