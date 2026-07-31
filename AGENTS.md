@@ -33,21 +33,25 @@ docs/                           cross-board notes (fab process, KiCad setup, lib
 - `projects/<board>/docs/` (per-board) = pinout, mechanical drawings, design-decision notes, board-revision changelog, app notes specific to this design's use of a part.
 - Rule of thumb: *would another board's designer read this?* → shared. *Only meaningful for this PCB?* → project folder.
 
-## Reporting: separate the decisions from the work
+## Reporting: say who owns each open item
 
-Every report on this board ends with a **`Your call:`** block listing only what genuinely needs a
-human decision, each with the context needed to answer it in one line. **Anything not in that block
-is the agent's to finish** — do not describe your own next steps in a way that reads like a question.
+**The rule is that no finding is left without an owner** — not that reports must contain a question.
+When something genuinely needs a human decision, put it at the end under `Your call:` with the
+context to answer it in one line. **When nothing does, write nothing.** An empty section, or one
+padded with a question that was really the agent's own to-do, is worse than no section: it hands back
+work that was already understood, and it trains the reader to skim the part that matters.
 
-The failure this prevents, 2026-07-31: a report explained that a PCF8574 output powers up weak-high
-and that the existing pulldown "wants checking against the MAX4660's input threshold". That was the
-agent's own to-do, but it read as a decision, and Rubén had to ask which it was. A finding stated
-without saying who owns it costs a round trip every time.
+Everything not marked as the human's is the agent's to finish. Never describe your own next step in a
+way that reads like a question.
 
-Rule of thumb for what belongs in `Your call:` — it needs a fact only the human has (what the vehicle
+Rule of thumb for what is genuinely the human's: it needs a fact only they have (what the vehicle
 must do, what is in a box at home, what a teammate agreed), or it commits money, an order, or an
 irreversible change. Datasheet lookups, arithmetic, threshold checks, netlist verification and
-consistency sweeps are never decisions.
+consistency sweeps are never decisions — do them.
+
+The failure this came from, 2026-07-31: a report said a PCF8574 output powers up weak-high and that
+the existing pulldown "wants checking against the MAX4660's input threshold". That was the agent's
+own to-do, but it read as a decision, and Rubén had to spend a turn asking which it was.
 
 ## Tooling
 - **KiCad 10.0.1+** on macOS. Confirmed — don't ask again or assume an older version. UI labels and menu paths follow KiCad 10 (e.g. Grids live in `KiCad → Settings… → PCB Editor → Grids`, not under the View menu).
