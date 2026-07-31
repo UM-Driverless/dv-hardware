@@ -2537,3 +2537,30 @@ same time so it is there when a connector needs two poles. Both KiCad-stock file
 **The general lesson:** a footprint existing on disk is not the same as KiCad being able to resolve
 its nickname. Verifying the first and asserting the second is what produced a "no setup needed" claim
 that cost a failed board update. For this repo the safe form is always `kart-medulla:<name>`.
+
+### Same day — the WAGO connectors have no 3D model anywhere, so placeholders were made
+
+After the footprint swap landed on the board, the 3D view showed pads and silkscreen but no
+connector bodies. The cause is not this install: the KiCad footprint points at
+`${KICAD10_3DMODEL_DIR}/TerminalBlock_WAGO.3dshapes/…`, and **that library does not exist in KiCad's
+upstream packages3D repository at all.** Checked via the GitLab API across both pages of the tree —
+it ships `TerminalBlock_Altech`, `TerminalBlock_Ningbo-Kagnex` and `TerminalBlock_Phoenix`, and no
+WAGO. The footprint has always shipped pointing at a model that was never published.
+
+The vendor models are all behind logins — 3Dfindit, WAGO PARTcommunity and Ultra Librarian each need
+an account, and WAGO's own product page exposes no direct CAD link. Rubén, reasonably: *"if you can
+get the step, get it! why do i have to do it?"* I could not, and said so with the URLs.
+
+**What was made instead.** Two VRML boxes in `3dmodels/`, extruded from the footprint's own F.Fab
+outline — 12.00 × 12.75 mm for the 3-pole, 8.50 × 12.75 for the 2-pole — to the datasheet's 14.5 mm
+height, with a coloured strip standing in for the lever. Both the project library and the board's
+copies now point at `${KIPRJMOD}/3dmodels/…wrl`, the same convention the Phoenix part uses. They are
+labelled as placeholders in `README.md` with the three download URLs.
+
+A dimensionally-correct box does the job the 3D view is actually needed for here: wire clearance and
+whether the enclosure closes. It does not pretend to be the part.
+
+**What the render immediately showed.** The ten bodies overlap into two continuous strips. The
+footprints kept their old positions while the part got much bigger — Phoenix 1990012 at 2.5 mm pitch
+against the WAGO's 3.5 mm and a 12 mm body. That is the spacing problem the re-layout has to solve,
+and it was invisible until something was drawn there.

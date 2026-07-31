@@ -1,0 +1,24 @@
+#VRML V2.0 utf8
+# WAGO 2601-3103, 3-pole, 3.5 mm pitch, top entry
+# PLACEHOLDER BODY, not a vendor model. Outline taken from the KiCad footprint's F.Fab
+# layer (12.00 x 12.75 mm) and extruded to 14.5 mm, the datasheet height.
+# Replace with WAGO's own STEP when someone downloads it - see projects/kart-medulla/README.md.
+Shape {
+  appearance Appearance {
+    material Material {
+      diffuseColor 0.62 0.62 0.64
+      specularColor 0.15 0.15 0.15
+      shininess 0.25
+    }
+  }
+  geometry Box { size 4.724409 5.708661 5.019685 }
+}
+Transform {
+  translation 1.354331 2.854331 0.364173
+  children [
+    Shape {
+      appearance Appearance { material Material { diffuseColor 0.95 0.45 0.05 } }
+      geometry Box { size 3.779528 1.027559 2.760827 }
+    }
+  ]
+}
