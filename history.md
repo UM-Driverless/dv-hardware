@@ -2396,3 +2396,32 @@ buys nothing electrically. Worth doing when the library is next tidied.
 
 ERC 0 violations. The PCB still carries the Phoenix footprints, so schematic-parity now reports ten
 more mismatches — deliberate, and they disappear when the board is re-laid out.
+
+### Same day — `SDC_ENABLE` dropped: it was never a net, and the function is already built
+
+Asked whether an extra connector should carry `SDC_ENABLE`, Rubén: *"why would i want SDC_ENABLE? we
+have a mosfet that ends the shutdown loop to gnd when everything ok."*
+
+He is right, and the netlist agrees. The shutdown circuit is complete as built: GPIO 18
+(`SDC_NOT_EMERGENCY__3V3`) drives Q3's gate through R22, and Q3's drain is `SDC_IN_LOW_SIDE` on
+**CN8.1**, pulling the chain to ground when it should be closed. Netlist: `SDC_IN_LOW_SIDE` = `CN8.1`
++ `Q3.2`; `SDC_NOT_EMERGENCY__3V3` = `R22.2` + the ESP32 socket pads. Nothing further is required to
+close the loop, and no second signal is involved.
+
+`SDC_ENABLE` was never a net in this design. It existed as a free-text annotation near U24 pin 14 and
+in older revisions of `docs/pinout-esp32-s3.md`, naming an external enable relay the design does not
+use. The 2026-05-08 connector audit found it had "no wire, no label, no exit on any connector" and
+offered dropping it as one of two options — and then it was never dropped.
+
+**What that cost.** It has been carried since as a live claim on the board's scarce connector
+capacity: named as a competing claim against the steering encoder's power and ground and against
+CANH/CANL, listed as one of the two things the v2 pin table "does not solve", and given first claim
+on GPIO 39 in that table. All of it about a signal that does not exist. It also drove my suggestion,
+an hour before this, to add a connector partly to give it a pin.
+
+The lesson is narrower than "check your facts". The audit **did** identify it correctly in May,
+including the option to delete it. What failed is that an item recorded as *undecided* kept being
+re-read as *pending*, and every later document that touched connector capacity inherited it as a real
+constraint. An open question left open long enough starts being treated as a fact.
+
+Removed from `tasks.md` in six places and from the v2 pin table's GPIO 39 row. GPIO 39 is simply free.

@@ -49,7 +49,7 @@ Also settled while building it: **GPIO 41/42 were already reserved for `CAN_RX`/
 CAN question needed no pins freed at all.
 
 What the table does **not** solve, because it is connector capacity rather than GPIO capacity:
-`SDC_ENABLE` still has no terminal, and CN4 gives the steering encoder its two bus lines but neither
+CN4 gives the steering encoder its two bus lines but neither
 power nor ground.
 
 ### Act on the 7 verified audit findings (2026-07-31) #ruben
@@ -139,7 +139,7 @@ What CAN actually still needs is on the board and the edge, not the pin table:
 - **A 3.3 V transceiver** — SN65HVD230 or TCAN332 class. New part, new footprint. `CAN_TX`/`CAN_RX`
   only have to reach it, and it is on-board, so they never need terminals.
 - **Two terminal pins** for CANH/CANL, which is the real cost — the board has no spare, and
-  `SDC_ENABLE` and CN4's steering encoder are already competing. (`CN8.2` frees up on v2 and
+  CN4's steering encoder is already competing for them. (`CN8.2` frees up on v2 and
   `EXP_P1`–`EXP_P4` are reshufflable.)
 - **A termination decision**: 120 Ω fitted if the medulla is an end node, omitted if it is a stub.
 
@@ -176,7 +176,7 @@ two spare.
 
 The rest of the cost:
 - **A 3.3 V CAN transceiver** — SN65HVD230 or TCAN332 class. New part, new footprint.
-- **Two terminal pins** for CANH/CANL, competing with `SDC_ENABLE` (no exit at all) and CN4's
+- **Two terminal pins** for CANH/CANL, competing with CN4's
   steering encoder (no power, no ground) for the board's scarce connector capacity.
 - **A termination decision**: 120 Ω fitted if the medulla is an end node, omitted if it is a stub.
 
@@ -544,7 +544,7 @@ wire in from above, levers on the front face. Ratings and sources:
   on-board, so the gate signal never leaves the PCB and **`CN8.2` frees up** (Rubén, 2026-07-31 —
   and no buzzer is coming back to claim it, the kart carries none). That is one genuinely free pin
   on top of the four reshufflable `EXP_P*` pins, and the first claim on it should be settled here
-  rather than discovered later: `SDC_ENABLE` has no exit at all, and CN4's encoder has neither power
+  rather than discovered later: CN4's encoder has neither power
   nor ground.
 
 Buy-list entry and per-variant notes: `~/vault/inventory/wago-2601-pcb-terminal-blocks.md`. Nothing
@@ -870,7 +870,7 @@ entry for that date). In the "External-connector audit (CN1–CN10)" section bel
 - ESP32 header pin labels match the canonical names committed 2026-05-03: MOSI / CLK / CMD_DAC_CS (not OUT_SDI/SDK/CS).
 - Pin 13 signal labeled `SDC_NOT_EMERGENCY__3V3` everywhere (matching the schematic; the doc was updated to match).
 - ~~All ESP32 SPARE / RESERVED pins have NC flags or `SPARE` text labels.~~ **Done** — verified 2026-07-31: 24 unconnected pins across the design, all flagged, ERC reports 0 violations. Breakdown: `U24` 14 (the second ESP32 socket row), `U25` 4, `U13` 3, `U23` 2, `U14` 1.
-- **`EXP_P5`, `EXP_P6`, `EXP_P7` exist on the chip and are free** — `U25` (PCF8574) pins 10, 11, 12 are unconnected, as is `INT#` on pin 13. They are cheap extra capacity for anything that only needs a slow on/off line, `SDC_ENABLE` being the obvious candidate. They are **not** usable for the encoder's supply, for PWM, or for anything analog: they are I²C-driven expander outputs, so a write costs a bus transaction and they cannot be timed.
+- **`EXP_P5`, `EXP_P6`, `EXP_P7` exist on the chip and are free** — `U25` (PCF8574) pins 10, 11, 12 are unconnected, as is `INT#` on pin 13. They are cheap extra capacity for anything that only needs a slow on/off line. They are **not** usable for the encoder's supply, for PWM, or for anything analog: they are I²C-driven expander outputs, so a write costs a bus transaction and they cannot be timed.
 - ~~**Filter caps missing on all seven analog inputs.**~~ **Done 2026-07-31 — `C7`–`C13`, 100 nF each.** Verified against the netlist 2026-07-31. Each 0–5 V input has a two-resistor divider (`PEDAL_ACC` R14/R15, `PEDAL_BRAKE` R16/R17, `HYDRAULIC_1` R24/R25, `HYDRAULIC_2` R26/R27) and each 0–10 V input a three-resistor chain (`PRESSURE_1` R11/R12/R13, `PRESSURE_2` R4/R6/R7, `PRESSURE_3` R8/R9/R10). But the whole board contains only **six capacitors, C1–C6, and every one is on a power rail** — none sits on an ADC node. Added 2026-07-31: `C7` `PEDAL_ACC__3V3`, `C8` `PEDAL_BRAKE__3V3`, `C9` `HYDRAULIC_1__0_3V3`, `C10` `HYDRAULIC_2__0_3V3`, `C11` `PRESSURE_1__0_3V3`, `C12` `PRESSURE_2__0_3V3`, `C13` `PRESSURE_3__0_3V3` — each 100 nF, `kart-medulla:C0603`, one pin on the divider node and one on GND. ERC 0 violations, every one confirmed on its intended net in a fresh netlist export. **Still to do on the PCB:** each cap must sit physically at the ESP32's ADC pin, not near its divider — a decoupling cap at the wrong end of a trace does nothing.
 - ~~Verify where the 5 V supply for the motor hall sensors comes from~~ — **answered 2026-07-31 from the netlist. It is medulla-supplied.** `CN2.3` carries the `+5V_REG` net, which is the output of `U19` (L7805CDT) fed from `+12V` on `CN1.2`. The halls themselves sit on `CN2.1`, `CN2.2` and `CN7.3`, so CN2 hands out both the supply and two of the three sense lines. Same net can instead take an external 5 V rail from outside — that is by design, not an accident. What remains is a load check: three hall sensors on a linear regulator whose budget was written up as ~1 mA for the analog chips alone.
 
@@ -1062,9 +1062,19 @@ below.** All thirty pins are assigned; there is no free slot anywhere.
 
 **Definitely missing — must be added/decided before fab:**
 
-- **`SDC_ENABLE`** (ESP32 GPIO 39, drives the external SDC enable relay/contactor). Currently only a free-text annotation on the schematic ("SDC_ENABLE — orphan, expected from external module" near U24 pin 14). No wire, no label, no exit on any connector. Decide:
-  - Wire GPIO 39 to a label and route it out. **There is no free pin on the board as built.** Re-checked against the netlist 2026-07-31: all thirty pins on CN1–CN10 are assigned (map below). Reshufflable: the expander outputs `EXP_P1`–`EXP_P3` on CN3 and `EXP_P4` on CN5.3, none with a documented kart-side function. **On v2 there is one genuinely free pin as well** — `CN8.2` carries the compressor gate (the net still named `BUZZER`), and v2 puts that MOSFET on-board, so the signal stops leaving the PCB. No buzzer will reclaim it; the kart carries none. `SDC_ENABLE` and CN4's missing encoder power/ground are the two claims competing for it.
-  - Or: drop `SDC_ENABLE` entirely if the SDC relay is now driven from elsewhere (Orin? external module?). If dropped, also remove the row from `docs/pinout-esp32-s3.md` and the GPIO 39 assignment.
+- ~~**`SDC_ENABLE`** (ESP32 GPIO 39, external SDC enable relay/contactor)~~ — **DROPPED 2026-08-01
+  (Rubén): the signal is not wanted and never existed.** *"why would i want SDC_ENABLE? we have a
+  mosfet that ends the shutdown loop to gnd when everything ok."* That is what the board does today
+  and it is complete: GPIO 18 (`SDC_NOT_EMERGENCY__3V3`) drives Q3's gate through R22, and Q3's drain
+  pulls `SDC_IN_LOW_SIDE` — CN8.1 — to ground when the chain should be closed. Verified on the
+  netlist: `SDC_IN_LOW_SIDE` = `CN8.1` + `Q3.2`, `SDC_NOT_EMERGENCY__3V3` = `R22.2` + the ESP32
+  socket. Nothing else is needed to close the loop.
+
+  `SDC_ENABLE` was never a net. It existed as a free-text annotation near U24 pin 14 and in older
+  revisions of `docs/pinout-esp32-s3.md`, describing an external enable relay the design does not
+  use. It has been carried as an open connector-capacity item since 2026-05-08 and treated as a
+  competing claim on the board's few spare pins — including in the v2 pin table, which gave GPIO 39's
+  first claim to it. **It is not a claim. GPIO 39 is simply free.**
 
 **Verify (probably fine, but confirm with the schematic before fab):**
 
@@ -1074,7 +1084,7 @@ below.** All thirty pins are assigned; there is no free slot anywhere.
 
 **Defer / informational:**
 
-- **`EXP_P1`–`EXP_P4`** (PCF8574 outputs on **CN3.1/2/3 and CN5.3**, not CN8/CN9/CN10) have no documented kart-side function. Only four of the expander's eight outputs reach a connector — `EXP_P5`–`EXP_P7` are not nets in the schematic at all. Decide what each of the four will drive before the harness is built, and document it in `docs/pinout-esp32-s3.md`. These four pins are also the only spare capacity on the whole board, so anything else that needs to get out (`SDC_ENABLE`, encoder power/ground) competes for them.
+- **`EXP_P1`–`EXP_P4`** (PCF8574 outputs on **CN3.1/2/3 and CN5.3**, not CN8/CN9/CN10) have no documented kart-side function. Only four of the expander's eight outputs reach a connector — `EXP_P5`–`EXP_P7` are not nets in the schematic at all. Decide what each of the four will drive before the harness is built, and document it in `docs/pinout-esp32-s3.md`. These four pins are also the only spare capacity on the whole board, so anything else that needs to get out (the encoder's power and ground) competes for them.
 - **External buzzer** — if the buzzer (currently dangling label, see "Design the buzzer circuit" task above) lives off-board, it needs a connector pin. If it's on-board, no connector entry needed.
 - ~~**5V power input**~~ — **settled 2026-07-31 against the netlist.** `+12V` comes in on **CN1.2**, not CN6. It feeds `U19`, an **L7805CDT** linear regulator (not the LM2596SX-ADJ buck, which was evaluated and never fitted), whose output is the `+5V_REG` net. That rail is exported on **CN2.3**, which is where the motor hall sensors get their 5 V — so the hall supply is medulla-supplied, not a pass-through. The same pin can instead accept an external 5 V rail tied onto `+5V_REG`; the net is shared by design.
 

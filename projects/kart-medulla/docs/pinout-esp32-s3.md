@@ -243,7 +243,7 @@ touches two pins and the firmware bus setup for no extra gain.
 | 18 | `SDC_NOT_EMERGENCY` | Drives Q3's gate. Stays on a real pin — a safety read must not sit behind a bus transaction. |
 | 21 | `MOTOR_HALL_3` | unchanged |
 | 38 | **`STEER_SENS_PWM`** | **New.** MT6701 PWM angle capture, moved off GPIO 1. Unconstrained, no strap, not ADC. |
-| 39 | *spare, reachable* | The remaining unconstrained GPIO. First claim on it is `SDC_ENABLE` if that stays a real pin rather than moving to the expander. |
+| 39 | *spare, reachable* | The remaining unconstrained GPIO, and genuinely unclaimed. `SDC_ENABLE` held a claim on it in earlier revisions; dropped 2026-08-01 — the shutdown loop is closed by Q3 off GPIO 18, and `SDC_ENABLE` was never a net. |
 | 40 | `CMD_STEER_PWM` | unchanged |
 | 41 | `CAN_RX` | Already reserved for CAN. Not ADC, not a strap pin. |
 | 42 | `CAN_TX` | Already reserved for CAN. |
