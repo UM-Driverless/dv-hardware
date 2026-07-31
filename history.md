@@ -2265,3 +2265,35 @@ and the v2 pin table. That is the point of the exercise working.
 
 **Proposed fix.** Add `(attr smd)` to the SMD footprints in kart-medulla.pretty (C0603, R0603, SOIC-8/14/16, SOP65P400X130-8N, SOT-23, TO-252) and `(attr through_hole)` to the through-hole ones (CONN-TH_3P-P2.50-S5.00_1990012, HDR-TH_ESQ-122-23-G-S, HDR-TH_ESQ-122-59-G-D, TO-220-3), then push to the board with Update Footprints from Library. Set `footprint_type_mismatch` back to `warning` in kart-medulla.kicad_pro so this cannot regress unseen.
 
+
+### Finding 3 refuted — the divider was already reworked out, and the audit could not see it
+
+Rubén, on being asked to measure whether the steering read really works: *"isn't it explained in
+history.md? I think we removed a resistor so it's just two resistors in series. not a divider. I
+THINK. I'm not sure. I dont remember everything. that why we note things."*
+
+It was noted, in `projects/kart-medulla/README.md`'s rework list: **R10 is removed on the physical
+board.** R10 was the only shunt to ground, so without it there is no divider at all — `R8` + `R9`
+form a 20 kΩ series into a high-impedance digital input, which passes the full 3.3 V swing. The
+firmware repo's `history.md` says the same thing: *"CN5.2 → GPIO 1 path with R10 removed (R8+R9 =
+20 k series, full-swing verified topology)"*. That is also why the pin is decoded with the MCPWM
+capture peripheral rather than read as an analog voltage: 20 kΩ is far too high an impedance for the
+SAR ADC, but irrelevant to a digital input.
+
+So the finding is wrong about the built board, and the arithmetic in it — 1.100 V against a 2.475 V
+VIH — describes a circuit that has not existed since the rework.
+
+**Why the audit missed it, and the fix.** The workflow's context block pointed every agent at the
+schematic, the PCB, both pinout docs, `tasks.md`, `requirements.md` and this file. It did **not**
+point at `projects/kart-medulla/README.md`, which is where rework is recorded — the one document that
+says what the physical board actually is, as opposed to what the design says. Three refuters, one of
+them specifically asked "is this already known?", all missed it for the same reason. The context
+block now names the README and says outright that a part in the schematic may not exist on the board.
+
+This is the sharper version of a lesson already in this file: **a fan-out cannot find what none of
+its agents can see.** Decorrelating prompts fixes inattention; it does nothing about a document that
+was never in scope.
+
+What survives of the finding is already handled. On v2 GPIO 1 returns to `PRESSURE_3`, where the
+divider and `C13` are correct, and `requirements.md` now states that GPIO 38 — the steering PWM's new
+home — must carry neither a divider nor a filter capacitor.

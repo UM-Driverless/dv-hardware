@@ -66,11 +66,17 @@ Full evidence, consequence and proposed fix for every item is in `history.md`, e
    reset or being reflashed, noise can latch an arbitrary brake-pressure setpoint onto CN10.2 —
    `VOUTB` has no mux to fall back on, unlike the throttle. Add a 10 kΩ pull-up on `CS#` to
    `+5V_REG` and a 10 kΩ pulldown on `SCK`.
-3. **[major] `C13` and the `R8`/`R9`/`R10` divider sit on GPIO 1, which carries the MT6701's
-   994.4 Hz PWM.** The divider presents a 3.3 V logic high as 1.100 V against a 2.475 V VIH, and
-   the 239 Hz corner smears the PWM. `C13` was added on 2026-07-31, the same day GPIO 1 was
-   confirmed as the steering input. Delete the divider and the cap on whichever pin ends up
-   carrying the PWM.
+3. ~~**[major] `C13` and the `R8`/`R9`/`R10` divider sit on GPIO 1**~~ — **REFUTED 2026-07-31 for the
+   built board.** `README.md`'s rework list records that **R10 is removed** on the physical board.
+   R10 was the only shunt to ground, so with it gone there is no divider — just `R8` + `R9` as a
+   20 kΩ series into a high-impedance digital input, which passes the full 3.3 V swing. That is
+   exactly why the pin is decoded with the MCPWM capture peripheral instead of read as an analog
+   voltage, and why the steering read works on the kart. `C13` is schematic-only and not fitted.
+   The audit missed this because its agents were pointed at the schematic, PCB, docs, tasks,
+   requirements and `history.md` — but **not at `README.md`, which is where board rework lives.**
+   Workflow context fixed. What survives of the finding is already handled: on v2 GPIO 1 goes back
+   to `PRESSURE_3` where the divider and cap are correct, and `requirements.md` now states that
+   GPIO 38 must carry neither.
 4. **[major] MCP4922 digital inputs are driven below their guaranteed threshold** — VIH is
    0.7·VDD = 3.5 V on the 5 V rail and the ESP32 drives 3.3 V, with no level shifter in the path.
    Works at room temperature, guaranteed by nothing. Either buffer through a 5 V HCT part or move
