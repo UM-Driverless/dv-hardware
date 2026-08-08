@@ -112,6 +112,46 @@ does not do. For V2:
   impedance gives a 239 Hz corner on a 994.4 Hz PWM frame. Both are correct for an analog pressure
   input and fatal for a logic-level one.
 
+### V2 — every actuator output must be safe while the ESP32 is not driving it
+
+Raised 2026-08-08, after the steering swung to full lock and broke teeth off the steering
+gears while the ESP32-S3 was being reflashed. The kart was in autonomous at the time and the
+motor was live: the Cytron H-bridge is fed permanently from the 48 V traction pack, deliberately,
+so it is powered whenever the kart is.
+
+The board treats its actuators inconsistently, and steering is on the wrong side of the split:
+
+- **Throttle is safe.** It passes through the MAX4660 mux (U14), whose `SELECT_THROTTLE` line
+  carries a 10 kΩ pulldown (R32) to GND. An ESP32 that is unbooted, resetting, crashed or removed
+  leaves the mux in manual passthrough — the driver's pedal — by physics.
+- **The compressor is safe.** Its MOSFET gate has a 100 kΩ pulldown holding it off through boot.
+- **Steering is not.** `CMD_STEER_PWM` and `CMD_STEER_DIR` run from the ESP32 to the Cytron with
+  nothing in between and no pull resistors, so whenever the ESP32 is not actively driving them
+  the motor's behaviour is whatever the floating lines happen to look like to the Cytron's inputs.
+  The only thing that has ever held steering off is firmware writing zero — which does not exist
+  during a reset, and a reset is part of every flash.
+
+Requirement for V2: **every output that can move the kart must reach its safe state through a
+component, not through code.** Concretely, a pulldown to GND on `CMD_STEER_PWM` and on
+`CMD_STEER_DIR`, sized like R32 rather than relying on the ESP32's internal pulls — the internal
+ones are ~45 kΩ and, more importantly, only exist once firmware has configured them, which is
+exactly the window that broke the gears. Place them at the Cytron end of each net so an unplugged
+connector is also covered.
+
+Check when drawing it: the firmware drives the Cytron in sign-magnitude mode, PWM duty for
+magnitude and a separate DIR pin for sign, so a low PWM line means the motor is off. **Verify the
+Cytron's mode-select switches actually select that mode.** Under a locked-antiphase scheme a low
+PWM line means full reverse, and the pulldown would cause the failure it is meant to prevent.
+
+The same question should be asked of every other output on the board before fab, not just this
+one: for each, what does the kart do while the ESP32 is held in reset? Any answer other than
+"nothing" needs a resistor.
+
+Firmware has been changed alongside this (kart-medulla `2092130`) to drive both steering pins low
+as the first action of `KM_GPIO_Init` and enable their internal pulldowns. That shortens the
+undriven window to the earliest instant code can act, and does not close it — the bootloader
+window remains, and only the external resistors cover it.
+
 ### Contradictions to resolve before V2 — do not action either item as written
 
 Both were written 2025-12/2026-07 and conflict with requirements above. Flagged 2026-07-16;
