@@ -74,7 +74,8 @@ Moved here from the board's task list on 2026-07-16 so it outlives it.
   screwdriver is not a spare pin.* Concretely, route GPIO 38 → CN3.1 and GPIO 39 → CN3.2; the
   first is the intended `CMD_COMPRESSOR_PWM`
 - **Full 0–10 V swing on the pressure-command amplifier** — the brake command chain is the
-  MCP4922 DAC (0–5 V) → an LM358 ×2 non-inverting stage (U1) → the Festo VPPM proportional
+  MCP4922 DAC (0–3.3 V, since U13 moved to +3V3 on 2026-08-01) → an LM358 ×3 non-inverting
+  stage (U1, R19 2 kΩ / R20 1 kΩ) → the Festo VPPM proportional
   valve. U1 is supplied from +12 V and the LM358 is not rail-to-rail: TI SLOS068AB §5.7 gives
   3 V max swing from the positive rail, so a worst-case part reaches only 9 V where the valve
   wants 10 V, and the kart's unregulated 12 V sagging under load pushes that lower. Accepted on

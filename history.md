@@ -2613,3 +2613,36 @@ change made at standstill), board area, and a flyback diode. **Open decision, no
 whether the coil is driven by the kart's physical mode switch (hardware decides, ESP32 only
 observes) or by the ESP32 (firmware decides, as today). The kart-docs wiring diagram is not being
 redrawn until that is answered.
+
+## 2026-08-08 — DAC-output net names and docs said 0–5 V after the supply moved to +3V3
+
+Triggered by noticing that R19 (the LM358 U1A feedback resistor) is 2K where the v1 board had 1K.
+That is not a regression: commit `16a35fb` (2026-08-01) moved the MCP4922 U13 from +5V to +3V3 to fix
+the SPI logic-threshold problem (DS22250A p7, VIH min = 0.7 × VDD), which dropped DAC full scale from
+~4.96 V to 3.3 V, so the non-inverting stage went from gain 2 (1K/1K) to gain 3 (2K/1K) to keep
+~10 V at CN10.2. 3.3 × 3 = 9.9 V.
+
+**If you are comparing a physical board against the schematic and R19 does not match, read this
+first.** The fabricated v1 board has 1K fitted at R19, because it was made before the supply move.
+The schematic's 2K is the correct value *for a board whose U13 runs from +3V3*. The two are not in
+conflict; they are two different revisions. Fitting 1K on a +3V3 board gives gain 2 and only 6.6 V
+full scale at CN10.2 instead of 9.9 V, i.e. about two thirds of the brake pressure range. Fitting 2K
+on a +5V board gives ~14.9 V demanded from an LM358 on a 12 V rail, which clips at ~9 V. The
+resistor value and U13's supply rail must always change together.
+
+What that commit did not update was everything downstream that still named or described the DAC
+outputs as 0–5 V. Fixed today:
+
+- Schematic + PCB net renames (`sed` over both files, ERC 0 violations afterwards):
+  `CMD_PRES_DAC__0_5V` → `CMD_PRES_DAC__0_3V3`, `CMD_ACC_ESP32__0_5V` → `CMD_ACC_ESP32__0_3V3`.
+  `CMD_ACC__0_5V` was deliberately left alone: it is the MAX4660 mux output, which carries either the
+  DAC branch (0–3.3 V) or the driver's pedal (0–5 V), so 0–5 V is the correct range for that net.
+- `docs/pinout-esp32-s3.md`, MCP4922 pin table: VDD, SHDN and VREFA/VREFB rows still said 5 V, and the
+  VOUTB row said "0–5 V at the DAC pin ... amplifies it ×2". Corrected to +3V3 and ×3.
+- `parts.md` and `requirements.md`: "LM358 ×2 stage" / "MCP4922 DAC (0–5 V)" corrected to ×3 and
+  0–3.3 V, with the resistor values named.
+
+Lesson for next time: a supply-rail change is not done when ERC passes. Net names that encode a
+voltage (`__0_5V`, `__0_10V`, `__3V3`) are documentation embedded in the netlist, and they go stale
+silently — nothing checks them. Grep the whole project for the old rail and the old range in the same
+commit that moves the rail.

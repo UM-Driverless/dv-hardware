@@ -24,8 +24,8 @@ Per-part provenance for symbols, footprints, 3D models, and datasheets used on t
 ## MCP4922-E/SL — dual 12-bit SPI DAC (U13)
 
 - **Manufacturer:** Microchip. Dual 12-bit voltage-output DAC, SOIC-14. Channel A is the throttle
-  command (`CMD_ACC_ESP32__0_5V`, into the MAX4660 mux); channel B is the pressure command
-  (`CMD_PRES_DAC__0_5V`, into the LM358 ×2 stage).
+  command (`CMD_ACC_ESP32__0_3V3`, into the MAX4660 mux); channel B is the pressure command
+  (`CMD_PRES_DAC__0_3V3`, into the LM358 ×3 stage). U13 runs from +3V3, so both outputs are 0–3.3 V.
 - **Datasheet:** [`datasheets/MCP4922_Microchip_datasheet.pdf`](datasheets/MCP4922_Microchip_datasheet.pdf)
   — DS22250A, 2010, covering MCP4902/4912/4922. Downloaded 2026-07-31 from
   <https://ww1.microchip.com/downloads/en/DeviceDoc/22250A.pdf>.

@@ -6311,7 +6311,7 @@
 		)
 		(uuid "870dad2f-f8c0-4838-9b2d-87e9ef077d37")
 	)
-	(text "MAIN CONNECTOR (green push-in)"
+	(text "MAIN CONNECTORS (Wago)"
 		(exclude_from_sim no)
 		(at 57.15 39.37 0)
 		(effects
@@ -6920,6 +6920,16 @@
 	)
 	(wire
 		(pts
+			(xy 378.46 334.01) (xy 358.14 334.01)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "10196665-fbfd-5ef6-bb35-7b44e1ccd971")
+	)
+	(wire
+		(pts
 			(xy 242.57 196.85) (xy 242.57 204.47)
 		)
 		(stroke
@@ -7017,6 +7027,16 @@
 			(type solid)
 		)
 		(uuid "1b78da92-eec9-49b7-9888-73135344644b")
+	)
+	(wire
+		(pts
+			(xy 513.08 297.18) (xy 513.08 302.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2016731f-72ca-57b7-81c3-de752faaf04d")
 	)
 	(wire
 		(pts
@@ -7120,6 +7140,16 @@
 	)
 	(wire
 		(pts
+			(xy 393.7 331.47) (xy 401.32 331.47)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2980dd16-40e4-5ca6-a821-7dc91a727816")
+	)
+	(wire
+		(pts
 			(xy 499.11 208.28) (xy 501.65 208.28)
 		)
 		(stroke
@@ -7180,6 +7210,16 @@
 	)
 	(wire
 		(pts
+			(xy 485.14 139.7) (xy 462.28 139.7)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "34d32612-35d7-50f4-b61e-f485e37222c9")
+	)
+	(wire
+		(pts
 			(xy 45.72 85.09) (xy 78.74 85.09)
 		)
 		(stroke
@@ -7197,6 +7237,16 @@
 			(type solid)
 		)
 		(uuid "355f8e7f-55b7-45a3-baf4-f31c581afd67")
+	)
+	(wire
+		(pts
+			(xy 485.14 165.1) (xy 462.28 165.1)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "37fee4a9-89d1-56fc-b3b8-685311d628af")
 	)
 	(wire
 		(pts
@@ -7310,6 +7360,26 @@
 	)
 	(wire
 		(pts
+			(xy 485.14 114.3) (xy 462.28 114.3)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "476e537e-7851-5422-b268-abade5613758")
+	)
+	(wire
+		(pts
+			(xy 487.68 287.02) (xy 487.68 281.94)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "48a0d7f3-5794-5735-b4b0-a2ea2266ea09")
+	)
+	(wire
+		(pts
 			(xy 90.17 298.45) (xy 90.17 300.99)
 		)
 		(stroke
@@ -7317,6 +7387,16 @@
 			(type solid)
 		)
 		(uuid "48de0702-6705-4784-bb2d-f8f6d9dada92")
+	)
+	(wire
+		(pts
+			(xy 462.28 261.62) (xy 462.28 266.7)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4b0784a0-9b4b-5609-9abc-ff749a105c09")
 	)
 	(wire
 		(pts
@@ -7357,6 +7437,26 @@
 			(type solid)
 		)
 		(uuid "50226571-ebad-4dbf-aaa7-7c9fa5a8585d")
+	)
+	(wire
+		(pts
+			(xy 378.46 328.93) (xy 358.14 328.93)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "51f77d74-001b-58e3-b4f6-05a8ae819c2d")
+	)
+	(wire
+		(pts
+			(xy 485.14 88.9) (xy 462.28 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "525845ca-5bcf-51ac-ab10-c858cfec056c")
 	)
 	(wire
 		(pts
@@ -7670,6 +7770,16 @@
 	)
 	(wire
 		(pts
+			(xy 485.14 152.4) (xy 462.28 152.4)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9e8aadd0-c995-5838-aad4-8cb58d9d7f6e")
+	)
+	(wire
+		(pts
 			(xy 521.97 210.82) (xy 521.97 213.36)
 		)
 		(stroke
@@ -7780,6 +7890,16 @@
 	)
 	(wire
 		(pts
+			(xy 485.14 127) (xy 462.28 127)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c207be7c-67eb-53d0-be0c-ca98120b47ce")
+	)
+	(wire
+		(pts
 			(xy 355.6 71.12) (xy 370.84 71.12)
 		)
 		(stroke
@@ -7817,6 +7937,26 @@
 			(type solid)
 		)
 		(uuid "c6c8e056-6105-4c0c-bc10-9b78ba1c12e2")
+	)
+	(wire
+		(pts
+			(xy 462.28 287.02) (xy 462.28 281.94)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c7df32bb-c0e1-5a74-b687-47bef7d2de95")
+	)
+	(wire
+		(pts
+			(xy 513.08 287.02) (xy 513.08 281.94)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c8f9bd97-2249-5e91-8c68-b8dd29c6dc85")
 	)
 	(wire
 		(pts
@@ -7920,6 +8060,16 @@
 	)
 	(wire
 		(pts
+			(xy 462.28 297.18) (xy 462.28 302.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d7f0270f-94da-5af6-8b50-b205b737f532")
+	)
+	(wire
+		(pts
 			(xy 227.33 367.03) (xy 227.33 369.57)
 		)
 		(stroke
@@ -8000,6 +8150,16 @@
 	)
 	(wire
 		(pts
+			(xy 487.68 251.46) (xy 487.68 246.38)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e802d267-38aa-5421-aa01-36338ae1017b")
+	)
+	(wire
+		(pts
 			(xy 100.33 62.23) (xy 137.16 62.23)
 		)
 		(stroke
@@ -8047,6 +8207,16 @@
 			(type solid)
 		)
 		(uuid "ec4a8b01-1f34-4ade-9ebf-c26742d7fe09")
+	)
+	(wire
+		(pts
+			(xy 485.14 101.6) (xy 462.28 101.6)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f11e64f2-8217-5ec8-8acc-ac461be83793")
 	)
 	(wire
 		(pts
@@ -8171,6 +8341,17 @@
 		)
 		(uuid "086463b2-f021-4ab0-bf87-9615032665fc")
 	)
+	(label "HYDRAULIC_1__0_3V3"
+		(at 462.28 114.3 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.1524)
+			)
+			(justify left bottom)
+		)
+		(uuid "08f05ec0-9239-5a4c-a4ef-e95f080f26ac")
+	)
 	(label "+5V_REG"
 		(at 45.72 68.58 0)
 		(effects
@@ -8181,6 +8362,17 @@
 			(justify left bottom)
 		)
 		(uuid "09661efa-f5e4-4365-8575-a2126c6b0b2a")
+	)
+	(label "PEDAL_ACC__3V3"
+		(at 462.28 88.9 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.1524)
+			)
+			(justify left bottom)
+		)
+		(uuid "09b92ec4-fd25-53c5-b895-4c303b2dae58")
 	)
 	(label "MOTOR_HALL_2__5V"
 		(at 45.72 66.04 0)
@@ -8202,6 +8394,17 @@
 			(justify left bottom)
 		)
 		(uuid "10016651-968c-4aa1-9c8b-40bd1c3f9712")
+	)
+	(label "PRESSURE_2__0_3V3"
+		(at 462.28 152.4 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.1524)
+			)
+			(justify left bottom)
+		)
+		(uuid "118ddde9-7ac3-56b2-9fbd-b07172cbcca7")
 	)
 	(label "PRESSURE_2__0_10V"
 		(at 54.61 196.85 0)
@@ -8377,6 +8580,17 @@
 		)
 		(uuid "2cf15267-8366-47d4-88bd-ea0db44c2378")
 	)
+	(label "ACC_AMP_OUT"
+		(at 513.08 281.94 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.1524)
+			)
+			(justify left bottom)
+		)
+		(uuid "2e732a7e-a24a-5bc0-a3e5-26f7595a7b9d")
+	)
 	(label "SDC_NOT_EMERGENCY__3V3"
 		(at 49.53 360.68 0)
 		(effects
@@ -8409,6 +8623,17 @@
 			(justify left bottom)
 		)
 		(uuid "328b3889-6b5d-4c6d-9142-26fe9ff96479")
+	)
+	(label "ACC_AMP_OUT"
+		(at 401.32 331.47 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.1524)
+			)
+			(justify left bottom)
+		)
+		(uuid "33d76b92-68ca-5731-9e32-f6589119d627")
 	)
 	(label "HYDRAULIC_2__0_5V"
 		(at 100.33 62.23 0)
@@ -8517,6 +8742,17 @@
 		)
 		(uuid "474c5edc-c651-4c78-b46c-8962afb1f88f")
 	)
+	(label "ACC_AMP_FB"
+		(at 462.28 302.26 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.1524)
+			)
+			(justify left bottom)
+		)
+		(uuid "47de70b3-0df4-591b-a68c-a99f25bcb486")
+	)
 	(label "PEDAL_ACC__3V3"
 		(at 151.13 214.63 0)
 		(effects
@@ -8548,6 +8784,17 @@
 			(justify left bottom)
 		)
 		(uuid "4f73ffc8-442d-4e66-b27b-a66ecef1c172")
+	)
+	(label "CMD_ACC_ESP32__0_3V3"
+		(at 358.14 334.01 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.1524)
+			)
+			(justify left bottom)
+		)
+		(uuid "5346cb50-3a1a-5a6e-a868-8fd0a4c24d72")
 	)
 	(label "MOTOR_HALL_2__3V3"
 		(at 389.89 86.36 0)
@@ -8581,7 +8828,18 @@
 		)
 		(uuid "5e9fa7e2-4071-4298-b89f-64a61f2a43c0")
 	)
-	(label "CMD_ACC_ESP32__0_5V"
+	(label "PEDAL_BRAKE__3V3"
+		(at 462.28 101.6 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.1524)
+			)
+			(justify left bottom)
+		)
+		(uuid "5f1216d0-680d-53bf-a806-8510e5c9a50e")
+	)
+	(label "CMD_ACC_ESP32__0_3V3"
 		(at 281.94 285.75 0)
 		(effects
 			(font
@@ -8742,7 +9000,7 @@
 		)
 		(uuid "86522823-f6a4-40c2-bec3-1a83dc8d2a38")
 	)
-	(label "CMD_PRES_DAC__0_5V"
+	(label "CMD_PRES_DAC__0_3V3"
 		(at 281.94 288.29 0)
 		(effects
 			(font
@@ -8751,6 +9009,17 @@
 			(justify left bottom)
 		)
 		(uuid "8818126d-f982-44ff-9bd3-eb04103e6362")
+	)
+	(label "PRESSURE_3__0_3V3"
+		(at 462.28 165.1 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.1524)
+			)
+			(justify left bottom)
+		)
+		(uuid "88ed916f-53be-59f8-841a-8fb4f0ae1f9b")
 	)
 	(label "+3V3"
 		(at 243.84 313.69 0)
@@ -8774,6 +9043,17 @@
 		)
 		(uuid "8e1937b1-37dc-43b9-b18b-a558ef3640f3")
 	)
+	(label "ACC_AMP_FB"
+		(at 358.14 328.93 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.1524)
+			)
+			(justify left bottom)
+		)
+		(uuid "8e19fb9a-fc7b-537c-ac6b-44046d2b57c8")
+	)
 	(label "HYDRAULIC_1__0_5V"
 		(at 163.83 81.28 0)
 		(effects
@@ -8796,7 +9076,7 @@
 		)
 		(uuid "91edf541-07a6-40ef-9d6d-87b316dee138")
 	)
-	(label "CMD_PRES_DAC__0_5V"
+	(label "CMD_PRES_DAC__0_3V3"
 		(at 375.92 308.61 180)
 		(effects
 			(font
@@ -8861,6 +9141,17 @@
 		)
 		(uuid "9da8d02e-2e5b-4157-b27b-4646c30e1801")
 	)
+	(label "HYDRAULIC_2__0_3V3"
+		(at 462.28 127 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.1524)
+			)
+			(justify left bottom)
+		)
+		(uuid "a113a9b8-c9ab-5c9b-8ca1-4f763093c75f")
+	)
 	(label "CLK"
 		(at 254 293.37 180)
 		(effects
@@ -8870,6 +9161,17 @@
 			(justify right bottom)
 		)
 		(uuid "a24e3103-fd9a-4435-9fd4-64f98ad84d8a")
+	)
+	(label "CMD_DAC_CS"
+		(at 462.28 266.7 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.1524)
+			)
+			(justify left bottom)
+		)
+		(uuid "a2fb785a-1c9f-5796-8d31-cf0703a77db0")
 	)
 	(label "MOTOR_HALL_1__5V"
 		(at 55.88 298.45 0)
@@ -8891,6 +9193,17 @@
 			(justify left bottom)
 		)
 		(uuid "a9500b63-fead-4d18-aa55-97a37c7ba14f")
+	)
+	(label "CMD_ACC_BUF__0_5V"
+		(at 513.08 302.26 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.1524)
+			)
+			(justify left bottom)
+		)
+		(uuid "ad5934fe-043c-5474-8fde-82c4a0cc4496")
 	)
 	(label "CMD_REVERSE"
 		(at 473.71 215.9 180)
@@ -9056,6 +9369,17 @@
 		)
 		(uuid "d86daec8-eb96-4c68-82c5-ccc858e59ea3")
 	)
+	(label "CLK"
+		(at 487.68 246.38 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.1524)
+			)
+			(justify left bottom)
+		)
+		(uuid "db675948-39da-5970-8d1a-d11bfd03d8e7")
+	)
 	(label "PEDAL_ACC__3V3"
 		(at 313.69 53.34 0)
 		(effects
@@ -9100,6 +9424,17 @@
 		)
 		(uuid "e7fd59bb-c41c-461e-8cdf-4d7bb9644fd5")
 	)
+	(label "ACC_AMP_FB"
+		(at 487.68 281.94 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.1524)
+			)
+			(justify left bottom)
+		)
+		(uuid "ea9aa60b-efe6-524a-ae70-5be602023ef3")
+	)
 	(label "PEDAL_BRAKE__0_5V"
 		(at 100.33 78.74 0)
 		(effects
@@ -9120,6 +9455,28 @@
 			(justify left bottom)
 		)
 		(uuid "f084df5f-95e8-4cf5-adee-bc2cc756b17d")
+	)
+	(label "PRESSURE_1__0_3V3"
+		(at 462.28 139.7 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.1524)
+			)
+			(justify left bottom)
+		)
+		(uuid "f20f409b-dfd7-5574-b879-212930105d56")
+	)
+	(label "ACC_AMP_OUT"
+		(at 462.28 281.94 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.1524)
+			)
+			(justify left bottom)
+		)
+		(uuid "f21e2d62-6b76-544b-b680-84daa0c7c7c7")
 	)
 	(label "PRESSURE_3__0_10V"
 		(at 83.82 196.85 0)
@@ -9241,6 +9598,102 @@
 			(project "kart-medulla"
 				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
 					(reference "#PWR29")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "kart-medulla:CAP")
+		(at 490.22 139.7 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "054ad9c5-bd11-59cd-b383-113d5beb4ef0")
+		(property "Reference" "C11"
+			(at 490.22 135.89 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Value" "100nF"
+			(at 490.22 144.78 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Footprint" "kart-medulla:C0603"
+			(at 490.22 139.7 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 490.22 139.7 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Description" "ADC anti-alias filter and SAR sampling reservoir"
+			(at 490.22 139.7 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Symbol" "CAP"
+			(at 490.22 139.7 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "5901a171-670f-5432-8875-e9db4192dba9")
+		)
+		(pin "2"
+			(uuid "f5f68667-2a9b-5d0a-813c-efcb6a9d6c74")
+		)
+		(instances
+			(project "kart-medulla"
+				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
+					(reference "C11")
 					(unit 1)
 				)
 			)
@@ -9615,6 +10068,87 @@
 		)
 	)
 	(symbol
+		(lib_id "power:GND")
+		(at 495.3 127 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "0b91b3cf-45c8-5722-ba00-97a0633cc634")
+		(property "Reference" "#PWR050"
+			(at 495.3 127 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 497.84 132.08 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 495.3 127 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 495.3 127 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 495.3 127 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "60a43918-31f7-5360-ae2d-ec029966309e")
+		)
+		(instances
+			(project "kart-medulla"
+				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
+					(reference "#PWR050")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "kart-medulla:GND")
 		(at 360.68 292.1 270)
 		(unit 1)
@@ -9771,6 +10305,102 @@
 			(project "kart-medulla"
 				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
 					(reference "#PWR30")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "kart-medulla:CAP")
+		(at 490.22 152.4 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "13e7b555-35df-5cbe-a942-0fb5dbc7f491")
+		(property "Reference" "C12"
+			(at 490.22 148.59 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Value" "100nF"
+			(at 490.22 157.48 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Footprint" "kart-medulla:C0603"
+			(at 490.22 152.4 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 490.22 152.4 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Description" "ADC anti-alias filter and SAR sampling reservoir"
+			(at 490.22 152.4 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Symbol" "CAP"
+			(at 490.22 152.4 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "0a74f809-2e56-5d21-a4dd-b999626ed74a")
+		)
+		(pin "2"
+			(uuid "338da938-7691-5f0a-91e0-bbe1b0010bf0")
+		)
+		(instances
+			(project "kart-medulla"
+				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
+					(reference "C12")
 					(unit 1)
 				)
 			)
@@ -10011,6 +10641,183 @@
 			(project "kart-medulla"
 				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
 					(reference "#PWR028")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 487.68 297.18 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "18c5d1ff-e115-5b04-88cb-dd828e6d8125")
+		(property "Reference" "#PWR056"
+			(at 487.68 297.18 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 490.22 302.26 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 487.68 297.18 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 487.68 297.18 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 487.68 297.18 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "d84ddc63-b122-520c-8a65-76240d631461")
+		)
+		(instances
+			(project "kart-medulla"
+				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
+					(reference "#PWR056")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "kart-medulla:CAP")
+		(at 490.22 127 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "215bc3b2-793b-575e-805d-2a24694eb855")
+		(property "Reference" "C10"
+			(at 490.22 123.19 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Value" "100nF"
+			(at 490.22 132.08 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Footprint" "kart-medulla:C0603"
+			(at 490.22 127 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 490.22 127 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Description" "ADC anti-alias filter and SAR sampling reservoir"
+			(at 490.22 127 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Symbol" "CAP"
+			(at 490.22 127 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "da988327-0288-53fb-a741-31039f345590")
+		)
+		(pin "2"
+			(uuid "1f9ee879-3d07-5ffb-9495-f8affb9b965a")
+		)
+		(instances
+			(project "kart-medulla"
+				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
+					(reference "C10")
 					(unit 1)
 				)
 			)
@@ -10851,6 +11658,102 @@
 			(project "kart-medulla"
 				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
 					(reference "R8")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "kart-medulla:Res")
+		(at 487.68 292.1 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "3501c61e-4d91-50db-960c-f3c816a3a9c4")
+		(property "Reference" "R38"
+			(at 491.49 290.83 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Value" "10K"
+			(at 496.57 293.37 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Footprint" "kart-medulla:R0603"
+			(at 487.68 292.1 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 487.68 292.1 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Description" "U1B gain-set leg to GND"
+			(at 487.68 292.1 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Symbol" "Res"
+			(at 487.68 292.1 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "08315884-f5c2-5e9d-870d-ef7415ea78ae")
+		)
+		(pin "2"
+			(uuid "c72b9228-883f-5af4-b1af-8ec3965b429c")
+		)
+		(instances
+			(project "kart-medulla"
+				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
+					(reference "R38")
 					(unit 1)
 				)
 			)
@@ -12829,6 +13732,183 @@
 		)
 	)
 	(symbol
+		(lib_id "power:GND")
+		(at 495.3 88.9 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "6495e304-048a-5485-8e48-3c35dae9bcdb")
+		(property "Reference" "#PWR047"
+			(at 495.3 88.9 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 497.84 93.98 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 495.3 88.9 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 495.3 88.9 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 495.3 88.9 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "9fbf465d-7c3b-5bcc-aebe-13092c2b3069")
+		)
+		(instances
+			(project "kart-medulla"
+				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
+					(reference "#PWR047")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "kart-medulla:CAP")
+		(at 490.22 165.1 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "6560874b-ae3e-54fd-b8f1-3b2cd9aac70f")
+		(property "Reference" "C13"
+			(at 490.22 161.29 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Value" "100nF"
+			(at 490.22 170.18 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Footprint" "kart-medulla:C0603"
+			(at 490.22 165.1 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 490.22 165.1 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Description" "ADC anti-alias filter and SAR sampling reservoir"
+			(at 490.22 165.1 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Symbol" "CAP"
+			(at 490.22 165.1 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "14bb490b-85ee-524d-8730-5edfe44662fc")
+		)
+		(pin "2"
+			(uuid "53a04be1-2b2e-5101-bd73-d26361ad805e")
+		)
+		(instances
+			(project "kart-medulla"
+				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
+					(reference "C13")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "kart-medulla:Res")
 		(at 83.82 220.98 270)
 		(unit 1)
@@ -13268,6 +14348,87 @@
 			(project "kart-medulla"
 				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
 					(reference "R13")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 495.3 165.1 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "6b939eb7-0cd2-584c-a311-b7ddd77ffcf5")
+		(property "Reference" "#PWR053"
+			(at 495.3 165.1 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 497.84 170.18 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 495.3 165.1 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 495.3 165.1 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 495.3 165.1 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "d1dabf75-3049-5506-8d04-c958d6a80e09")
+		)
+		(instances
+			(project "kart-medulla"
+				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
+					(reference "#PWR053")
 					(unit 1)
 				)
 			)
@@ -14572,6 +15733,102 @@
 		)
 	)
 	(symbol
+		(lib_id "kart-medulla:CAP")
+		(at 490.22 88.9 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "859ed907-8dac-5571-86b2-ed931bad9ce5")
+		(property "Reference" "C7"
+			(at 490.22 85.09 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Value" "100nF"
+			(at 490.22 93.98 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Footprint" "kart-medulla:C0603"
+			(at 490.22 88.9 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 490.22 88.9 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Description" "ADC anti-alias filter and SAR sampling reservoir"
+			(at 490.22 88.9 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Symbol" "CAP"
+			(at 490.22 88.9 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "c518ef1f-8eee-59c7-9108-014bdc9b4098")
+		)
+		(pin "2"
+			(uuid "104d3a24-84da-5b2e-b59f-5376c93e229a")
+		)
+		(instances
+			(project "kart-medulla"
+				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
+					(reference "C7")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "kart-medulla:Res")
 		(at 410.21 224.79 270)
 		(unit 1)
@@ -14984,6 +16241,102 @@
 			(project "kart-medulla"
 				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
 					(reference "C5")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "kart-medulla:CAP")
+		(at 490.22 114.3 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "8bf5682a-c17c-5ff4-b281-e9709509aa87")
+		(property "Reference" "C9"
+			(at 490.22 110.49 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Value" "100nF"
+			(at 490.22 119.38 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Footprint" "kart-medulla:C0603"
+			(at 490.22 114.3 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 490.22 114.3 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Description" "ADC anti-alias filter and SAR sampling reservoir"
+			(at 490.22 114.3 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Symbol" "CAP"
+			(at 490.22 114.3 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "1de9f560-e1d5-5ca9-91c3-3e67e1c025f4")
+		)
+		(pin "2"
+			(uuid "3190a1ca-71e0-5d26-b9a6-5eb673087d3f")
+		)
+		(instances
+			(project "kart-medulla"
+				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
+					(reference "C9")
 					(unit 1)
 				)
 			)
@@ -15834,6 +17187,87 @@
 		)
 	)
 	(symbol
+		(lib_id "power:GND")
+		(at 487.68 261.62 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "9bfb3925-a16a-58b5-b6f3-0dc48e464ad4")
+		(property "Reference" "#PWR055"
+			(at 487.68 205.74 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 490.22 203.2 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 487.68 205.74 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 487.68 205.74 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 487.68 261.62 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "b1995601-6578-5c02-99a5-a889f06c5dae")
+		)
+		(instances
+			(project "kart-medulla"
+				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
+					(reference "#PWR055")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "kart-medulla:CAP")
 		(at 515.62 67.31 270)
 		(unit 1)
@@ -16116,6 +17550,87 @@
 			(project "kart-medulla"
 				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
 					(reference "CN7")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 495.3 152.4 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "a1273904-926d-568e-8eac-473ee006b296")
+		(property "Reference" "#PWR052"
+			(at 495.3 152.4 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 497.84 157.48 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 495.3 152.4 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 495.3 152.4 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 495.3 152.4 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "a857e1cf-78f8-5ab2-a5cc-0044c27f03ab")
+		)
+		(instances
+			(project "kart-medulla"
+				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
+					(reference "#PWR052")
 					(unit 1)
 				)
 			)
@@ -16487,6 +18002,87 @@
 		)
 	)
 	(symbol
+		(lib_id "power:GND")
+		(at 495.3 114.3 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "a837fe95-068d-57bf-b0d3-0471f87bab90")
+		(property "Reference" "#PWR049"
+			(at 495.3 114.3 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 497.84 119.38 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 495.3 114.3 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 495.3 114.3 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 495.3 114.3 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "4d0f3e43-bfe0-5adc-8a0a-bb85bd97e86f")
+		)
+		(instances
+			(project "kart-medulla"
+				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
+					(reference "#PWR049")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "kart-medulla:1990012")
 		(at 260.35 48.26 0)
 		(unit 1)
@@ -16713,6 +18309,102 @@
 		)
 	)
 	(symbol
+		(lib_id "kart-medulla:CAP")
+		(at 490.22 101.6 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "ac0a05f5-56ec-5f5b-b4d3-6fcf09f4eb09")
+		(property "Reference" "C8"
+			(at 490.22 97.79 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Value" "100nF"
+			(at 490.22 106.68 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Footprint" "kart-medulla:C0603"
+			(at 490.22 101.6 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 490.22 101.6 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Description" "ADC anti-alias filter and SAR sampling reservoir"
+			(at 490.22 101.6 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Symbol" "CAP"
+			(at 490.22 101.6 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "e7b5cdf0-2317-5dfc-b719-276e62a931fd")
+		)
+		(pin "2"
+			(uuid "9f02b95f-8587-57ea-a66f-f8f80c5465c6")
+		)
+		(instances
+			(project "kart-medulla"
+				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
+					(reference "C8")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "kart-medulla:Res")
 		(at 81.28 360.68 180)
 		(unit 1)
@@ -16837,6 +18529,102 @@
 			(project "kart-medulla"
 				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
 					(reference "R22")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "kart-medulla:Res")
+		(at 487.68 256.54 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "b36d7599-4133-5021-ae63-7d50e613cdc7")
+		(property "Reference" "R36"
+			(at 491.49 255.27 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Value" "10K"
+			(at 496.57 257.81 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Footprint" "kart-medulla:R0603"
+			(at 487.68 256.54 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 487.68 256.54 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Description" "SPI idle-state pull - holds the DAC deselected when the ESP32 is unpowered"
+			(at 487.68 256.54 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Symbol" "Res"
+			(at 487.68 256.54 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "b0e1578f-26b9-5fb5-8f08-443698fe911a")
+		)
+		(pin "2"
+			(uuid "ed832e56-f73e-5805-9f88-20a6173c9931")
+		)
+		(instances
+			(project "kart-medulla"
+				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
+					(reference "R36")
 					(unit 1)
 				)
 			)
@@ -17828,6 +19616,87 @@
 		)
 	)
 	(symbol
+		(lib_id "power:GND")
+		(at 495.3 101.6 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "c1b52895-5df8-5902-a43e-773ca7ac6e43")
+		(property "Reference" "#PWR048"
+			(at 495.3 101.6 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 497.84 106.68 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 495.3 101.6 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 495.3 101.6 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 495.3 101.6 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "d274bdee-a1b5-58a1-887d-c4daff91a680")
+		)
+		(instances
+			(project "kart-medulla"
+				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
+					(reference "#PWR048")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "kart-medulla:1990012")
 		(at 142.24 81.28 0)
 		(unit 1)
@@ -18195,6 +20064,102 @@
 			(project "kart-medulla"
 				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
 					(reference "#PWR17")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "kart-medulla:Res")
+		(at 513.08 292.1 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "ca102abb-145a-529d-8bb0-495b0dc7d16b")
+		(property "Reference" "R39"
+			(at 516.89 290.83 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Value" "1K"
+			(at 521.97 293.37 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Footprint" "kart-medulla:R0603"
+			(at 513.08 292.1 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 513.08 292.1 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Description" "series into the MAX4660, limits fault current if U1B saturates toward +12V"
+			(at 513.08 292.1 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Symbol" "Res"
+			(at 513.08 292.1 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "4174b6c2-5a0a-549d-b02b-39d1e61ff89c")
+		)
+		(pin "2"
+			(uuid "8d4c30b7-effa-51bd-859d-0b4118b4bd77")
+		)
+		(instances
+			(project "kart-medulla"
+				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
+					(reference "R39")
 					(unit 1)
 				)
 			)
@@ -18793,6 +20758,102 @@
 		)
 	)
 	(symbol
+		(lib_id "kart-medulla:Res")
+		(at 462.28 292.1 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "d0c947ea-3938-5c03-b521-f9a7ae8549df")
+		(property "Reference" "R37"
+			(at 466.09 290.83 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Value" "5.1K"
+			(at 471.17 293.37 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Footprint" "kart-medulla:R0603"
+			(at 462.28 292.1 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 462.28 292.1 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Description" "U1B feedback: gain = 1 + R37/R38 = 1.51"
+			(at 462.28 292.1 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Symbol" "Res"
+			(at 462.28 292.1 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "482a86f0-eb52-5b1f-be62-b768b43a4c6b")
+		)
+		(pin "2"
+			(uuid "279e4181-818f-5160-a943-9a2e25a27e28")
+		)
+		(instances
+			(project "kart-medulla"
+				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
+					(reference "R37")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "kart-medulla:SSW-122-01-T-S")
 		(at 382.27 72.39 180)
 		(unit 1)
@@ -19199,6 +21260,183 @@
 			(project "kart-medulla"
 				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
 					(reference "#PWR06")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 495.3 139.7 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "db72c373-411a-55c5-bd43-444a02f03d1e")
+		(property "Reference" "#PWR051"
+			(at 495.3 139.7 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 497.84 144.78 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 495.3 139.7 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 495.3 139.7 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 495.3 139.7 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "5b62e7aa-079e-532b-86fc-b6f2cf392f11")
+		)
+		(instances
+			(project "kart-medulla"
+				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
+					(reference "#PWR051")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "kart-medulla:Res")
+		(at 462.28 256.54 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "db998d70-7139-569e-b77d-8a0d39656b5e")
+		(property "Reference" "R35"
+			(at 466.09 255.27 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Value" "10K"
+			(at 471.17 257.81 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Footprint" "kart-medulla:R0603"
+			(at 462.28 256.54 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 462.28 256.54 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Description" "SPI idle-state pull - holds the DAC deselected when the ESP32 is unpowered"
+			(at 462.28 256.54 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Symbol" "Res"
+			(at 462.28 256.54 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "975b5bea-a0de-58e1-bec6-09fa4ecfaffa")
+		)
+		(pin "2"
+			(uuid "a3636a14-af38-5d4a-978d-56a3d1a48629")
+		)
+		(instances
+			(project "kart-medulla"
+				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
+					(reference "R35")
 					(unit 1)
 				)
 			)
@@ -19923,6 +22161,87 @@
 			(project "kart-medulla"
 				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
 					(reference "R15")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "kart-medulla:+3V3")
+		(at 462.28 251.46 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "e188dccf-9bd1-59ef-bdf8-48960c7af39f")
+		(property "Reference" "#PWR054"
+			(at 462.28 251.46 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Value" "+3V3"
+			(at 464.82 248.92 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 462.28 251.46 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 462.28 251.46 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.1524)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 462.28 251.46 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "c280847d-7474-5428-ae8c-c7d46ce2de0e")
+		)
+		(instances
+			(project "kart-medulla"
+				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
+					(reference "#PWR054")
 					(unit 1)
 				)
 			)
@@ -20781,2224 +23100,5 @@
 				)
 			)
 		)
-	)
-	(symbol
-		(lib_id "kart-medulla:CAP")
-		(at 490.22 88.9 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "859ed907-8dac-5571-86b2-ed931bad9ce5")
-		(property "Reference" "C7"
-			(at 490.22 85.09 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Value" "100nF"
-			(at 490.22 93.98 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Footprint" "kart-medulla:C0603"
-			(at 490.22 88.9 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 490.22 88.9 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Description" "ADC anti-alias filter and SAR sampling reservoir"
-			(at 490.22 88.9 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Symbol" "CAP"
-			(at 490.22 88.9 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "c518ef1f-8eee-59c7-9108-014bdc9b4098")
-		)
-		(pin "2"
-			(uuid "104d3a24-84da-5b2e-b59f-5376c93e229a")
-		)
-		(instances
-			(project "kart-medulla"
-				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
-					(reference "C7")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:GND")
-		(at 495.3 88.9 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "6495e304-048a-5485-8e48-3c35dae9bcdb")
-		(property "Reference" "#PWR047"
-			(at 495.3 88.9 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Value" "GND"
-			(at 497.84 93.98 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 495.3 88.9 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 495.3 88.9 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "9fbf465d-7c3b-5bcc-aebe-13092c2b3069")
-		)
-		(instances
-			(project "kart-medulla"
-				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
-					(reference "#PWR047")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(wire
-		(pts
-			(xy 485.14000000000004 88.9) (xy 462.28 88.9)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "525845ca-5bcf-51ac-ab10-c858cfec056c")
-	)
-	(label "PEDAL_ACC__3V3"
-		(at 462.28 88.9 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
-			)
-			(justify left bottom)
-		)
-		(uuid "09b92ec4-fd25-53c5-b895-4c303b2dae58")
-	)
-	(symbol
-		(lib_id "kart-medulla:CAP")
-		(at 490.22 101.6 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "ac0a05f5-56ec-5f5b-b4d3-6fcf09f4eb09")
-		(property "Reference" "C8"
-			(at 490.22 97.79 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Value" "100nF"
-			(at 490.22 106.68 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Footprint" "kart-medulla:C0603"
-			(at 490.22 101.6 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 490.22 101.6 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Description" "ADC anti-alias filter and SAR sampling reservoir"
-			(at 490.22 101.6 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Symbol" "CAP"
-			(at 490.22 101.6 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "e7b5cdf0-2317-5dfc-b719-276e62a931fd")
-		)
-		(pin "2"
-			(uuid "9f02b95f-8587-57ea-a66f-f8f80c5465c6")
-		)
-		(instances
-			(project "kart-medulla"
-				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
-					(reference "C8")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:GND")
-		(at 495.3 101.6 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "c1b52895-5df8-5902-a43e-773ca7ac6e43")
-		(property "Reference" "#PWR048"
-			(at 495.3 101.6 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Value" "GND"
-			(at 497.84 106.68 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 495.3 101.6 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 495.3 101.6 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "d274bdee-a1b5-58a1-887d-c4daff91a680")
-		)
-		(instances
-			(project "kart-medulla"
-				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
-					(reference "#PWR048")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(wire
-		(pts
-			(xy 485.14000000000004 101.6) (xy 462.28 101.6)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "f11e64f2-8217-5ec8-8acc-ac461be83793")
-	)
-	(label "PEDAL_BRAKE__3V3"
-		(at 462.28 101.6 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
-			)
-			(justify left bottom)
-		)
-		(uuid "5f1216d0-680d-53bf-a806-8510e5c9a50e")
-	)
-	(symbol
-		(lib_id "kart-medulla:CAP")
-		(at 490.22 114.3 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "8bf5682a-c17c-5ff4-b281-e9709509aa87")
-		(property "Reference" "C9"
-			(at 490.22 110.49 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Value" "100nF"
-			(at 490.22 119.38 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Footprint" "kart-medulla:C0603"
-			(at 490.22 114.3 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 490.22 114.3 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Description" "ADC anti-alias filter and SAR sampling reservoir"
-			(at 490.22 114.3 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Symbol" "CAP"
-			(at 490.22 114.3 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "1de9f560-e1d5-5ca9-91c3-3e67e1c025f4")
-		)
-		(pin "2"
-			(uuid "3190a1ca-71e0-5d26-b9a6-5eb673087d3f")
-		)
-		(instances
-			(project "kart-medulla"
-				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
-					(reference "C9")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:GND")
-		(at 495.3 114.3 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "a837fe95-068d-57bf-b0d3-0471f87bab90")
-		(property "Reference" "#PWR049"
-			(at 495.3 114.3 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Value" "GND"
-			(at 497.84 119.38 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 495.3 114.3 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 495.3 114.3 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "4d0f3e43-bfe0-5adc-8a0a-bb85bd97e86f")
-		)
-		(instances
-			(project "kart-medulla"
-				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
-					(reference "#PWR049")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(wire
-		(pts
-			(xy 485.14000000000004 114.3) (xy 462.28 114.3)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "476e537e-7851-5422-b268-abade5613758")
-	)
-	(label "HYDRAULIC_1__0_3V3"
-		(at 462.28 114.3 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
-			)
-			(justify left bottom)
-		)
-		(uuid "08f05ec0-9239-5a4c-a4ef-e95f080f26ac")
-	)
-	(symbol
-		(lib_id "kart-medulla:CAP")
-		(at 490.22 127.0 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "215bc3b2-793b-575e-805d-2a24694eb855")
-		(property "Reference" "C10"
-			(at 490.22 123.19 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Value" "100nF"
-			(at 490.22 132.08 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Footprint" "kart-medulla:C0603"
-			(at 490.22 127.0 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 490.22 127.0 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Description" "ADC anti-alias filter and SAR sampling reservoir"
-			(at 490.22 127.0 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Symbol" "CAP"
-			(at 490.22 127.0 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "da988327-0288-53fb-a741-31039f345590")
-		)
-		(pin "2"
-			(uuid "1f9ee879-3d07-5ffb-9495-f8affb9b965a")
-		)
-		(instances
-			(project "kart-medulla"
-				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
-					(reference "C10")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:GND")
-		(at 495.3 127.0 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "0b91b3cf-45c8-5722-ba00-97a0633cc634")
-		(property "Reference" "#PWR050"
-			(at 495.3 127.0 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Value" "GND"
-			(at 497.84 132.08 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 495.3 127.0 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 495.3 127.0 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "60a43918-31f7-5360-ae2d-ec029966309e")
-		)
-		(instances
-			(project "kart-medulla"
-				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
-					(reference "#PWR050")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(wire
-		(pts
-			(xy 485.14000000000004 127.0) (xy 462.28 127.0)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c207be7c-67eb-53d0-be0c-ca98120b47ce")
-	)
-	(label "HYDRAULIC_2__0_3V3"
-		(at 462.28 127.0 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
-			)
-			(justify left bottom)
-		)
-		(uuid "a113a9b8-c9ab-5c9b-8ca1-4f763093c75f")
-	)
-	(symbol
-		(lib_id "kart-medulla:CAP")
-		(at 490.22 139.7 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "054ad9c5-bd11-59cd-b383-113d5beb4ef0")
-		(property "Reference" "C11"
-			(at 490.22 135.89 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Value" "100nF"
-			(at 490.22 144.78 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Footprint" "kart-medulla:C0603"
-			(at 490.22 139.7 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 490.22 139.7 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Description" "ADC anti-alias filter and SAR sampling reservoir"
-			(at 490.22 139.7 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Symbol" "CAP"
-			(at 490.22 139.7 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "5901a171-670f-5432-8875-e9db4192dba9")
-		)
-		(pin "2"
-			(uuid "f5f68667-2a9b-5d0a-813c-efcb6a9d6c74")
-		)
-		(instances
-			(project "kart-medulla"
-				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
-					(reference "C11")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:GND")
-		(at 495.3 139.7 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "db72c373-411a-55c5-bd43-444a02f03d1e")
-		(property "Reference" "#PWR051"
-			(at 495.3 139.7 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Value" "GND"
-			(at 497.84 144.78 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 495.3 139.7 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 495.3 139.7 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "5b62e7aa-079e-532b-86fc-b6f2cf392f11")
-		)
-		(instances
-			(project "kart-medulla"
-				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
-					(reference "#PWR051")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(wire
-		(pts
-			(xy 485.14000000000004 139.7) (xy 462.28 139.7)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "34d32612-35d7-50f4-b61e-f485e37222c9")
-	)
-	(label "PRESSURE_1__0_3V3"
-		(at 462.28 139.7 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
-			)
-			(justify left bottom)
-		)
-		(uuid "f20f409b-dfd7-5574-b879-212930105d56")
-	)
-	(symbol
-		(lib_id "kart-medulla:CAP")
-		(at 490.22 152.4 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "13e7b555-35df-5cbe-a942-0fb5dbc7f491")
-		(property "Reference" "C12"
-			(at 490.22 148.59 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Value" "100nF"
-			(at 490.22 157.48 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Footprint" "kart-medulla:C0603"
-			(at 490.22 152.4 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 490.22 152.4 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Description" "ADC anti-alias filter and SAR sampling reservoir"
-			(at 490.22 152.4 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Symbol" "CAP"
-			(at 490.22 152.4 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "0a74f809-2e56-5d21-a4dd-b999626ed74a")
-		)
-		(pin "2"
-			(uuid "338da938-7691-5f0a-91e0-bbe1b0010bf0")
-		)
-		(instances
-			(project "kart-medulla"
-				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
-					(reference "C12")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:GND")
-		(at 495.3 152.4 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "a1273904-926d-568e-8eac-473ee006b296")
-		(property "Reference" "#PWR052"
-			(at 495.3 152.4 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Value" "GND"
-			(at 497.84 157.48 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 495.3 152.4 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 495.3 152.4 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "a857e1cf-78f8-5ab2-a5cc-0044c27f03ab")
-		)
-		(instances
-			(project "kart-medulla"
-				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
-					(reference "#PWR052")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(wire
-		(pts
-			(xy 485.14000000000004 152.4) (xy 462.28 152.4)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "9e8aadd0-c995-5838-aad4-8cb58d9d7f6e")
-	)
-	(label "PRESSURE_2__0_3V3"
-		(at 462.28 152.4 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
-			)
-			(justify left bottom)
-		)
-		(uuid "118ddde9-7ac3-56b2-9fbd-b07172cbcca7")
-	)
-	(symbol
-		(lib_id "kart-medulla:CAP")
-		(at 490.22 165.1 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "6560874b-ae3e-54fd-b8f1-3b2cd9aac70f")
-		(property "Reference" "C13"
-			(at 490.22 161.29 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Value" "100nF"
-			(at 490.22 170.18 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Footprint" "kart-medulla:C0603"
-			(at 490.22 165.1 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 490.22 165.1 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Description" "ADC anti-alias filter and SAR sampling reservoir"
-			(at 490.22 165.1 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Symbol" "CAP"
-			(at 490.22 165.1 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "14bb490b-85ee-524d-8730-5edfe44662fc")
-		)
-		(pin "2"
-			(uuid "53a04be1-2b2e-5101-bd73-d26361ad805e")
-		)
-		(instances
-			(project "kart-medulla"
-				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
-					(reference "C13")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:GND")
-		(at 495.3 165.1 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "6b939eb7-0cd2-584c-a311-b7ddd77ffcf5")
-		(property "Reference" "#PWR053"
-			(at 495.3 165.1 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Value" "GND"
-			(at 497.84 170.18 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 495.3 165.1 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 495.3 165.1 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "d1dabf75-3049-5506-8d04-c958d6a80e09")
-		)
-		(instances
-			(project "kart-medulla"
-				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
-					(reference "#PWR053")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(wire
-		(pts
-			(xy 485.14000000000004 165.1) (xy 462.28 165.1)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "37fee4a9-89d1-56fc-b3b8-685311d628af")
-	)
-	(label "PRESSURE_3__0_3V3"
-		(at 462.28 165.1 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
-			)
-			(justify left bottom)
-		)
-		(uuid "88ed916f-53be-59f8-841a-8fb4f0ae1f9b")
-	)
-	(symbol
-		(lib_id "kart-medulla:Res")
-		(at 462.28 256.54 90)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "db998d70-7139-569e-b77d-8a0d39656b5e")
-		(property "Reference" "R35"
-			(at 466.09 255.27 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Value" "10K"
-			(at 471.17 257.81 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Footprint" "kart-medulla:R0603"
-			(at 462.28 256.54 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 462.28 256.54 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Description" "SPI idle-state pull - holds the DAC deselected when the ESP32 is unpowered"
-			(at 462.28 256.54 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Symbol" "Res"
-			(at 462.28 256.54 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "975b5bea-a0de-58e1-bec6-09fa4ecfaffa")
-		)
-		(pin "2"
-			(uuid "a3636a14-af38-5d4a-978d-56a3d1a48629")
-		)
-		(instances
-			(project "kart-medulla"
-				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
-					(reference "R35")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "kart-medulla:+3V3")
-		(at 462.28 251.46 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "e188dccf-9bd1-59ef-bdf8-48960c7af39f")
-		(property "Reference" "#PWR054"
-			(at 462.28 251.46 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Value" "+3V3"
-			(at 464.82 248.92 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 462.28 251.46 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 462.28 251.46 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "c280847d-7474-5428-ae8c-c7d46ce2de0e")
-		)
-		(instances
-			(project "kart-medulla"
-				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
-					(reference "#PWR054")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(wire
-		(pts
-			(xy 462.28 261.62) (xy 462.28 266.7)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4b0784a0-9b4b-5609-9abc-ff749a105c09")
-	)
-	(label "CMD_DAC_CS"
-		(at 462.28 266.7 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
-			)
-			(justify left bottom)
-		)
-		(uuid "a2fb785a-1c9f-5796-8d31-cf0703a77db0")
-	)
-	(symbol
-		(lib_id "kart-medulla:Res")
-		(at 487.68 256.54 90)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "b36d7599-4133-5021-ae63-7d50e613cdc7")
-		(property "Reference" "R36"
-			(at 491.49 255.27 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Value" "10K"
-			(at 496.57 257.81 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Footprint" "kart-medulla:R0603"
-			(at 487.68 256.54 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 487.68 256.54 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Description" "SPI idle-state pull - holds the DAC deselected when the ESP32 is unpowered"
-			(at 487.68 256.54 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Symbol" "Res"
-			(at 487.68 256.54 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "b0e1578f-26b9-5fb5-8f08-443698fe911a")
-		)
-		(pin "2"
-			(uuid "ed832e56-f73e-5805-9f88-20a6173c9931")
-		)
-		(instances
-			(project "kart-medulla"
-				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
-					(reference "R36")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:GND")
-		(at 487.68 261.62 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "9bfb3925-a16a-58b5-b6f3-0dc48e464ad4")
-		(property "Reference" "#PWR055"
-			(at 487.68 205.74 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Value" "GND"
-			(at 490.22 203.2 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 487.68 205.74 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 487.68 205.74 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "b1995601-6578-5c02-99a5-a889f06c5dae")
-		)
-		(instances
-			(project "kart-medulla"
-				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
-					(reference "#PWR055")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(wire
-		(pts
-			(xy 487.68 251.46) (xy 487.68 246.38)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "e802d267-38aa-5421-aa01-36338ae1017b")
-	)
-	(label "CLK"
-		(at 487.68 246.38 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
-			)
-			(justify left bottom)
-		)
-		(uuid "db675948-39da-5970-8d1a-d11bfd03d8e7")
-	)
-	(wire
-		(pts
-			(xy 378.46 334.01) (xy 358.14 334.01)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "10196665-fbfd-5ef6-bb35-7b44e1ccd971")
-	)
-	(label "CMD_ACC_ESP32__0_5V"
-		(at 358.14 334.01 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
-			)
-			(justify left bottom)
-		)
-		(uuid "5346cb50-3a1a-5a6e-a868-8fd0a4c24d72")
-	)
-	(wire
-		(pts
-			(xy 378.46 328.93) (xy 358.14 328.93)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "51f77d74-001b-58e3-b4f6-05a8ae819c2d")
-	)
-	(label "ACC_AMP_FB"
-		(at 358.14 328.93 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
-			)
-			(justify left bottom)
-		)
-		(uuid "8e19fb9a-fc7b-537c-ac6b-44046d2b57c8")
-	)
-	(wire
-		(pts
-			(xy 393.7 331.47) (xy 401.32 331.47)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "2980dd16-40e4-5ca6-a821-7dc91a727816")
-	)
-	(label "ACC_AMP_OUT"
-		(at 401.32 331.47 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
-			)
-			(justify left bottom)
-		)
-		(uuid "33d76b92-68ca-5731-9e32-f6589119d627")
-	)
-	(symbol
-		(lib_id "kart-medulla:Res")
-		(at 462.28 292.1 90)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "d0c947ea-3938-5c03-b521-f9a7ae8549df")
-		(property "Reference" "R37"
-			(at 466.09 290.83 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Value" "5.1K"
-			(at 471.17 293.37 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Footprint" "kart-medulla:R0603"
-			(at 462.28 292.1 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 462.28 292.1 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Description" "U1B feedback: gain = 1 + R37/R38 = 1.51"
-			(at 462.28 292.1 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Symbol" "Res"
-			(at 462.28 292.1 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "482a86f0-eb52-5b1f-be62-b768b43a4c6b")
-		)
-		(pin "2"
-			(uuid "279e4181-818f-5160-a943-9a2e25a27e28")
-		)
-		(instances
-			(project "kart-medulla"
-				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
-					(reference "R37")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(wire
-		(pts
-			(xy 462.28 287.02) (xy 462.28 281.94)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c7df32bb-c0e1-5a74-b687-47bef7d2de95")
-	)
-	(label "ACC_AMP_OUT"
-		(at 462.28 281.94 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
-			)
-			(justify left bottom)
-		)
-		(uuid "f21e2d62-6b76-544b-b680-84daa0c7c7c7")
-	)
-	(wire
-		(pts
-			(xy 462.28 297.18) (xy 462.28 302.26)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d7f0270f-94da-5af6-8b50-b205b737f532")
-	)
-	(label "ACC_AMP_FB"
-		(at 462.28 302.26 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
-			)
-			(justify left bottom)
-		)
-		(uuid "47de70b3-0df4-591b-a68c-a99f25bcb486")
-	)
-	(symbol
-		(lib_id "kart-medulla:Res")
-		(at 487.68 292.1 90)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "3501c61e-4d91-50db-960c-f3c816a3a9c4")
-		(property "Reference" "R38"
-			(at 491.49 290.83 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Value" "10K"
-			(at 496.57 293.37 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Footprint" "kart-medulla:R0603"
-			(at 487.68 292.1 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 487.68 292.1 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Description" "U1B gain-set leg to GND"
-			(at 487.68 292.1 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Symbol" "Res"
-			(at 487.68 292.1 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "08315884-f5c2-5e9d-870d-ef7415ea78ae")
-		)
-		(pin "2"
-			(uuid "c72b9228-883f-5af4-b1af-8ec3965b429c")
-		)
-		(instances
-			(project "kart-medulla"
-				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
-					(reference "R38")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(wire
-		(pts
-			(xy 487.68 287.02) (xy 487.68 281.94)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "48a0d7f3-5794-5735-b4b0-a2ea2266ea09")
-	)
-	(label "ACC_AMP_FB"
-		(at 487.68 281.94 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
-			)
-			(justify left bottom)
-		)
-		(uuid "ea9aa60b-efe6-524a-ae70-5be602023ef3")
-	)
-	(symbol
-		(lib_id "power:GND")
-		(at 487.68 297.18 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "18c5d1ff-e115-5b04-88cb-dd828e6d8125")
-		(property "Reference" "#PWR056"
-			(at 487.68 297.18 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Value" "GND"
-			(at 490.22 302.26 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 487.68 297.18 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 487.68 297.18 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "d84ddc63-b122-520c-8a65-76240d631461")
-		)
-		(instances
-			(project "kart-medulla"
-				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
-					(reference "#PWR056")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "kart-medulla:Res")
-		(at 513.08 292.1 90)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "ca102abb-145a-529d-8bb0-495b0dc7d16b")
-		(property "Reference" "R39"
-			(at 516.89 290.83 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Value" "1K"
-			(at 521.97 293.37 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Footprint" "kart-medulla:R0603"
-			(at 513.08 292.1 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 513.08 292.1 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Description" "series into the MAX4660, limits fault current if U1B saturates toward +12V"
-			(at 513.08 292.1 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Symbol" "Res"
-			(at 513.08 292.1 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "4174b6c2-5a0a-549d-b02b-39d1e61ff89c")
-		)
-		(pin "2"
-			(uuid "8d4c30b7-effa-51bd-859d-0b4118b4bd77")
-		)
-		(instances
-			(project "kart-medulla"
-				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
-					(reference "R39")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(wire
-		(pts
-			(xy 513.08 287.02) (xy 513.08 281.94)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c8f9bd97-2249-5e91-8c68-b8dd29c6dc85")
-	)
-	(label "ACC_AMP_OUT"
-		(at 513.08 281.94 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
-			)
-			(justify left bottom)
-		)
-		(uuid "2e732a7e-a24a-5bc0-a3e5-26f7595a7b9d")
-	)
-	(wire
-		(pts
-			(xy 513.08 297.18) (xy 513.08 302.26)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "2016731f-72ca-57b7-81c3-de752faaf04d")
-	)
-	(label "CMD_ACC_BUF__0_5V"
-		(at 513.08 302.26 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
-			)
-			(justify left bottom)
-		)
-		(uuid "ad5934fe-043c-5474-8fde-82c4a0cc4496")
 	)
 )
