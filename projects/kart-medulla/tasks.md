@@ -38,11 +38,31 @@ the switch works with everything unpowered and no firmware can reach it.
 - **Remove U14 (MAX4660)** and its supply. The medulla always outputs its autonomous throttle
   command on CN10.1; the panel switch decides whether anything listens. This also closes the
   "U14 supplied at 5 V against a 9 V minimum" blocker, and frees GPIO 15.
-- **Add a mode-sense input.** One wire from a **third pole** on the panel switch, shorting to GND
-  in autonomous against a pull-up on the medulla. Read-only by construction: firmware can see the
-  mode but can never cause it, which is the property Rubén asked for. Needs the panel switch
-  swapped for a 3PDT or one with an auxiliary contact — there is no other electrical difference
-  between the modes to detect, since the Cytron's supply is permanently powered.
+- **Add a mode-sense input — open, not yet decided.** The panel switch is a DPDT with **both poles
+  already committed** (pole 1 selects the throttle source reaching the ESC, pole 2 breaks the
+  Cytron-to-steering-motor cable on M+). There is no spare contact: pole 2's unused throw is not
+  usable, because its common carries motor current and a contact needs both terminals. An earlier
+  version of this item said "one wire from a third pole", which wrongly implied a free pole existed.
+
+  **Whether it is needed at all depends on the brake.** For throttle it is not needed: the switch is
+  the safety mechanism, it is metal, and it works with the board dead, so firmware knowing the mode
+  adds nothing safety-relevant — only integrator windup while commanding a plant that is not
+  listening, which firmware can handle by resetting on re-engagement. For **brake it probably is
+  needed**: per `kart-docs` `wiring.yaml:121`, `CMD_BRAKE_10V` runs from the LM358 output straight to
+  the Festo VPPM setpoint with the mode switch nowhere in that path, and the brake never had a mux to
+  delete. So the medulla can apply pneumatic brake pressure while a human is driving. **Settle this
+  first** — if the brake command should also be broken by the switch, the mode-sense input may become
+  unnecessary.
+
+  Two ways to get the signal if it is wanted:
+  1. **Swap the DPDT for a 3PDT, or one with a mechanically ganged auxiliary contact.** Dry contact
+     to GND against a medulla pull-up. Read-only by construction. Do not use a separate second
+     switch: two ungangeed switches can disagree, and the medulla would then believe a lie.
+  2. **No switch change — read back the ESC throttle node on a spare ADC**, through a divider. The
+     medulla already knows both candidate values: what it commanded, and the pedal on CN6.2.
+     Whichever the node matches gives the pole position. Blind spot: it cannot resolve while the two
+     agree, which is exactly the case at standstill with both at zero, so it needs to latch at
+     "assume manual until proven otherwise" and only resolves once they diverge.
 
 Feeds the v2 pin allocation item below: the sense line needs one input pin, and a free PCF8574
 port is probably enough since it is a slow digital signal.

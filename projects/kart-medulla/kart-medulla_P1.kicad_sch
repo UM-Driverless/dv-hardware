@@ -2809,306 +2809,6 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "kart-medulla:MAX4660EUA_T"
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(in_pos_files yes)
-			(duplicate_pin_numbers_are_jumpers no)
-			(property "Reference" "U"
-				(at -2 2 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-						(thickness 0.1524)
-					)
-				)
-			)
-			(property "Value" "MAX4660EUA+T"
-				(at -2 -2 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-						(thickness 0.1524)
-					)
-				)
-			)
-			(property "Footprint" "kart-medulla:SOP65P490X110-9N"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-						(thickness 0.1524)
-					)
-				)
-			)
-			(property "Datasheet" "https://www.analog.com/MAX4660/datasheet"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-						(thickness 0.1524)
-					)
-				)
-			)
-			(property "Description" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "head_symbolType" "2"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-						(thickness 0.1524)
-					)
-				)
-			)
-			(property "head_version" "0.13.0"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-						(thickness 0.1524)
-					)
-				)
-			)
-			(property "Symbol" "MAX4660EUA+T"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-						(thickness 0.1524)
-					)
-				)
-			)
-			(property "Designator" "U?"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-						(thickness 0.1524)
-					)
-				)
-			)
-			(property "part_bbox" "-25,-25,35,25"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-						(thickness 0.1524)
-					)
-				)
-			)
-			(symbol "MAX4660EUA_T_1_1"
-				(rectangle
-					(start -6.35 -6.35)
-					(end 8.89 6.35)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(pin passive line
-					(at -8.89 3.81 0)
-					(length 2.54)
-					(name "COM"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at -8.89 1.27 0)
-					(length 2.54)
-					(name "NC"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -8.89 -1.27 0)
-					(length 2.54)
-					(name "GND"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -8.89 -3.81 0)
-					(length 2.54)
-					(name "V+"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin no_connect line
-					(at 11.43 -3.81 180)
-					(length 2.54)
-					(name "NC"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "5"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin input line
-					(at 11.43 -1.27 180)
-					(length 2.54)
-					(name "IN"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "6"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at 11.43 1.27 180)
-					(length 2.54)
-					(name "V-"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "7"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 11.43 3.81 180)
-					(length 2.54)
-					(name "NO"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "8"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 1.27 8.89 270)
-					(length 2.54)
-					(name "EP"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "9"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
 		(symbol "kart-medulla:MCP4922-E_SL"
 			(exclude_from_sim no)
 			(in_bom yes)
@@ -6299,6 +5999,18 @@
 		)
 		(uuid "82111458-ffbd-46f5-83fb-f89ca49663a0")
 	)
+	(text "SPARE - GPIO 15, freed 2026-08-08 when the MAX4660 throttle mux U14 was deleted"
+		(exclude_from_sim no)
+		(at 313.5376 63.5 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.1524)
+			)
+			(justify left bottom)
+		)
+		(uuid "c8dc4710-dd4a-4903-977b-d9f371c4452a")
+	)
 	(text "HOLD (strap, flash/boot risk)"
 		(exclude_from_sim no)
 		(at 313.5376 78.74 0)
@@ -6438,18 +6150,6 @@
 		)
 		(uuid "dac53e56-6b4e-4dee-ba67-32b79bc36d41")
 	)
-	(text "Throttle mux\nSend to motor value from sensor by default,\nor esp32 when autonomous"
-		(exclude_from_sim no)
-		(at 355.854 195.834 0)
-		(effects
-			(font
-				(size 3.048 3.048)
-				(thickness 0.3658)
-			)
-			(justify left bottom)
-		)
-		(uuid "df8f0af2-adb6-42d7-bda1-ab837a24e089")
-	)
 	(text "5V Linear Regulator\n(Stable 5V, not from USB)"
 		(exclude_from_sim no)
 		(at 477.52 44.45 0)
@@ -6493,12 +6193,6 @@
 		(uuid "11d50952-a182-4bf4-90bf-ab7ac1353b02")
 	)
 	(junction
-		(at 355.6 63.5)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "168553d1-98ca-4653-9656-db583ae62d30")
-	)
-	(junction
 		(at 355.6 60.96)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -6533,12 +6227,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "51d03be5-9353-41ea-a8d7-db53f6a79315")
-	)
-	(junction
-		(at 375.92 222.25)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "58e55764-96ae-4025-b3eb-6129352c125a")
 	)
 	(junction
 		(at 387.35 45.72)
@@ -6743,10 +6431,6 @@
 		(uuid "864d61da-4bf8-4d1b-8e45-097e9b22d904")
 	)
 	(no_connect
-		(at 405.13 222.25)
-		(uuid "9b396ff2-6529-4bc1-9831-6f9d84cf9ed5")
-	)
-	(no_connect
 		(at 387.35 50.8)
 		(uuid "a1e77eb6-2af1-472a-b9e0-f8e84ec864a3")
 	)
@@ -6777,6 +6461,14 @@
 	(no_connect
 		(at 387.35 78.74)
 		(uuid "e02c2d62-c4ed-4aaf-a1f3-77bed64dcf12")
+	)
+	(no_connect
+		(at 355.6 63.5)
+		(uuid "2f63cf20-e14d-4b8f-b0e3-282c04d80a8a")
+	)
+	(no_connect
+		(at 370.84 63.5)
+		(uuid "7fb037eb-10ad-411d-ac4a-03b38a602607")
 	)
 	(no_connect
 		(at 355.6 78.74)
@@ -6950,16 +6642,6 @@
 	)
 	(wire
 		(pts
-			(xy 405.13 219.71) (xy 410.21 219.71)
-		)
-		(stroke
-			(width 0)
-			(type solid)
-		)
-		(uuid "10c75b29-a2e4-4b5b-abe5-9ebd11d0cab0")
-	)
-	(wire
-		(pts
 			(xy 163.83 62.23) (xy 200.66 62.23)
 		)
 		(stroke
@@ -7047,16 +6729,6 @@
 			(type solid)
 		)
 		(uuid "20414eda-56bf-4f2e-acfb-8a7bace550b2")
-	)
-	(wire
-		(pts
-			(xy 405.13 214.63) (xy 410.21 214.63)
-		)
-		(stroke
-			(width 0)
-			(type solid)
-		)
-		(uuid "206ca40b-44eb-434d-8ab5-cf7fc397b533")
 	)
 	(wire
 		(pts
@@ -7260,16 +6932,6 @@
 	)
 	(wire
 		(pts
-			(xy 361.95 222.25) (xy 384.81 222.25)
-		)
-		(stroke
-			(width 0)
-			(type solid)
-		)
-		(uuid "3eb9703c-d150-4fbe-887b-d547d889aafa")
-	)
-	(wire
-		(pts
 			(xy 374.65 292.1) (xy 374.65 303.53)
 		)
 		(stroke
@@ -7410,16 +7072,6 @@
 	)
 	(wire
 		(pts
-			(xy 361.95 214.63) (xy 384.81 214.63)
-		)
-		(stroke
-			(width 0)
-			(type solid)
-		)
-		(uuid "4ce29c51-faf4-4865-ad61-9d3e2bd6cf12")
-	)
-	(wire
-		(pts
 			(xy 100.33 67.31) (xy 137.16 67.31)
 		)
 		(stroke
@@ -7477,16 +7129,6 @@
 			(type solid)
 		)
 		(uuid "5656dda5-038d-416a-9312-794ba5ae20d9")
-	)
-	(wire
-		(pts
-			(xy 313.69 63.5) (xy 370.84 63.5)
-		)
-		(stroke
-			(width 0)
-			(type solid)
-		)
-		(uuid "57035294-02a3-4b2d-a32d-dfdd18c4ae72")
 	)
 	(wire
 		(pts
@@ -8090,16 +7732,6 @@
 	)
 	(wire
 		(pts
-			(xy 361.95 217.17) (xy 384.81 217.17)
-		)
-		(stroke
-			(width 0)
-			(type solid)
-		)
-		(uuid "d94f22ea-aa80-40ef-86c3-c246356a1932")
-	)
-	(wire
-		(pts
 			(xy 393.7 292.1) (xy 393.7 306.07)
 		)
 		(stroke
@@ -8297,17 +7929,6 @@
 			(type solid)
 		)
 		(uuid "fe97a3ed-821f-49f2-bb3c-a12d0fd28035")
-	)
-	(label "CMD_ACC_BUF__0_5V"
-		(at 410.21 214.63 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
-			)
-			(justify left bottom)
-		)
-		(uuid "014070a6-504c-4c52-85a1-331680619860")
 	)
 	(label "SDC_NOT_EMERGENCY__3V3"
 		(at 313.69 71.12 0)
@@ -8613,17 +8234,6 @@
 		)
 		(uuid "3207d320-c1eb-4482-89e1-d8bd230782be")
 	)
-	(label "CMD_ACC__0_5V"
-		(at 361.95 214.63 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
-			)
-			(justify left bottom)
-		)
-		(uuid "328b3889-6b5d-4c6d-9142-26fe9ff96479")
-	)
 	(label "ACC_AMP_OUT"
 		(at 401.32 331.47 0)
 		(effects
@@ -8807,17 +8417,6 @@
 		)
 		(uuid "5b383bc9-37f1-4f4c-a57b-6b6fc635f7e9")
 	)
-	(label "+5V_REG"
-		(at 361.95 222.25 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
-			)
-			(justify left bottom)
-		)
-		(uuid "5d2a7dce-48f8-4f89-8efd-449a894f16b8")
-	)
 	(label "BUZZER"
 		(at 313.69 76.2 0)
 		(effects
@@ -8924,17 +8523,6 @@
 			(justify left bottom)
 		)
 		(uuid "731b057e-62d7-4c34-a21f-a34d076fbd46")
-	)
-	(label "PEDAL_ACC__0_5V"
-		(at 361.95 217.17 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
-			)
-			(justify left bottom)
-		)
-		(uuid "75dbea17-54d6-4960-ae6c-dec0b41d4edd")
 	)
 	(label "HYDRAULIC_2__0_3V3"
 		(at 242.57 215.9 0)
@@ -9194,7 +8782,7 @@
 		)
 		(uuid "a9500b63-fead-4d18-aa55-97a37c7ba14f")
 	)
-	(label "CMD_ACC_BUF__0_5V"
+	(label "CMD_ACC__0_5V"
 		(at 513.08 302.26 0)
 		(effects
 			(font
@@ -9215,17 +8803,6 @@
 			(justify right)
 		)
 		(uuid "afdfcc7c-0c1b-4105-91b6-b4f0e9cb580d")
-	)
-	(label "SELECT_THROTTLE"
-		(at 410.21 219.71 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
-			)
-			(justify left bottom)
-		)
-		(uuid "b3e4584f-5d43-4c94-9825-2527c2dd14f5")
 	)
 	(label "SDA__I2C"
 		(at 313.69 73.66 0)
@@ -9488,17 +9065,6 @@
 			(justify left bottom)
 		)
 		(uuid "f4cbaf6b-1f13-4a5f-a5a1-aa3aa0c299e8")
-	)
-	(label "SELECT_THROTTLE"
-		(at 313.69 63.5 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
-			)
-			(justify left bottom)
-		)
-		(uuid "f9c4de17-f67b-49b7-9ad7-0bba022d3345")
 	)
 	(label "MOTOR_HALL_3__3V3"
 		(at 125.73 306.07 0)
@@ -11891,83 +11457,6 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 405.13 217.17 90)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "39908814-9e14-4432-8aa1-0223c4466541")
-		(property "Reference" "#PWR042"
-			(at 405.13 223.52 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "GND"
-			(at 410.464 216.916 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 405.13 217.17 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 405.13 217.17 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 405.13 217.17 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "f14da5d1-2160-401d-adbd-09238dbe6595")
-		)
-		(instances
-			(project "kart-medulla"
-				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
-					(reference "#PWR042")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:GND")
 		(at 473.71 210.82 270)
 		(unit 1)
 		(body_style 1)
@@ -12040,87 +11529,6 @@
 			(project "kart-medulla"
 				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
 					(reference "#PWR041")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "kart-medulla:GND")
-		(at 375.92 232.41 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom no)
-		(on_board no)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "422974a6-5f82-473a-b8a8-7c29171393e8")
-		(property "Reference" "#PWR25"
-			(at 375.92 234.95 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Value" "GND"
-			(at 375.92 236.22 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 375.92 232.41 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 375.92 232.41 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 375.92 232.41 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "672f3082-f262-5bba-99cd-8274df544c2e")
-		)
-		(instances
-			(project "kart-medulla"
-				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
-					(reference "#PWR25")
 					(unit 1)
 				)
 			)
@@ -13491,170 +12899,6 @@
 		)
 	)
 	(symbol
-		(lib_id "kart-medulla:MAX4660EUA_T")
-		(at 393.7 218.44 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "60ac7636-837d-427b-be5a-9f8239e910b9")
-		(property "Reference" "U14"
-			(at 392.938 227.076 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-				(justify left bottom)
-			)
-		)
-		(property "Value" "MAX4660EUA+T"
-			(at 394.716 229.362 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Footprint" "kart-medulla:SOP65P490X110-9N"
-			(at 393.7 218.44 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Datasheet" "https://www.analog.com/MAX4660/datasheet"
-			(at 393.7 218.44 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 393.7 218.44 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "head_symbolType" "2"
-			(at 393.7 218.44 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "head_version" "0.13.0"
-			(at 393.7 218.44 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Symbol" "MAX4660EUA+T"
-			(at 393.7 218.44 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Designator" "U?"
-			(at 393.7 218.44 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "part_bbox" "-25,-25,35,25"
-			(at 393.7 218.44 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "dec61efe-4a5c-5cf1-be9b-045c70fb73a1")
-		)
-		(pin "2"
-			(uuid "15f34ed6-e5b9-531a-a573-00dcc5442cb5")
-		)
-		(pin "3"
-			(uuid "ddf0bc48-72c9-58cb-81be-1e3176827621")
-		)
-		(pin "4"
-			(uuid "3a4b74bb-e16a-5149-b4bf-8e37c30c6e7c")
-		)
-		(pin "5"
-			(uuid "034ac66f-9ec6-59cc-895d-e0e181841327")
-		)
-		(pin "6"
-			(uuid "3e6ca22b-669d-5e72-bba8-5134f5b51e3c")
-		)
-		(pin "7"
-			(uuid "483827cd-3f3f-5f4d-a306-2ffd0809f393")
-		)
-		(pin "8"
-			(uuid "6b8cb9ad-6c4f-5735-9d29-55fe9f7cc63f")
-		)
-		(pin "9"
-			(uuid "1b36d4b0-74c9-500b-95d5-827bea0169d6")
-		)
-		(instances
-			(project "kart-medulla"
-				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
-					(reference "U14")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "power:PWR_FLAG")
 		(at 387.35 45.72 0)
 		(unit 1)
@@ -14571,163 +13815,6 @@
 			(project "kart-medulla"
 				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
 					(reference "C4")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "kart-medulla:GND")
-		(at 394.97 209.55 180)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom no)
-		(on_board no)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "6c30655a-bdef-4d45-8e2b-0f5c4bafc894")
-		(property "Reference" "#PWR19"
-			(at 394.97 212.09 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Value" "GND"
-			(at 394.97 205.74 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 394.97 209.55 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 394.97 209.55 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 394.97 209.55 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "46034004-bde6-57b7-b76f-0b8ed603a28a")
-		)
-		(instances
-			(project "kart-medulla"
-				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
-					(reference "#PWR19")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:GND")
-		(at 384.81 219.71 270)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "6e0d2726-bc4f-42a1-8711-2fb004c769cd")
-		(property "Reference" "#PWR043"
-			(at 384.81 226.06 270)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "GND"
-			(at 379.476 219.71 270)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 384.81 219.71 270)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 384.81 219.71 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 384.81 219.71 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "1cfec799-2ef2-4810-b4c9-09dcf1eb42d7")
-		)
-		(instances
-			(project "kart-medulla"
-				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
-					(reference "#PWR043")
 					(unit 1)
 				)
 			)
@@ -15829,136 +14916,6 @@
 		)
 	)
 	(symbol
-		(lib_id "kart-medulla:Res")
-		(at 410.21 224.79 270)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "87909bfe-97b3-4960-b275-c6e7fbf9bba2")
-		(property "Reference" "R32"
-			(at 415.29 223.52 270)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Value" "10K"
-			(at 415.29 226.06 270)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Footprint" "kart-medulla:R0603"
-			(at 410.21 224.79 270)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 410.21 224.79 270)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 410.21 224.79 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "head_version" "2"
-			(at 410.21 224.79 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "head_maxId" "106"
-			(at 410.21 224.79 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "head_symbolType" "2"
-			(at 410.21 224.79 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "part_bbox" "-10,4,10,-4"
-			(at 410.21 224.79 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(pin "2"
-			(uuid "7b88a09c-cf1c-5a9c-8f8a-511d1bfd7809")
-		)
-		(pin "1"
-			(uuid "b8155d85-8cbc-52f0-8115-30731b1815c1")
-		)
-		(instances
-			(project "kart-medulla"
-				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
-					(reference "R32")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "kart-medulla:1990012")
 		(at 142.24 49.53 0)
 		(unit 1)
@@ -16099,148 +15056,6 @@
 			(project "kart-medulla"
 				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
 					(reference "CN4")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "kart-medulla:CAP")
-		(at 375.92 227.33 270)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "8929b703-260f-4602-ae17-ad1add2d200d")
-		(property "Reference" "C5"
-			(at 379.73 226.06 270)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Value" "100nF"
-			(at 381.254 228.346 270)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Footprint" "kart-medulla:C0603"
-			(at 375.92 227.33 270)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 375.92 227.33 270)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 375.92 227.33 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "head_version" "1.7.22.9df0ac"
-			(at 375.92 227.33 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "head_maxId" "43"
-			(at 375.92 227.33 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "head_symbolType" "2"
-			(at 375.92 227.33 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Symbol" "CAP"
-			(at 375.92 227.33 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "part_bbox" "-10,8,10,-8"
-			(at 375.92 227.33 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "cf0f48da-42be-543e-8bec-f8665c5a3d71")
-		)
-		(pin "2"
-			(uuid "9c99ba76-7ff4-5ef5-a201-1f939ab4c6bc")
-		)
-		(instances
-			(project "kart-medulla"
-				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
-					(reference "C5")
 					(unit 1)
 				)
 			)
@@ -19110,87 +17925,6 @@
 			(project "kart-medulla"
 				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
 					(reference "R19")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "kart-medulla:GND")
-		(at 410.21 229.87 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom no)
-		(on_board no)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "b8e2fa76-7755-496a-bfce-a63767b9ed9f")
-		(property "Reference" "#PWR27"
-			(at 410.21 232.41 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Value" "GND"
-			(at 410.21 233.68 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 410.21 229.87 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 410.21 229.87 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 410.21 229.87 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "a84599ce-ada5-5450-8b14-2009b91505a0")
-		)
-		(instances
-			(project "kart-medulla"
-				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
-					(reference "#PWR27")
 					(unit 1)
 				)
 			)
