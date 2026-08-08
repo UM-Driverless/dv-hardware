@@ -54,18 +54,31 @@ do not edit v1, which documents the board that exists):
   `${KIPRJMOD}/3dmodels/MAX4660EUA_T.step` if nothing else uses it.
 - **Remove R32** (10 kΩ pulldown on `SELECT_THROTTLE`) — its only job was giving the mux a safe
   power-on default.
-- **Merge two nets into one.** Today `CMD_ACC_ESP32__0_5V` runs U13.14 (MCP4922 VOUTA) → U14.8 (NO),
-  and `CMD_ACC__0_5V` runs U14.1 (COM) → CN10.1. With the mux gone these become a single net:
-  **MCP4922 VOUTA straight to CN10.1.** Keep the name `CMD_ACC__0_5V`, since that is what the label
-  on the outgoing terminal means and what `kart-docs` calls it.
+- **Merge two nets into one.** Rewritten 2026-08-08 after the throttle buffer stage was added; the
+  earlier version of this step said "MCP4922 VOUTA straight to CN10.1", which is no longer right
+  because the DAC no longer reaches the mux directly. The path today is U13.14 (MCP4922 VOUTA,
+  0–3.3 V) → U1.5 (LM358 U1B +IN2, gain 1.51 from R37 5.1K / R38 10K, giving 4.99 V) → U1.7
+  (`ACC_AMP_OUT`) → R39 (1K series) → `CMD_ACC_BUF__0_5V` → U14.8 (NO), then U14.1 (COM) →
+  `CMD_ACC__0_5V` → CN10.1. With the mux gone, `CMD_ACC_BUF__0_5V` and `CMD_ACC__0_5V` merge into
+  one net: **R39 pin 2 straight to CN10.1.** Keep the name `CMD_ACC__0_5V`, since that is what the
+  label on the outgoing terminal means and what `kart-docs` calls it.
+- **Decide what R39 is for once the mux is gone.** The 1K series resistor was added to limit current
+  into the MAX4660's ESD diodes. With no MAX4660 it becomes a series resistor between the op-amp
+  output and the outgoing terminal, where its only remaining job is short-circuit protection on a
+  wire that leaves the board. Keeping it costs a small voltage drop across whatever the motor
+  controller's input impedance is — check that impedance before deciding, because the drop is
+  negligible into a high-impedance input and is not negligible into a few kΩ.
 - **`PEDAL_ACC__0_5V` loses one consumer, not its route.** It is U14.2 (NC) + CN6.2 + R14.2 today;
   drop the U14.2 leg and it keeps CN6.2 and R14.2, which is the ADC path the ESP32 reads. The pedal
   still reaches the board — it just no longer branches into a mux.
 - **Delete both `SELECT_THROTTLE` labels** (2 in the schematic file) and free **GPIO 15**. Hand it
   to the v2 allocation table rather than leaving it as a spare.
-- **Check the +5V_REG load afterwards.** U14 was one of only two consumers of that rail (the other
-  is the MCP4922). If the MCP4922 also moves — the "keep the MCP4922 or switch to DAC7574" question
-  in the v2 pinout item — the L7805CDT may have no load left and could go too.
+- **Check the +5V_REG load afterwards.** Corrected 2026-08-08: the MCP4922 is no longer on this rail
+  (it moved to +3V3 in commit `16a35fb`), so the earlier "the other is the MCP4922" is wrong. Per the
+  netlist, +5V_REG reaches exactly two things: **U14.4** and **CN2.3**, plus decoupling C3/C4/C5.
+  Deleting U14 therefore leaves the L7805CDT (U19) supplying only the external 5 V pin on CN2. The
+  regulator stays unless CN2's 5 V output is also dropped — that is a separate question about what
+  is wired to CN2, not something the mux deletion decides.
 - **Sanity check after the edit:** ERC clean, and CN10.1 traces back to U13.14 with nothing between
   them.
 
