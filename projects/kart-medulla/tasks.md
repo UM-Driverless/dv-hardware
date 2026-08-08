@@ -60,8 +60,10 @@ do not edit v1, which documents the board that exists):
   0–3.3 V) → U1.5 (LM358 U1B +IN2, gain 1.51 from R37 5.1K / R38 10K, giving 4.99 V) → U1.7
   (`ACC_AMP_OUT`) → R39 (1K series) → `CMD_ACC_BUF__0_5V` → U14.8 (NO), then U14.1 (COM) →
   `CMD_ACC__0_5V` → CN10.1. With the mux gone, `CMD_ACC_BUF__0_5V` and `CMD_ACC__0_5V` merge into
-  one net: **R39 pin 2 straight to CN10.1.** Keep the name `CMD_ACC__0_5V`, since that is what the
-  label on the outgoing terminal means and what `kart-docs` calls it.
+  one net: **R39 pin 1 straight to CN10.1.** (R39 pin 2 is the amp side, on `ACC_AMP_OUT` with U1.7
+  and R37.2; pin 1 is the mux side. `CMD_ACC_BUF__0_5V` is exactly R39.1 + U14.8, nothing else.)
+  Keep the name `CMD_ACC__0_5V`, since that is what the label on the outgoing terminal means and
+  what `kart-docs` calls it.
 - **Decide what R39 is for once the mux is gone.** The 1K series resistor was added to limit current
   into the MAX4660's ESD diodes. With no MAX4660 it becomes a series resistor between the op-amp
   output and the outgoing terminal, where its only remaining job is short-circuit protection on a
