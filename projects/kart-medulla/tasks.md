@@ -7,6 +7,39 @@ cross-board work. Update status: `TODO → In Progress → Done`. Claim by addin
 
 ## TODO
 
+### medulla-v2: replace the throttle mux so manual mode survives an unpowered board #ruben
+
+Raised 2026-08-08. Full evidence in `history.md`, entry "the throttle mux does NOT pass the pedal
+through with the board unpowered".
+
+Two faults with one fix:
+
+1. **The board cannot tell whether the kart is in autonomous or manual mode.** No net carries the
+   kart's mode-switch position. `SELECT_THROTTLE` (GPIO 15 → U14 pin 6) is an output; firmware knows
+   only what it last wrote. If the driver flips to manual while firmware still believes it is
+   autonomous, nothing detects the mismatch.
+2. **U14 (MAX4660) does not pass the pedal through when the medulla is unpowered.** It is a CMOS
+   switch: at V+ = 0 V both channel MOSFETs are off and only ESD diodes remain, so the pedal is
+   disconnected from the motor electronics and instead backfeeds the dead `+5V_REG` rail. "Normally
+   closed" in the datasheet means closed at logic 0 **with power applied**. The board was designed
+   believing the opposite.
+
+Related and unfixed: U14 runs from `+5V_REG` against a +9 V datasheet minimum (blocker in the
+2026-07-31 audit item below). Both go away if the part goes away.
+
+**Proposed fix — one SPDT relay in the throttle path**, coil de-energised = pedal wired through on
+metal contacts (fail-safe with the board off, dead, or in manual), energised = MCP4922 `CMD_ACC`.
+The coil-drive node reads back on a spare input, giving the mode sense for free. Costs ~5–10 ms
+transfer time (fine for a mode change at standstill), board area, and a flyback diode.
+
+**Blocked on one decision before anything is drawn:** is the coil driven by the kart's physical
+mode switch (hardware decides, ESP32 only observes) or by the ESP32 (firmware decides, as v1)?
+Once answered → update the wiring diagram in `kart-docs`, then Rubén posts it to the team chat.
+
+Feeds the v2 pin allocation item below: the mode-sense readback needs one input pin (a free
+PCF8574 port is probably enough — it is a slow digital signal), and `SELECT_THROTTLE` on GPIO 15
+becomes the relay-coil drive or is freed entirely.
+
 ### Decide the medulla-v2 pinout as one allocation, not signal by signal #ruben
 
 Raised 2026-07-31. There are now at least six separate claims on v2 pins, each already tracked as its

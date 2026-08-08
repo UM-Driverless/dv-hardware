@@ -2564,3 +2564,52 @@ whether the enclosure closes. It does not pretend to be the part.
 footprints kept their old positions while the part got much bigger — Phoenix 1990012 at 2.5 mm pitch
 against the WAGO's 3.5 mm and a 12 mm body. That is the spacing problem the re-layout has to solve,
 and it was invisible until something was drawn there.
+
+## 2026-08-08 — the throttle mux does NOT pass the pedal through with the board unpowered
+
+**Trigger.** Asked whether the medulla can tell it is in autonomous or manual mode. It cannot: no
+net on `kart-medulla_P1.kicad_sch` carries the kart's mode-switch position, and `SELECT_THROTTLE`
+(ESP32 GPIO 15 → U14 MAX4660 pin 6, R32 10 kΩ pulldown to GND) is a push-pull **output**. Firmware
+knows only what it last wrote there. The same blind spot already exists for the shutdown chain —
+"no readback of the SDC state" is a standing audit finding in this file.
+
+**What the design was believed to do.** That the MAX4660 was picked so that an unpowered medulla
+still passes the throttle pedal straight through its normally-closed contact to the motor
+electronics — a hardware fail-safe needing no firmware and no supply.
+
+**It does not.** Checked against `~/dv/datasheets/max4660_analogdevices_datasheet.pdf`
+(Maxim 19-2046 Rev 1, 1/07; also copied into `projects/kart-medulla/datasheets/`):
+
+- Page 7, Detailed Description: each channel "consists of an N-channel MOSFET and a P-channel
+  MOSFET in parallel", gates and the driven N-channel body both referenced to V+/V−. At V+ = 0 V
+  every gate sits at Vgs = 0 → both devices off. Nothing holds a channel closed without supply.
+- Figure 1 (page 7) and Absolute Maximum Ratings Note 1 (page 2): what remains unpowered is only
+  the ESD/body diode set from NC, NO and COM up to V+ and down to V−. So a pedal voltage above one
+  diode drop does not reach COM — it forward-biases into the dead `+5V_REG` rail and backfeeds it.
+- The word "power-off" appears nowhere in the ten pages. **"Normally closed" means closed at logic
+  0 with power applied** (page 1 logic table: LOGIC 0 → NC ON, NO OFF), not unpowered.
+
+Where the belief most likely came from: page 1 lists "Relay Replacement" first under Applications
+and says the parts "can replace reed relays". Read in context that claim is about switching speed
+and lifetime ("a million cycles", "virtually unlimited lifetime"), not about contacts that stay
+made with the coil — or here the supply — dead. A CMOS switch has no such state.
+
+**Second problem on the same part, already open:** U14 is supplied from `+5V_REG` against a
+datasheet single-supply minimum of +9 V. Logged as a blocker in the 2026-07-31 audit entry above
+and still unfixed. So the mux is out of spec powered *and* open unpowered.
+
+**Why nobody re-checked this from the repo.** `projects/kart-medulla/datasheets/MAX4660-MAX4662_Maxim_datasheet.pdf`
+was not a PDF at all — a 49 KB HTML page saved under a `.pdf` name since 2026-05-07, which every
+PDF reader rejects. Replaced with the real document from the vault in this session. Worth a sweep
+over the other per-board datasheet folders with `file` before trusting any of them.
+
+**Consequence for medulla-v2.** Three requirements that looked separate have one cause and one
+answer: sense the mode, pass the pedal through when the board is dead, and default to manual
+without firmware. A single SPDT relay in the throttle path does all three — de-energised contacts
+wire the pedal through as metal, energised selects the DAC, and the coil node is readable on a
+spare input for a commanded-vs-actual mismatch check. It also deletes U14 and its 9 V supply
+problem rather than adding parts around them. Costs: ~5–10 ms transfer time (irrelevant for a mode
+change made at standstill), board area, and a flyback diode. **Open decision, not yet settled:**
+whether the coil is driven by the kart's physical mode switch (hardware decides, ESP32 only
+observes) or by the ESP32 (firmware decides, as today). The kart-docs wiring diagram is not being
+redrawn until that is answered.
