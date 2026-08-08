@@ -47,9 +47,10 @@ the switch works with everything unpowered and no firmware can reach it.
 Feeds the v2 pin allocation item below: the sense line needs one input pin, and a free PCF8574
 port is probably enough since it is a slow digital signal.
 
-Kart-side wiring is already updated in `kart-docs` (commit `bec7c20`): the DPDT's second pole is
-in `wiring.yaml` and the global diagram. Open there: **which conductor pole 2 actually breaks**
-(M+ assumed, needs buzzing) and the stale 12 V Cytron labels in the SVG.
+Kart-side wiring is documented in `kart-docs` (commits `bec7c20`, `c625d75`): the DPDT's second
+pole is in `wiring.yaml` and the global diagram. Both questions that were open there are now
+answered by Rubén (2026-08-08) — pole 2 breaks **M+**, and the Cytron is fed **directly from the
+battery**, not the 12 V rail.
 
 ### Decide the medulla-v2 pinout as one allocation, not signal by signal #ruben
 
