@@ -2766,3 +2766,35 @@ flagged 2026-07-16 as items not to action as written:
 (decision 2026-05-02) while `docs/pinout-esp32-s3.md`'s power architecture showed an LM2596SX-ADJ
 buck. Settled 2026-07-31 against the schematic: `U19` is an **L7805CDT** in a DPAK, so the L7805
 is what is fitted and the LM2596 was an alternative never taken. The pinout docs say so now.
+
+### Ruben's rules for requirements docs, stated while that reorganisation happened
+
+Recording the reasoning rather than only the result, because the next person to add a requirement
+will otherwise recreate exactly the shape that was just removed.
+
+**A wall of text per requirement makes the file unusable.** His words on seeing the fail-safe
+requirement land as five paragraphs under its own heading: *"that fucking wall of text for each
+requirement in requirements.md would make it unusable, dont you think?"* The failure is not length
+in the file, it is that the list of requirements cannot be read. A requirement is a line; the
+reasoning goes somewhere you reach deliberately.
+
+**`history.md` is not the right place for requirement justification.** Offered as one option —
+strip the file to bare requirement lines and push all rationale here — and rejected outright. The
+justification for a requirement is current state, not a record of what happened: it is the thing
+that stops someone deleting a resistor in v3 because the line looks redundant. It belongs with the
+requirement, in the same file. This history file is for what happened on a date.
+
+**One list, no scattered sections.** *"i want a simple list. no header mess separating the
+requirements in scattered lists."* The file had grown V1 functional / Mandatory / V2 target /
+Contradictions, which meant the answer to "what must this board do" was assembled from four places.
+Status now rides on the line as `[built]` or `[v2]` instead of splitting the list in two.
+
+**Do not label standing requirements with the revision that first wrote them.** Marking the
+original brief's items "(V1)" implied v2 could drop things it must still meet — reading halls,
+writing the accelerator command, cutting the shutdown circuit. His reaction, on being offered a
+relabel that kept the tag: *"what the fuck are v1 requirements doing in the repo for v2?"* The
+right split is what the board must do (all revisions) versus what is outstanding (a status tag).
+
+**Propose the reorganisation before doing it.** *"no. dont cut. reorganize. propose how before you
+do it."* — said after I moved to trim the offending section instead. Cutting content was the wrong
+reading of the complaint: the reasoning was not the problem, its placement was.
