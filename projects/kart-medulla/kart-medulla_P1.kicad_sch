@@ -6712,16 +6712,6 @@
 	)
 	(wire
 		(pts
-			(xy 513.08 297.18) (xy 513.08 302.26)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "2016731f-72ca-57b7-81c3-de752faaf04d")
-	)
-	(wire
-		(pts
 			(xy 55.88 308.61) (xy 74.93 308.61)
 		)
 		(stroke
@@ -7592,16 +7582,6 @@
 	)
 	(wire
 		(pts
-			(xy 513.08 287.02) (xy 513.08 281.94)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c8f9bd97-2249-5e91-8c68-b8dd29c6dc85")
-	)
-	(wire
-		(pts
 			(xy 45.72 82.55) (xy 78.74 82.55)
 		)
 		(stroke
@@ -8201,17 +8181,6 @@
 		)
 		(uuid "2cf15267-8366-47d4-88bd-ea0db44c2378")
 	)
-	(label "ACC_AMP_OUT"
-		(at 513.08 281.94 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
-			)
-			(justify left bottom)
-		)
-		(uuid "2e732a7e-a24a-5bc0-a3e5-26f7595a7b9d")
-	)
 	(label "SDC_NOT_EMERGENCY__3V3"
 		(at 49.53 360.68 0)
 		(effects
@@ -8234,7 +8203,7 @@
 		)
 		(uuid "3207d320-c1eb-4482-89e1-d8bd230782be")
 	)
-	(label "ACC_AMP_OUT"
+	(label "CMD_ACC__0_5V"
 		(at 401.32 331.47 0)
 		(effects
 			(font
@@ -8782,17 +8751,6 @@
 		)
 		(uuid "a9500b63-fead-4d18-aa55-97a37c7ba14f")
 	)
-	(label "CMD_ACC__0_5V"
-		(at 513.08 302.26 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.1524)
-			)
-			(justify left bottom)
-		)
-		(uuid "ad5934fe-043c-5474-8fde-82c4a0cc4496")
-	)
 	(label "CMD_REVERSE"
 		(at 473.71 215.9 180)
 		(effects
@@ -9044,7 +9002,7 @@
 		)
 		(uuid "f20f409b-dfd7-5574-b879-212930105d56")
 	)
-	(label "ACC_AMP_OUT"
+	(label "CMD_ACC__0_5V"
 		(at 462.28 281.94 0)
 		(effects
 			(font
@@ -18798,102 +18756,6 @@
 			(project "kart-medulla"
 				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
 					(reference "#PWR17")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "kart-medulla:Res")
-		(at 513.08 292.1 90)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "ca102abb-145a-529d-8bb0-495b0dc7d16b")
-		(property "Reference" "R39"
-			(at 516.89 290.83 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Value" "1K"
-			(at 521.97 293.37 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Footprint" "kart-medulla:R0603"
-			(at 513.08 292.1 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 513.08 292.1 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Description" "series into the MAX4660, limits fault current if U1B saturates toward +12V"
-			(at 513.08 292.1 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(property "Symbol" "Res"
-			(at 513.08 292.1 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.1524)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "4174b6c2-5a0a-549d-b02b-39d1e61ff89c")
-		)
-		(pin "2"
-			(uuid "8d4c30b7-effa-51bd-859d-0b4118b4bd77")
-		)
-		(instances
-			(project "kart-medulla"
-				(path "/07374be3-c612-51bb-acb6-18bf22cc68ea/ca70726b-7894-594f-a6f9-dfff97cbc924"
-					(reference "R39")
 					(unit 1)
 				)
 			)

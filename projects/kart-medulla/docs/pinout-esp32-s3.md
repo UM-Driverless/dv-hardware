@@ -296,7 +296,7 @@ the firmware is written; the point of this section is that someone probing the b
 | SDI | → ESP32 GPIO11 (MOSI) | |
 | VREFA | +3V3 via RC filter | 100 Ω series + 10 µF ceramic to GND, placed next to chip. Full scale on VOUTA is therefore 3.3 V. |
 | VREFB | +3V3 via RC filter | 100 Ω series + 10 µF ceramic to GND (can share filter node). Full scale on VOUTB is therefore 3.3 V. |
-| VOUTA | `CMD_ACC_ESP32__0_3V3` | Accelerator analog command, **0–3.3 V** at the DAC pin (U13 pin 14). It is amplified before leaving the board: U13 pin 14 → U1 pin 5 (LM358 U1B, +IN2), a non-inverting stage of gain 1.51 set by R37 5.1 kΩ and R38 10 kΩ, so full scale is **4.99 V** on U1 pin 7 (net `ACC_AMP_OUT`) → R39, a 1 kΩ series resistor → CN10.1 (net `CMD_ACC__0_5V`). This closes the earlier shortfall where a 3.3 V command reached only ~66 % of the motor controller's 0–5 V input range. |
+| VOUTA | `CMD_ACC_ESP32__0_3V3` | Accelerator analog command, **0–3.3 V** at the DAC pin (U13 pin 14). It is amplified before leaving the board: U13 pin 14 → U1 pin 5 (LM358 U1B, +IN2), a non-inverting stage of gain 1.51 set by R37 5.1 kΩ and R38 10 kΩ, so full scale is **4.99 V** on U1 pin 7, which is the net `CMD_ACC__0_5V` and goes straight to CN10.1. This closes the earlier shortfall where a 3.3 V command reached only ~66 % of the motor controller's 0–5 V input range. |
 | VOUTB | `CMD_PRES_DAC__0_3V3` | Pressure command, **0–3.3 V at the DAC pin**. It does not leave the board at that level: U1A (LM358) amplifies it ×3 (R19 2 kΩ / R20 1 kΩ) and CN10.2 exports **0–9.9 V** to the Festo VPPM proportional regulator. |
 
 RC filter purpose: attenuates ~150 kHz switching ripple from the XW-1224 buck
@@ -359,7 +359,7 @@ Kart 12V battery ─┬─→ XW-1224 buck (external, 5A) ──→ 5V kart-wide
 
 The throttle analog signal is no longer muxed on this board: the path is MCP4922 U13 pin 14 (VOUTA,
 0–3.3 V) → U1 pin 5 (LM358 U1B, +IN2), a non-inverting stage of gain 1.51 set by R37 5.1 kΩ and R38
-10 kΩ giving 4.99 V full scale → U1 pin 7 (net `ACC_AMP_OUT`) → R39, a 1 kΩ series resistor → CN10.1
+10 kΩ giving 4.99 V full scale → U1 pin 7, the net `CMD_ACC__0_5V`, straight to CN10.1
 (net `CMD_ACC__0_5V`). Brake is **not** muxed either — manual mode does not need brake control routed
 through the ESP32, so the brake signal goes straight from the MCP4922 to the motor
 electronics with no switch. The digital reverse signal does not use an analog switch
@@ -378,7 +378,7 @@ onto PCF8574 P0 to free GPIO 36 and gain N8R8 compatibility), `2026-05-08`
 
 | Chip / signal | Type | Manual source | Autonomous source | Output |
 |---|---|---|---|---|
-| **LM358 U1B, ×1.51 non-inverting (throttle)** | analog 0–3.3 V in, 0–4.99 V out | (n/a — the pedal reaches the motor electronics through the kart's panel DPDT switch, not through this board) | MCP4922 VOUTA (U13 pin 14) = `CMD_ACC_ESP32__0_3V3` | U1 pin 5 → U1 pin 7 (`ACC_AMP_OUT`, **R37 5.1 kΩ / R38 10 kΩ, gain 1.51**) → R39 1 kΩ → CN10.1 (`CMD_ACC__0_5V`). **No mux on the PCB** since U14 was deleted on 2026-08-08; the panel switch chooses between this output and the pedal. |
+| **LM358 U1B, ×1.51 non-inverting (throttle)** | analog 0–3.3 V in, 0–4.99 V out | (n/a — the pedal reaches the motor electronics through the kart's panel DPDT switch, not through this board) | MCP4922 VOUTA (U13 pin 14) = `CMD_ACC_ESP32__0_3V3` | U1 pin 5 → U1 pin 7 (**R37 5.1 kΩ / R38 10 kΩ, gain 1.51**) → CN10.1 (`CMD_ACC__0_5V`). **No mux on the PCB** since U14 was deleted on 2026-08-08; the panel switch chooses between this output and the pedal. |
 | **LM358 U1A, ×3 non-inverting (pressure)** | analog 0–3.3 V in, 0–9.9 V out | (n/a — manual brake bypasses ESP32) | MCP4922 VOUTB = `CMD_PRES_DAC__0_3V3` | LM358 U1A (**R19 2 kΩ / R20 1 kΩ, gain 3** as of 2026-08-01, because U13 now runs from +3V3) → `CMD_PRES__0_10V` → CN10.2 → Festo VPPM. **No mux on the PCB** — the DAC always owns the command and the only way to release it is to write zero. |
 | **U25 PCF8574T pin 4 / P0** | digital | Manual reverse button (in parallel) | I²C-controlled `CMD_REVERSE` (open-drain via PCF8574) | → kart-electronics-box REVERSE wire |
 

@@ -2679,3 +2679,47 @@ Written up on the kart side in `kart-docs` commit `bec7c20`: the second pole is 
 `wiring.yaml` (`STEER_M+` split into Cytron→switch and switch→motor) and drawn in the global SVG.
 Two things left open there — which conductor pole 2 actually breaks (M+ assumed, needs buzzing on
 the kart) and three stale "12 V" Cytron labels in the SVG that contradict the settled 48 V answer.
+
+## 2026-08-08 — the throttle mux is deleted, and the ESP32 will never know the driving mode
+
+Two related changes, both on the schematic only; the PCB still carries the old parts and is left for
+a later session.
+
+**U14 (MAX4660) deleted**, with R32 (its 10 kΩ pulldown) and C5 (its local 100 nF). It was a CMOS
+analog switch, so with the board unpowered both channel MOSFETs are off and the driver's pedal was
+not passed through at all — the design had read "normally closed" as meaning closed without power,
+when it means closed at logic 0 with power applied. The kart's panel DPDT switch already selects the
+throttle source downstream on metal contacts that work unpowered, so the mux was a second selector in
+series doing a job that was already done, by a part that did it worse.
+
+**R39 deleted** the same day. The 1 kΩ series resistor existed only to limit current into the
+MAX4660's ESD diodes; with the MAX4660 gone it protected nothing, and keeping it as a vague
+safeguard would have put an unexplained voltage drop in front of the motor controller's input. U1
+pin 7 now reaches CN10.1 directly, and the net `ACC_AMP_OUT` disappeared: the op-amp output, the R37
+feedback tap and CN10.1 are one net called `CMD_ACC__0_5V`.
+
+Netlist after both edits: `CMD_ACC__0_5V` = CN10.1 + R37.2 + U1.7, `PEDAL_ACC__0_5V` = CN6.2 +
+R14.2, `+5V_REG` = C3.2 + C4.2 + CN2.3 + U19.3. ERC 0 violations. Deleting C5 was correct — it was
+U14's local decoupling, and the L7805 keeps C2 0.33 µF in with C3 0.1 µF and C4 4.7 µF out.
+
+**Decision: the ESP32 gets no mode-sense input.** Rubén's call. Two reasons. There is nowhere to
+take the signal from — the panel switch is a DPDT with both poles committed (pole 1 the throttle
+source, pole 2 breaking the Cytron-to-steering-motor cable on M+), and pole 2's unused throw is not
+reusable because its common carries motor current. Getting a signal would mean replacing the switch
+with a 3PDT or one with a ganged auxiliary contact. And it is not strictly needed: the switch is the
+safety mechanism, it is metal, and it works with the board dead, so no firmware fault can drive the
+kart while a human is in manual.
+
+What that gives up, recorded so it is not rediscovered as a surprise: firmware knows only what it
+last wrote, telemetry cannot tell a manual lap from an autonomous one, and a controller integrating
+against a plant that is not listening can deliver a saturated step on re-engagement — so firmware
+must zero its integrators when a mission starts rather than waiting for a mode transition it cannot
+see. Most importantly the brake command stays live in manual: `kart-docs` `wiring.yaml:121` routes
+`CMD_BRAKE_10V` from the LM358 output straight to the Festo VPPM setpoint with the mode switch
+nowhere in that path, so a stale or faulty pressure command applies real brake pressure while a
+human is driving. The only remaining defence is firmware zeroing the pressure channel on boot and
+refusing a non-zero value until a mission is explicitly started.
+
+Rejected: adding a separate second switch beside the DPDT. Two switches that are not mechanically
+ganged can disagree, and a medulla that confidently believes a lie is worse than one that knows
+nothing.

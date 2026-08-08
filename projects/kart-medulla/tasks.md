@@ -12,7 +12,8 @@ cross-board work. Update status: `TODO → In Progress → Done`. Claim by addin
 Raised 2026-08-08. Full evidence in `history.md`, entry "the throttle mux does NOT pass the pedal
 through with the board unpowered".
 
-Two faults with one fix:
+Two faults were found. Fault 2 is fixed by deleting the mux; fault 1 is **accepted, not fixed** —
+see the mode-sense decision below.
 
 1. **The board cannot tell whether the kart is in autonomous or manual mode.** No net carries the
    kart's mode-switch position. `SELECT_THROTTLE` (GPIO 15 → U14 pin 6) is an output; firmware knows
@@ -38,31 +39,32 @@ the switch works with everything unpowered and no firmware can reach it.
 - **Remove U14 (MAX4660)** and its supply. The medulla always outputs its autonomous throttle
   command on CN10.1; the panel switch decides whether anything listens. This also closes the
   "U14 supplied at 5 V against a 9 V minimum" blocker, and frees GPIO 15.
-- **Add a mode-sense input — open, not yet decided.** The panel switch is a DPDT with **both poles
-  already committed** (pole 1 selects the throttle source reaching the ESC, pole 2 breaks the
-  Cytron-to-steering-motor cable on M+). There is no spare contact: pole 2's unused throw is not
-  usable, because its common carries motor current and a contact needs both terminals. An earlier
-  version of this item said "one wire from a third pole", which wrongly implied a free pole existed.
+- **No mode-sense input. Decided 2026-08-08 by Rubén.** The ESP32 will not know whether the kart is
+  in autonomous or manual mode, and fault 1 above is accepted rather than fixed.
 
-  **Whether it is needed at all depends on the brake.** For throttle it is not needed: the switch is
-  the safety mechanism, it is metal, and it works with the board dead, so firmware knowing the mode
-  adds nothing safety-relevant — only integrator windup while commanding a plant that is not
-  listening, which firmware can handle by resetting on re-engagement. For **brake it probably is
-  needed**: per `kart-docs` `wiring.yaml:121`, `CMD_BRAKE_10V` runs from the LM358 output straight to
-  the Festo VPPM setpoint with the mode switch nowhere in that path, and the brake never had a mux to
-  delete. So the medulla can apply pneumatic brake pressure while a human is driving. **Settle this
-  first** — if the brake command should also be broken by the switch, the mode-sense input may become
-  unnecessary.
+  Two reasons. First, there is nowhere to take the signal from: the panel switch is a DPDT and both
+  poles are committed, pole 1 selecting the throttle source reaching the ESC and pole 2 breaking the
+  Cytron-to-steering-motor cable on M+. Pole 2's unused throw cannot be reused, because its common
+  carries motor current and a contact needs both terminals. Getting a mode signal would mean
+  replacing the switch with a 3PDT or one carrying a ganged auxiliary contact. Second, it is not
+  strictly needed: the switch is the safety mechanism, it is a metal contact, and it works with the
+  whole board dead, so no firmware fault can drive the kart while a human is in manual. Firmware
+  knowing the mode would only be a convenience.
 
-  Two ways to get the signal if it is wanted:
-  1. **Swap the DPDT for a 3PDT, or one with a mechanically ganged auxiliary contact.** Dry contact
-     to GND against a medulla pull-up. Read-only by construction. Do not use a separate second
-     switch: two ungangeed switches can disagree, and the medulla would then believe a lie.
-  2. **No switch change — read back the ESC throttle node on a spare ADC**, through a divider. The
-     medulla already knows both candidate values: what it commanded, and the pedal on CN6.2.
-     Whichever the node matches gives the pole position. Blind spot: it cannot resolve while the two
-     agree, which is exactly the case at standstill with both at zero, so it needs to latch at
-     "assume manual until proven otherwise" and only resolves once they diverge.
+  **What is given up, so that nobody rediscovers it as a surprise.** Firmware knows only what it last
+  wrote. Telemetry cannot distinguish a manual lap from an autonomous one. A controller keeps
+  integrating against a plant that is not listening, so re-engaging autonomous can deliver a
+  saturated command as a step — firmware must zero its integrators when a mission starts rather than
+  relying on a mode transition it cannot see. And the brake command stays live in manual: per
+  `kart-docs` `wiring.yaml:121`, `CMD_BRAKE_10V` runs from the LM358 output straight to the Festo
+  VPPM setpoint with the mode switch nowhere in that path, so a stale or faulty pressure command
+  applies real brake pressure while a human is driving. **The only remaining defence is in firmware**
+  — the pressure channel must be written to zero on boot and must refuse a non-zero value until a
+  mission is explicitly started.
+
+  Rejected: a separate second switch wired alongside the DPDT. Two switches that are not
+  mechanically ganged can disagree, and then the medulla confidently believes a lie, which is worse
+  than knowing nothing.
 
 Feeds the v2 pin allocation item below: the sense line needs one input pin, and a free PCF8574
 port is probably enough since it is a slow digital signal.
@@ -84,12 +86,10 @@ do not edit v1, which documents the board that exists):
   and R37.2; pin 1 is the mux side. `CMD_ACC_BUF__0_5V` is exactly R39.1 + U14.8, nothing else.)
   Keep the name `CMD_ACC__0_5V`, since that is what the label on the outgoing terminal means and
   what `kart-docs` calls it.
-- **Decide what R39 is for once the mux is gone.** The 1K series resistor was added to limit current
-  into the MAX4660's ESD diodes. With no MAX4660 it becomes a series resistor between the op-amp
-  output and the outgoing terminal, where its only remaining job is short-circuit protection on a
-  wire that leaves the board. Keeping it costs a small voltage drop across whatever the motor
-  controller's input impedance is — check that impedance before deciding, because the drop is
-  negligible into a high-impedance input and is not negligible into a few kΩ.
+- **DONE 2026-08-08 — R39 deleted.** The 1K series resistor existed only to limit current into the
+  MAX4660's ESD diodes, so with no MAX4660 it protected nothing and was dropped rather than kept as
+  a vague safeguard. U1 pin 7 now reaches CN10.1 directly. The net `ACC_AMP_OUT` disappeared with
+  it: the op-amp output, the R37 feedback tap and CN10.1 are one net, named `CMD_ACC__0_5V`.
 - **`PEDAL_ACC__0_5V` loses one consumer, not its route.** It is U14.2 (NC) + CN6.2 + R14.2 today;
   drop the U14.2 leg and it keeps CN6.2 and R14.2, which is the ADC path the ESP32 reads. The pedal
   still reaches the board — it just no longer branches into a mux.
