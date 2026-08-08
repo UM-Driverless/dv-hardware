@@ -27,18 +27,29 @@ Two faults with one fix:
 Related and unfixed: U14 runs from `+5V_REG` against a +9 V datasheet minimum (blocker in the
 2026-07-31 audit item below). Both go away if the part goes away.
 
-**Proposed fix — one SPDT relay in the throttle path**, coil de-energised = pedal wired through on
-metal contacts (fail-safe with the board off, dead, or in manual), energised = MCP4922 `CMD_ACC`.
-The coil-drive node reads back on a spare input, giving the mode sense for free. Costs ~5–10 ms
-transfer time (fine for a mode change at standstill), board area, and a flyback diode.
+**Decided 2026-08-08, after Rubén described the kart-side wiring:** the panel switch is a **DPDT**
+that already selects the throttle source reaching the ESC (pole 1) and breaks the Cytron-to-
+steering-motor cable (pole 2), both on metal contacts, downstream of this board. So U14 is a
+second selector in series doing a job that is already done, by a part that does it better —
+the switch works with everything unpowered and no firmware can reach it.
 
-**Blocked on one decision before anything is drawn:** is the coil driven by the kart's physical
-mode switch (hardware decides, ESP32 only observes) or by the ESP32 (firmware decides, as v1)?
-Once answered → update the wiring diagram in `kart-docs`, then Rubén posts it to the team chat.
+**The fix is deletion, not replacement.** In v2:
 
-Feeds the v2 pin allocation item below: the mode-sense readback needs one input pin (a free
-PCF8574 port is probably enough — it is a slow digital signal), and `SELECT_THROTTLE` on GPIO 15
-becomes the relay-coil drive or is freed entirely.
+- **Remove U14 (MAX4660)** and its supply. The medulla always outputs its autonomous throttle
+  command on CN10.1; the panel switch decides whether anything listens. This also closes the
+  "U14 supplied at 5 V against a 9 V minimum" blocker, and frees GPIO 15.
+- **Add a mode-sense input.** One wire from a **third pole** on the panel switch, shorting to GND
+  in autonomous against a pull-up on the medulla. Read-only by construction: firmware can see the
+  mode but can never cause it, which is the property Rubén asked for. Needs the panel switch
+  swapped for a 3PDT or one with an auxiliary contact — there is no other electrical difference
+  between the modes to detect, since the Cytron's supply is permanently powered.
+
+Feeds the v2 pin allocation item below: the sense line needs one input pin, and a free PCF8574
+port is probably enough since it is a slow digital signal.
+
+Kart-side wiring is already updated in `kart-docs` (commit `bec7c20`): the DPDT's second pole is
+in `wiring.yaml` and the global diagram. Open there: **which conductor pole 2 actually breaks**
+(M+ assumed, needs buzzing) and the stale 12 V Cytron labels in the SVG.
 
 ### Decide the medulla-v2 pinout as one allocation, not signal by signal #ruben
 

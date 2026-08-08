@@ -328,10 +328,30 @@ Kart 12V battery ─┬─→ XW-1224 buck (external, 5A) ──→ 5V kart-wide
                       through the mode switch caused inrush brownouts on the Orin every time the
                       kart was switched to autonomous. See history.md (2026-05-01) for details.
                       The PCB only routes signals (CMD_STEER_PWM, CMD_STEER_DIR) to the Cytron,
-                      not power. Mode handling for steering is done in firmware (PWM = 0 in manual).
+                      not power. Firmware also commands PWM = 0 in manual — but that is a courtesy,
+                      not the safety measure: the mode switch's second pole physically breaks the
+                      cable from the Cytron to the steering motor in manual, so the motor is
+                      disconnected regardless of what firmware does. Clarified 2026-08-08; the
+                      earlier wording implied firmware was the only thing holding steering off.
 ```
 
-## Manual/autonomous signal mux (MAX4660 ×1 + I²C-driven reverse, decision 2026-05-01 / refined 2026-05-02 / brake-mux dropped 2026-05-08 / reverse moved to PCF8574 2026-05-03)
+## Manual/autonomous signal mux (MAX4660 ×1 + I²C-driven reverse, decision 2026-05-01 / refined 2026-05-02 / brake-mux dropped 2026-05-08 / reverse moved to PCF8574 2026-05-03 / **mux marked for deletion 2026-08-08**)
+
+> **The MAX4660 (U14) is being removed in medulla-v2.** Two reasons, established 2026-08-08:
+>
+> 1. **It is redundant.** The kart's panel DPDT mode switch already selects the throttle source
+>    downstream of this board — the pedal or the medulla's `CMD_ACC__0_5V` on CN10.1 — so U14 is a
+>    second selector in series doing the same job.
+> 2. **It does not do what it was believed to do.** The design assumed U14 passed the pedal through
+>    when the medulla was unpowered. It does not: at V+ = 0 V both channel MOSFETs are off and only
+>    ESD diodes remain, so the pedal is disconnected and instead backfeeds the dead `+5V_REG` rail.
+>    "Normally closed" in the datasheet means closed at logic 0 **with power applied**. The panel
+>    switch, with real metal contacts, is what actually provides the unpowered manual path.
+>
+> Deleting it also resolves the open blocker that U14 runs from `+5V_REG` against a +9 V datasheet
+> minimum, and frees GPIO 15. In v2 the medulla simply always outputs its autonomous throttle
+> command and the switch decides whether anything listens. The section below describes v1 as built.
+> Full evidence in `history.md`, 2026-08-08.
 
 **One** MAX4660EUA+T SPDT analog switch on the PCB muxes the throttle analog
 signal between the manual source and the ESP32 autonomous output. Brake is

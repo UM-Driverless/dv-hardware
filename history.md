@@ -2646,3 +2646,36 @@ Lesson for next time: a supply-rail change is not done when ERC passes. Net name
 voltage (`__0_5V`, `__0_10V`, `__3V3`) are documentation embedded in the netlist, and they go stale
 silently — nothing checks them. Grep the whole project for the old rail and the old range in the same
 commit that moves the rail.
+
+### Same day — resolved: the panel switch is DPDT, and the mux gets deleted rather than replaced
+
+The open question above (relay coil driven by the switch or by the ESP32?) is void — it assumed a
+relay had to be added. Rubén described the actual kart wiring: the manual/autonomous selector is a
+**DPDT switch on the kart panel**, and both poles are already doing the work.
+
+- **Pole 1** selects which throttle signal reaches the rear motor electronics — pedal, or the
+  medulla's `CMD_ACC__0_5V` from CN10.1.
+- **Pole 2** breaks the cable from the Cytron H-bridge to the steering motor, so in manual the
+  steering motor is physically disconnected from its driver.
+
+The Cytron's supply is **not** what the switch gates — that stays permanently powered on the 48 V
+pack, and the 2026-05-01 brownout decision stands unchanged. My earlier reading of that decision
+as "the switch does nothing to steering" was wrong: it gates the motor cable, not the supply.
+
+**So U14 is deleted in v2, not replaced.** It is a second selector in series with a better one.
+Metal contacts beat a CMOS switch here on every axis that matters: they hold position unpowered,
+and no firmware fault can reach them. Deleting U14 also closes the 5 V-against-9 V-minimum blocker
+and frees GPIO 15. The medulla will simply always output its command and let the switch decide
+whether anything listens. This is the "delete the part" step arriving after two sessions of trying
+to optimise a part that should not exist.
+
+**Mode sense needs a third pole.** With the Cytron permanently powered there is no other
+electrical difference between the two modes to detect, so there is nothing to tap. One added pole
+shorting a sense wire to GND in autonomous, against a pull-up on the medulla, gives a read-only
+signal — firmware observes the mode and can never cause it. Rubén's own framing, and the right
+one.
+
+Written up on the kart side in `kart-docs` commit `bec7c20`: the second pole is now in
+`wiring.yaml` (`STEER_M+` split into Cytron→switch and switch→motor) and drawn in the global SVG.
+Two things left open there — which conductor pole 2 actually breaks (M+ assumed, needs buzzing on
+the kart) and three stale "12 V" Cytron labels in the SVG that contradict the settled 48 V answer.
