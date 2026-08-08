@@ -2723,3 +2723,46 @@ refusing a non-zero value until a mission is explicitly started.
 Rejected: adding a separate second switch beside the DPDT. Two switches that are not mechanically
 ganged can disagree, and a medulla that confidently believes a lie is worse than one that knows
 nothing.
+
+## 2026-08-08 — kart-medulla requirements.md reorganised into one list
+
+The file had grown so that every requirement was a paragraph of reasoning, split across three
+headed sections (V1 functional / Mandatory / V2 target) plus a Contradictions section. You could
+not read the list of requirements at a glance, and the V1/V2 split implied the V1 items were
+history when in fact v2 must still meet all of them.
+
+It is now a single `## Requirements` list, REQ-01 to REQ-11, one line each with a `[built]` or
+`[v2]` status tag, and a `## Notes` section below holding the reasoning under a stable
+`<a id="req-NN">` anchor. No requirement was dropped. Numbering is free to change only because
+nothing outside the file cited an ID yet — from here, cite by ID.
+
+Three things left the file in that move and are recorded here instead, because they are records
+of what happened rather than statements of what the board must do.
+
+**Provenance of the original brief.** The V1 functional requirements came from a post in the
+Driverless Telegram chat on 2025-12-13 titled "Apuntes de la pcb", attributed there to Eduardo.
+Recovered 2026-07-16 from the chat export; it had never been committed anywhere. The export
+flattens its HTML, so the attribution is what the export shows and is not independently
+confirmed. The board built from that brief exists and is assembled.
+
+**Three contradictions, all resolved, that used to sit at the end of the file.** They were
+flagged 2026-07-16 as items not to action as written:
+
+1. *"Repurpose BUZZER for compressor PWM"* — resolved 2026-07-18. Not a conflict: the kart
+   carries no buzzer or ASSI (formula vehicle only), so nothing was displaced. GPIO 3 / CN8.2 is
+   the compressor's permanently and the `BUZZER` name on that net is historical.
+2. *"Repurpose PRESSURE_3 for steering PWM"* — resolved 2026-07-31, refining the 2026-07-18
+   answer. The repurpose itself was not a conflict: it is already done on the built board,
+   deliberately, and GPIO 1 / CN5.2 reads the steering sensor's PWM angle output. What the
+   2026-07-18 note got wrong was concluding the third pressure sensor is dropped. Rubén
+   2026-07-31: three pressure channels stay a requirement. So v2 keeps the steering sensor on its
+   own pin *and* provisions a new GPIO, divider and terminal for `PRESSURE_3`.
+3. *"The three compressor items assume the board carries motor power. It does not."* — resolved
+   2026-07-31 (Rubén): v2 integrates the compressor switching stage, motor current and all. The
+   observation was correct about the board as built; the answer is to change the copper rather
+   than keep the compressor off the board.
+
+**A discrepancy closed while checking item 3.** The task list specified an L7805 linear regulator
+(decision 2026-05-02) while `docs/pinout-esp32-s3.md`'s power architecture showed an LM2596SX-ADJ
+buck. Settled 2026-07-31 against the schematic: `U19` is an **L7805CDT** in a DPAK, so the L7805
+is what is fitted and the LM2596 was an alternative never taken. The pinout docs say so now.
