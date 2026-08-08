@@ -53,104 +53,28 @@ and is not independently confirmed. The board built from this brief exists and i
 
 Moved here from the board's task list on 2026-07-16 so it outlives it.
 
-- **Switch CN1–CN10 to WAGO 2601-31xx, placed correctly** — the fitted Phoenix 1990012 is rated
-  2 A and v2 carries the compressor's 6 A, so the connector family changes to the team's WAGO
-  standard (17.5 A, 3.5 mm pitch, top entry). This replaces the earlier "rotate the push-in
-  connectors" requirement: swapping the part makes rotating the old one moot, and the two things
-  that requirement wanted become placement rules for the new footprints — **wires exit outward,
-  away from the board, and pin numbering runs co-directional with the CN numbering on each side.**
-  Note the pitch change from 2.5 mm widens every connector and affects the board outline
-- **On-board compressor switching, motor current included** — reconfirmed 2026-07-31: integrate
-  it, the less wiring the better. V2 carries the MOSFET, its gate drive, the flyback diode and the
-  bulk capacitance, copying the already-validated module circuit (bridge rectifier removed, 330 Ω
-  optocoupler LED resistor for 3.3 V drive). This is a power-section change before it is a
-  component addition: `+12V` and the motor return must be re-sized from the ~1 mA they carry today,
-  and CN1–CN10's 2 A Phoenix terminals replaced on that path — see "Contradictions to resolve
-  before V2" item 3 below and [`../../docs/connectors.md`](../../docs/connectors.md)
-- **Separate power/signal GND** — distinct net classes for Power GND (compressor, heavy
-  actuators) and Signal GND (ESP32, logic)
-- **Reachable spare GPIOs** — bring at least two unassigned, PWM-capable, non-strap GPIOs out
-  to terminals on every revision. From 2026-07-10: *a spare pin you cannot reach with a
-  screwdriver is not a spare pin.* Concretely, route GPIO 38 → CN3.1 and GPIO 39 → CN3.2; the
-  first is the intended `CMD_COMPRESSOR_PWM`
-- **Full 0–10 V swing on the pressure-command amplifier** — the brake command chain is the
-  MCP4922 DAC (0–3.3 V, since U13 moved to +3V3 on 2026-08-01) → an LM358 ×3 non-inverting
-  stage (U1, R19 2 kΩ / R20 1 kΩ) → the Festo VPPM proportional
-  valve. U1 is supplied from +12 V and the LM358 is not rail-to-rail: TI SLOS068AB §5.7 gives
-  3 V max swing from the positive rail, so a worst-case part reaches only 9 V where the valve
-  wants 10 V, and the kart's unregulated 12 V sagging under load pushes that lower. Accepted on
-  the as-built board (the VPPM is ~1 bar per volt, so it costs the top ~1 bar of a range the kart
-  does not use) but the next revision should deliver the full range — either supply U1 from 24 V,
-  or fit a rail-to-rail-output op-amp in the same SOIC-8 footprint. Until it is fixed, firmware
-  must not treat DAC full scale as 10 bar: the achievable maximum varies between boards, so any
-  target above ~9 bar needs closed-loop control against a pressure sensor. Full working and the
-  trade-off between the two fixes: "Give the pressure-command amplifier full 0–10 V swing on the
-  next board revision" in [`tasks.md`](tasks.md).
+One line per requirement. Each links to its entry in [Notes on the V2 requirements](#notes-v2),
+at the bottom of this file, which carries the reasoning, the numbers and the traps — read that
+entry before drawing the thing, and cite requirements elsewhere by ID rather than by quoting the
+line, so rewording here does not break the reference.
 
-### V2 — make the steering-sensor input a first-class signal, not a repurposed one
-
-Decided 2026-07-18. On the built board the steering sensor's PWM angle output is read on GPIO 1,
-the pin silkscreened `PRES3` on CN5.2. That works, but every name still says "pressure sensor 3",
-so the schematic, the netlist, the silkscreen and the firmware all describe something the board
-does not do. For V2:
-
-- **Rename the net and the silkscreen** to what it is — e.g. `STEER_SENS_PWM` — across the
-  schematic, `pinout-esp32-s3.md`, `pinout-cn-connectors.md` and the firmware pin map.
-- **Drop the ADC divider** on that input. It was drawn for an 0–10 V analog sensor; the steering
-  sensor is a 3.3 V logic PWM output and does not want a divider in front of it.
-- **Provision a proper PWM-capable input for the steering sensor**, chosen deliberately rather
-  than inherited from a pressure channel. Note the sensor itself is not settled — AS5600, MT6701
-  and MA732 are all under evaluation (datasheets in the `kart-medulla` repo), and MT6701/MA732
-  offer SSI/SPI as well as PWM, so the pin choice should not foreclose that.
-- **Give the steering sensor its own pin and let `PRESSURE_3` have GPIO 1 back.** Amended
-  2026-07-31 after the ADC1 count above: `STEER_SENS_PWM` moves to **GPIO 38**, which is
-  unconstrained, is not a strap pin and is on neither ADC, so a PWM capture input wastes nothing
-  there. `PRESSURE_3` returns to GPIO 1 with the divider it already has. This is what this section
-  asked for in the first place — a pin chosen for the steering sensor rather than inherited from a
-  pressure channel. **GPIO 38 must get no divider and no filter capacitor**: a 1/3 divider puts a
-  3.3 V logic high at 1.100 V against the ESP32's 2.475 V VIH, and 100 nF against that source
-  impedance gives a 239 Hz corner on a 994.4 Hz PWM frame. Both are correct for an analog pressure
-  input and fatal for a logic-level one.
-
-### V2 — every actuator output must be safe while the ESP32 is not driving it
-
-Raised 2026-08-08, after the steering swung to full lock and broke teeth off the steering
-gears while the ESP32-S3 was being reflashed. The kart was in autonomous at the time and the
-motor was live: the Cytron H-bridge is fed permanently from the 48 V traction pack, deliberately,
-so it is powered whenever the kart is.
-
-The board treats its actuators inconsistently, and steering is on the wrong side of the split:
-
-- **Throttle is safe.** It passes through the MAX4660 mux (U14), whose `SELECT_THROTTLE` line
-  carries a 10 kΩ pulldown (R32) to GND. An ESP32 that is unbooted, resetting, crashed or removed
-  leaves the mux in manual passthrough — the driver's pedal — by physics.
-- **The compressor is safe.** Its MOSFET gate has a 100 kΩ pulldown holding it off through boot.
-- **Steering is not.** `CMD_STEER_PWM` and `CMD_STEER_DIR` run from the ESP32 to the Cytron with
-  nothing in between and no pull resistors, so whenever the ESP32 is not actively driving them
-  the motor's behaviour is whatever the floating lines happen to look like to the Cytron's inputs.
-  The only thing that has ever held steering off is firmware writing zero — which does not exist
-  during a reset, and a reset is part of every flash.
-
-Requirement for V2: **every output that can move the kart must reach its safe state through a
-component, not through code.** Concretely, a pulldown to GND on `CMD_STEER_PWM` and on
-`CMD_STEER_DIR`, sized like R32 rather than relying on the ESP32's internal pulls — the internal
-ones are ~45 kΩ and, more importantly, only exist once firmware has configured them, which is
-exactly the window that broke the gears. Place them at the Cytron end of each net so an unplugged
-connector is also covered.
-
-Check when drawing it: the firmware drives the Cytron in sign-magnitude mode, PWM duty for
-magnitude and a separate DIR pin for sign, so a low PWM line means the motor is off. **Verify the
-Cytron's mode-select switches actually select that mode.** Under a locked-antiphase scheme a low
-PWM line means full reverse, and the pulldown would cause the failure it is meant to prevent.
-
-The same question should be asked of every other output on the board before fab, not just this
-one: for each, what does the kart do while the ESP32 is held in reset? Any answer other than
-"nothing" needs a resistor.
-
-Firmware has been changed alongside this (kart-medulla `2092130`) to drive both steering pins low
-as the first action of `KM_GPIO_Init` and enable their internal pulldowns. That shortens the
-undriven window to the earliest instant code can act, and does not close it — the bootloader
-window remains, and only the external resistors cover it.
+- **REQ-01 — WAGO connectors, placed correctly.** CN1–CN10 become WAGO 2601-31xx; wires exit
+  outward, and pin numbering runs co-directional with CN numbering on each side. [Why](#req-01)
+- **REQ-02 — On-board compressor switching, motor current included.** MOSFET, gate drive,
+  flyback diode and bulk capacitance move onto the board, with the power section re-sized to
+  carry the motor. [Why](#req-02)
+- **REQ-03 — Separate power and signal ground.** Distinct net classes for Power GND (compressor,
+  heavy actuators) and Signal GND (ESP32, logic). [Why](#req-03)
+- **REQ-04 — Reachable spare GPIOs.** At least two unassigned, PWM-capable, non-strap GPIOs
+  brought out to terminals on every revision. [Why](#req-04)
+- **REQ-05 — Full 0–10 V swing on the pressure-command amplifier.** The brake command chain must
+  reach the Festo VPPM's full range, which the as-built LM358 stage does not. [Why](#req-05)
+- **REQ-06 — The steering sensor gets its own input, not a repurposed pressure channel.**
+  `STEER_SENS_PWM` moves to GPIO 38 with no divider and no filter capacitor; `PRESSURE_3` gets
+  GPIO 1 back. [Why](#req-06)
+- **REQ-07 — Fail-safe actuator outputs.** Every output that can move the kart reaches its safe
+  state through a component, not through code — concretely, pulldowns on `CMD_STEER_PWM` and
+  `CMD_STEER_DIR`. [Why](#req-07)
 
 ### Contradictions to resolve before V2 — do not action either item as written
 
@@ -203,3 +127,132 @@ Rubén decides.
    showed an **LM2596SX-ADJ buck**. Settled 2026-07-31 against the schematic — `U19` is an
    **L7805CDT** in a DPAK, so the L7805 is what is fitted and the LM2596 was an alternative never
    taken. The pinout docs say so now.
+
+<a id="notes-v2"></a>
+
+## Notes on the V2 requirements
+
+Why each V2 requirement exists, what it costs to get wrong, and what to check while drawing it.
+The one-line requirements are in [V2 target — next revision](#v2-target--next-revision); these
+entries are the reasoning behind them and are the part to read before touching the schematic.
+
+<a id="req-01"></a>
+
+### REQ-01 — WAGO connectors, placed correctly
+
+The fitted Phoenix 1990012 is rated 2 A and v2 carries the compressor's 6 A, so the connector
+family changes to the team's WAGO standard (17.5 A, 3.5 mm pitch, top entry). This replaces the
+earlier "rotate the push-in connectors" requirement: swapping the part makes rotating the old one
+moot, and the two things that requirement wanted become placement rules for the new footprints —
+**wires exit outward, away from the board, and pin numbering runs co-directional with the CN
+numbering on each side.** Note the pitch change from 2.5 mm widens every connector and affects the
+board outline.
+
+<a id="req-02"></a>
+
+### REQ-02 — On-board compressor switching, motor current included
+
+Reconfirmed 2026-07-31: integrate it, the less wiring the better. V2 carries the MOSFET, its gate
+drive, the flyback diode and the bulk capacitance, copying the already-validated module circuit
+(bridge rectifier removed, 330 Ω optocoupler LED resistor for 3.3 V drive). This is a power-section
+change before it is a component addition: `+12V` and the motor return must be re-sized from the
+~1 mA they carry today, and CN1–CN10's 2 A Phoenix terminals replaced on that path — see
+"Contradictions to resolve before V2" item 3 above and
+[`../../docs/connectors.md`](../../docs/connectors.md).
+
+<a id="req-03"></a>
+
+### REQ-03 — Separate power and signal ground
+
+Distinct net classes for Power GND (compressor, heavy actuators) and Signal GND (ESP32, logic).
+
+<a id="req-04"></a>
+
+### REQ-04 — Reachable spare GPIOs
+
+Bring at least two unassigned, PWM-capable, non-strap GPIOs out to terminals on every revision.
+From 2026-07-10: *a spare pin you cannot reach with a screwdriver is not a spare pin.* Concretely,
+route GPIO 38 → CN3.1 and GPIO 39 → CN3.2; the first is the intended `CMD_COMPRESSOR_PWM`.
+
+<a id="req-05"></a>
+
+### REQ-05 — Full 0–10 V swing on the pressure-command amplifier
+
+The brake command chain is the MCP4922 DAC (0–3.3 V, since U13 moved to +3V3 on 2026-08-01) → an
+LM358 ×3 non-inverting stage (U1, R19 2 kΩ / R20 1 kΩ) → the Festo VPPM proportional valve. U1 is
+supplied from +12 V and the LM358 is not rail-to-rail: TI SLOS068AB §5.7 gives 3 V max swing from
+the positive rail, so a worst-case part reaches only 9 V where the valve wants 10 V, and the kart's
+unregulated 12 V sagging under load pushes that lower. Accepted on the as-built board (the VPPM is
+~1 bar per volt, so it costs the top ~1 bar of a range the kart does not use) but the next revision
+should deliver the full range — either supply U1 from 24 V, or fit a rail-to-rail-output op-amp in
+the same SOIC-8 footprint. Until it is fixed, firmware must not treat DAC full scale as 10 bar: the
+achievable maximum varies between boards, so any target above ~9 bar needs closed-loop control
+against a pressure sensor. Full working and the trade-off between the two fixes: "Give the
+pressure-command amplifier full 0–10 V swing on the next board revision" in [`tasks.md`](tasks.md).
+
+<a id="req-06"></a>
+
+### REQ-06 — The steering sensor gets its own input, not a repurposed pressure channel
+
+Decided 2026-07-18. On the built board the steering sensor's PWM angle output is read on GPIO 1,
+the pin silkscreened `PRES3` on CN5.2. That works, but every name still says "pressure sensor 3",
+so the schematic, the netlist, the silkscreen and the firmware all describe something the board
+does not do. For V2:
+
+- **Rename the net and the silkscreen** to what it is — e.g. `STEER_SENS_PWM` — across the
+  schematic, `pinout-esp32-s3.md`, `pinout-cn-connectors.md` and the firmware pin map.
+- **Drop the ADC divider** on that input. It was drawn for an 0–10 V analog sensor; the steering
+  sensor is a 3.3 V logic PWM output and does not want a divider in front of it.
+- **Provision a proper PWM-capable input for the steering sensor**, chosen deliberately rather
+  than inherited from a pressure channel. Note the sensor itself is not settled — AS5600, MT6701
+  and MA732 are all under evaluation (datasheets in the `kart-medulla` repo), and MT6701/MA732
+  offer SSI/SPI as well as PWM, so the pin choice should not foreclose that.
+- **Give the steering sensor its own pin and let `PRESSURE_3` have GPIO 1 back.** Amended
+  2026-07-31 after the ADC1 count in the V1 functional requirements: `STEER_SENS_PWM` moves to
+  **GPIO 38**, which is unconstrained, is not a strap pin and is on neither ADC, so a PWM capture
+  input wastes nothing there. `PRESSURE_3` returns to GPIO 1 with the divider it already has. This
+  is what this requirement asked for in the first place — a pin chosen for the steering sensor
+  rather than inherited from a pressure channel. **GPIO 38 must get no divider and no filter
+  capacitor**: a 1/3 divider puts a 3.3 V logic high at 1.100 V against the ESP32's 2.475 V VIH,
+  and 100 nF against that source impedance gives a 239 Hz corner on a 994.4 Hz PWM frame. Both are
+  correct for an analog pressure input and fatal for a logic-level one.
+
+<a id="req-07"></a>
+
+### REQ-07 — Fail-safe actuator outputs
+
+Raised 2026-08-08, after the steering swung to full lock and broke teeth off the steering gears
+while the ESP32-S3 was being reflashed. The kart was in autonomous at the time and the motor was
+live: the Cytron H-bridge is fed permanently from the 48 V traction pack, deliberately, so it is
+powered whenever the kart is.
+
+The board treats its actuators inconsistently, and steering is on the wrong side of the split:
+
+- **Throttle is safe.** It passes through the MAX4660 mux (U14), whose `SELECT_THROTTLE` line
+  carries a 10 kΩ pulldown (R32) to GND. An ESP32 that is unbooted, resetting, crashed or removed
+  leaves the mux in manual passthrough — the driver's pedal — by physics.
+- **The compressor is safe.** Its MOSFET gate has a 100 kΩ pulldown holding it off through boot.
+- **Steering is not.** `CMD_STEER_PWM` and `CMD_STEER_DIR` run from the ESP32 to the Cytron with
+  nothing in between and no pull resistors, so whenever the ESP32 is not actively driving them
+  the motor's behaviour is whatever the floating lines happen to look like to the Cytron's inputs.
+  The only thing that has ever held steering off is firmware writing zero — which does not exist
+  during a reset, and a reset is part of every flash.
+
+So: a pulldown to GND on `CMD_STEER_PWM` and on `CMD_STEER_DIR`, sized like R32 rather than
+relying on the ESP32's internal pulls — the internal ones are ~45 kΩ and, more importantly, only
+exist once firmware has configured them, which is exactly the window that broke the gears. Place
+them at the Cytron end of each net so an unplugged connector is also covered.
+
+Check when drawing it: the firmware drives the Cytron in sign-magnitude mode, PWM duty for
+magnitude and a separate DIR pin for sign, so a low PWM line means the motor is off. **Verify the
+Cytron's mode-select switches actually select that mode.** Under a locked-antiphase scheme a low
+PWM line means full reverse, and the pulldown would cause the failure it is meant to prevent.
+
+Ask the same question of every other output on the board before fab, not just this one: for each,
+what does the kart do while the ESP32 is held in reset? Any answer other than "nothing" needs a
+resistor.
+
+Firmware has been changed alongside this (kart-medulla `2092130`) to drive both steering pins low
+as the first action of `KM_GPIO_Init` and enable their internal pulldowns. That shortens the
+undriven window to the earliest instant code can act, and does not close it — the bootloader
+window remains, and only the external resistors cover it.
