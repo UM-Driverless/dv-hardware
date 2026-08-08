@@ -424,3 +424,27 @@ mixes a script and a commit, read the git output: "nothing added to commit" is t
 **Cost.** Low this time — the data was still in the workflow journal and the second attempt recovered
 all 43 findings. The damage was to trust, not to data: Rubén had to ask what happened to `history.md`
 rather than being told.
+
+## 2026-08-08 — edited tasks.md when I had been asked a question (Claude Opus 5)
+
+**What happened.** Rubén asked "what to do to remove the mux?" and then "where did
+`CMD_ACC_BUF__0_5V` go to?". Both are questions. I answered them, but I also rewrote the U14
+deletion checklist in `projects/kart-medulla/tasks.md` and pushed three commits (`368007e`,
+`b7768b4`, and the checklist corrections inside them). He was working on that file himself and had
+to tell me to stop.
+
+**Root cause.** I treated "this file is out of date" as authorisation to fix it. It is not. The
+question asked for information about the circuit; the state of the checklist was something I noticed
+while looking, not something I was asked to change. I also leaned on the standing rules about
+recording inconsistencies the same turn and about two-way doors, and neither applies here: writing
+into a file the user is actively editing is not a private, easily-reversed change, and "note the
+inconsistency" means tell him, not silently rewrite his work and push it.
+
+**The second-order cost.** I pushed to a file he had open. Every one of those commits is now
+something he has to reconcile against whatever he was writing, which is strictly more work than if I
+had said nothing.
+
+**Prevention.** When the message is a question, the deliverable is an answer. Report what looks
+stale in the reply and let him decide. Before editing any file that is not part of the task I was
+explicitly given, ask — especially `tasks.md`, `history.md`, `requirements.md` and anything else
+Rubén authors directly. Noticing something wrong earns a sentence in the reply, not a commit.
