@@ -47,6 +47,28 @@ the switch works with everything unpowered and no firmware can reach it.
 Feeds the v2 pin allocation item below: the sense line needs one input pin, and a free PCF8574
 port is probably enough since it is a slow digital signal.
 
+**Deletion checklist, against the v1 schematic** (do this on the v2 schematic when it is branched;
+do not edit v1, which documents the board that exists):
+
+- **Remove U14** (MAX4660EUA+T) and its footprint `SOP65P490X110-9N`, plus the 3D model reference
+  `${KIPRJMOD}/3dmodels/MAX4660EUA_T.step` if nothing else uses it.
+- **Remove R32** (10 kΩ pulldown on `SELECT_THROTTLE`) — its only job was giving the mux a safe
+  power-on default.
+- **Merge two nets into one.** Today `CMD_ACC_ESP32__0_5V` runs U13.14 (MCP4922 VOUTA) → U14.8 (NO),
+  and `CMD_ACC__0_5V` runs U14.1 (COM) → CN10.1. With the mux gone these become a single net:
+  **MCP4922 VOUTA straight to CN10.1.** Keep the name `CMD_ACC__0_5V`, since that is what the label
+  on the outgoing terminal means and what `kart-docs` calls it.
+- **`PEDAL_ACC__0_5V` loses one consumer, not its route.** It is U14.2 (NC) + CN6.2 + R14.2 today;
+  drop the U14.2 leg and it keeps CN6.2 and R14.2, which is the ADC path the ESP32 reads. The pedal
+  still reaches the board — it just no longer branches into a mux.
+- **Delete both `SELECT_THROTTLE` labels** (2 in the schematic file) and free **GPIO 15**. Hand it
+  to the v2 allocation table rather than leaving it as a spare.
+- **Check the +5V_REG load afterwards.** U14 was one of only two consumers of that rail (the other
+  is the MCP4922). If the MCP4922 also moves — the "keep the MCP4922 or switch to DAC7574" question
+  in the v2 pinout item — the L7805CDT may have no load left and could go too.
+- **Sanity check after the edit:** ERC clean, and CN10.1 traces back to U13.14 with nothing between
+  them.
+
 Kart-side wiring is documented in `kart-docs` (commits `bec7c20`, `c625d75`): the DPDT's second
 pole is in `wiring.yaml` and the global diagram. Both questions that were open there are now
 answered by Rubén (2026-08-08) — pole 2 breaks **M+**, and the Cytron is fed **directly from the
