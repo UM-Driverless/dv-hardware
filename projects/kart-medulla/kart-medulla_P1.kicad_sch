@@ -5999,7 +5999,7 @@
 		)
 		(uuid "82111458-ffbd-46f5-83fb-f89ca49663a0")
 	)
-	(text "SPARE - GPIO 15, freed 2026-08-08 when the MAX4660 throttle mux U14 was deleted"
+	(text "SPARE (was mux select)"
 		(exclude_from_sim no)
 		(at 313.5376 63.5 0)
 		(effects
