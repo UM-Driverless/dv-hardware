@@ -88,6 +88,7 @@ home, what a teammate agreed) or when it commits money, an order, or an irrevers
 - Naming: kebab-case for repos, folders, and project files (`kart-medulla`, not `kart-medulla` or `KartMedulla`). Matches verbal team usage (`kart-brain`, `kart-medulla`).
 - One project folder per board under `projects/`. Board name = folder name = `.kicad_pro` basename.
 - EasyEDA source exports archived under `projects/<board>/easyeda-source/` for diff history. Never edit those — they're an audit trail.
+- **`requirements.md` is one flat list** — one line per requirement, a `[built]` or `[v2]` status tag on the line, and the reasoning in a linked `## Notes` entry below. No per-revision sections and no revision tags in requirement titles: a requirement written for an earlier board still binds the next one, and labelling it "V1" makes it look droppable. Never move a requirement's justification to `history.md` — the justification is what stops a later revision deleting the requirement as redundant. Background: `history.md`, 2026-08-08.
 - One person per board at a time. Coordinate in chat. KiCad files are text but not line-mergeable — concurrent edits to the same `.kicad_pcb` produce silently broken board files.
 
 ## Workflow
