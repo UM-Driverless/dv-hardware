@@ -2804,3 +2804,7 @@ reading of the complaint: the reasoning was not the problem, its placement was.
 Rubén raised a new requirement for v2: the board must read the final state of the shutdown circuit. Because the board already has the wire that goes to the shutdown MOSFET, it should pass those 12 V to a voltage divider or optocoupler to step it down to a 3.3 V logic input. This allows the ESP32 to know whether there is an emergency state.
 
 Added REQ-12 to `projects/kart-medulla/requirements.md` and added the task to `projects/kart-medulla/tasks.md`.
+
+**SDC_STATUS pin and circuit.** (Decision, following the "Do the thing" rule). The 12 V from `SDC_IN_LOW_SIDE` (drain of Q3) will pass through a 10 kΩ series / 3.3 kΩ shunt voltage divider to reach ~2.97 V, well within the ESP32's 3.3 V logic levels. It is routed to **GPIO 15**, which became unconstrained after the MAX4660 throttle mux was deleted.
+
+**Pinout documentation identity crisis.** The main pinout doc (`docs/pinout-esp32-s3.md`) suffered from being a mix of the v1 built board, the v2 schematic in progress, and a separate v2 proposal table, which led to v2 signals being mistakenly mixed into the v1 table. Fixed by splitting it into two clear, explicit documents: `pinout-kart-medulla-v1.md` (the original board, as built) and `pinout-kart-medulla-v2.md` (the authoritative v2 schematic). The files were also renamed to reflect the board rather than just the microcontroller.
