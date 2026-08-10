@@ -2,7 +2,7 @@
 
 <!-- reference — read when relevant -->
 
-Per-pin capability map for the **ESP32-S3** (and the WROOM-1 module form factor used on `kart-medulla`). This file is the answer to "can I put signal X on GPIO Y?" — it does not describe any specific board. For the medulla's actual assignments see `projects/kart-medulla/docs/pinout-esp32-s3.md`; that doc cites this one when justifying constraints.
+Per-pin capability map for the **ESP32-S3** (and the WROOM-1 module form factor used on `kart-medulla`). This file is the answer to "can I put signal X on GPIO Y?" — it does not describe any specific board. For the medulla's actual assignments see `projects/kart-medulla/docs/pinout-kart-medulla-v1.md`; that doc cites this one when justifying constraints.
 
 Sourced from Espressif's *ESP32-S3 Datasheet* (v1.7+) and *ESP32-S3 Technical Reference Manual*. No images; all info in plain markdown so an AI agent or grep user can read it directly.
 
@@ -173,4 +173,4 @@ In short: across WROOM-1 (N*, R2, R8) the only variant trap is the R8 PSRAM pin 
 - Espressif, *ESP32-S3-WROOM-1 / WROOM-1U Datasheet* — module-form-factor pin map, internal flash/PSRAM wiring, strap-pin pull resistors.
 - Espressif, *ESP32-S3-DevKitC-1 v1.1 schematic* — the DevKitC-specific quirks (USB-UART bridge on 43/44, RGB LED on 48, BOOT/RST buttons).
 
-For the kart-medulla project's actual pin assignments and rationale, see `projects/kart-medulla/docs/pinout-esp32-s3.md`.
+For the kart-medulla project's actual pin assignments and rationale, see `projects/kart-medulla/docs/pinout-kart-medulla-v1.md`.

@@ -2798,3 +2798,9 @@ right split is what the board must do (all revisions) versus what is outstanding
 **Propose the reorganisation before doing it.** *"no. dont cut. reorganize. propose how before you
 do it."* — said after I moved to trim the offending section instead. Cutting content was the wrong
 reading of the complaint: the reasoning was not the problem, its placement was.
+
+## 2026-08-11 — kart-medulla v2: read the final state of the shutdown circuit
+
+Rubén raised a new requirement for v2: the board must read the final state of the shutdown circuit. Because the board already has the wire that goes to the shutdown MOSFET, it should pass those 12 V to a voltage divider or optocoupler to step it down to a 3.3 V logic input. This allows the ESP32 to know whether there is an emergency state.
+
+Added REQ-12 to `projects/kart-medulla/requirements.md` and added the task to `projects/kart-medulla/tasks.md`.

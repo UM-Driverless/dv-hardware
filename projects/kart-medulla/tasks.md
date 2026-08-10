@@ -7,6 +7,13 @@ cross-board work. Update status: `TODO → In Progress → Done`. Claim by addin
 
 ## TODO
 
+### Add SDC_STATUS voltage divider to the schematic (GPIO 15)
+
+The board must read the final state of the shutdown circuit. 
+- **Input net**: `SDC_IN_LOW_SIDE` (already exists, on the drain of Q3).
+- **Circuit**: Voltage divider. 10 kΩ series resistor from `SDC_IN_LOW_SIDE`, 3.3 kΩ shunt resistor to GND.
+- **Output net**: `SDC_STATUS` (3.3 V logic level), routed to ESP32 GPIO 15.
+
 ### medulla-v2: replace the throttle mux so manual mode survives an unpowered board #ruben
 
 Raised 2026-08-08. Full evidence in `history.md`, entry "the throttle mux does NOT pass the pedal
@@ -115,7 +122,7 @@ Raised 2026-07-31. There are now at least six separate claims on v2 pins, each a
 own item, and several of them want the same kind of GPIO. Deciding them one at a time is how two
 signals end up on one pin — which is exactly what happened on v1, where `PRESSURE_3` and `BUZZER` both
 got quietly repurposed (see "As-built pin use" in
-[`docs/pinout-esp32-s3.md`](docs/pinout-esp32-s3.md)).
+[`docs/pinout-kart-medulla-v1.md`](docs/pinout-kart-medulla-v1.md)).
 
 The competing claims, all of which must be satisfied by one table before v2 layout starts:
 
@@ -137,7 +144,7 @@ The competing claims, all of which must be satisfied by one table before v2 layo
 - **GPIO 38 + 39 reaching terminals** — see "Route GPIO 38 + GPIO 39 out to CN terminals"; today no
   spare GPIO is physically reachable, which is what forced the v1 repurposing in the first place.
 
-**DONE 2026-07-31 — the table is in `docs/pinout-esp32-s3.md` under "medulla-v2 pin allocation".**
+**DONE 2026-07-31 — the table is in `docs/pinout-kart-medulla-v1.md` under "medulla-v2 pin allocation".**
 Every claim above is placed, no pin carries two signals, and no strap pin is used.
 
 The constraint that decided it, which none of the individual claims had exposed: **ADC1 is full.**
@@ -233,7 +240,7 @@ To decide when drawing it:
 Raised 2026-07-31 by Rubén: is there pin budget for CAN, and could the GPIO expander free some up?
 
 **The GPIOs are already reserved — this was answered before the question was asked.**
-`docs/pinout-esp32-s3.md` holds **GPIO 41 for `CAN_RX` and GPIO 42 for `CAN_TX`**, marked
+`docs/pinout-kart-medulla-v1.md` holds **GPIO 41 for `CAN_RX` and GPIO 42 for `CAN_TX`**, marked
 *"Held for future CAN … medulla has no transceiver in this rev"*. Neither is ADC-capable and neither
 is a strap pin, so they cost nothing else. **No pins need freeing and the expander is not involved.**
 
@@ -764,7 +771,7 @@ DAC7574 (quad 12-bit I²C) is the closest match to what's in stock — 2 in stoc
 - Interface reverts to I²C on GPIO 8/9 (shared with AS5600, no address conflict: AS5600 = 0x36, DAC7574 = 0x4C–0x4F).
 - VDD = 5 V acts as reference → RC filter moves from VREF pin to VDD pin (use ferrite bead + 22 µF, or 10 Ω + 22 µF, to avoid DC drop from ~1 mA supply current).
 - LDAC → GND (auto-latch on every I²C write).
-- Free GPIO 14 back to `CS_SPARE`; update `docs/pinout-esp32-s3.md`, `history.md`, `README.md`, and the EasyEDA schematic.
+- Free GPIO 14 back to `CS_SPARE`; update `docs/pinout-kart-medulla-v1.md`, `history.md`, `README.md`, and the EasyEDA schematic.
 
 ### Add L7805 on-board linear regulator (12 V → 5 V) #ruben
 
@@ -777,7 +784,7 @@ BOM (all in stock): 1× L7805CDT-TR (DPAK) + 1× 0.33 µF input cap + 1× 0.1 µ
 
 Schematic wiring rule: ESP32 5 V pin and medulla USB-C VBUS net stay separate from the L7805 5 V rail. D+/D−/GND go from medulla USB-C to ESP32 GPIOs 19/20 + GND. VBUS goes from medulla USB-C to ESP32 5 V pin (or onboard USB-C VBUS net), nothing else.
 
-Existing RC on MCP4922 VREF (100 Ω + 10 µF) stays — overkill for the linear but harmless and keeps the design swap-ready. Update `docs/pinout-esp32-s3.md` power architecture diagram to reflect the split-rail topology.
+Existing RC on MCP4922 VREF (100 Ω + 10 µF) stays — overkill for the linear but harmless and keeps the design swap-ready. Update `docs/pinout-kart-medulla-v1.md` power architecture diagram to reflect the split-rail topology.
 
 ### Fix the proportional-valve command path — CN10.2 is on the wrong side of the LM358 #ruben
 
@@ -941,10 +948,10 @@ board change in one step:
 - `docs/pinout-cn-connectors.md` line 66 — says CN10's two commands go "to the motor controller". The
   brake/pressure command does not: braking on this kart is pneumatic and the command goes to the
   Festo VPPM proportional regulator. Only `CMD_ACC` goes to the motor controller.
-- `docs/pinout-esp32-s3.md` line 217 — "VOUTB | CMD_BRAKE | Brake analog command (0-5V) → brake
+- `docs/pinout-kart-medulla-v1.md` line 217 — "VOUTB | CMD_BRAKE | Brake analog command (0-5V) → brake
   valve driver" states 0–5 V as the delivered range. It should be the DAC-side range, with the
   exported range given as 0–10 V.
-- `docs/pinout-esp32-s3.md` line 273 — "No chip — direct DAC output … → brake valve driver (no mux on
+- `docs/pinout-kart-medulla-v1.md` line 273 — "No chip — direct DAC output … → brake valve driver (no mux on
   PCB)" describes the DAC output as going straight out and does not mention that an LM358 ×2 stage
   exists. The "no mux" half is correct and worth keeping: unlike the throttle, the brake/pressure
   channel has no MAX4660, so the DAC always owns it and the only way to release the command is to
@@ -980,7 +987,7 @@ entry for that date). In the "External-connector audit (CN1–CN10)" section bel
 
 - ~~Add `REVERSE_WIRE` to a connector pin~~ — **done, verified 2026-07-31: it is on `CN4.3`**, not CN8 as this task proposed. Still open: whether the manual reverse button is also wired through the medulla (that would need a second pin plus GND, and there is no free pin — see the connector audit). If the button goes straight to the kart electronics box, `CN4.3` alone is enough.
 - ~~Rename `STEER_SDA__I2C` → `SDA__I2C` and `STEER_SCL__I2C` → `SCL__I2C`~~ — **done, verified 2026-07-31**: the netlist carries `SDA__I2C` and `SCL__I2C` with no `STEER_` prefix anywhere.
-- Verify every signal in `docs/pinout-esp32-s3.md` that needs to leave the medulla actually has a connector pin. Cross-check: PEDAL_ACC, PEDAL_BRAKE, PRESSURE_1/2/3, HYDRAULIC_1/2, motor halls (×3), CMD_ACC, CMD_BRAKE, CMD_STEER_PWM, CMD_STEER_DIR, SDA, SCL, REVERSE_WIRE, manual reverse button (if needed), 12 V, GND.
+- Verify every signal in `docs/pinout-kart-medulla-v1.md` that needs to leave the medulla actually has a connector pin. Cross-check: PEDAL_ACC, PEDAL_BRAKE, PRESSURE_1/2/3, HYDRAULIC_1/2, motor halls (×3), CMD_ACC, CMD_BRAKE, CMD_STEER_PWM, CMD_STEER_DIR, SDA, SCL, REVERSE_WIRE, manual reverse button (if needed), 12 V, GND.
 
 ### Re-lay out the medulla PCB from scratch for v2 — do not edit the v1 copper #ruben
 
@@ -1032,7 +1039,7 @@ The checklist items are deliberately **not** copied here — copying is what pro
 copies of it (`history.md` 2026-07-16). Fix the checklist in `docs/` if an item is wrong; don't fork it.
 
 Board-specific additions for this revision, on top of the generic checklist:
-- Walk `projects/kart-medulla/docs/pinout-esp32-s3.md` row by row against the schematic
+- Walk `projects/kart-medulla/docs/pinout-kart-medulla-v1.md` row by row against the schematic
 - Commit a project snapshot to `~/dv/kart/kart-medulla/project-backups/`
 - Confirm `projects/kart-medulla/requirements.md` is satisfied — including the ASSI buzzer, which is
   a rules requirement (FS-Rules DV 4.5), not a nice-to-have
@@ -1173,7 +1180,7 @@ below.** All thirty pins are assigned; there is no free slot anywhere.
   socket. Nothing else is needed to close the loop.
 
   `SDC_ENABLE` was never a net. It existed as a free-text annotation near U24 pin 14 and in older
-  revisions of `docs/pinout-esp32-s3.md`, describing an external enable relay the design does not
+  revisions of `docs/pinout-kart-medulla-v1.md`, describing an external enable relay the design does not
   use. It has been carried as an open connector-capacity item since 2026-05-08 and treated as a
   competing claim on the board's few spare pins — including in the v2 pin table, which gave GPIO 39's
   first claim to it. **It is not a claim. GPIO 39 is simply free.**
@@ -1186,7 +1193,7 @@ below.** All thirty pins are assigned; there is no free slot anywhere.
 
 **Defer / informational:**
 
-- **`EXP_P1`–`EXP_P4`** (PCF8574 outputs on **CN3.1/2/3 and CN5.3**, not CN8/CN9/CN10) have no documented kart-side function. Only four of the expander's eight outputs reach a connector — `EXP_P5`–`EXP_P7` are not nets in the schematic at all. Decide what each of the four will drive before the harness is built, and document it in `docs/pinout-esp32-s3.md`. These four pins are also the only spare capacity on the whole board, so anything else that needs to get out (the encoder's power and ground) competes for them.
+- **`EXP_P1`–`EXP_P4`** (PCF8574 outputs on **CN3.1/2/3 and CN5.3**, not CN8/CN9/CN10) have no documented kart-side function. Only four of the expander's eight outputs reach a connector — `EXP_P5`–`EXP_P7` are not nets in the schematic at all. Decide what each of the four will drive before the harness is built, and document it in `docs/pinout-kart-medulla-v1.md`. These four pins are also the only spare capacity on the whole board, so anything else that needs to get out (the encoder's power and ground) competes for them.
 - **External buzzer** — if the buzzer (currently dangling label, see "Design the buzzer circuit" task above) lives off-board, it needs a connector pin. If it's on-board, no connector entry needed.
 - ~~**5V power input**~~ — **settled 2026-07-31 against the netlist.** `+12V` comes in on **CN1.2**, not CN6. It feeds `U19`, an **L7805CDT** linear regulator (not the LM2596SX-ADJ buck, which was evaluated and never fitted), whose output is the `+5V_REG` net. That rail is exported on **CN2.3**, which is where the motor hall sensors get their 5 V — so the hall supply is medulla-supplied, not a pass-through. The same pin can instead accept an external 5 V rail tied onto `+5V_REG`; the net is shared by design.
 

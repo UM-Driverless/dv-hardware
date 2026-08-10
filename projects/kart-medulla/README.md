@@ -31,7 +31,7 @@ what the board carries and what firmware quotes.
 Two pins are also used for something other than their designed signal on this board (the steering
 sensor's PWM on `PRESSURE_3`, the compressor MOSFET gate on `BUZZER`) — that is firmware assignment
 rather than copper, so it is listed in
-[`docs/pinout-esp32-s3.md`](docs/pinout-esp32-s3.md) under "As-built pin use". Read both that section
+[`docs/pinout-kart-medulla-v1.md`](docs/pinout-kart-medulla-v1.md) under "As-built pin use". Read both that section
 and the list below to know what this board actually does.
 
 Rework outstanding on this board:

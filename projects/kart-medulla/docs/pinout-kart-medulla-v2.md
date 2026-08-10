@@ -1,6 +1,8 @@
-# ESP32-S3 (WROOM-1-N16R8) — current PCB
+# ESP32-S3 (WROOM-1-N16R8) — kart-medulla v2 (in progress)
 
 > **Authoritative source: the schematic in this same project folder (`../kart-medulla.kicad_sch`).** This document mirrors the pin assignments for human reading and adds rationale/strap-pin/firmware-mode notes that the schematic doesn't carry. **PCB layout is in progress — pin assignments may shift as routing constraints surface.** When this doc and the schematic disagree, the schematic wins; fix this file. Re-verify before each fab release.
+>
+> **Looking for the physical kart's current wiring?** Scroll down to the **"As-built pin use — board 84d6dd0"** section. The main table below documents the v2 design currently being drawn.
 
 Status legend (refreshed 2026-05-08):
   BLOCKED       — physically off-limits. Hardware constraint, never reclaim.
@@ -167,13 +169,13 @@ before assuming this pinout works:
 | 10 | 35 | 35 | HOLD | - | Octal-PSRAM pin. Internally reserved on the fitted N16R8 — unusable in practice. Kept as HOLD (not BLOCKED) because the layout also accepts a quad-PSRAM N8R2, where it would be free. |
 | 11 | 36 | 36 | HOLD | - | Octal-PSRAM pin on N8R8 — same as Pin 10. (Was briefly assigned to CMD_REVERSE on 2026-05-02; moved to PCF8574 P0 on 2026-05-03 to restore N8R8 compatibility.) |
 | 12 | 37 | 37 | HOLD | - | Octal-PSRAM pin on N8R8 — same as Pin 10. |
-| 13 | 38 | 38 | HOLD | - | Unconstrained GPIO. Was `SDC_NOT_EMERGENCY` until 2026-05-08; signal moved to GPIO 18 (Pin 33) so Q3's gate driver could sit on the left side of the PCB next to the MOSFET. Currently free. |
+| 13 | 38 | 38 | STEER_SENS_PWM | PWM capture (MCPWM) | MT6701 steering-angle sensor PWM output. Moved here from GPIO 1 for v2. Unconstrained, no strap, not ADC. |
 | 14 | 39 | 39 | HOLD | - | Unconstrained GPIO. Earlier doc revisions described `SDC_ENABLE` here — that signal never existed in the schematic; the ESP32's contribution to the SDC chain is the GPIO driving Q3 directly (see Pin 33 / GPIO 18). |
 | 15 | 40 | 40 | CMD_STEER_PWM | LEDC PWM | Steering motor PWM (Cytron H-bridge). |
 | 16 | 41 | 41 | HOLD | - | Held for future CAN_RX (CAN currently moved to Orin carrier; medulla has no transceiver in this rev). |
 | 17 | 42 | 42 | HOLD | - | Held for future CAN_TX (same as Pin 16). |
 | 18 | 2 | 2 | HYDRAULIC_2 | ADC1_CH1 | Hydraulic pressure sensor 2 (input only) |
-| 19 | 1 | 1 | CMD_STEER_PWM_IN (ex-PRESSURE_3) | PWM capture (MCPWM) | CN5.2. Retired as a pressure ADC input and repurposed to read the MT6701 steering-angle sensor's PWM output via MCPWM capture — see `km_sdir_pwm.h` and firmware's `#if`'d-out `PIN_PRESSURE_3` in `km_gpio.c`. Not an ADC channel; the old "Pressure sensor 3 (input only)" label was stale. |
+| 19 | 1 | 1 | PRESSURE_3 | ADC1_CH0 | Pressure sensor 3 (input only). Restored to its original analog function for v2 (steering sensor moved to GPIO 38). |
 | 20 | RX | 44 | BLOCKED | - | Owned by the dev-module's USB-UART bridge (UART0 RX0). Not reclaimable — the bridge IC drives this pin from the USB-C port of the DevKitC-1. |
 | 21 | TX | 43 | BLOCKED | - | Same as Pin 20 — UART0 TX0, owned by the dev-module USB-UART bridge. |
 | 22 | GND | - | GND | Power | Ground (top of right edge / RIGHT_HEADER pin 22) |
@@ -184,12 +186,12 @@ before assuming this pinout works:
 | 27 | 5 | 5 | PEDAL_BRAKE | ADC1_CH4 | Brake pedal |
 | 28 | 6 | 6 | PRESSURE_1 | ADC1_CH5 | Pressure sensor 1 (input only) |
 | 29 | 7 | 7 | PRESSURE_2 | ADC1_CH6 | Pressure sensor 2 (input only) |
-| 30 | 15 | 15 | HOLD | - | Free and unassigned since 2026-08-08. It drove `SELECT_THROTTLE`, the SELECT pin of the U14 MAX4660 throttle mux; U14 was deleted from the schematic because a CMOS analog switch passes nothing while the board is unpowered (both channel MOSFETs are off), and because the kart's panel DPDT switch already selects the throttle source downstream on metal contacts that work unpowered. R32, the 10 kΩ pulldown on `SELECT_THROTTLE`, was deleted with it. No new function has been assigned to this pin. |
+| 30 | 15 | 15 | SDC_STATUS | Digital In | Reads the final state of the shutdown circuit (`SDC_IN_LOW_SIDE`). The 12 V signal from the drain of Q3 passes through a 10 kΩ / 3.3 kΩ voltage divider to safely reach 3.3 V logic levels here. Assigned 2026-08-11. |
 | 31 | 16 | 16 | MOTOR_HALL_1 | Digital In | Motor hall sensor 1 (moved from GPIO 37 for N8R8 compatibility) |
 | 32 | 17 | 17 | CMD_STEER_DIR__3V3 | Digital Out | Steering motor direction (Cytron H-bridge). Moved here from GPIO 0 on 2026-05-08 to remove the BOOT-strap risk; now sits on the left side of the ESP32 alongside SDC_NOT_EMERGENCY. (UART1 TX default — but UART pins are remappable on ESP32-S3.) |
 | 33 | 18 | 18 | SDC_NOT_EMERGENCY__3V3 | Digital Out | Drives the gate of Q3 (IRLZ44N) through R22 (100 Ω). When HIGH, Q3 conducts and pulls `SDC_IN_LOW_SIDE` to GND, completing the kart's SDC chain return path → no emergency. When LOW, Q3 is off and the SDC chain is broken → emergency. R23 (100 kΩ) gate-pulldown ensures Q3 is OFF (= emergency) at boot until firmware drives it HIGH. The signal name reads as the *intent* the ESP32 is asserting, not the chain's electrical state. Moved here from GPIO 38 on 2026-05-08 so the gate driver sits on the left side of the PCB next to the MOSFET. (UART1 RX default — remappable.) |
 | 34 | 8 | 8 | SDA | I2C | I²C data — AS5600 steering angle sensor + PCF8574 I/O expander share this bus |
-| 35 | 3 | 3 | BUZZER (old name) | Digital Out | Buzzer for debugging. Moved from GPIO 36 for octal-PSRAM compatibility. **Correction 2026-07-10:** this row used to claim "strap pin: JTAG src select, default high". Both halves are wrong on our hardware. (a) `STRAP_JTAG_SEL` eFuse is **not burned** (read from the chip), so GPIO 3 is never sampled as a strap. (b) GPIO 3 has **no internal pull at reset** — measured `IO_MUX_GPIO3 = 0x0a02` (neither FUN_WPU bit 8 nor FUN_WPD bit 7), against controls GPIO 0 = `0x0b02` (pull-up) and GPIO 45/46 = `0x0a82` (pull-down). It floats, so an external pulldown wins at boot. That makes GPIO 3 safe to drive a MOSFET gate — see the compressor reassignment in `history.md` 2026-07-10. |
+| 35 | 3 | 3 | CMD_COMPRESSOR_PWM | Digital Out | EBS Compressor MOSFET gate. GPIO 3 floats at reset with no internal pull, so an external pulldown wins at boot, making it safe to drive a gate. (Historically `BUZZER`, but kart carries no buzzer). |
 | 36 | 46 | 46 | HOLD | - | Strap pin (ROM-print enable, flash/boot risk). Default LOW = no boot-message print, which is what we want. Reclaimable post-boot if signal's idle state is LOW at power-on. |
 | 37 | 9 | 9 | SCL | I2C | I²C clock — same bus as SDA |
 | 38 | 10 | 10 | HYDRAULIC_1 | ADC1_CH9 | Hydraulic pressure sensor 1 (input only) |
@@ -221,37 +223,7 @@ designed use, and it is what `requirements.md` already asks for — the steering
 chosen for it rather than inherited from a pressure channel. Moving I²C instead would work but
 touches two pins and the firmware bus setup for no extra gain.
 
-| GPIO | v2 signal | Why this pin |
-|---|---|---|
-| 1 | `PRESSURE_3` | ADC1_CH0. Returns to its designed use. |
-| 2 | `HYDRAULIC_2` | ADC1_CH1, unchanged |
-| 3 | `CMD_COMPRESSOR_PWM` | Unchanged, and deliberately: GPIO 3 floats at reset with no internal pull, so an external pulldown wins at boot. That is what makes it safe on a MOSFET gate. |
-| 4 | `PEDAL_ACC` | ADC1_CH3, unchanged |
-| 5 | `PEDAL_BRAKE` | ADC1_CH4, unchanged |
-| 6 | `PRESSURE_1` | ADC1_CH5, unchanged |
-| 7 | `PRESSURE_2` | ADC1_CH6, unchanged |
-| 8 | `SDA` | I²C, unchanged. Costs an ADC1 pin but moving it buys nothing once the steering sensor has left. |
-| 9 | `SCL` | I²C, unchanged |
-| 10 | `HYDRAULIC_1` | ADC1_CH9, unchanged |
-| 11 | `MOSI` | SPI to MCP4922, unchanged |
-| 12 | `CLK` | SPI, unchanged |
-| 13 | `MISO` | Unused — MCP4922 is write-only. Free pin, left as a spare. |
-| 14 | `CMD_DAC_CS` | SPI chip select, unchanged |
-| 15 | *free, unassigned* | Held `SELECT_THROTTLE` for the MAX4660 throttle mux until that mux (U14) was deleted from the schematic on 2026-08-08, together with its 10 kΩ pulldown R32. No replacement function is assigned. |
-| 16 | `MOTOR_HALL_1` | unchanged |
-| 17 | `CMD_STEER_DIR` | unchanged |
-| 18 | `SDC_NOT_EMERGENCY` | Drives Q3's gate. Stays on a real pin — a safety read must not sit behind a bus transaction. |
-| 21 | `MOTOR_HALL_3` | unchanged |
-| 38 | **`STEER_SENS_PWM`** | **New.** MT6701 PWM angle capture, moved off GPIO 1. Unconstrained, no strap, not ADC. |
-| 39 | *spare, reachable* | The remaining unconstrained GPIO, and genuinely unclaimed. `SDC_ENABLE` held a claim on it in earlier revisions; dropped 2026-08-01 — the shutdown loop is closed by Q3 off GPIO 18, and `SDC_ENABLE` was never a net. |
-| 40 | `CMD_STEER_PWM` | unchanged |
-| 41 | `CAN_RX` | Already reserved for CAN. Not ADC, not a strap pin. |
-| 42 | `CAN_TX` | Already reserved for CAN. |
-| 47 | `MOTOR_HALL_2` | unchanged |
-| 0, 45, 46 | strap pins — leave HOLD | boot behaviour risk |
-| 35, 36, 37 | unusable | octal PSRAM on the fitted N16R8 |
-| 48 | BLOCKED | module's own RGB LED |
-| 19, 20 | NC | USB pins, no connector on this board |
+*(The full table that was here has been merged into the main document table above, which now serves as the authoritative v2 pinout).*
 
 **No pin carries two signals, every strap pin is left alone, and the two ADC-capable pins spent on
 non-analog signals (3 and 8/9) are spent deliberately.**
@@ -408,7 +380,7 @@ verified on hardware 2026-07-10. The ESP32 GPIOs involved in manual/autonomous s
 
 | Signal | GPIO | Notes |
 |---|---|---|
-| *none* | 15 | Free and unassigned. It drove `SELECT_THROTTLE` into the MAX4660 (U14) SELECT pin until U14 and its 10 kΩ pulldown R32 were deleted from the schematic on 2026-08-08. |
+| `SDC_STATUS` | 15 | Reads the 12 V final state of the shutdown circuit via a 10 kΩ series / 3.3 kΩ shunt voltage divider. |
 | `SDA__I2C` / `SCL__I2C` | 8 / 9 | I²C bus shared by AS5600 (steering angle) and PCF8574 (GPIO expander, drives `CMD_REVERSE` and EXP_P1..P7). |
 
 `CMD_REVERSE` no longer consumes an ESP32 GPIO directly. With the PCF8574

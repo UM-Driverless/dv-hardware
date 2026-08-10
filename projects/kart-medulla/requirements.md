@@ -39,6 +39,7 @@ rewording here does not break the reference.
   non-strap. `[v2]` [Why](#req-10)
 - **REQ-11 — Switch the EBS compressor on the board, motor current included.** `[v2]`
   [Why](#req-11)
+- **REQ-12 — Read the final state of the shutdown circuit.** 12 V digital input from the shutdown MOSFET. `[v2]` [Why](#req-12)
 
 **Explicitly not a requirement:** an ASSI or AS-emergency buzzer. FS-Rules DV 4.5 applies to
 the formula vehicle, not this kart — Rubén, 2026-07-18. The `BUZZER` net name on GPIO 3 /
@@ -237,3 +238,9 @@ traced first — see the compressor task in [`tasks.md`](tasks.md).
 - **Nothing is gained by measuring locked-rotor inrush.** Decided 2026-07-31: the circuit is
   validated in service and over-sizing costs nothing when the parts are already in stock. Size
   generously from what is on the shelf instead of measuring the peak and designing to it.
+
+<a id="req-12"></a>
+
+### REQ-12 — Read the final state of the shutdown circuit
+
+Read the final state of the shutdown circuit (the wire that goes to the MOSFET). The 12 V signal needs a voltage divider or optocoupler to step it down to a 3.3 V logic input so the ESP32 can read the emergency state.
