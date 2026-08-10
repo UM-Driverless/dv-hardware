@@ -16,6 +16,11 @@ fab process), stays on this file.
   durable requirements (what the board must do, as opposed to the work) are in
   [`projects/kart-medulla/requirements.md`](projects/kart-medulla/requirements.md).
 
+**Done items do not stay on the board.** When an item closes, move it — with its date and closing
+note — to `tasks/done-archive.md`, which holds nothing actionable. Exception: a done step of a task
+that is still open stays put, since archiving it strips the remaining open step of the context saying
+what was already settled. A cluster moves to the archive whole, once its last step closes.
+
 ## TODO
 
 ### Collapse the PCB checklist to one copy — there are five, not two #ruben
