@@ -2,7 +2,7 @@
 	(version "E")
 	(design
 		(source "/Users/rubenayla/repos/dv-hardware/projects/kart-medulla/kart-medulla.kicad_sch")
-		(date "2026-08-01T01:16:42")
+		(date "2026-08-10T11:10:56")
 		(tool "Eeschema 10.0.1")
 		(sheet
 			(number "1")
@@ -392,82 +392,6 @@
 				(tstamps "/ca70726b-7894-594f-a6f9-dfff97cbc924/")
 			)
 			(tstamps "6bf13155-7747-492e-99a3-198fbb8cc8d9")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "2")
-						)
-						(pin
-							(num "1")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "C5")
-			(value "100nF")
-			(footprint "kart-medulla:C0603")
-			(fields
-				(field
-					(name "head_version") "1.7.22.9df0ac")
-				(field
-					(name "head_maxId") "43")
-				(field
-					(name "head_symbolType") "2")
-				(field
-					(name "Symbol") "CAP")
-				(field
-					(name "part_bbox") "-10,8,10,-8")
-				(field
-					(name "Footprint") "kart-medulla:C0603")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "kart-medulla")
-				(part "CAP")
-				(description "")
-			)
-			(property
-				(name "head_version")
-				(value "1.7.22.9df0ac")
-			)
-			(property
-				(name "head_maxId")
-				(value "43")
-			)
-			(property
-				(name "head_symbolType")
-				(value "2")
-			)
-			(property
-				(name "Symbol")
-				(value "CAP")
-			)
-			(property
-				(name "part_bbox")
-				(value "-10,8,10,-8")
-			)
-			(property
-				(name "Sheetname")
-				(value "P1")
-			)
-			(property
-				(name "Sheetfile")
-				(value "kart-medulla_P1.kicad_sch")
-			)
-			(sheetpath
-				(names "/P1/")
-				(tstamps "/ca70726b-7894-594f-a6f9-dfff97cbc924/")
-			)
-			(tstamps "8929b703-260f-4602-ae17-ad1add2d200d")
 			(units
 				(unit
 					(name "A")
@@ -3709,76 +3633,6 @@
 			)
 		)
 		(comp
-			(ref "R32")
-			(value "10K")
-			(footprint "kart-medulla:R0603")
-			(fields
-				(field
-					(name "head_version") "2")
-				(field
-					(name "head_maxId") "106")
-				(field
-					(name "head_symbolType") "2")
-				(field
-					(name "part_bbox") "-10,4,10,-4")
-				(field
-					(name "Footprint") "kart-medulla:R0603")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "kart-medulla")
-				(part "Res")
-				(description "")
-			)
-			(property
-				(name "head_version")
-				(value "2")
-			)
-			(property
-				(name "head_maxId")
-				(value "106")
-			)
-			(property
-				(name "head_symbolType")
-				(value "2")
-			)
-			(property
-				(name "part_bbox")
-				(value "-10,4,10,-4")
-			)
-			(property
-				(name "Sheetname")
-				(value "P1")
-			)
-			(property
-				(name "Sheetfile")
-				(value "kart-medulla_P1.kicad_sch")
-			)
-			(sheetpath
-				(names "/P1/")
-				(tstamps "/ca70726b-7894-594f-a6f9-dfff97cbc924/")
-			)
-			(tstamps "87909bfe-97b3-4960-b275-c6e7fbf9bba2")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
 			(ref "R33")
 			(value "4k7")
 			(footprint "kart-medulla:R0603")
@@ -4127,58 +3981,6 @@
 			)
 		)
 		(comp
-			(ref "R39")
-			(value "1K")
-			(footprint "kart-medulla:R0603")
-			(description "series into the MAX4660, limits fault current if U1B saturates toward +12V")
-			(fields
-				(field
-					(name "Symbol") "Res")
-				(field
-					(name "Footprint") "kart-medulla:R0603")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description") "series into the MAX4660, limits fault current if U1B saturates toward +12V")
-			)
-			(libsource
-				(lib "kart-medulla")
-				(part "Res")
-				(description "")
-			)
-			(property
-				(name "Symbol")
-				(value "Res")
-			)
-			(property
-				(name "Sheetname")
-				(value "P1")
-			)
-			(property
-				(name "Sheetfile")
-				(value "kart-medulla_P1.kicad_sch")
-			)
-			(sheetpath
-				(names "/P1/")
-				(tstamps "/ca70726b-7894-594f-a6f9-dfff97cbc924/")
-			)
-			(tstamps "ca102abb-145a-529d-8bb0-495b0dc7d16b")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-					)
-				)
-			)
-		)
-		(comp
 			(ref "U1")
 			(value "LM358DR")
 			(footprint "kart-medulla:SOIC-8_L5.0-W4.0-P1.27-LS6.0-BL")
@@ -4509,103 +4311,6 @@
 						)
 						(pin
 							(num "12")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "U14")
-			(value "MAX4660EUA+T")
-			(footprint "kart-medulla:SOP65P490X110-9N")
-			(datasheet "https://www.analog.com/MAX4660/datasheet")
-			(fields
-				(field
-					(name "head_symbolType") "2")
-				(field
-					(name "head_version") "0.13.0")
-				(field
-					(name "Symbol") "MAX4660EUA+T")
-				(field
-					(name "Designator") "U?")
-				(field
-					(name "part_bbox") "-25,-25,35,25")
-				(field
-					(name "Footprint") "kart-medulla:SOP65P490X110-9N")
-				(field
-					(name "Datasheet") "https://www.analog.com/MAX4660/datasheet")
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "kart-medulla")
-				(part "MAX4660EUA_T")
-				(description "")
-			)
-			(property
-				(name "head_symbolType")
-				(value "2")
-			)
-			(property
-				(name "head_version")
-				(value "0.13.0")
-			)
-			(property
-				(name "Symbol")
-				(value "MAX4660EUA+T")
-			)
-			(property
-				(name "Designator")
-				(value "U?")
-			)
-			(property
-				(name "part_bbox")
-				(value "-25,-25,35,25")
-			)
-			(property
-				(name "Sheetname")
-				(value "P1")
-			)
-			(property
-				(name "Sheetfile")
-				(value "kart-medulla_P1.kicad_sch")
-			)
-			(sheetpath
-				(names "/P1/")
-				(tstamps "/ca70726b-7894-594f-a6f9-dfff97cbc924/")
-			)
-			(tstamps "60ac7636-837d-427b-be5a-9f8239e910b9")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-						(pin
-							(num "2")
-						)
-						(pin
-							(num "3")
-						)
-						(pin
-							(num "4")
-						)
-						(pin
-							(num "9")
-						)
-						(pin
-							(num "8")
-						)
-						(pin
-							(num "7")
-						)
-						(pin
-							(num "6")
-						)
-						(pin
-							(num "5")
 						)
 					)
 				)
@@ -5530,81 +5235,6 @@
 		)
 		(libpart
 			(lib "kart-medulla")
-			(part "MAX4660EUA_T")
-			(docs "https://www.analog.com/MAX4660/datasheet")
-			(fields
-				(field
-					(name "Reference") "U")
-				(field
-					(name "Value") "MAX4660EUA+T")
-				(field
-					(name "Footprint") "kart-medulla:SOP65P490X110-9N")
-				(field
-					(name "Datasheet") "https://www.analog.com/MAX4660/datasheet")
-				(field
-					(name "Description")
-				)
-				(field
-					(name "head_symbolType") "2")
-				(field
-					(name "head_version") "0.13.0")
-				(field
-					(name "Symbol") "MAX4660EUA+T")
-				(field
-					(name "Designator") "U?")
-				(field
-					(name "part_bbox") "-25,-25,35,25")
-			)
-			(pins
-				(pin
-					(num "1")
-					(name "COM")
-					(type "passive")
-				)
-				(pin
-					(num "2")
-					(name "NC")
-					(type "passive")
-				)
-				(pin
-					(num "3")
-					(name "GND")
-					(type "power_in")
-				)
-				(pin
-					(num "4")
-					(name "V+")
-					(type "power_in")
-				)
-				(pin
-					(num "5")
-					(name "NC")
-					(type "no_connect")
-				)
-				(pin
-					(num "6")
-					(name "IN")
-					(type "input")
-				)
-				(pin
-					(num "7")
-					(name "V-")
-					(type "power_in")
-				)
-				(pin
-					(num "8")
-					(name "NO")
-					(type "passive")
-				)
-				(pin
-					(num "9")
-					(name "EP")
-					(type "passive")
-				)
-			)
-		)
-		(libpart
-			(lib "kart-medulla")
 			(part "MCP4922-E_SL")
 			(fields
 				(field
@@ -6460,22 +6090,10 @@
 				(pintype "passive")
 			)
 			(node
-				(ref "C5")
-				(pin "2")
-				(pinfunction "2_2")
-				(pintype "passive")
-			)
-			(node
 				(ref "CN2")
 				(pin "3")
 				(pinfunction "3_3")
 				(pintype "passive")
-			)
-			(node
-				(ref "U14")
-				(pin "4")
-				(pinfunction "V+_4")
-				(pintype "power_in")
 			)
 			(node
 				(ref "U19")
@@ -6555,29 +6173,6 @@
 		)
 		(net
 			(code "6")
-			(name "/P1/ACC_AMP_OUT")
-			(class "Default")
-			(node
-				(ref "R37")
-				(pin "2")
-				(pinfunction "2_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "R39")
-				(pin "2")
-				(pinfunction "2_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "U1")
-				(pin "7")
-				(pinfunction "OUT2_7")
-				(pintype "output")
-			)
-		)
-		(net
-			(code "7")
 			(name "/P1/BUZZER")
 			(class "Default")
 			(node
@@ -6600,7 +6195,7 @@
 			)
 		)
 		(net
-			(code "8")
+			(code "7")
 			(name "/P1/CLK")
 			(class "Default")
 			(node
@@ -6629,25 +6224,8 @@
 			)
 		)
 		(net
-			(code "9")
-			(name "/P1/CMD_ACC_BUF__0_5V")
-			(class "Default")
-			(node
-				(ref "R39")
-				(pin "1")
-				(pinfunction "1_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "U14")
-				(pin "8")
-				(pinfunction "NO_8")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "10")
-			(name "/P1/CMD_ACC_ESP32__0_5V")
+			(code "8")
+			(name "/P1/CMD_ACC_ESP32__0_3V3")
 			(class "Default")
 			(node
 				(ref "U1")
@@ -6663,7 +6241,7 @@
 			)
 		)
 		(net
-			(code "11")
+			(code "9")
 			(name "/P1/CMD_ACC__0_5V")
 			(class "Default")
 			(node
@@ -6673,14 +6251,20 @@
 				(pintype "passive")
 			)
 			(node
-				(ref "U14")
-				(pin "1")
-				(pinfunction "COM_1")
+				(ref "R37")
+				(pin "2")
+				(pinfunction "2_2")
 				(pintype "passive")
+			)
+			(node
+				(ref "U1")
+				(pin "7")
+				(pinfunction "OUT2_7")
+				(pintype "output")
 			)
 		)
 		(net
-			(code "12")
+			(code "10")
 			(name "/P1/CMD_DAC_CS")
 			(class "Default")
 			(node
@@ -6709,8 +6293,8 @@
 			)
 		)
 		(net
-			(code "13")
-			(name "/P1/CMD_PRES_DAC__0_5V")
+			(code "11")
+			(name "/P1/CMD_PRES_DAC__0_3V3")
 			(class "Default")
 			(node
 				(ref "U1")
@@ -6726,7 +6310,7 @@
 			)
 		)
 		(net
-			(code "14")
+			(code "12")
 			(name "/P1/CMD_PRES__0_10V")
 			(class "Default")
 			(node
@@ -6749,7 +6333,7 @@
 			)
 		)
 		(net
-			(code "15")
+			(code "13")
 			(name "/P1/CMD_REVERSE")
 			(class "Default")
 			(node
@@ -6766,7 +6350,7 @@
 			)
 		)
 		(net
-			(code "16")
+			(code "14")
 			(name "/P1/CMD_STEER_DIR__3V3")
 			(class "Default")
 			(node
@@ -6789,7 +6373,7 @@
 			)
 		)
 		(net
-			(code "17")
+			(code "15")
 			(name "/P1/CMD_STEER__PWM_3V3")
 			(class "Default")
 			(node
@@ -6806,7 +6390,7 @@
 			)
 		)
 		(net
-			(code "18")
+			(code "16")
 			(name "/P1/EXP_P1")
 			(class "Default")
 			(node
@@ -6823,7 +6407,7 @@
 			)
 		)
 		(net
-			(code "19")
+			(code "17")
 			(name "/P1/EXP_P2")
 			(class "Default")
 			(node
@@ -6840,7 +6424,7 @@
 			)
 		)
 		(net
-			(code "20")
+			(code "18")
 			(name "/P1/EXP_P3")
 			(class "Default")
 			(node
@@ -6857,7 +6441,7 @@
 			)
 		)
 		(net
-			(code "21")
+			(code "19")
 			(name "/P1/EXP_P4")
 			(class "Default")
 			(node
@@ -6874,7 +6458,7 @@
 			)
 		)
 		(net
-			(code "22")
+			(code "20")
 			(name "/P1/HYDRAULIC_1__0_3V3")
 			(class "Default")
 			(node
@@ -6909,7 +6493,7 @@
 			)
 		)
 		(net
-			(code "23")
+			(code "21")
 			(name "/P1/HYDRAULIC_1__0_5V")
 			(class "Default")
 			(node
@@ -6926,7 +6510,7 @@
 			)
 		)
 		(net
-			(code "24")
+			(code "22")
 			(name "/P1/HYDRAULIC_2__0_3V3")
 			(class "Default")
 			(node
@@ -6955,7 +6539,7 @@
 			)
 		)
 		(net
-			(code "25")
+			(code "23")
 			(name "/P1/HYDRAULIC_2__0_5V")
 			(class "Default")
 			(node
@@ -6972,7 +6556,7 @@
 			)
 		)
 		(net
-			(code "26")
+			(code "24")
 			(name "/P1/MISO")
 			(class "Default")
 			(node
@@ -6989,7 +6573,7 @@
 			)
 		)
 		(net
-			(code "27")
+			(code "25")
 			(name "/P1/MOSI")
 			(class "Default")
 			(node
@@ -7012,7 +6596,7 @@
 			)
 		)
 		(net
-			(code "28")
+			(code "26")
 			(name "/P1/MOTOR_HALL_1__3V3")
 			(class "Default")
 			(node
@@ -7035,7 +6619,7 @@
 			)
 		)
 		(net
-			(code "29")
+			(code "27")
 			(name "/P1/MOTOR_HALL_1__5V")
 			(class "Default")
 			(node
@@ -7052,7 +6636,7 @@
 			)
 		)
 		(net
-			(code "30")
+			(code "28")
 			(name "/P1/MOTOR_HALL_2__3V3")
 			(class "Default")
 			(node
@@ -7069,7 +6653,7 @@
 			)
 		)
 		(net
-			(code "31")
+			(code "29")
 			(name "/P1/MOTOR_HALL_2__5V")
 			(class "Default")
 			(node
@@ -7086,7 +6670,7 @@
 			)
 		)
 		(net
-			(code "32")
+			(code "30")
 			(name "/P1/MOTOR_HALL_3__3V3")
 			(class "Default")
 			(node
@@ -7103,7 +6687,7 @@
 			)
 		)
 		(net
-			(code "33")
+			(code "31")
 			(name "/P1/MOTOR_HALL_3__5V")
 			(class "Default")
 			(node
@@ -7120,7 +6704,7 @@
 			)
 		)
 		(net
-			(code "34")
+			(code "32")
 			(name "/P1/PEDAL_ACC__0_5V")
 			(class "Default")
 			(node
@@ -7135,15 +6719,9 @@
 				(pinfunction "2_2")
 				(pintype "passive")
 			)
-			(node
-				(ref "U14")
-				(pin "2")
-				(pinfunction "NC_2")
-				(pintype "passive")
-			)
 		)
 		(net
-			(code "35")
+			(code "33")
 			(name "/P1/PEDAL_ACC__3V3")
 			(class "Default")
 			(node
@@ -7178,7 +6756,7 @@
 			)
 		)
 		(net
-			(code "36")
+			(code "34")
 			(name "/P1/PEDAL_BRAKE__0_5V")
 			(class "Default")
 			(node
@@ -7195,7 +6773,7 @@
 			)
 		)
 		(net
-			(code "37")
+			(code "35")
 			(name "/P1/PEDAL_BRAKE__3V3")
 			(class "Default")
 			(node
@@ -7230,7 +6808,7 @@
 			)
 		)
 		(net
-			(code "38")
+			(code "36")
 			(name "/P1/PRESSURE_1__0_3V3")
 			(class "Default")
 			(node
@@ -7265,7 +6843,7 @@
 			)
 		)
 		(net
-			(code "39")
+			(code "37")
 			(name "/P1/PRESSURE_1__0_10V")
 			(class "Default")
 			(node
@@ -7282,7 +6860,7 @@
 			)
 		)
 		(net
-			(code "40")
+			(code "38")
 			(name "/P1/PRESSURE_2__0_3V3")
 			(class "Default")
 			(node
@@ -7317,7 +6895,7 @@
 			)
 		)
 		(net
-			(code "41")
+			(code "39")
 			(name "/P1/PRESSURE_2__0_10V")
 			(class "Default")
 			(node
@@ -7334,7 +6912,7 @@
 			)
 		)
 		(net
-			(code "42")
+			(code "40")
 			(name "/P1/PRESSURE_3__0_3V3")
 			(class "Default")
 			(node
@@ -7363,7 +6941,7 @@
 			)
 		)
 		(net
-			(code "43")
+			(code "41")
 			(name "/P1/PRESSURE_3__0_10V")
 			(class "Default")
 			(node
@@ -7380,7 +6958,7 @@
 			)
 		)
 		(net
-			(code "44")
+			(code "42")
 			(name "/P1/RESET")
 			(class "Default")
 			(node
@@ -7397,7 +6975,7 @@
 			)
 		)
 		(net
-			(code "45")
+			(code "43")
 			(name "/P1/REVERSE_WIRE")
 			(class "Default")
 			(node
@@ -7414,7 +6992,7 @@
 			)
 		)
 		(net
-			(code "46")
+			(code "44")
 			(name "/P1/SCL__I2C")
 			(class "Default")
 			(node
@@ -7449,7 +7027,7 @@
 			)
 		)
 		(net
-			(code "47")
+			(code "45")
 			(name "/P1/SDA__I2C")
 			(class "Default")
 			(node
@@ -7484,7 +7062,7 @@
 			)
 		)
 		(net
-			(code "48")
+			(code "46")
 			(name "/P1/SDC_IN_LOW_SIDE")
 			(class "Default")
 			(node
@@ -7501,7 +7079,7 @@
 			)
 		)
 		(net
-			(code "49")
+			(code "47")
 			(name "/P1/SDC_NOT_EMERGENCY__3V3")
 			(class "Default")
 			(node
@@ -7524,36 +7102,7 @@
 			)
 		)
 		(net
-			(code "50")
-			(name "/P1/SELECT_THROTTLE")
-			(class "Default")
-			(node
-				(ref "R32")
-				(pin "1")
-				(pinfunction "1_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "U14")
-				(pin "6")
-				(pinfunction "IN_6")
-				(pintype "input")
-			)
-			(node
-				(ref "U23")
-				(pin "15")
-				(pinfunction "15_15")
-				(pintype "passive")
-			)
-			(node
-				(ref "U23")
-				(pin "16")
-				(pinfunction "16_16")
-				(pintype "passive")
-			)
-		)
-		(net
-			(code "51")
+			(code "48")
 			(name "GND")
 			(class "Default")
 			(node
@@ -7600,12 +7149,6 @@
 			)
 			(node
 				(ref "C4")
-				(pin "1")
-				(pinfunction "1_1")
-				(pintype "passive")
-			)
-			(node
-				(ref "C5")
 				(pin "1")
 				(pinfunction "1_1")
 				(pintype "passive")
@@ -7719,12 +7262,6 @@
 				(pintype "passive")
 			)
 			(node
-				(ref "R32")
-				(pin "2")
-				(pinfunction "2_2")
-				(pintype "passive")
-			)
-			(node
 				(ref "R36")
 				(pin "1")
 				(pinfunction "1_1")
@@ -7759,24 +7296,6 @@
 				(pin "8")
 				(pinfunction "LDAC#_8")
 				(pintype "input")
-			)
-			(node
-				(ref "U14")
-				(pin "3")
-				(pinfunction "GND_3")
-				(pintype "power_in")
-			)
-			(node
-				(ref "U14")
-				(pin "7")
-				(pinfunction "V-_7")
-				(pintype "power_in")
-			)
-			(node
-				(ref "U14")
-				(pin "9")
-				(pinfunction "EP_9")
-				(pintype "passive")
 			)
 			(node
 				(ref "U19")
@@ -7846,7 +7365,7 @@
 			)
 		)
 		(net
-			(code "52")
+			(code "49")
 			(name "Net-(Q3-G)")
 			(class "Default")
 			(node
@@ -7869,7 +7388,7 @@
 			)
 		)
 		(net
-			(code "53")
+			(code "50")
 			(name "Net-(Q4-G)")
 			(class "Default")
 			(node
@@ -7892,7 +7411,7 @@
 			)
 		)
 		(net
-			(code "54")
+			(code "51")
 			(name "Net-(R4-Pad1)")
 			(class "Default")
 			(node
@@ -7909,7 +7428,7 @@
 			)
 		)
 		(net
-			(code "55")
+			(code "52")
 			(name "Net-(R8-Pad1)")
 			(class "Default")
 			(node
@@ -7926,7 +7445,7 @@
 			)
 		)
 		(net
-			(code "56")
+			(code "53")
 			(name "Net-(R11-Pad1)")
 			(class "Default")
 			(node
@@ -7943,7 +7462,7 @@
 			)
 		)
 		(net
-			(code "57")
+			(code "54")
 			(name "Net-(U1A--IN1)")
 			(class "Default")
 			(node
@@ -7966,7 +7485,7 @@
 			)
 		)
 		(net
-			(code "58")
+			(code "55")
 			(name "Net-(U5-1A)")
 			(class "Default")
 			(node
@@ -7983,7 +7502,7 @@
 			)
 		)
 		(net
-			(code "59")
+			(code "56")
 			(name "Net-(U5-2A)")
 			(class "Default")
 			(node
@@ -8000,7 +7519,7 @@
 			)
 		)
 		(net
-			(code "60")
+			(code "57")
 			(name "Net-(U5-3A)")
 			(class "Default")
 			(node
@@ -8017,7 +7536,7 @@
 			)
 		)
 		(net
-			(code "61")
+			(code "58")
 			(name "unconnected-(U13-NC-Pad2)")
 			(class "Default")
 			(node
@@ -8028,7 +7547,7 @@
 			)
 		)
 		(net
-			(code "62")
+			(code "59")
 			(name "unconnected-(U13-NC-Pad6)")
 			(class "Default")
 			(node
@@ -8039,7 +7558,7 @@
 			)
 		)
 		(net
-			(code "63")
+			(code "60")
 			(name "unconnected-(U13-NC-Pad7)")
 			(class "Default")
 			(node
@@ -8050,18 +7569,29 @@
 			)
 		)
 		(net
-			(code "64")
-			(name "unconnected-(U14-NC-Pad5)")
+			(code "61")
+			(name "unconnected-(U23-Pad15)")
 			(class "Default")
 			(node
-				(ref "U14")
-				(pin "5")
-				(pinfunction "NC_5")
-				(pintype "no_connect")
+				(ref "U23")
+				(pin "15")
+				(pinfunction "15_15")
+				(pintype "passive+no_connect")
 			)
 		)
 		(net
-			(code "65")
+			(code "62")
+			(name "unconnected-(U23-Pad16)")
+			(class "Default")
+			(node
+				(ref "U23")
+				(pin "16")
+				(pinfunction "16_16")
+				(pintype "passive+no_connect")
+			)
+		)
+		(net
+			(code "63")
 			(name "unconnected-(U23-Pad27)")
 			(class "Default")
 			(node
@@ -8072,7 +7602,7 @@
 			)
 		)
 		(net
-			(code "66")
+			(code "64")
 			(name "unconnected-(U23-Pad28)")
 			(class "Default")
 			(node
@@ -8083,7 +7613,7 @@
 			)
 		)
 		(net
-			(code "67")
+			(code "65")
 			(name "unconnected-(U24-Pad3)")
 			(class "Default")
 			(node
@@ -8094,7 +7624,7 @@
 			)
 		)
 		(net
-			(code "68")
+			(code "66")
 			(name "unconnected-(U24-Pad4)")
 			(class "Default")
 			(node
@@ -8105,7 +7635,7 @@
 			)
 		)
 		(net
-			(code "69")
+			(code "67")
 			(name "unconnected-(U24-Pad7)")
 			(class "Default")
 			(node
@@ -8116,7 +7646,7 @@
 			)
 		)
 		(net
-			(code "70")
+			(code "68")
 			(name "unconnected-(U24-Pad8)")
 			(class "Default")
 			(node
@@ -8127,7 +7657,7 @@
 			)
 		)
 		(net
-			(code "71")
+			(code "69")
 			(name "unconnected-(U24-Pad9)")
 			(class "Default")
 			(node
@@ -8138,7 +7668,7 @@
 			)
 		)
 		(net
-			(code "72")
+			(code "70")
 			(name "unconnected-(U24-Pad10)")
 			(class "Default")
 			(node
@@ -8149,7 +7679,7 @@
 			)
 		)
 		(net
-			(code "73")
+			(code "71")
 			(name "unconnected-(U24-Pad11)")
 			(class "Default")
 			(node
@@ -8160,7 +7690,7 @@
 			)
 		)
 		(net
-			(code "74")
+			(code "72")
 			(name "unconnected-(U24-Pad12)")
 			(class "Default")
 			(node
@@ -8171,7 +7701,7 @@
 			)
 		)
 		(net
-			(code "75")
+			(code "73")
 			(name "unconnected-(U24-Pad13)")
 			(class "Default")
 			(node
@@ -8182,7 +7712,7 @@
 			)
 		)
 		(net
-			(code "76")
+			(code "74")
 			(name "unconnected-(U24-Pad14)")
 			(class "Default")
 			(node
@@ -8193,7 +7723,7 @@
 			)
 		)
 		(net
-			(code "77")
+			(code "75")
 			(name "unconnected-(U24-Pad16)")
 			(class "Default")
 			(node
@@ -8204,7 +7734,7 @@
 			)
 		)
 		(net
-			(code "78")
+			(code "76")
 			(name "unconnected-(U24-Pad17)")
 			(class "Default")
 			(node
@@ -8215,7 +7745,7 @@
 			)
 		)
 		(net
-			(code "79")
+			(code "77")
 			(name "unconnected-(U24-Pad20)")
 			(class "Default")
 			(node
@@ -8226,7 +7756,7 @@
 			)
 		)
 		(net
-			(code "80")
+			(code "78")
 			(name "unconnected-(U24-Pad21)")
 			(class "Default")
 			(node
@@ -8237,7 +7767,7 @@
 			)
 		)
 		(net
-			(code "81")
+			(code "79")
 			(name "unconnected-(U25-INT#-Pad13)")
 			(class "Default")
 			(node
@@ -8248,7 +7778,7 @@
 			)
 		)
 		(net
-			(code "82")
+			(code "80")
 			(name "unconnected-(U25-P5-Pad10)")
 			(class "Default")
 			(node
@@ -8259,7 +7789,7 @@
 			)
 		)
 		(net
-			(code "83")
+			(code "81")
 			(name "unconnected-(U25-P6-Pad11)")
 			(class "Default")
 			(node
@@ -8270,7 +7800,7 @@
 			)
 		)
 		(net
-			(code "84")
+			(code "82")
 			(name "unconnected-(U25-P7-Pad12)")
 			(class "Default")
 			(node

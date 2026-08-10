@@ -173,7 +173,7 @@ before assuming this pinout works:
 | 16 | 41 | 41 | HOLD | - | Held for future CAN_RX (CAN currently moved to Orin carrier; medulla has no transceiver in this rev). |
 | 17 | 42 | 42 | HOLD | - | Held for future CAN_TX (same as Pin 16). |
 | 18 | 2 | 2 | HYDRAULIC_2 | ADC1_CH1 | Hydraulic pressure sensor 2 (input only) |
-| 19 | 1 | 1 | PRESSURE_3 | ADC1_CH0 | Pressure sensor 3 (input only) |
+| 19 | 1 | 1 | CMD_STEER_PWM_IN (ex-PRESSURE_3) | PWM capture (MCPWM) | CN5.2. Retired as a pressure ADC input and repurposed to read the MT6701 steering-angle sensor's PWM output via MCPWM capture — see `km_sdir_pwm.h` and firmware's `#if`'d-out `PIN_PRESSURE_3` in `km_gpio.c`. Not an ADC channel; the old "Pressure sensor 3 (input only)" label was stale. |
 | 20 | RX | 44 | BLOCKED | - | Owned by the dev-module's USB-UART bridge (UART0 RX0). Not reclaimable — the bridge IC drives this pin from the USB-C port of the DevKitC-1. |
 | 21 | TX | 43 | BLOCKED | - | Same as Pin 20 — UART0 TX0, owned by the dev-module USB-UART bridge. |
 | 22 | GND | - | GND | Power | Ground (top of right edge / RIGHT_HEADER pin 22) |

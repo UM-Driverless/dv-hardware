@@ -44,11 +44,19 @@ CN1        CN2        CN3        CN4       CN5        CN6        CN7        CN8 
    `CMD_COMPRESSOR_PWM` — GPIO 3 driving the EBS compressor MOSFET gate. Wherever `BUZZER` appears
    in this repo it should be read as *(old name)*. Note this collides with the rules-mandated ASSI
    buzzer, which still needs a home — see `projects/kart-medulla/tasks.md`.
-2. **`EXP_P2` is CN3.2, and always has been.** The exported netlist
-   (`projects/kart-medulla/output/netlist.net`, dated 7 May) lists `CN8.2 → /EXP_P2`, which is
-   **wrong** — that file is the known-stale export flagged in `tasks.md`, and it also shows Q3's and
-   Q4's gates on no net at all. Trust the silkscreen and this table over that netlist for any
-   connectivity question until it is re-exported.
+2. **`EXP_P2` is CN3.2, and always has been.** A stale export of `projects/kart-medulla/output/netlist.net`
+   (dated 7 May, re-exported 2026-08-10 and now current with the schematic) used to list
+   `CN8.2 → /EXP_P2` and show Q3's and Q4's gates on no net at all — both artifacts of the schematic
+   having moved on without a re-export. Re-exporting fixed both; the netlist now agrees with the
+   silkscreen and this table. If a future edit makes them disagree again, trust the silkscreen and
+   this table until the netlist is re-exported.
+3. **Designator mismatch: schematic vs the fabricated v1 board.** An earlier draft of the schematic
+   (before the netlist above was current) put the pressure channels on `CN2.1`/`CN2.2`/`CN2.3`. On
+   the v1 silkscreen and PCB — the only board that physically exists — those pins are
+   `CN7.1`/`CN7.2`/`CN5.2`, and PCB `CN2` is instead `HALL3`/`HALL2`/`+5V_REG` (see the assignment
+   table below). **Anyone wiring the kart should read from the silkscreen/PCB, never from a
+   schematic printout**, in case a future schematic edit drifts from the fabricated board again
+   before a new revision is built.
 
 ## Assignment table
 
@@ -58,7 +66,7 @@ CN1        CN2        CN3        CN4       CN5        CN6        CN7        CN8 
 | **CN2**  | R         | MOTOR_HALL_3 (5V) | MOTOR_HALL_2 (5V) | +5V_REG | Motor hall sensors 2 & 3. Pin 3 supplies +5V from the on-board rail to the hall sensor IC. |
 | **CN3**  | R         | EXP_P1 | EXP_P2 | EXP_P3 | Three PCF8574 expander GPIOs clustered next to U25 (PCF8574 placed on the right side of the PCB near CN3 — see `history.md` 2026-05-08 for the cluster decision). |
 | **CN4**  | R         | SCL (I²C, 3V3) | SDA (I²C, 3V3) | REVERSE_WIRE | Pins 1 & 2 = I²C bus to the AS5600 steering encoder *and* to U25 (PCF8574); U25 is the only on-PCB I²C device, AS5600 lives off-board on the steering shaft. Pin 3 = REVERSE_WIRE (PCF8574 P0 open-drain output to kart's REVERSE line, wired-OR with manual reverse button on the motor-controller side). |
-| **CN5**  | R, top    | HYDRAULIC_2 (0–5V) | PRESSURE_3 (0–10V) | EXP_P4 | Hydraulic-2 pressure sensor + Pressure-3 sensor + spare PCF8574 expander GPIO P4. |
+| **CN5**  | R, top    | HYDRAULIC_2 (0–5V) | CMD_STEER_PWM_IN (ex-PRESSURE_3) | EXP_P4 | Hydraulic-2 pressure sensor + steering-angle PWM input + spare PCF8574 expander GPIO P4. **Pin 2 is silkscreened `PRES3` but is NOT a pressure sensor** — no pressure sensor is fitted there; GPIO 1 was repurposed 2026-07-31 to read the MT6701 steering-angle sensor's PWM output via MCPWM capture. See "As-built pin use — board `84d6dd0`" in `pinout-esp32-s3.md`. |
 | **CN6**  | L, top    | PEDAL_BRAKE (0–5V) | PEDAL_ACC (0–5V) | +3V3 | Both pedal-position signals + 3V3 power output to whichever sensor needs it. (Carries PWR_FLAG on +3V3.) |
 | **CN7**  | L         | PRESSURE_1 (0–10V) | PRESSURE_2 (0–10V) | MOTOR_HALL_1 (5V) | Pressure-1 & Pressure-2 sensors + Motor hall 1. (Halls span CN2 + CN7 because GPIO 16 sits on the left side of the ESP32; see `history.md` 2026-05-08 for why no swap.) |
 | **CN8**  | L         | SDC_IN_LOW_SIDE | `BUZZ` **(old name)** = CMD_COMPRESSOR_PWM (3V3) | CMD_STEER_DIR (3V3) | Pin 1 = SDC chain return (Q3 drain). **Pin 2 is silkscreened `BUZZ` but is NOT a buzzer** — the net was repurposed to drive the EBS compressor MOSFET's gate (GPIO 3). It carries a 3.3 V logic signal, not power: the compressor MOSFET is external, added after the board was built, and this pin feeds its gate resistor. Pin 3 = Cytron H-bridge direction. |
