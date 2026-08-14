@@ -723,7 +723,7 @@ Outstanding doubts to resolve:
   (10 kΩ pulldown). So the intended driver is **ESP32 GPIO 15**, already wired — no PCF8574 involved,
   nothing to assign. The 10 kΩ pulldown means the power-on default is LOW = COM→NC = pedal
   pass-through, the safe state.
-  **Remaining action is firmware only:** nothing in `~/repos/hardware/kart-medulla` drives GPIO 15 (confirmed
+  **Remaining action is firmware only:** nothing in `~/repos/kart-medulla` drives GPIO 15 (confirmed
   by grep, 2026-07-10). Manual/autonomous safety is still done by zeroing the DAC output when
   `mission == MISSION_MANUAL` (`main/main.c:106`). Firmware must drive GPIO 15 HIGH to hand throttle
   to the DAC, LOW otherwise. Verify polarity against the MAX4660 datasheet once implemented.
@@ -879,7 +879,7 @@ entry); why the commit's own verification and ERC both missed it is in `.agents/
    - **`BUF` = 0**, unbuffered VREF. Buffered mode accepts VREF only over 0.040 V to VDD − 0.040 V,
      and VREF here *is* VDD, outside that window. Unbuffered accepts 0 to VDD at 165 kΩ.
 
-   Neither is checked in firmware yet — `~/repos/hardware/kart-medulla` has no MCP4922 write implemented at
+   Neither is checked in firmware yet — `~/repos/kart-medulla` has no MCP4922 write implemented at
    all, which is the separate "throttle has no working output" item in the board README.
 
 ### Give the pressure-command amplifier full 0–10 V swing on the next board revision #ruben
@@ -1096,7 +1096,7 @@ Remaining PCB work before running DRC and exporting fab files. Order matters —
 ## In Progress
 
 - [ ] **New kart-medulla PCB version for ESP32-S3-N16R8** #gabriel #eduardo — overall board revision tracking the schematic + layout work above
-- [ ] **Wire reverse gear to ESP32 + remote joystick control** #eduardo #gabriel — hardware side (BSS123 + REVERSE_WIRE connector pin); firmware side tracked in `~/repos/hardware/kart-medulla` (firmware repo)
+- [ ] **Wire reverse gear to ESP32 + remote joystick control** #eduardo #gabriel — hardware side (BSS123 + REVERSE_WIRE connector pin); firmware side tracked in `~/repos/kart-medulla` (firmware repo)
 
 ## Done
 
@@ -1210,7 +1210,7 @@ below.** All thirty pins are assigned; there is no free slot anywhere.
 
 ### Notes for the next person (as moved)
 
-- `~/repos/hardware/kart-docs` is the source-of-truth for kart facts (sensor parts, voltage rails, mechanical). Grep there before asking.
+- `~/repos/kart-docs` is the source-of-truth for kart facts (sensor parts, voltage rails, mechanical). Grep there before asking.
 - `history.md` has a running log of decisions/gotchas (grep, don't read in full).
 - `.agents/error-log.md` has prevention rules from past mistakes — **especially the rule that `no_connect` markers mean "designer chose not to wire, on this board" and not "pin doesn't exist on silicon", and the rule to grep each `isolated_pin_label` before classifying it as "legitimate"**.
 - The schematic is on a single sheet (`kart-medulla_P1.kicad_sch`). Hierarchical labels are not used; if you split into multiple sheets later, convert the relevant globals to hierarchical labels and add sheet pins.
