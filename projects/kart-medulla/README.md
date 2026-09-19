@@ -47,7 +47,9 @@ Rework outstanding on this board:
   the MCPWM capture peripheral rather than read as an analog voltage. Recorded here 2026-07-31; the
   reasoning and the wiring context are on the kart-docs medulla page.
 - **Check for abandoned throttle-bypass rework.** The working throttle path uses MCP4922 channel A:
-  its SPI output was verified on the bench and the kart accelerated on command under remote control.
+  a 2026-08-08 workshop video records it working with the “new DAC chip at 5 volts,” and the kart
+  later accelerated on command under remote control. The record does not establish whether the
+  original chip was faulty or exactly when it was changed.
   The temporary GPIO 38 filtered-PWM firmware path was reverted. Inspect this physical board for a
   leftover flying wire from GPIO 38 toward U14 pin 8 and confirm U13 pin 14 was not left lifted; remove
   the wire and restore the pin if either change was ever soldered. See the firmware repo's `tasks.md`.
