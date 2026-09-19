@@ -46,10 +46,11 @@ Rework outstanding on this board:
   series, which is far too high-impedance for the ADC — that is why this pin is decoded as PWM with
   the MCPWM capture peripheral rather than read as an analog voltage. Recorded here 2026-07-31; the
   reasoning and the wiring context are on the kart-docs medulla page.
-- **Throttle has no working output.** The MCP4922 SPI write was never implemented in firmware. If the
-  filtered-PWM bypass is taken instead of fixing the firmware, that adds rework here: U13 pin 14
-  lifted, and an RC network from the dev board's GPIO 38 to U14 pin 8. Decision tracked in the
-  firmware repo's `tasks.md`.
+- **Check for abandoned throttle-bypass rework.** The working throttle path uses MCP4922 channel A:
+  its SPI output was verified on the bench and the kart accelerated on command under remote control.
+  The temporary GPIO 38 filtered-PWM firmware path was reverted. Inspect this physical board for a
+  leftover flying wire from GPIO 38 toward U14 pin 8 and confirm U13 pin 14 was not left lifted; remove
+  the wire and restore the pin if either change was ever soldered. See the firmware repo's `tasks.md`.
 
 ## Migration status (2026-05-03)
 Converted via [ConvertEDA](https://converteda.com) from EasyEDA Pro 2.2.47.7. KiCad 10.0.1's built-in `Import Non-KiCad Project → EasyEDA Pro` silently failed on this `.epro` (produced empty stubs) — likely a format-version lag against EasyEDA Pro 2.2.47.x. ConvertEDA handled it cleanly.
