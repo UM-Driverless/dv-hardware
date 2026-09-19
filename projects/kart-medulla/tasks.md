@@ -214,6 +214,20 @@ patched physically while the PCB is fixed. Record what was actually cut and jump
 list in [`README.md`](README.md) — a patched board no longer matches the hash printed on it, and that
 list is the only thing that will say so.
 
+With the board unpowered, verify the physical path before reworking it:
+
+- Buzz CN10.2 against U1 pin 1 (the amplified output) and U1 pin 3 (the DAC-side input).
+- Confirm U1 is populated.
+- After the cut-and-jumper, confirm continuity from U13 pin 10 to U1 pin 3 and from U1 pin 1 to
+  CN10.2, then confirm no continuity across the cut.
+
+**Status checked against the Driverless Telegram group on 2026-09-19: no repair or validation is
+recorded.** On 2026-07-26 Rubén wrote that controlled braking through the proportional valve still
+had to be investigated. On 2026-07-31 Adri wrote that only the valve's ground and 24 V supply were
+connected. The photos and videos posted around those workshop sessions show wiring, compressor and
+steering work, but no DAC-to-amplifier jumper or controlled-brake test. Treat this task as open until
+the physical continuity checks below pass and the rework is entered in `README.md`.
+
 ### Consider a flyback diode on the PCB, at the compressor MOSFET's output #ruben
 
 Raised 2026-07-31 by Rubén. The compressor motor is inductive, so its switching MOSFET needs a
@@ -918,27 +932,6 @@ against a pressure sensor, never from an open-loop DAC code.
 
 Either way, re-check the combined budget afterwards against item 4 of the fix task above (the DAC's
 own full-scale limit is a second, smaller shortfall on the same signal, and the two add).
-
-### Check whether the assembled medulla-v1 board has the valve-command bug too #ruben
-
-Raised 2026-07-30. Two minutes with a multimeter; do it before assuming the kart's brake command is
-fine or that it needs rework. The bug above was introduced in the KiCad cleanup on 2026-05-08, *after*
-the EasyEDA export that the assembled board descends from — and the EasyEDA design had the connector on
-the amplified net. So the built board is **probably** correct, but that is an inference, and the
-connector numbering differs between the two designs (EasyEDA had CN1–CN8, KiCad has CN1–CN10) so it
-does not even say which physical terminal carries the valve command.
-
-With the board unpowered, buzz the terminal wired to the Festo VPPM against U1 (LM358) pin 1 and
-against U1 pin 3:
-
-- **Continuity to pin 1** (op-amp output) — built board is correct, only the KiCad design needs fixing.
-- **Continuity to pin 3** (op-amp input / DAC output) — built board has the bug. Rework: cut the track
-  leaving that terminal, run a wire from the terminal to U1 pin 1.
-- **Also confirm U1 is actually populated.** If the amplifier was never fitted, the real chain differs
-  from what either design file says and this whole analysis needs redoing against the hardware.
-
-Record the result in `history.md` either way — right now nothing on disk says which design was
-fabricated, which is the same gap already flagged as contradictions 7–8 in the root `tasks.md`.
 
 ### Correct the brake-command documentation (it describes the as-built 0–5 V path as intended) #ruben
 

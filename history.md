@@ -2808,3 +2808,23 @@ Added REQ-12 to `projects/kart-medulla/requirements.md` and added the task to `p
 **SDC_STATUS pin and circuit.** (Decision, following the "Do the thing" rule). The 12 V from `SDC_IN_LOW_SIDE` (drain of Q3) will pass through a 10 kΩ series / 3.3 kΩ shunt voltage divider to reach ~2.97 V, well within the ESP32's 3.3 V logic levels. It is routed to **GPIO 15**, which became unconstrained after the MAX4660 throttle mux was deleted.
 
 **Pinout documentation identity crisis.** The main pinout doc (`docs/pinout-esp32-s3.md`) suffered from being a mix of the v1 built board, the v2 schematic in progress, and a separate v2 proposal table, which led to v2 signals being mistakenly mixed into the v1 table. Fixed by splitting it into two clear, explicit documents: `pinout-kart-medulla-v1.md` (the original board, as built) and `pinout-kart-medulla-v2.md` (the authoritative v2 schematic). The files were also renamed to reflect the board rather than just the microcontroller.
+
+## 2026-09-19 — Telegram audit found no evidence that the CN10.2 brake-command fault was repaired
+
+The Driverless Telegram group was searched for DAC, MCP4922, CN10, brake, valve, voltage, soldering,
+jumper and related terms, then every message and attachment from 2026-07-01 through 2026-08-31 was
+reviewed. The group records assembly and tests of the compressor, steering, shutdown and dashboard,
+but it does not record a cut, jumper, continuity measurement or controlled-brake test for the
+MCP4922 → LM358 → CN10.2 path.
+
+The latest relevant text points the other way. On 2026-07-26, message 11920, Rubén wrote that the
+proportional valve still had to be investigated for controlled braking. On 2026-07-31, messages
+11951–11953, Adri said the only connected proportional-valve wires were ground and 24 V. The media
+posted around those sessions shows general wiring and valve documentation, not the missing signal
+rework. This does not prove nobody made an undocumented repair later, but it means the board must be
+treated as unfixed until the physical continuity checks pass.
+
+The old task "Check whether the assembled medulla-v1 board has the valve-command bug too" was
+removed because later provenance already established that the existing board was fabricated from
+commit `84d6dd0`, before the design fix in `f68cc1f`. Its useful multimeter check remains part of the
+active "Patch the fabricated board for the CN10.2 brake fix" task.
