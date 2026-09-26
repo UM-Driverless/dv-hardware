@@ -2833,3 +2833,11 @@ active "Patch the fabricated board for the CN10.2 brake fix" task.
 ## 2026-09-26 — Connector reference lists individual terminals
 
 Reformatted `projects/kart-medulla/docs/pinout-cn-connectors.md` into 30 rows, one per terminal, with the printed board label and individual signal/function. Connector membership does not imply related signals or a shared cable. Moved the long CN10 circuit explanation below the table to keep the published kart-docs page readable. No pin assignments changed.
+
+## 2026-09-26 — The compressor MOSFET module is stuck onto the assembled board
+
+Gabriel reported that on the assembled board the compressor MOSFET module is a separate module stuck
+onto the PCB, not part of it. Nothing in this repo recorded where the module physically sits. Added to
+REQ-11 in `projects/kart-medulla/requirements.md`: v2 moves that circuit into the board's own copper, so
+the next board is built without a module stuck to it. No new requirement: REQ-11 already asked for the
+compressor switching stage on the board, and this is where it comes from.

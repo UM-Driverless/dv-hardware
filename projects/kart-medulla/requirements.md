@@ -37,7 +37,8 @@ rewording here does not break the reference.
   (compressor, heavy actuators) and Signal GND (ESP32, logic). `[v2]` [Why](#req-09)
 - **REQ-10 — Bring at least two spare GPIOs out to terminals.** Unassigned, PWM-capable,
   non-strap. `[v2]` [Why](#req-10)
-- **REQ-11 — Switch the EBS compressor on the board, motor current included.** `[v2]`
+- **REQ-11 — Switch the EBS compressor on the board, motor current included.** The compressor
+  MOSFET module stuck onto the assembled board today becomes part of the PCB. `[v2]`
   [Why](#req-11)
 - **REQ-12 — Read the final state of the shutdown circuit.** 12 V digital input from the shutdown MOSFET. `[v2]` [Why](#req-12)
 
@@ -208,6 +209,11 @@ CN3.2; the first is the intended `CMD_COMPRESSOR_PWM`.
 Reconfirmed 2026-07-31: integrate it, the less wiring the better. V2 carries the MOSFET, its gate
 drive, the flyback diode and the bulk capacitance, copying the already-validated module circuit
 (bridge rectifier removed, 330 Ω optocoupler LED resistor for 3.3 V drive).
+
+**Where that module is today.** On the assembled board the compressor MOSFET module is not part of
+the PCB: it is a separate module stuck onto the board (Gabriel, 2026-09-26).
+That is the part v2 removes. Its circuit moves into the board's own copper, so the next board is
+built without a module stuck to it.
 
 This is a power-section change before it is a component addition. The assembled board takes `+12V`
 in at CN1 pin 2 and feeds only the on-board regulator for the logic/analog rail, roughly **1 mA,
