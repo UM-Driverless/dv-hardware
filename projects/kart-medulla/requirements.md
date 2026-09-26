@@ -41,8 +41,7 @@ rewording here does not break the reference.
   MOSFET module stuck onto the assembled board today becomes part of the PCB. `[v2]`
   [Why](#req-11)
 - **REQ-12 — Read the final state of the shutdown circuit.** 12 V digital input from the shutdown MOSFET. `[v2]` [Why](#req-12)
-
-- **REQ-13 — Provide CAN (Controller Area Network) communication with an on-board transceiver and bus terminals.** `[v2]` [Why](#req-13)
+- **REQ-13 — Provide CAN (Controller Area Network) communication using an on-board SN65HVD230D powered at 3.3 V, with direct ESP32 logic and CANH/CANL terminals.** `[v2]` [Why](#req-13)
 
 **Explicitly not a requirement:** an ASSI or AS-emergency buzzer. FS-Rules DV 4.5 applies to
 the formula vehicle, not this kart — Rubén, 2026-07-18. The `BUZZER` net name on GPIO 3 /
@@ -287,21 +286,22 @@ Read the final state of the shutdown circuit (the wire that goes to the MOSFET).
 
 ### REQ-13 — Provide CAN communication with an on-board transceiver
 
-Required by Rubén on 2026-09-26; previously only a consideration in the task board. Integrate
+Required by Rubén and Gabriel on 2026-09-26; previously only a consideration in the task board. Integrate
 the physical bus driver/receiver (transceiver) on the PCB, connect it to the ESP32 CAN
 controller signals, and expose CANH/CANL at labelled terminals. A pair of reserved GPIOs
-without a transceiver does not satisfy this requirement. Use a transceiver compatible with
-the available rails and ESP32 3.3 V logic, with the manufacturer's required support circuit.
+without a transceiver does not satisfy this requirement. Use SN65HVD230D powered from
+3.3 V with direct ESP32 TX/RX logic and the manufacturer's required support circuit.
 
 The existing pin plan reserves CAN_RX/CAN_TX; reconcile those assignments with the complete
 next-board pin allocation rather than adding another controller without need. Choose the
 termination arrangement for the actual bus topology; the board must not impose unwanted
-termination when connected between the ends of a bus. The bitrate, peer and transceiver part
-remain to be selected during implementation. Acceptance: transmit and receive frames with a
+termination when connected between the ends of a bus: fit 120 Ω at a bus end and omit it
+on a stub. Allocate CANH/CANL terminals within the complete v2 terminal plan; CAN_TX/CAN_RX
+remain internal connections. The bitrate, peer and message traffic remain to be selected
+with the firmware; the team keeps its CAN message definitions (DBC files) in `~/dv/can/`. Acceptance: transmit and receive frames with a
 known working CAN node at the intended bitrate, with the correct bus termination.
 
-**Component candidates (checked 2026-09-26).** Prefer the stocked **SN65HVD230D** for
-implementation: one 3.3 V supply, direct ESP32 logic, classic CAN up to 1 Mbit/s, and a
+**Component choice (accepted by Rubén 2026-09-26).** Use the stocked **SN65HVD230D**: one 3.3 V supply, direct ESP32 logic, classic CAN up to 1 Mbit/s, and a
 standby input. **SN65HVD232D** is another stocked option without standby or slope control.
 AI Inventory lists 6 and 5 units respectively, both in the Milwaukee components box; this
 is a database count, not a physical recount. See the [SN65HVD230D inventory entry](https://www.notion.so/34a7874731438181a0aaf662a85459e6)
@@ -309,13 +309,14 @@ and [SN65HVD232D entry](https://www.notion.so/34a787473143818cbaaecf594454e500).
 Their shared [TI datasheet](https://www.ti.com/lit/ds/symlink/sn65hvd230.pdf)
 (SLOS346O, pages 1, 4–7) specifies the supply, logic and mode differences.
 
-Keep **TCAN1051GV-Q1** as the 5 V candidate: supply VCC from 5 V and VIO from 3.3 V
+Retain **TCAN1051GV-Q1** as a documented alternative if a later design needs a 5 V supply: supply VCC from 5 V and VIO from 3.3 V
 for direct ESP32 TXD/RXD connections. The **V variant** provides VIO; do not substitute
 a non-V part without reviewing its logic levels. Source:
 [TI datasheet](https://www.ti.com/lit/gpn/TCAN1051GV-Q1).
 
-CANH does not have to reach exactly 3.5 V. CAN receivers detect the difference between
+**Electrical requirement:** meet the CAN differential bus specifications; do not require
+CANH to reach exactly 3.5 V or add a voltage boost for that purpose. CAN receivers detect the difference between
 CANH and CANL; suitable 3.3 V transceivers interoperate with 5 V nodes. TI demonstrates
 this, including SN65HVD230, in [SLLA337](https://e2e.ti.com/cfs-file/__key/communityserver-discussions-components-files/138/SN65HVD234-design-guide.pdf).
-None of these candidates is placed in the schematic yet. Confirm the intended bitrate and bus
+The selected transceiver is not placed in the schematic yet. Confirm the intended bitrate and bus
 conditions during integration and complete the frame test above.

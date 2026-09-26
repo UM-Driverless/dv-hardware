@@ -167,13 +167,14 @@ To decide when drawing it:
 ### Add the CAN transceiver and bus terminals to the next board
 
 Required 2026-09-26 by Rubén; see [REQ-13](requirements.md#req-13). This is no longer an
-optional feasibility question. Select a transceiver compatible with ESP32 3.3 V logic and the
-board rails; integrate its support circuit, CANH/CANL terminals and appropriate termination.
+optional feasibility question. Integrate SN65HVD230D on the 3.3 V rail with direct ESP32
+logic, its support circuit, CANH/CANL terminals and appropriate termination. Allocate the
+terminals within the complete v2 terminal plan.
 The existing plan reserves GPIO 41 for CAN_RX and GPIO 42 for CAN_TX; verify those assignments
 in the complete next-board pin plan. Choose the intended peer and bitrate and verify actual
-frame transmission and reception. Prefer the stocked SN65HVD230D (6 listed in AI Inventory,
+frame transmission and reception. Use the stocked SN65HVD230D (6 listed in AI Inventory,
 Milwaukee components box, checked 2026-09-26); SN65HVD232D (5 listed) is also compatible.
-TCAN1051GV-Q1 remains the 5 V VCC / 3.3 V VIO alternative. Candidate details and sources
+TCAN1051GV-Q1 remains the 5 V VCC / 3.3 V VIO alternative. Component choice and sources
 are in REQ-13; none is placed yet. Bare CAN_TX/CAN_RX terminals are not a substitute
 for the on-board driver.
 

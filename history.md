@@ -2893,3 +2893,27 @@ it returned 11 records with no next page. It also found MCP2561T-E/SN (6) and
 MCP2551-E/SN (20), but their suitability was not assessed because the stocked TI parts
 already meet the supply/interface need. Counts were not physically checked. No purchase,
 schematic change or CAN bench validation was performed.
+
+## 2026-09-26 — CAN becomes a v2 requirement (REQ-13)
+
+Gabriel decided that v2 carries a CAN interface, answering Rubén's 2026-07-31 question in
+`projects/kart-medulla/tasks.md` ("Consider putting CAN on the board"). Added REQ-13 to
+`projects/kart-medulla/requirements.md`: 3.3 V transceiver on the board, CANH and CANL on
+terminals, termination decided by where the bus runs. The two ESP32 pins for `CAN_RX`/`CAN_TX` were
+already held in the pinout docs, so no pin moves. What the medulla will carry over CAN is still open
+and is written as open in the requirement, so nobody later reads it as decided. The task stays on the
+board with a note pointing to REQ-13, since the part choice, terminals and termination are still to do.
+
+
+## 2026-09-26 — Select the stocked 3.3 V CAN transceiver for v2
+
+Rubén accepted the 3.3 V CAN explanation and requested the PCB requirement update.
+REQ-13 now selects SN65HVD230D powered at 3.3 V with direct ESP32 logic. It explicitly
+requires compliant differential bus signaling rather than an exact 3.5 V CANH level.
+SN65HVD232D and TCAN1051GV-Q1 remain documented alternatives. Integration and physical
+frame validation remain open in the board task; no schematic or PCB files changed.
+
+Merged origin/main commit 2a369ae, which independently recorded Gabriel's CAN requirement,
+into dev. Resolved overlapping documentation by keeping one REQ-13, the inventory findings,
+the terminal-allocation and termination constraints, and the open firmware message definition.
+Preserved both branches' history entries.
