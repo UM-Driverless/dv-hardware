@@ -41,6 +41,8 @@ rewording here does not break the reference.
   MOSFET module stuck onto the assembled board today becomes part of the PCB. `[v2]`
   [Why](#req-11)
 - **REQ-12 — Read the final state of the shutdown circuit.** 12 V digital input from the shutdown MOSFET. `[v2]` [Why](#req-12)
+- **REQ-13 — Connect the board to a CAN bus.** 3.3 V transceiver on the board, CANH and CANL
+  on terminals. `[v2]` [Why](#req-13)
 
 **Explicitly not a requirement:** an ASSI or AS-emergency buzzer. FS-Rules DV 4.5 applies to
 the formula vehicle, not this kart — Rubén, 2026-07-18. The `BUZZER` net name on GPIO 3 /
@@ -250,3 +252,26 @@ traced first — see the compressor task in [`tasks.md`](tasks.md).
 ### REQ-12 — Read the final state of the shutdown circuit
 
 Read the final state of the shutdown circuit (the wire that goes to the MOSFET). The 12 V signal needs a voltage divider or optocoupler to step it down to a 3.3 V logic input so the ESP32 can read the emergency state.
+
+<a id="req-13"></a>
+
+### REQ-13 — Connect the board to a CAN bus
+
+Decided 2026-09-26 by Gabriel, answering the question Rubén raised on 2026-07-31: is there room
+for CAN on the board? The assembled board has no CAN interface; on the kart today, CAN lives on
+the Orin carrier board. V2 carries one.
+
+- **The pins cost nothing.** The pinout docs already hold two ESP32 pins for `CAN_RX` and
+  `CAN_TX`. Neither is ADC-capable and neither is a strap pin, so no other signal loses its pin,
+  and the GPIO expander is not involved.
+- **A 3.3 V transceiver on the board**, SN65HVD230 or TCAN332 class. New part, new footprint.
+  `CAN_TX` and `CAN_RX` only run from the ESP32 to the transceiver, so they never need terminals.
+- **Two terminal pins for CANH and CANL.** This is the real cost: terminal positions are scarce.
+  Allocate them as part of the single v2 pin and terminal allocation (see "Decide the medulla-v2
+  pinout as one allocation" in [`tasks.md`](tasks.md)), not on their own.
+- **Termination.** 120 Ω between CANH and CANL if the medulla is one end of the bus, nothing if it
+  sits on a stub. Which one depends on where the bus runs on the kart.
+
+**Not settled yet:** what the medulla will send or receive over CAN. The team keeps its CAN
+message definitions (DBC files) in `~/dv/can/`. This requirement is the interface; the traffic is
+decided with the firmware.

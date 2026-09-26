@@ -2841,3 +2841,13 @@ onto the PCB, not part of it. Nothing in this repo recorded where the module phy
 REQ-11 in `projects/kart-medulla/requirements.md`: v2 moves that circuit into the board's own copper, so
 the next board is built without a module stuck to it. No new requirement: REQ-11 already asked for the
 compressor switching stage on the board, and this is where it comes from.
+
+## 2026-09-26 — CAN becomes a v2 requirement (REQ-13)
+
+Gabriel decided that v2 carries a CAN interface, answering Rubén's 2026-07-31 question in
+`projects/kart-medulla/tasks.md` ("Consider putting CAN on the board"). Added REQ-13 to
+`projects/kart-medulla/requirements.md`: 3.3 V transceiver on the board, CANH and CANL on
+terminals, termination decided by where the bus runs. The two ESP32 pins for `CAN_RX`/`CAN_TX` were
+already held in the pinout docs, so no pin moves. What the medulla will carry over CAN is still open
+and is written as open in the requirement, so nobody later reads it as decided. The task stays on the
+board with a note pointing to REQ-13, since the part choice, terminals and termination are still to do.

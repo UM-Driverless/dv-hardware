@@ -253,6 +253,10 @@ To decide when drawing it:
 
 Raised 2026-07-31 by Rubén: is there pin budget for CAN, and could the GPIO expander free some up?
 
+**Decided 2026-09-26 by Gabriel: CAN goes on v2.** It is now [REQ-13](requirements.md#req-13).
+What is left here is the work: pick the transceiver, allocate the CANH/CANL terminals and decide
+termination.
+
 **The GPIOs are already reserved — this was answered before the question was asked.**
 `docs/pinout-kart-medulla-v1.md` holds **GPIO 41 for `CAN_RX` and GPIO 42 for `CAN_TX`**, marked
 *"Held for future CAN … medulla has no transceiver in this rev"*. Neither is ADC-capable and neither
