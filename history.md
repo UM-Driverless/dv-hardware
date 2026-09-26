@@ -2828,3 +2828,8 @@ The old task "Check whether the assembled medulla-v1 board has the valve-command
 removed because later provenance already established that the existing board was fabricated from
 commit `84d6dd0`, before the design fix in `f68cc1f`. Its useful multimeter check remains part of the
 active "Patch the fabricated board for the CN10.2 brake fix" task.
+
+
+## 2026-09-26 — Connector reference lists individual terminals
+
+Reformatted `projects/kart-medulla/docs/pinout-cn-connectors.md` into 30 rows, one per terminal, with the printed board label and individual signal/function. Connector membership does not imply related signals or a shared cable. Moved the long CN10 circuit explanation below the table to keep the published kart-docs page readable. No pin assignments changed.
