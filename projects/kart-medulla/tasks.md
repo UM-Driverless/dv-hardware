@@ -171,8 +171,11 @@ optional feasibility question. Select a transceiver compatible with ESP32 3.3 V 
 board rails; integrate its support circuit, CANH/CANL terminals and appropriate termination.
 The existing plan reserves GPIO 41 for CAN_RX and GPIO 42 for CAN_TX; verify those assignments
 in the complete next-board pin plan. Choose the intended peer and bitrate and verify actual
-frame transmission and reception. No transceiver part has been selected by this requirement
-update, and bare CAN_TX/CAN_RX terminals are not a substitute for the on-board driver.
+frame transmission and reception. Prefer the stocked SN65HVD230D (6 listed in AI Inventory,
+Milwaukee components box, checked 2026-09-26); SN65HVD232D (5 listed) is also compatible.
+TCAN1051GV-Q1 remains the 5 V VCC / 3.3 V VIO alternative. Candidate details and sources
+are in REQ-13; none is placed yet. Bare CAN_TX/CAN_RX terminals are not a substitute
+for the on-board driver.
 
 ### Restore the third pressure channel on a new pin (V2) #ruben
 

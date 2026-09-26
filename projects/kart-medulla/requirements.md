@@ -299,3 +299,23 @@ termination arrangement for the actual bus topology; the board must not impose u
 termination when connected between the ends of a bus. The bitrate, peer and transceiver part
 remain to be selected during implementation. Acceptance: transmit and receive frames with a
 known working CAN node at the intended bitrate, with the correct bus termination.
+
+**Component candidates (checked 2026-09-26).** Prefer the stocked **SN65HVD230D** for
+implementation: one 3.3 V supply, direct ESP32 logic, classic CAN up to 1 Mbit/s, and a
+standby input. **SN65HVD232D** is another stocked option without standby or slope control.
+AI Inventory lists 6 and 5 units respectively, both in the Milwaukee components box; this
+is a database count, not a physical recount. See the [SN65HVD230D inventory entry](https://www.notion.so/34a7874731438181a0aaf662a85459e6)
+and [SN65HVD232D entry](https://www.notion.so/34a787473143818cbaaecf594454e500).
+Their shared [TI datasheet](https://www.ti.com/lit/ds/symlink/sn65hvd230.pdf)
+(SLOS346O, pages 1, 4–7) specifies the supply, logic and mode differences.
+
+Keep **TCAN1051GV-Q1** as the 5 V candidate: supply VCC from 5 V and VIO from 3.3 V
+for direct ESP32 TXD/RXD connections. The **V variant** provides VIO; do not substitute
+a non-V part without reviewing its logic levels. Source:
+[TI datasheet](https://www.ti.com/lit/gpn/TCAN1051GV-Q1).
+
+CANH does not have to reach exactly 3.5 V. CAN receivers detect the difference between
+CANH and CANL; suitable 3.3 V transceivers interoperate with 5 V nodes. TI demonstrates
+this, including SN65HVD230, in [SLLA337](https://e2e.ti.com/cfs-file/__key/communityserver-discussions-components-files/138/SN65HVD234-design-guide.pdf).
+None of these candidates is placed in the schematic yet. Confirm the intended bitrate and bus
+conditions during integration and complete the frame test above.

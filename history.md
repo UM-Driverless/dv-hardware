@@ -2875,3 +2875,21 @@ reserved CAN_RX/CAN_TX and proposed considering a transceiver. Added REQ-13 and 
 task to implementation, covering the transceiver, terminals, termination and a real send/receive
 check. Updated the requirement and task documentation and this history; schematic and PCB
 files were not changed.
+
+
+## 2026-09-26 — CAN transceiver candidates and live AI Inventory check
+
+Recorded TCAN1051GV-Q1 as a 5 V bus-supply / 3.3 V logic-supply candidate in kart-medulla
+REQ-13. The V variant provides the separate VIO supply needed for direct ESP32 logic.
+The live Notion AI Inventory query returned SN65HVD230D (6 units) and SN65HVD232D
+(5 units), both marked In Stock in the Milwaukee components box. Their TI datasheet
+confirms single-supply 3.3 V operation and classic CAN support up to 1 Mbit/s. Prefer
+SN65HVD230D from stock; the board task now carries that recommendation. TI SLLA337
+confirms interoperability with 5 V nodes, so an exact 3.5 V CANH level is not required.
+Sources and individual inventory links are saved in [REQ-13](projects/kart-medulla/requirements.md#req-13).
+
+The query searched Name for CAN, MCP25, TJA and HVD, and Description for transceiver;
+it returned 11 records with no next page. It also found MCP2561T-E/SN (6) and
+MCP2551-E/SN (20), but their suitability was not assessed because the stocked TI parts
+already meet the supply/interface need. Counts were not physically checked. No purchase,
+schematic change or CAN bench validation was performed.
