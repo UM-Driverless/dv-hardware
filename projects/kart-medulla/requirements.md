@@ -25,7 +25,7 @@ rewording here does not break the reference.
 - **REQ-02 — Read 3 motor hall sensors.** 5 V digital, level-translated to 3.3 V. `[built]`
   [Why](#req-02)
 - **REQ-03 — Read 3 Festo pressure sensors.** 0–10 V analog. `[v2]` [Why](#req-03)
-- **REQ-04 — Write the kart accelerator command.** 5 V analog. `[built]` [Why](#req-04)
+- **REQ-04 — Write and select the kart accelerator command across 0–5 V, with a correctly rated replacement for MAX4660 and minimal supporting circuitry.** `[v2]` [Why](#req-04)
 - **REQ-05 — Write the Festo brake-valve command, across its full 0–10 V range.** `[v2]`
   [Why](#req-05)
 - **REQ-06 — Cut the shutdown circuit on command.** `[built]` [Why](#req-06)
@@ -41,6 +41,8 @@ rewording here does not break the reference.
   MOSFET module stuck onto the assembled board today becomes part of the PCB. `[v2]`
   [Why](#req-11)
 - **REQ-12 — Read the final state of the shutdown circuit.** 12 V digital input from the shutdown MOSFET. `[v2]` [Why](#req-12)
+
+- **REQ-13 — Provide CAN (Controller Area Network) communication with an on-board transceiver and bus terminals.** `[v2]` [Why](#req-13)
 
 **Explicitly not a requirement:** an ASSI or AS-emergency buzzer. FS-Rules DV 4.5 applies to
 the formula vehicle, not this kart — Rubén, 2026-07-18. The `BUZZER` net name on GPIO 3 /
@@ -93,7 +95,35 @@ leave ADC1, and the steering PWM is the one that costs nothing to move.
 
 ### REQ-04 — Write the kart accelerator command
 
-5 V analog. From the original brief; met by the assembled board.
+The original brief requires an analog accelerator command. Rubén confirmed the full signal
+range is **0–5 V** on 2026-09-26 and requested a replacement for MAX4660 on the next PCB,
+using the simplest suitable circuit. The current board's ability to produce throttle does
+not establish correct isolation between the pedal and electronic command.
+
+The replacement must pass the entire 0–5 V signal range from the board's actual supply rails,
+accept ESP32 3.3 V control levels, and isolate the unselected source. Select a part whose
+manufacturer guarantees these conditions; prefer direct compatibility over extra supplies,
+level shifters or other circuitry added solely to accommodate the chip. Check supply tolerance,
+control thresholds, power-off behavior and exposed-pad connection before choosing its footprint.
+No replacement part has been selected yet.
+
+The v1 design (`84d6dd0`) supplies MAX4660 U14 from +5V_REG with V− grounded. Its
+[datasheet, page 4](https://www.analog.com/MAX4660/datasheet#page=4) specifies a minimum
+single supply of +9 V. Page 6 requires its exposed pad to connect to V+ or remain unconnected;
+v1 assigns that pad to ground. The assembled board's rework and actual pad contact remain
+unverified. These design mismatches do not prove the cause of the reported pedal interference.
+
+An earlier 2026-08-08 plan removed U14 because the mechanical panel switch already selects
+pedal versus medulla output. The replacement request reopens that decision: compare a suitable
+single selector chip with that simpler deletion before implementation, and reconcile the
+existing v2 drawing and GPIO allocation. Do not silently retain MAX4660 or assume the old
+deletion plan satisfies the new request.
+
+Acceptance: on the assembled next board, sweep the pedal signal and the medulla electronic
+throttle command across 0–5 V independently. The motor-controller command output must follow
+only the selected source. With the selector in autonomous (medulla command) position and the
+medulla command held at 0 V, moving the pedal must not raise the output. Verify the defined safe behavior during reset and power loss
+with propulsion isolated, as required by REQ-08.
 
 <a id="req-05"></a>
 
@@ -159,9 +189,10 @@ powered whenever the kart is.
 
 The board treats its actuators inconsistently, and steering is on the wrong side of the split:
 
-- **Throttle is safe.** It passes through the MAX4660 mux (U14), whose `SELECT_THROTTLE` line
-  carries a 10 kΩ pulldown (R32) to GND. An ESP32 that is unbooted, resetting, crashed or removed
-  leaves the mux in manual passthrough — the driver's pedal — by physics.
+- **Throttle safety remains to be verified.** R32 pulls the selector control low, but this
+  does not guarantee pedal passthrough when the analog switch is unpowered or supplied outside
+  its specified range. REQ-04 replaces the invalid MAX4660 supply arrangement. Verify the
+  complete path, including the mechanical panel switch, during reset and power loss.
 - **The compressor is safe.** Its MOSFET gate has a 100 kΩ pulldown holding it off through boot.
 - **Steering is not.** `CMD_STEER_PWM` and `CMD_STEER_DIR` run from the ESP32 to the Cytron with
   nothing in between and no pull resistors, so whenever the ESP32 is not actively driving them
@@ -250,3 +281,21 @@ traced first — see the compressor task in [`tasks.md`](tasks.md).
 ### REQ-12 — Read the final state of the shutdown circuit
 
 Read the final state of the shutdown circuit (the wire that goes to the MOSFET). The 12 V signal needs a voltage divider or optocoupler to step it down to a 3.3 V logic input so the ESP32 can read the emergency state.
+
+
+<a id="req-13"></a>
+
+### REQ-13 — Provide CAN communication with an on-board transceiver
+
+Required by Rubén on 2026-09-26; previously only a consideration in the task board. Integrate
+the physical bus driver/receiver (transceiver) on the PCB, connect it to the ESP32 CAN
+controller signals, and expose CANH/CANL at labelled terminals. A pair of reserved GPIOs
+without a transceiver does not satisfy this requirement. Use a transceiver compatible with
+the available rails and ESP32 3.3 V logic, with the manufacturer's required support circuit.
+
+The existing pin plan reserves CAN_RX/CAN_TX; reconcile those assignments with the complete
+next-board pin allocation rather than adding another controller without need. Choose the
+termination arrangement for the actual bus topology; the board must not impose unwanted
+termination when connected between the ends of a bus. The bitrate, peer and transceiver part
+remain to be selected during implementation. Acceptance: transmit and receive frames with a
+known working CAN node at the intended bitrate, with the correct bus termination.

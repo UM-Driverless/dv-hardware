@@ -14,107 +14,22 @@ The board must read the final state of the shutdown circuit.
 - **Circuit**: Voltage divider. 10 kΩ series resistor from `SDC_IN_LOW_SIDE`, 3.3 kΩ shunt resistor to GND.
 - **Output net**: `SDC_STATUS` (3.3 V logic level), routed to ESP32 GPIO 15.
 
-### medulla-v2: replace the throttle mux so manual mode survives an unpowered board #ruben
+### Select a correct 0–5 V replacement for MAX4660 and reconcile the selector design
 
-Raised 2026-08-08. Full evidence in `history.md`, entry "the throttle mux does NOT pass the pedal
-through with the board unpowered".
+Required 2026-09-26 by Rubén; see [REQ-04](requirements.md#req-04).
+Choose the simplest part/circuit that meets the signal, supply, logic-level and isolation
+requirements. Verify the manufacturer datasheet and footprint, then update the next-board
+schematic, layout and pin allocation. No chip is selected and no hardware repair is claimed.
 
-Two faults were found. Fault 2 is fixed by deleting the mux; fault 1 is **accepted, not fixed** —
-see the mode-sense decision below.
+The 2026-08-08 plan deleted U14 and R32 because the mechanical panel switch already selects
+the throttle source. The latest replacement request reopens that choice. Compare replacement
+with that existing deletion design before placing a redundant selector; retain the mechanical
+switch's independent manual control. Check the GPIO 15 allocation against REQ-12 if an
+on-board selector is retained. Do not apply next-board changes to the archived v1 design.
 
-1. **The board cannot tell whether the kart is in autonomous or manual mode.** No net carries the
-   kart's mode-switch position. `SELECT_THROTTLE` (GPIO 15 → U14 pin 6) is an output; firmware knows
-   only what it last wrote. If the driver flips to manual while firmware still believes it is
-   autonomous, nothing detects the mismatch.
-2. **U14 (MAX4660) does not pass the pedal through when the medulla is unpowered.** It is a CMOS
-   switch: at V+ = 0 V both channel MOSFETs are off and only ESD diodes remain, so the pedal is
-   disconnected from the motor electronics and instead backfeeds the dead `+5V_REG` rail. "Normally
-   closed" in the datasheet means closed at logic 0 **with power applied**. The board was designed
-   believing the opposite.
-
-Related and unfixed: U14 runs from `+5V_REG` against a +9 V datasheet minimum (blocker in the
-2026-07-31 audit item below). Both go away if the part goes away.
-
-**Decided 2026-08-08, after Rubén described the kart-side wiring:** the panel switch is a **DPDT**
-that already selects the throttle source reaching the ESC (pole 1) and breaks the Cytron-to-
-steering-motor cable (pole 2), both on metal contacts, downstream of this board. So U14 is a
-second selector in series doing a job that is already done, by a part that does it better —
-the switch works with everything unpowered and no firmware can reach it.
-
-**The fix is deletion, not replacement.** In v2:
-
-- **Remove U14 (MAX4660)** and its supply. The medulla always outputs its autonomous throttle
-  command on CN10.1; the panel switch decides whether anything listens. This also closes the
-  "U14 supplied at 5 V against a 9 V minimum" blocker, and frees GPIO 15.
-- **No mode-sense input. Decided 2026-08-08 by Rubén.** The ESP32 will not know whether the kart is
-  in autonomous or manual mode, and fault 1 above is accepted rather than fixed.
-
-  Two reasons. First, there is nowhere to take the signal from: the panel switch is a DPDT and both
-  poles are committed, pole 1 selecting the throttle source reaching the ESC and pole 2 breaking the
-  Cytron-to-steering-motor cable on M+. Pole 2's unused throw cannot be reused, because its common
-  carries motor current and a contact needs both terminals. Getting a mode signal would mean
-  replacing the switch with a 3PDT or one carrying a ganged auxiliary contact. Second, it is not
-  strictly needed: the switch is the safety mechanism, it is a metal contact, and it works with the
-  whole board dead, so no firmware fault can drive the kart while a human is in manual. Firmware
-  knowing the mode would only be a convenience.
-
-  **What is given up, so that nobody rediscovers it as a surprise.** Firmware knows only what it last
-  wrote. Telemetry cannot distinguish a manual lap from an autonomous one. A controller keeps
-  integrating against a plant that is not listening, so re-engaging autonomous can deliver a
-  saturated command as a step — firmware must zero its integrators when a mission starts rather than
-  relying on a mode transition it cannot see. And the brake command stays live in manual: per
-  `kart-docs` `wiring.yaml:121`, `CMD_BRAKE_10V` runs from the LM358 output straight to the Festo
-  VPPM setpoint with the mode switch nowhere in that path, so a stale or faulty pressure command
-  applies real brake pressure while a human is driving. **The only remaining defence is in firmware**
-  — the pressure channel must be written to zero on boot and must refuse a non-zero value until a
-  mission is explicitly started.
-
-  Rejected: a separate second switch wired alongside the DPDT. Two switches that are not
-  mechanically ganged can disagree, and then the medulla confidently believes a lie, which is worse
-  than knowing nothing.
-
-Feeds the v2 pin allocation item below: the sense line needs one input pin, and a free PCF8574
-port is probably enough since it is a slow digital signal.
-
-**Deletion checklist, against the v1 schematic** (do this on the v2 schematic when it is branched;
-do not edit v1, which documents the board that exists):
-
-- **Remove U14** (MAX4660EUA+T) and its footprint `SOP65P490X110-9N`, plus the 3D model reference
-  `${KIPRJMOD}/3dmodels/MAX4660EUA_T.step` if nothing else uses it.
-- **Remove R32** (10 kΩ pulldown on `SELECT_THROTTLE`) — its only job was giving the mux a safe
-  power-on default.
-- **Merge two nets into one.** Rewritten 2026-08-08 after the throttle buffer stage was added; the
-  earlier version of this step said "MCP4922 VOUTA straight to CN10.1", which is no longer right
-  because the DAC no longer reaches the mux directly. The path today is U13.14 (MCP4922 VOUTA,
-  0–3.3 V) → U1.5 (LM358 U1B +IN2, gain 1.51 from R37 5.1K / R38 10K, giving 4.99 V) → U1.7
-  (`ACC_AMP_OUT`) → R39 (1K series) → `CMD_ACC_BUF__0_5V` → U14.8 (NO), then U14.1 (COM) →
-  `CMD_ACC__0_5V` → CN10.1. With the mux gone, `CMD_ACC_BUF__0_5V` and `CMD_ACC__0_5V` merge into
-  one net: **R39 pin 1 straight to CN10.1.** (R39 pin 2 is the amp side, on `ACC_AMP_OUT` with U1.7
-  and R37.2; pin 1 is the mux side. `CMD_ACC_BUF__0_5V` is exactly R39.1 + U14.8, nothing else.)
-  Keep the name `CMD_ACC__0_5V`, since that is what the label on the outgoing terminal means and
-  what `kart-docs` calls it.
-- **DONE 2026-08-08 — R39 deleted.** The 1K series resistor existed only to limit current into the
-  MAX4660's ESD diodes, so with no MAX4660 it protected nothing and was dropped rather than kept as
-  a vague safeguard. U1 pin 7 now reaches CN10.1 directly. The net `ACC_AMP_OUT` disappeared with
-  it: the op-amp output, the R37 feedback tap and CN10.1 are one net, named `CMD_ACC__0_5V`.
-- **`PEDAL_ACC__0_5V` loses one consumer, not its route.** It is U14.2 (NC) + CN6.2 + R14.2 today;
-  drop the U14.2 leg and it keeps CN6.2 and R14.2, which is the ADC path the ESP32 reads. The pedal
-  still reaches the board — it just no longer branches into a mux.
-- **Delete both `SELECT_THROTTLE` labels** (2 in the schematic file) and free **GPIO 15**. Hand it
-  to the v2 allocation table rather than leaving it as a spare.
-- **Check the +5V_REG load afterwards.** Corrected 2026-08-08: the MCP4922 is no longer on this rail
-  (it moved to +3V3 in commit `16a35fb`), so the earlier "the other is the MCP4922" is wrong. Per the
-  netlist, +5V_REG reaches exactly two things: **U14.4** and **CN2.3**, plus decoupling C3/C4/C5.
-  Deleting U14 therefore leaves the L7805CDT (U19) supplying only the external 5 V pin on CN2. The
-  regulator stays unless CN2's 5 V output is also dropped — that is a separate question about what
-  is wired to CN2, not something the mux deletion decides.
-- **Sanity check after the edit:** ERC clean, and CN10.1 traces back to U13.14 with nothing between
-  them.
-
-Kart-side wiring is documented in `kart-docs` (commits `bec7c20`, `c625d75`): the DPDT's second
-pole is in `wiring.yaml` and the global diagram. Both questions that were open there are now
-answered by Rubén (2026-08-08) — pole 2 breaks **M+**, and the Cytron is fed **directly from the
-battery**, not the 12 V rail.
+The v1 MAX4660 supply is 5 V versus a 9 V specified minimum, and the exposed pad is assigned
+ground contrary to the datasheet. Physical rework and the cause of the reported pedal
+interference remain unverified. Evidence: root history.md, 2026-09-26 throttle-selector entry.
 
 ### Decide the medulla-v2 pinout as one allocation, not signal by signal #ruben
 
@@ -249,63 +164,15 @@ To decide when drawing it:
 - **Whether to fit it by default or leave the footprint unpopulated**, given that most modules
   already carry their own.
 
-### Consider putting CAN on the board #ruben
+### Add the CAN transceiver and bus terminals to the next board
 
-Raised 2026-07-31 by Rubén: is there pin budget for CAN, and could the GPIO expander free some up?
-
-**The GPIOs are already reserved — this was answered before the question was asked.**
-`docs/pinout-kart-medulla-v1.md` holds **GPIO 41 for `CAN_RX` and GPIO 42 for `CAN_TX`**, marked
-*"Held for future CAN … medulla has no transceiver in this rev"*. Neither is ADC-capable and neither
-is a strap pin, so they cost nothing else. **No pins need freeing and the expander is not involved.**
-
-What CAN actually still needs is on the board and the edge, not the pin table:
-- **A 3.3 V transceiver** — SN65HVD230 or TCAN332 class. New part, new footprint. `CAN_TX`/`CAN_RX`
-  only have to reach it, and it is on-board, so they never need terminals.
-- **Two terminal pins** for CANH/CANL, which is the real cost — the board has no spare, and
-  CN4's steering encoder is already competing for them. (`CN8.2` frees up on v2 and
-  `EXP_P1`–`EXP_P4` are reshufflable.)
-- **A termination decision**: 120 Ω fitted if the medulla is an end node, omitted if it is a stub.
-
-(Superseded analysis, kept because the facts in it are still true and useful elsewhere: TWAI needs
-two GPIOs; `MISO` on GPIO 13 is unused because the MCP4922 is write-only; `SELECT_THROTTLE` on
-GPIO 15 could move to the expander if a slow signal ever needs displacing — with the caveat that a
-PCF8574 output powers up weak-high and HIGH on that net hands the throttle to the DAC, so the 10 kΩ
-pulldown would have to keep winning.)
-
-**Superseded — the two GPIOs were already reserved:**
-`EXP_P5`, `EXP_P6` and `EXP_P7` are unconnected on `U25` (pins 10, 11, 12; `INT#` on 13 is free too),
-so there are three expander slots waiting with no new hardware. Checked against the netlist
-2026-07-31, the ESP32's 22 signals give:
-
-- **`MISO` (GPIO 13) is already free.** Its net reaches `U23.37`/`U23.38` and nothing else — the
-  MCP4922 is a write-only device with no data output, so nothing is on the other end. That is one
-  TWAI pin at zero cost, no expander involved.
-- **`SELECT_THROTTLE` (GPIO 15) is the clean move.** It drives the MAX4660 throttle mux and changes a
-  handful of times per run, so I²C latency is irrelevant. **One catch that must be designed around:**
-  a PCF8574 output powers up in the weak-high state, and HIGH on this net means COM→NO, the ESP32 DAC
-  taking the throttle. The existing 10 kΩ pulldown makes the power-on default pedal pass-through,
-  which is the safe state. Moving the signal to the expander must keep that default — the PCF8574's
-  pull-up is only ~100 µA, so a 10 kΩ pulldown holds the pin near 1 V and should still read LOW at
-  the MAX4660, but that has to be checked against the MAX4660's input threshold rather than assumed.
-- **`CMD_STEER_DIR` (GPIO 17) is arguable** — a direction bit that only changes at reversals, but it
-  is a motor-control signal and an I²C write puts a few hundred microseconds in front of every
-  change. Only move it if a second pin is genuinely needed.
-- **Nothing else can move.** The rest is analog inputs, PWM, SPI, I²C, hall inputs and the
-  safety-chain read — none tolerates being behind a bus transaction. `SDC_NOT_EMERGENCY` in
-  particular should stay on a real pin.
-
-So the realistic answer is `MISO` plus `SELECT_THROTTLE`, which costs one expander slot and leaves
-two spare.
-
-The rest of the cost:
-- **A 3.3 V CAN transceiver** — SN65HVD230 or TCAN332 class. New part, new footprint.
-- **Two terminal pins** for CANH/CANL, competing with CN4's
-  steering encoder (no power, no ground) for the board's scarce connector capacity.
-- **A termination decision**: 120 Ω fitted if the medulla is an end node, omitted if it is a stub.
-
-**Worth answering first:** what would CAN carry that the existing Orin link does not? The team keeps
-DBCs in `~/dv/can/`, so something in the wider vehicle speaks it — but if nothing on *this* kart does
-yet, this is capacity for later, which changes whether it earns two of the few free pins.
+Required 2026-09-26 by Rubén; see [REQ-13](requirements.md#req-13). This is no longer an
+optional feasibility question. Select a transceiver compatible with ESP32 3.3 V logic and the
+board rails; integrate its support circuit, CANH/CANL terminals and appropriate termination.
+The existing plan reserves GPIO 41 for CAN_RX and GPIO 42 for CAN_TX; verify those assignments
+in the complete next-board pin plan. Choose the intended peer and bitrate and verify actual
+frame transmission and reception. No transceiver part has been selected by this requirement
+update, and bare CAN_TX/CAN_RX terminals are not a substitute for the on-board driver.
 
 ### Restore the third pressure channel on a new pin (V2) #ruben
 

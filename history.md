@@ -2841,3 +2841,37 @@ onto the PCB, not part of it. Nothing in this repo recorded where the module phy
 REQ-11 in `projects/kart-medulla/requirements.md`: v2 moves that circuit into the board's own copper, so
 the next board is built without a module stuck to it. No new requirement: REQ-11 already asked for the
 compressor switching stage on the board, and this is where it comes from.
+
+
+## 2026-09-26 — Throttle-selector supply defect and next-board CAN requirement
+
+Rubén reported that pressing the physical accelerator increased kart speed in Autonomous
+with Speed Zero and increased speed above Constant Throttle (blind). Orin captures showed
+zero outgoing throttle commands; a reversible steering-gain override-flag echo test confirmed
+ESP32 command reception, and its GPIO initialization status was zero (success). Those checks
+do not measure the selected analog output or prove the cause of the physical symptom.
+The capture and echo-test evidence is recorded in
+[kart-brain history at 6024131](https://github.com/UM-Driverless/kart-brain/blob/6024131/history.md),
+entry "Autonomous pedal interference: live receive test and selector defects".
+
+The fresh netlist of the archived kart-medulla-v1 design, associated with revision `84d6dd0`,
+connects MAX4660 U14 pin 4 to +5V_REG and pins 3/7 to ground. The manufacturer's single-supply
+electrical table on page 4 specifies +9 V minimum and +40 V maximum. The ±4.5 V minimum is
+for dual supplies (+4.5 V and −4.5 V), not for +4.5 V and ground. The undervoltage was already
+an unresolved board task. The v1 schematic and PCB also assign exposed pad 9 to ground;
+page 6 specifies V+ or no connection. Its PCB pad has no paste opening, so the design does
+not establish actual solder contact on the assembled board. Source:
+https://www.analog.com/MAX4660/datasheet (Rev 1, pages 4 and 6).
+
+Rubén requested a replacement chip for the next PCB, explicitly covering 0–5 V signals with
+as little supporting circuitry as practical. REQ-04 now captures that requirement and its
+physical isolation check. The earlier v2 decision to delete U14 in favor of the existing
+mechanical panel selector is explicitly reopened for reconciliation; no new chip or physical
+repair was selected in this documentation update. REQ-08 no longer claims that a pulldown
+alone guarantees safe throttle passthrough with an unpowered or out-of-spec analog switch.
+
+Rubén also required CAN communication including its on-board driver. Existing records only
+reserved CAN_RX/CAN_TX and proposed considering a transceiver. Added REQ-13 and promoted that
+task to implementation, covering the transceiver, terminals, termination and a real send/receive
+check. Updated the requirement and task documentation and this history; schematic and PCB
+files were not changed.
